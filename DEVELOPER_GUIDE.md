@@ -13,7 +13,7 @@ So you want to contribute code to this project? Excellent! We're glad you're her
 See the [OpenSearch Dashboards contributing guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/CONTRIBUTING.md) to get started.
    
 4. Change your node version to the version specified in `.node-version` inside the OpenSearch Dashboards root directory.
-5. cd into the OpenSearch Dashboards source code directory.
+5. Cd into the OpenSearch Dashboards source code directory.
 6. Check out this package from version control into the `plugins` directory.
 ```
 git clone git@github.com:opensearch-project/dashboards-query-workbench.git plugins --no-checkout
