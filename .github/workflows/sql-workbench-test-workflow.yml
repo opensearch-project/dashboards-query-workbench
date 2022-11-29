@@ -69,11 +69,10 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: codecov/codecov-action@v1
       - name: Build Artifact
-          run: |
-            cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
-            yarn build
-            mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
-
+        run: |
+          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
+          yarn build
+          mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
       - name: Upload Artifact
         if: always()
         uses: actions/upload-artifact@v1 # can't update to v3 because upload fails
