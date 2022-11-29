@@ -3,6 +3,23 @@
 The OpenSearch Dashboards Query Workbench enables you to query your OpenSearch data using either SQL or PPL syntax from a dedicated OpenSearch Dashboards UI. You can download your query results data in JSON, JDBC, CSV and raw text formats.
 
 
+### Query WorkBench
+
+|                          |                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| Test and build           | [![Observability Dashboards CI][workbench-build-badge]][workbench-build-link]                                      |
+| Code coverage            | [![codecov][workbench-codecov-badge]]                                                     |
+| Distribution build tests | [![cypress tests][cypress-test-badge]][cypress-test-link] [![cypress code][cypress-code-badge]][cypress-code-link] |
+
+
+[workbench-build-badge]: https://github.com/opensearch-project/sql/actions/workflows/sql-workbench-test-and-build-workflow.yml/badge.svg
+[workbench-build-link]: https://github.com/opensearch-project/sql/actions/workflows/sql-workbench-test-and-build-workflow.yml
+[workbench-codecov-badge]: https://codecov.io/gh/opensearch-project/sql/branch/main/graphs/badge.svg?flag=query-workbench
+[cypress-test-badge]: https://img.shields.io/badge/Cypress%20tests-in%20progress-yellow
+[cypress-test-link]: https://github.com/opensearch-project/opensearch-build/issues/1124
+[cypress-code-badge]: https://img.shields.io/badge/Cypress%20code-blue
+[cypress-code-link]: https://github.com/opensearch-project/sql/tree/main/workbench/.cypress/integration
+
 ## Documentation
 
 Please see our technical [documentation](https://opensearch.org/docs/latest/search-plugins/sql/workbench/) to learn more about its features.
@@ -28,8 +45,9 @@ If you discover a potential security issue in this project we ask that you notif
 
 ## License
 
-This project is licensed under the [Apache v2.0 License](../LICENSE.txt).
+This project is licensed under the [Apache v2.0 License](LICENSE.TXT).
 
 ## Copyright
 
 Copyright OpenSearch Contributors. See [NOTICE](NOTICE) for details.
+
