@@ -43,7 +43,7 @@ jobs:
 
       - name: Move Workbench to Plugins Dir
         run: |
-          mv workbench ../OpenSearch-Dashboards/plugins
+          mv . ../OpenSearch-Dashboards/plugins/workbench
 
       - name: OpenSearch Dashboards Plugin Bootstrap
         uses: nick-fields/retry@v2
