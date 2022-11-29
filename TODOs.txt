@@ -1,0 +1,4 @@
+:: Moved from SQL:build.gradle
+    // String tokenization to support -SNAPSHOT
+    ant.replaceregexp(file:'.github/workflows/sql-workbench-test-and-build-workflow.yml', match:'OPENSEARCH_PLUGIN_VERSION: \\d+.\\d+.\\d+.\\d+', replace:'OPENSEARCH_PLUGIN_VERSION: ' + newVersion.tokenize('-')[0] + '.0', flags:'g', byline:true)
+
