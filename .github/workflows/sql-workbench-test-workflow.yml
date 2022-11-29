@@ -1,13 +1,19 @@
-name: Unit tests workflow
+name: Dashboards SQL Query Workbench Test and Build
+
 on:
-  push:
-    branches:
-      - "*"
   pull_request:
-    branches:
-      - "*"
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+    paths:
+      - '.'
+      - '.github/workflows/sql-workbench-test-workflow.yml'
+
 env:
-  OPENSEARCH_DASHBOARDS_VERSION: '2.4.0'
+  PLUGIN_NAME: dashboards-query-workbench
+  OPENSEARCH_VERSION: 'main'
+  OPENSEARCH_PLUGIN_VERSION: 3.0.0.0
+
 jobs:
   tests:
     name: Run unit tests
