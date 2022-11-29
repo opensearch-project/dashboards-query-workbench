@@ -12,11 +12,11 @@
   "scripts": {
     "osd": "node ../../scripts/osd",
     "opensearch": "node ../../scripts/opensearch",
-    "lint": "tslint .",
+    "lint": "tslint workbench",
     "start": "plugin-helpers start",
     "test:server": "plugin-helpers test:server",
     "test:browser": "plugin-helpers test:browser",
-    "test:jest": "../../node_modules/.bin/jest --config ./test/jest.config.js",
+    "test:jest": "../../node_modules/.bin/jest --config test/jest.config.js",
     "build": "yarn plugin_helpers build",
     "plugin_helpers": "node ../../scripts/plugin_helpers"
   },

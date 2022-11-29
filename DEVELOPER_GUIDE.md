@@ -4,9 +4,9 @@ So you want to contribute code to this project? Excellent! We're glad you're her
 
 ### Setup
 
-1. Download OpenSearch for the version that matches the [OpenSearch Dashboards version specified in package.json](./package.json#L8).
+1. Download OpenSearch for the version that matches the [OpenSearch Dashboards version specified in package.json](package.json8).
 1. Download and install the most recent version of [OpenSearch SQL plugin](https://github.com/opensearch-project/sql).
-1. Download the OpenSearch Dashboards source code for the [version specified in package.json](./package.json#L8) you want to set up.
+1. Download the OpenSearch Dashboards source code for the [version specified in package.json](package.json8) you want to set up.
 
    See the [OpenSearch Dashboards contributing guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/CONTRIBUTING.md) to get started.
    
