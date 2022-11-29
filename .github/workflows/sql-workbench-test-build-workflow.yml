@@ -1,4 +1,4 @@
-name: Dashboards SQL Query Workbench Test and Build
+name: Dashboards SQL Query Workbench Test & Build
 
 on:
   pull_request:
@@ -7,12 +7,12 @@ on:
       - 'dependabot/**'
     paths:
       - '.'
-      - '.github/workflows/sql-workbench-test-workflow.yml'
+      - '.github/workflows/sql-workbench-test-build-workflow.yml'
 
 env:
   PLUGIN_NAME: dashboards-query-workbench
   OPENSEARCH_VERSION: 'main'
-  OPENSEARCH_PLUGIN_VERSION: 3.0.0.0
+  OPENSEARCH_PLUGIN_VERSION: 2.4.0.0
 
 jobs:
   tests:
