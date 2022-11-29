@@ -4,10 +4,10 @@
   "description": "Query Workbench",
   "main": "index.js",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/opensearch-project/sql/tree/main/workbench",
+  "homepage": "https://github.com/opensearch-project/dashboards-query-workbench/tree/main",
   "repository": {
     "type": "git",
-    "url": "https://github.com/opensearch-project/sql/tree/main/workbench"
+    "url": "https://github.com/opensearch-project/dashboards-query-workbench/tree/main"
   },
   "scripts": {
     "osd": "node ../../scripts/osd",
