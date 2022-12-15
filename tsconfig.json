@@ -3,12 +3,7 @@
   "extends": "../../tsconfig.json",
 
   // tell the TypeScript compiler where to find your source files
-  "include": [
-    "server/**/*",
-    "public/**/*",
-    "test/**/*",
-    "babel.config.js"
-  ],
+  "include": ["server/**/*", "public/**/*", "test/**/*", "babel.config.js"],
   "exclude": ["node_modules", "*/node_modules/"],
 
   "compilerOptions": {
