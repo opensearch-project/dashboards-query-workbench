@@ -12,7 +12,7 @@ on:
 env:
   PLUGIN_NAME: dashboards-query-workbench
   OPENSEARCH_VERSION: 'main'
-  OPENSEARCH_PLUGIN_VERSION: 2.6.0.0
+  OPENSEARCH_PLUGIN_VERSION: 2.7.0.0
 
 jobs:
   tests:
