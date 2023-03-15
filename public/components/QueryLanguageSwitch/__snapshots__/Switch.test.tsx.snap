@@ -20,6 +20,7 @@ exports[`<Switch /> spec renders the component 1`] = `
           aria-label="SQL"
           checked=""
           class="euiToggle__input euiButtonToggle__input"
+          data-test-subj="workbench-sql-language-button"
           title="SQL"
           type="radio"
           value=""
@@ -47,6 +48,7 @@ exports[`<Switch /> spec renders the component 1`] = `
         <input
           aria-label="PPL"
           class="euiToggle__input euiButtonToggle__input"
+          data-test-subj="workbench-ppl-language-button"
           title="PPL"
           type="radio"
           value=""

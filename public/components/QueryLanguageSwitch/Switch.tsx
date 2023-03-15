@@ -23,10 +23,12 @@ const toggleButtons = [
     {
         id: 'SQL',
         label: 'SQL',
+        'data-test-subj': 'workbench-sql-language-button',
     },
     {
         id: 'PPL',
         label: 'PPL',
+        'data-test-subj': 'workbench-ppl-language-button',
     },
 ];
 
