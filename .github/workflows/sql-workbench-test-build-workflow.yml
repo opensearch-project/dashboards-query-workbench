@@ -58,7 +58,7 @@ jobs:
       - name: Test
         run: |
           cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
-          yarn test --coverage
+          yarn test:jest --coverage
       - name: Upload coverage
         if: ${{ always() && matrix.os == 'ubuntu-latest' }}
         uses: codecov/codecov-action@v3
