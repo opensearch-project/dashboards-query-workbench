@@ -66,7 +66,6 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Artifact
         run: |
-          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
           yarn build
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
       - name: Upload Artifact
@@ -74,4 +73,4 @@ jobs:
         uses: actions/upload-artifact@v1 # can't update to v3 because upload fails
         with:
           name: dashboards-query-workbench-${{ matrix.os }}
-          path: OpenSearch-Dashboards/plugins/dashboards-query-workbench/build
+          path: ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
