@@ -15,65 +15,66 @@ env:
   OPENSEARCH_PLUGIN_VERSION: 1.3.8.0
 
 jobs:
-  tests:
-    name: Run unit tests
+  build:
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      # Enable longer filenames for windows
       - name: Enable longer filenames
         if: ${{ matrix.os == 'windows-latest' }}
         run: git config --system core.longpaths true
+
+      - name: Checkout Plugin
+        uses: actions/checkout@v3
+
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1 # can't update to v3 because `setup-node` fails
         with:
-          repository: opensearch-project/OpenSearch-Dashboards
-          ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
+          repository: opensearch-project/Opensearch-Dashboards
+          ref: ${{ env.OPENSEARCH_VERSION }}
           path: OpenSearch-Dashboards
-      - name: Get node and yarn versions
-        id: versions_step
-        run: |
-          echo "::set-output name=node_version::$(node -p "(require('./OpenSearch-Dashboards/package.json').engines.node).match(/[.0-9]+/)[0]")"
-          echo "::set-output name=yarn_version::$(node -p "(require('./OpenSearch-Dashboards/package.json').engines.yarn).match(/[.0-9]+/)[0]")"
-      - name: Setup node
-        uses: actions/setup-node@v1
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ steps.versions_step.outputs.node_version }}
+          node-version-file: "../OpenSearch-Dashboards/.nvmrc"
           registry-url: 'https://registry.npmjs.org'
-      - name: Install correct yarn version for OpenSearch Dashboards
+
+      - name: Move Workbench to Plugins Dir
         run: |
-          npm uninstall -g yarn
-          echo "Installing yarn ${{ steps.versions_step.outputs.yarn_version }}"
-          npm i -g yarn@${{ steps.versions_step.outputs.yarn_version }}
-      - name: Checkout workbench OpenSearch Dashboards plugin
-        uses: actions/checkout@v2
+          mv workbench ../OpenSearch-Dashboards/plugins
+
+      - name: OpenSearch Dashboards Plugin Bootstrap
+        uses: nick-fields/retry@v2
         with:
-          path: OpenSearch-Dashboards/plugins/dashboards-query-workbench
-      - name: Bootstrap plugin/opensearch-dashboards
-        run: |
-          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
-          yarn osd bootstrap
+          timeout_minutes: 60
+          max_attempts: 3
+          command: cd ../OpenSearch-Dashboards/plugins/workbench; yarn osd bootstrap
+
       - name: Test
         run: |
-          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
+          cd ../OpenSearch-Dashboards/plugins/workbench
           yarn test:jest --coverage
+
       - name: Upload coverage
-        if: ${{ always() && matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: codecov/codecov-action@v3
         with:
-          flags: dashboards-query-workbench
-          directory: OpenSearch-Dashboards/plugins/dashboards-query-workbench
+          flags: query-workbench
+          directory: ./../OpenSearch-Dashboards/plugins/workbench
           token: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Build Artifact
         run: |
-          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
+          cd ../OpenSearch-Dashboards/plugins/workbench
           yarn build
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
+
       - name: Upload Artifact
         if: always()
         uses: actions/upload-artifact@v1 # can't update to v3 because upload fails
         with:
-          name: dashboards-query-workbench-${{ matrix.os }}
-          path: OpenSearch-Dashboards/plugins/dashboards-query-workbench/build
+          name: workbench-${{ matrix.os }}
+          path: ../OpenSearch-Dashboards/plugins/workbench/build
+          
