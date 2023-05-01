@@ -55,6 +55,7 @@ jobs:
           cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
           yarn osd bootstrap
       - name: Test
+        shell: bash
         run: |
           cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
           yarn test:jest --coverage
