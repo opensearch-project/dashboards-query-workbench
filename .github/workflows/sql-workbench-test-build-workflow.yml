@@ -34,12 +34,12 @@ jobs:
           ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           path: OpenSearch-Dashboards
 
-     - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version-file: "../OpenSearch-Dashboards/.nvmrc"
           registry-url: 'https://registry.npmjs.org'
-          
+
       - name: Checkout workbench OpenSearch Dashboards plugin
         uses: actions/checkout@v3
         with:
