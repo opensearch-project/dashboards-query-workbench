@@ -66,6 +66,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Artifact
         run: |
+          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
           yarn build
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
       - name: Upload Artifact
