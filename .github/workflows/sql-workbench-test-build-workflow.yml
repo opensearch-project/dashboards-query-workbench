@@ -27,36 +27,37 @@ jobs:
         if: ${{ matrix.os == 'windows-latest' }}
         run: git config --system core.longpaths true
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           repository: opensearch-project/OpenSearch-Dashboards
           ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           path: OpenSearch-Dashboards
-      - name: Get node version
-        id: versions_step
-        run:
-          echo "::set-output name=node_version::$(node -p "(require('../OpenSearch-Dashboards/package.json').engines.node).match(/[.0-9]+/)[0]")"
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ steps.versions_step.outputs.node_version }}
+          node-version-file: './OpenSearch-Dashboards/.nvmrc'
           registry-url: 'https://registry.npmjs.org'
+      - name: Install Yarn
+        # Need to use bash to avoid having a windows/linux specific step
+        shell: bash
+        run: |
+          YARN_VERSION=$(node -p "require('./OpenSearch-Dashboards/package.json').engines.yarn")
+          echo "Installing yarn@$YARN_VERSION"
+          npm i -g yarn@$YARN_VERSION
+      - run: node -v
+      - run: yarn -v
       - name: Checkout workbench OpenSearch Dashboards plugin
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
-          path: OpenSearch-Dashboards/plugins/${{ env.PLUGIN_NAME }}
+          path: OpenSearch-Dashboards/plugins/dashboards-query-workbench
       - name: Bootstrap plugin/opensearch-dashboards
-        uses: nick-fields/retry@v1
-        with:
-          timeout_minutes: 30
-          max_attempts: 3
-          command: yarn osd bootstrap
+        run: |
+          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
+          yarn osd bootstrap
       - name: Test
-        uses: nick-fields/retry@v1
-        with:
-          timeout_minutes: 30
-          max_attempts: 3
-          command: yarn test:jest --coverage
+        run: |
+          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
+          yarn test:jest --coverage
       - name: Upload coverage
         if: ${{ always() && matrix.os == 'ubuntu-latest' }}
         uses: codecov/codecov-action@v3
@@ -66,6 +67,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Artifact
         run: |
+          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
           yarn build
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
       - name: Upload Artifact
@@ -73,4 +75,4 @@ jobs:
         uses: actions/upload-artifact@v1 # can't update to v3 because upload fails
         with:
           name: dashboards-query-workbench-${{ matrix.os }}
-          path: ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
+          path: OpenSearch-Dashboards/plugins/dashboards-query-workbench/build
