@@ -2331,6 +2331,6 @@ export const mockResultWithNull =
 {
   "data": {
     "ok": true,
-    "resp": "\"schema\":[{\"name\":\"name\",\"type\":\"keyword\"},{\"name\":\"city\",\"type\":\"keyword\"}],\"datarows\":[[\"Hattie\",\"Seattle\"],[\"John\"]]"
+    "resp": "{\"schema\":[{\"name\":\"name\",\"type\":\"keyword\"},{\"name\":\"city\",\"type\":\"keyword\"}],\"datarows\":[[\"Hattie\",\"Seattle\"],[\"John\"]]}"
   }
 }
