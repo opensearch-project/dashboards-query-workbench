@@ -17,6 +17,7 @@
     "test:server": "plugin-helpers test:server",
     "test:browser": "plugin-helpers test:browser",
     "test:jest": "../../node_modules/.bin/jest --config test/jest.config.js",
+    "test": "yarn test:jest",
     "build": "yarn plugin-helpers build",
     "plugin-helpers": "node ../../scripts/plugin_helpers"
   },
