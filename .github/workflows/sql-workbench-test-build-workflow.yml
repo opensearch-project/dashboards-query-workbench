@@ -5,14 +5,6 @@ on:
   push:
     branches-ignore:
       - 'dependabot/**'
-    paths:
-      - '.'
-      - '.github/workflows/sql-workbench-test-build-workflow.yml'
-
-env:
-  PLUGIN_NAME: dashboards-query-workbench
-  OPENSEARCH_VERSION: 'main'
-  OPENSEARCH_PLUGIN_VERSION: 2.4.0.0
 
 jobs:
   tests:
@@ -27,10 +19,9 @@ jobs:
         if: ${{ matrix.os == 'windows-latest' }}
         run: git config --system core.longpaths true
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: opensearch-project/OpenSearch-Dashboards
-          ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           path: OpenSearch-Dashboards
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -47,7 +38,7 @@ jobs:
       - run: node -v
       - run: yarn -v
       - name: Checkout workbench OpenSearch Dashboards plugin
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench
       - name: Bootstrap plugin/opensearch-dashboards
@@ -66,13 +57,14 @@ jobs:
           directory: OpenSearch-Dashboards/plugins/dashboards-query-workbench
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Artifact
+        if: always()
         run: |
           cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
           yarn build
-          mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
+          mv ./build/*.zip ./build/dashboards-query-workbench.zip
       - name: Upload Artifact
         if: always()
-        uses: actions/upload-artifact@v1 # can't update to v3 because upload fails
+        uses: actions/upload-artifact@v3
         with:
           name: dashboards-query-workbench-${{ matrix.os }}
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench/build
