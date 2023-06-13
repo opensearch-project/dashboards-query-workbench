@@ -203,7 +203,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.onChange = this.onChange.bind(this);
     this.state = {
       language: 'SQL',
-      sqlQueriesString: 'SHOW tables LIKE %;',
+      sqlQueriesString: 'SHOW tables LIKE \'%\';',
       pplQueriesString: '',
       queries: [],
       queryTranslations: [],
