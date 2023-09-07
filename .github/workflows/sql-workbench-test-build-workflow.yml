@@ -11,8 +11,8 @@ on:
 
 env:
   PLUGIN_NAME: dashboards-query-workbench
-  OPENSEARCH_VERSION: 'main'
-  OPENSEARCH_PLUGIN_VERSION: 2.7.0.0
+  OPENSEARCH_VERSION: '2.x'
+  OPENSEARCH_PLUGIN_VERSION: 2.10.0.0
 
 jobs:
   tests:
@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: opensearch-project/OpenSearch-Dashboards
-          ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
+          ref: ${{ env.OPENSEARCH_VERSION }}
           path: OpenSearch-Dashboards
       - name: Setup Node
         uses: actions/setup-node@v3
