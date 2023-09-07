@@ -13,3 +13,4 @@ Compatible with OpenSearch and OpenSearch Dashboards 2.10.0
 ### Maintenance
 
 - Increment version to 2.10.0.0 ([#100](https://github.com/opensearch-project/dashboards-query-workbench/pull/100))
+- Update searchbar snapshots according to upstream changes ([#119](https://github.com/opensearch-project/dashboards-query-workbench/pull/119))
