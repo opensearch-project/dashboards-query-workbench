@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiTitle } from '@elastic/eui';
+import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiTitle, EuiPageSideBar ,EuiSideNav, EuiPanel, EuiPageTemplate, EuiPage, EuiPageContent, EuiPageContentBody, EuiFlexGrid, EuiSplitPanel, EuiComboBox, EuiText, EuiPagination, EuiPopover, EuiFieldSearch} from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
-import React from 'react';
+import React, { useState }  from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
@@ -683,27 +683,70 @@ export class Main extends React.Component<MainProps, MainState> {
         </div>
       );
     }
+    // const [isClearable, setIsClearable] = useState(true);
+
+    // const [value, setValue] = useState('');
+    // const onChange = (e) => {
+    //   setValue(e.target.value);
+    // };
+
+    const button = (
+      <EuiButton
+        iconType="arrowDown"
+        iconSide="right"
+      >
+        Create
+      </EuiButton>
+    );
+    
 
     return (
-      <div>
-        <div className="sql-console-query-container">
-          <div className="query-language-switch">
-            <EuiFlexGroup alignItems="center">
+      <>
+      <EuiPage paddingSize='none'>
+        <EuiPanel className={`col-md-3`}>
+          <EuiPageSideBar >
+            <EuiFlexGroup direction="column">
               <EuiFlexItem>
-                <EuiTitle size="l">
-                  <h1>Query Workbench</h1>
-                </EuiTitle>
+                <EuiText>
+                  Data Connection
+                </EuiText>
+                <EuiComboBox
+                    placeholder='Connection Name'
+                    fullWidth
+                  />
+                <EuiSpacer/>
               </EuiFlexItem>
-              <EuiFlexItem grow={false}>
-                <Switch onChange={this.onChange} language={this.state.language} />
-              </EuiFlexItem>
-              <EuiFlexItem grow={false}>
-                <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
-                  {linkTitle}
-                </EuiButton>
-              </EuiFlexItem>
+                <EuiFlexItem grow={1}>
+                  <EuiPopover
+                      button={button}
+                  />
+                </EuiFlexItem>
+                <EuiFlexItem>
+                <EuiFieldSearch
+                    placeholder="Search this"
+                  />
+                </EuiFlexItem>
+              <EuiSpacer/>
             </EuiFlexGroup>
-          </div>
+          </EuiPageSideBar>
+        </EuiPanel>
+        <EuiPageContent>
+          <EuiPageContentBody>
+              <EuiFlexGroup>
+                <EuiFlexItem>
+                  <EuiTitle size="l">
+                    <h1>Query</h1>
+                  </EuiTitle>
+                </EuiFlexItem>
+                <EuiFlexItem grow={false}>
+                  <Switch onChange={this.onChange} language={this.state.language} />
+                </EuiFlexItem>
+                <EuiFlexItem grow={false}>
+                  <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
+                    {linkTitle}
+                  </EuiButton>
+                </EuiFlexItem>
+              </EuiFlexGroup>
           <EuiSpacer size="l" />
           <div>{page}</div>
 
@@ -746,8 +789,11 @@ export class Main extends React.Component<MainProps, MainState> {
               setIsResultFullScreen={this.setIsResultFullScreen}
             />
           </div>
-        </div>
-      </div>
+          </EuiPageContentBody>
+        </EuiPageContent>
+      </EuiPage>
+      </>
+      
     );
   }
 }
