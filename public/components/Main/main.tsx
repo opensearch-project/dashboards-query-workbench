@@ -6,7 +6,7 @@
 import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiTitle, EuiPageSideBar ,EuiSideNav, EuiPanel, EuiPageTemplate, EuiPage, EuiPageContent, EuiPageContentBody, EuiFlexGrid, EuiSplitPanel, EuiComboBox, EuiText, EuiPagination, EuiPopover, EuiFieldSearch} from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
-import React, { useState }  from 'react';
+import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
@@ -20,6 +20,7 @@ import { PPLPage } from '../PPLPage/PPLPage';
 import Switch from '../QueryLanguageSwitch/Switch';
 import QueryResults from '../QueryResults/QueryResults';
 import { SQLPage } from '../SQLPage/SQLPage';
+import {TableView} from '../SQLPage/TableView'
 
 interface ResponseData {
   ok: boolean;
@@ -64,7 +65,7 @@ export type DataRow = {
   rowId: number;
   data: { [key: string]: any };
 };
-
+ 
 interface MainProps {
   httpClient: CoreStart['http'];
   setBreadcrumbs: (newBreadcrumbs: ChromeBreadcrumb[]) => void;
@@ -87,6 +88,7 @@ interface MainState {
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   messages: Array<QueryMessage>;
   isResultFullScreen: boolean;
+  tablenames: string[]
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -98,6 +100,29 @@ const errorQueryResponse = (queryResultResponseDetail: any) => {
     queryResultResponseDetail.data;
   return errorMessage;
 };
+
+function getQueryResultsForSidebar(queryResults: ResponseDetail<string>[]){
+  let fields;
+  queryResults.map((queries: ResponseDetail<string>) => {
+  if (!queries.fulfilled) {
+      return {
+      fulfilled: queries.fulfilled,
+      errorMessage: errorQueryResponse(queries),
+      };
+  } else {
+      const responseObj = queries.data
+      ? JSON.parse(queries.data)
+      : '';
+      
+      const schema: object[] = _.get(responseObj, 'schema');
+      const datarows: any[][] = _.get(responseObj, 'datarows');
+      fields = datarows.map((data)=>{
+      return data[2]
+      })
+  }
+  })
+  return fields
+} 
 
 export function getQueryResultsForTable(
   queryResults: ResponseDetail<string>[]
@@ -218,12 +243,13 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
+      tablenames : []
     };
-
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
     this.updatePPLQueries = _.debounce(this.updatePPLQueries, 250).bind(this);
     this.setIsResultFullScreen = this.setIsResultFullScreen.bind(this);
+    this.onRunSidebar()
   }
 
   componentDidMount() {
@@ -333,6 +359,44 @@ export class Main extends React.Component<MainProps, MainState> {
         className: translation.fulfilled ? 'successful-message' : 'error-message',
       };
     });
+  }
+
+  onRunSidebar = (): void => {
+    let values :string[];
+    const queries: string[] = getQueries(`SHOW tables LIKE '%';`)
+    if (queries.length > 0) {
+      let endpoint = '../api/sql_console/sqlquery';
+      const responsePromise = Promise.all(
+        queries.map((query: string) =>
+          this.httpClient
+            .post(endpoint, { body: JSON.stringify({ query }) })
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: 'error-message',
+                  },
+                ],
+              });
+            })
+        )
+      );
+      Promise.all([responsePromise]).then(([response]) => {
+        const results: ResponseDetail<string>[] = response.map((response) =>
+          this.processQueryResponse(response as IHttpResponse<ResponseData>)
+        );
+        values = getQueryResultsForSidebar(results);
+        this.setState(
+          {
+            tablenames : values
+          },
+          () => console.log('Successfully updated the states')
+        ); // added callback function to handle async issues
+        
+        return values
+      });
+    }
   }
 
   onRun = (queriesString: string): void => {
@@ -617,6 +681,7 @@ export class Main extends React.Component<MainProps, MainState> {
     let linkTitle;
 
     if (this.state.language == 'SQL') {
+      // this.onRunSidebar()
       page = (
         <SQLPage
           onRun={this.onRun}
@@ -683,70 +748,63 @@ export class Main extends React.Component<MainProps, MainState> {
         </div>
       );
     }
-    // const [isClearable, setIsClearable] = useState(true);
-
-    // const [value, setValue] = useState('');
-    // const onChange = (e) => {
-    //   setValue(e.target.value);
-    // };
-
-    const button = (
-      <EuiButton
-        iconType="arrowDown"
-        iconSide="right"
-      >
-        Create
-      </EuiButton>
-    );
-    
 
     return (
       <>
+      <EuiPanel>
+        <EuiFlexGroup direction='row' alignItems='center'>
+          <EuiFlexItem>
+            <EuiText>
+              Data Connection
+            </EuiText>
+            <EuiComboBox
+                placeholder='Connection Name'
+                  />
+                <EuiSpacer/>
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <Switch onChange={this.onChange} language={this.state.language} />
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
+              {linkTitle}
+            </EuiButton>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      </EuiPanel>
       <EuiPage paddingSize='none'>
+      {(this.state.language=='SQL')?       
         <EuiPanel className={`col-md-3`}>
           <EuiPageSideBar >
             <EuiFlexGroup direction="column">
-              <EuiFlexItem>
-                <EuiText>
-                  Data Connection
-                </EuiText>
-                <EuiComboBox
-                    placeholder='Connection Name'
-                    fullWidth
-                  />
-                <EuiSpacer/>
-              </EuiFlexItem>
-                <EuiFlexItem grow={1}>
-                  <EuiPopover
-                      button={button}
-                  />
-                </EuiFlexItem>
                 <EuiFlexItem>
-                <EuiFieldSearch
-                    placeholder="Search this"
-                  />
+                  <EuiFlexItem grow={1}>
+                    <EuiButton
+                      iconType="arrowDown"
+                      iconSide="right"
+                      fullWidth
+                    >
+                      Create
+                    </EuiButton>
+                  </EuiFlexItem>
+                  <EuiSpacer/>
+                  <EuiFlexItem>
+                    <EuiFieldSearch
+                        placeholder="Search this"
+                      />
+                  </EuiFlexItem>
+                  <EuiSpacer/>
+                  <TableView
+                    tablenames = {this.state.tablenames}/>
+                  <EuiSpacer/>
                 </EuiFlexItem>
-              <EuiSpacer/>
             </EuiFlexGroup>
           </EuiPageSideBar>
-        </EuiPanel>
+        </EuiPanel>  : null}  
         <EuiPageContent>
           <EuiPageContentBody>
-              <EuiFlexGroup>
-                <EuiFlexItem>
-                  <EuiTitle size="l">
-                    <h1>Query</h1>
-                  </EuiTitle>
-                </EuiFlexItem>
-                <EuiFlexItem grow={false}>
-                  <Switch onChange={this.onChange} language={this.state.language} />
-                </EuiFlexItem>
-                <EuiFlexItem grow={false}>
-                  <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
-                    {linkTitle}
-                  </EuiButton>
-                </EuiFlexItem>
-              </EuiFlexGroup>
+            <EuiFlexGroup alignItems="center">
+            </EuiFlexGroup>
           <EuiSpacer size="l" />
           <div>{page}</div>
 
