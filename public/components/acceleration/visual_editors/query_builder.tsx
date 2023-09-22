@@ -29,12 +29,10 @@ const skippingIndexQueryBuilder = (accelerationformData: CreateAccelerationForm)
    *    field3 MIN_MAX,
    * )
    */
-  console.log('index builder started');
   let codeQuery = 'CREATE SKIPPING INDEX ON ' + accelerationformData.dataTable;
   codeQuery = codeQuery + '\n FOR COLUMNS ( \n';
   codeQuery = codeQuery + buildSkippingIndexColumns(accelerationformData.skippingIndexQueryData);
   codeQuery = codeQuery + ')';
-  console.log('index builder finished', codeQuery);
   return codeQuery;
 };
 
@@ -47,7 +45,6 @@ const materializedQueryViewBuilder = (accelerationformData: CreateAccelerationFo
 };
 
 export const accelerationQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
-  console.log('accelerationQueryBuilder started', accelerationformData);
   switch (accelerationformData.accelerationIndexType) {
     case 'skipping': {
       return skippingIndexQueryBuilder(accelerationformData);
