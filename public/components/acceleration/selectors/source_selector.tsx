@@ -57,6 +57,7 @@ export const AccelerationDataSourceSelector = ({
       const idPrefix = htmlIdGenerator()();
       setAccelerationFormData({
         ...accelerationFormData,
+        // TODO: remove hardcoded responses
         dataTableFields: [
           { id: `${idPrefix}1`, fieldName: 'Field 1', dataType: 'Integer' },
           { id: `${idPrefix}2`, fieldName: 'Field 2', dataType: 'Integer' },
