@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiTitle, EuiPageSideBar ,EuiSideNav, EuiPanel, EuiPageTemplate, EuiPage, EuiPageContent, EuiPageContentBody, EuiFlexGrid, EuiSplitPanel, EuiComboBox, EuiText, EuiPagination, EuiPopover, EuiFieldSearch} from '@elastic/eui';
+import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiPageSideBar , EuiPanel, EuiPage, EuiPageContent, EuiPageContentBody, EuiComboBox, EuiText, EuiFieldSearch} from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
@@ -100,29 +100,6 @@ const errorQueryResponse = (queryResultResponseDetail: any) => {
     queryResultResponseDetail.data;
   return errorMessage;
 };
-
-function getQueryResultsForSidebar(queryResults: ResponseDetail<string>[]){
-  let fields;
-  queryResults.map((queries: ResponseDetail<string>) => {
-  if (!queries.fulfilled) {
-      return {
-      fulfilled: queries.fulfilled,
-      errorMessage: errorQueryResponse(queries),
-      };
-  } else {
-      const responseObj = queries.data
-      ? JSON.parse(queries.data)
-      : '';
-      
-      const schema: object[] = _.get(responseObj, 'schema');
-      const datarows: any[][] = _.get(responseObj, 'datarows');
-      fields = datarows.map((data)=>{
-      return data[2]
-      })
-  }
-  })
-  return fields
-} 
 
 export function getQueryResultsForTable(
   queryResults: ResponseDetail<string>[]
@@ -249,7 +226,6 @@ export class Main extends React.Component<MainProps, MainState> {
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
     this.updatePPLQueries = _.debounce(this.updatePPLQueries, 250).bind(this);
     this.setIsResultFullScreen = this.setIsResultFullScreen.bind(this);
-    this.onRunSidebar()
   }
 
   componentDidMount() {
@@ -359,44 +335,6 @@ export class Main extends React.Component<MainProps, MainState> {
         className: translation.fulfilled ? 'successful-message' : 'error-message',
       };
     });
-  }
-
-  onRunSidebar = (): void => {
-    let values :string[];
-    const queries: string[] = getQueries(`SHOW tables LIKE '%';`)
-    if (queries.length > 0) {
-      let endpoint = '../api/sql_console/sqlquery';
-      const responsePromise = Promise.all(
-        queries.map((query: string) =>
-          this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
-            .catch((error: any) => {
-              this.setState({
-                messages: [
-                  {
-                    text: error.message,
-                    className: 'error-message',
-                  },
-                ],
-              });
-            })
-        )
-      );
-      Promise.all([responsePromise]).then(([response]) => {
-        const results: ResponseDetail<string>[] = response.map((response) =>
-          this.processQueryResponse(response as IHttpResponse<ResponseData>)
-        );
-        values = getQueryResultsForSidebar(results);
-        this.setState(
-          {
-            tablenames : values
-          },
-          () => console.log('Successfully updated the states')
-        ); // added callback function to handle async issues
-        
-        return values
-      });
-    }
   }
 
   onRun = (queriesString: string): void => {
@@ -522,8 +460,7 @@ export class Main extends React.Component<MainProps, MainState> {
           {
             queries,
             queryResultsJSON: results,
-          },
-          () => console.log('Successfully updated the states')
+          }
         );
       });
     }
@@ -681,7 +618,6 @@ export class Main extends React.Component<MainProps, MainState> {
     let linkTitle;
 
     if (this.state.language == 'SQL') {
-      // this.onRunSidebar()
       page = (
         <SQLPage
           onRun={this.onRun}
@@ -755,7 +691,7 @@ export class Main extends React.Component<MainProps, MainState> {
         <EuiFlexGroup direction='row' alignItems='center'>
           <EuiFlexItem>
             <EuiText>
-              Data Connection
+              Data Sources
             </EuiText>
             <EuiComboBox
                 placeholder='Connection Name'
@@ -774,11 +710,11 @@ export class Main extends React.Component<MainProps, MainState> {
       </EuiPanel>
       <EuiPage paddingSize='none'>
       {(this.state.language=='SQL')?       
-        <EuiPanel className={`col-md-3`}>
+        <EuiPanel>
           <EuiPageSideBar >
             <EuiFlexGroup direction="column">
                 <EuiFlexItem>
-                  <EuiFlexItem grow={1}>
+                  <EuiFlexItem grow={false}>
                     <EuiButton
                       iconType="arrowDown"
                       iconSide="right"
@@ -788,14 +724,14 @@ export class Main extends React.Component<MainProps, MainState> {
                     </EuiButton>
                   </EuiFlexItem>
                   <EuiSpacer/>
-                  <EuiFlexItem>
+                  <EuiFlexItem grow={false}>
                     <EuiFieldSearch
-                        placeholder="Search this"
+                        placeholder="Search"
                       />
                   </EuiFlexItem>
                   <EuiSpacer/>
                   <TableView
-                    tablenames = {this.state.tablenames}/>
+                    http = {this.httpClient}/>
                   <EuiSpacer/>
                 </EuiFlexItem>
             </EuiFlexGroup>

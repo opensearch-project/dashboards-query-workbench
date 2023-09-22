@@ -30,7 +30,7 @@ export const WorkbenchApp = ({ basename, notifications, http, navigation, chrome
     <Router basename={'/' + basename}>
       <I18nProvider>
         <div>
-          <EuiPage paddingSize='none'>
+          <EuiPage>
             <EuiPageBody>
               <Route 
                 path="/" 
