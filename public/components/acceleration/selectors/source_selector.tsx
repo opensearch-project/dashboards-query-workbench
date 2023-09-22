@@ -28,6 +28,7 @@ export const AccelerationDataSourceSelector = ({
 
   useEffect(() => {
     setDataConnections([
+      // TODO: remove hardcoded responses
       {
         label: 'spark1',
       },
@@ -40,6 +41,7 @@ export const AccelerationDataSourceSelector = ({
   useEffect(() => {
     if (accelerationFormData.dataSource !== '') {
       setTables([
+        // TODO: remove hardcoded responses
         {
           label: 'Table1',
         },
