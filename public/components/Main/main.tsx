@@ -3,7 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiPageSideBar , EuiPanel, EuiPage, EuiPageContent, EuiPageContentBody, EuiComboBox, EuiText, EuiFieldSearch} from '@elastic/eui';
+import { 
+  EuiButton, 
+  EuiFlexGroup, 
+  EuiFlexItem,
+  EuiSpacer, 
+  EuiPageSideBar , 
+  EuiPanel, 
+  EuiPage, 
+  EuiPageContent,
+  EuiPageContentBody, 
+  EuiComboBox, 
+  EuiText, 
+  EuiFieldSearch
+} from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
@@ -687,7 +700,6 @@ export class Main extends React.Component<MainProps, MainState> {
 
     return (
       <>
-      <EuiPanel>
         <EuiFlexGroup direction='row' alignItems='center'>
           <EuiFlexItem>
             <EuiText>
@@ -707,10 +719,9 @@ export class Main extends React.Component<MainProps, MainState> {
             </EuiButton>
           </EuiFlexItem>
         </EuiFlexGroup>
-      </EuiPanel>
       <EuiPage paddingSize='none'>
       {(this.state.language=='SQL')?       
-        <EuiPanel>
+        <EuiPanel >
           <EuiPageSideBar >
             <EuiFlexGroup direction="column">
                 <EuiFlexItem>
@@ -737,7 +748,7 @@ export class Main extends React.Component<MainProps, MainState> {
             </EuiFlexGroup>
           </EuiPageSideBar>
         </EuiPanel>  : null}  
-        <EuiPageContent>
+        <EuiPageContent paddingSize='m'>
           <EuiPageContentBody>
             <EuiFlexGroup alignItems="center">
             </EuiFlexGroup>

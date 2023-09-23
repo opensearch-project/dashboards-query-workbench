@@ -105,8 +105,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
     }
 
     return (
-      <EuiPanel className="sql-console-query-editor container-panel" paddingSize="l">
-        <EuiText className="sql-query-panel-header"><h3>Query editor</h3></EuiText>
+      <EuiPanel className="sql-console-query-editor container-panel" paddingSize="m">
         <EuiSpacer size="s" />
         <EuiCodeEditor
           mode="sql"

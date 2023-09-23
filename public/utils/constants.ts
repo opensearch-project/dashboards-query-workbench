@@ -13,3 +13,4 @@ export const SMALL_COLUMN_WIDTH = '27px';
 // Tabs constants
 export const TAB_CONTAINER_ID = 'tabsContainer';
 export const MESSAGE_TAB_LABEL = 'Output';
+export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`
