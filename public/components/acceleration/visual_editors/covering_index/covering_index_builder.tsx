@@ -11,7 +11,7 @@ import {
   EuiSpacer,
   EuiText,
 } from '@elastic/eui';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CreateAccelerationForm } from '../../../../../common/types';
 import _ from 'lodash';
 
@@ -25,14 +25,10 @@ export const CoveringIndexBuilder = ({
   setAccelerationFormData,
 }: CoveringIndexBuilderProps) => {
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
-  const [columnsValue, setColumnsValue] = useState('');
+  const [columnsValue, setColumnsValue] = useState('(add columns here)');
   const [selectedOptions, setSelected] = useState([]);
 
-  const onChange = (selectedOptions) => {
-    setSelected(selectedOptions);
-  };
-
-  useEffect(() => {
+  const onChange = (selectedOptions: any[]) => {
     let expresseionValue = '(add columns here)';
     if (selectedOptions.length > 0) {
       expresseionValue =
@@ -49,7 +45,8 @@ export const CoveringIndexBuilder = ({
         ')';
     }
     setColumnsValue(expresseionValue);
-  }, [selectedOptions]);
+    setSelected(selectedOptions);
+  };
 
   return (
     <>

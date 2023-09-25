@@ -36,8 +36,8 @@ export const IndexSettingOptions = ({
   ];
   const [indexName, setIndexName] = useState('');
   const [indexAlias, setIndexAlias] = useState('');
-  const [primaryShards, setPrimaryShards] = useState('5');
-  const [replicaCount, setReplicaCount] = useState('1');
+  const [primaryShards, setPrimaryShards] = useState(5);
+  const [replicaCount, setReplicaCount] = useState(1);
   const [refreshTypeSelected, setRefreshTypeSelected] = useState(`${idPrefix}0`);
   const [refreshIntervalSeconds, setRefreshIntervalSeconds] = useState('1');
 
@@ -53,12 +53,12 @@ export const IndexSettingOptions = ({
 
   const onChangePrimaryShards = (e: ChangeEvent<HTMLInputElement>) => {
     setAccelerationFormData({ ...accelerationFormData, primaryShardsCount: +e.target.value });
-    setPrimaryShards(e.target.value);
+    setPrimaryShards(+e.target.value);
   };
 
   const onChangeReplicaCount = (e: ChangeEvent<HTMLInputElement>) => {
     setAccelerationFormData({ ...accelerationFormData, replicaShardsCount: +e.target.value });
-    setReplicaCount(e.target.value);
+    setReplicaCount(+e.target.value);
   };
 
   const onChangeRefreshType = (optionId: React.SetStateAction<string>) => {
@@ -86,7 +86,7 @@ export const IndexSettingOptions = ({
         <EuiFieldText
           placeholder="Enter Index Name"
           value={indexName}
-          onChange={(e) => onChangeIndexName(e)}
+          onChange={onChangeIndexName}
           aria-label="Enter Index Name"
         />
       </EuiFormRow>
@@ -122,7 +122,7 @@ export const IndexSettingOptions = ({
         <EuiFieldNumber
           placeholder="Number of replicas"
           value={replicaCount}
-          onChange={(e) => onChangeReplicaCount(e)}
+          onChange={onChangeReplicaCount}
           aria-label="Number of replicas"
           min={0}
           max={100}
@@ -135,7 +135,7 @@ export const IndexSettingOptions = ({
         <EuiRadioGroup
           options={refreshOptions}
           idSelected={refreshTypeSelected}
-          onChange={(id) => onChangeRefreshType(id)}
+          onChange={onChangeRefreshType}
           name="refresh type radio group"
         />
       </EuiFormRow>
@@ -148,7 +148,7 @@ export const IndexSettingOptions = ({
           <EuiFieldNumber
             placeholder="Refresh interval"
             value={refreshIntervalSeconds}
-            onChange={(e) => onChangeRefreshIntervalSeconds(e)}
+            onChange={onChangeRefreshIntervalSeconds}
             aria-label="Refresh interval"
             append={'second(s)'}
             min={1}

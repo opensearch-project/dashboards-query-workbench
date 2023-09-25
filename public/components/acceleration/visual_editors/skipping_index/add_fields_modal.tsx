@@ -30,7 +30,7 @@ export const AddFieldsModal = ({
 }: AddFieldsModalProps) => {
   const [selectedFields, setSelectedFields] = useState([]);
 
-  const tableColumns = [
+  const tableColumns: Array<EuiTableFieldDataColumnType<DataTableFieldsType>> = [
     {
       field: 'fieldName',
       name: 'Field name',
@@ -43,7 +43,7 @@ export const AddFieldsModal = ({
       sortable: true,
       truncateText: true,
     },
-  ] as Array<EuiTableFieldDataColumnType<DataTableFieldsType>>;
+  ];
 
   const pagination = {
     initialPageSize: 20,
