@@ -30,7 +30,7 @@ export const DeleteFieldsModal = ({
 }: AddFieldsModalProps) => {
   const [selectedFields, setSelectedFields] = useState([]);
 
-  const tableColumns = [
+  const tableColumns: Array<EuiTableFieldDataColumnType<SkippingIndexRowType>> = [
     {
       field: 'fieldName',
       name: 'Field name',
@@ -49,7 +49,7 @@ export const DeleteFieldsModal = ({
       sortable: true,
       truncateText: true,
     },
-  ] as Array<EuiTableFieldDataColumnType<SkippingIndexRowType>>;
+  ];
 
   const pagination = {
     initialPageSize: 20,
