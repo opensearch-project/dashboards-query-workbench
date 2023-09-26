@@ -8,8 +8,7 @@ import React, { useState, useEffect } from "react";
 import { EuiIcon, EuiTreeView } from "@elastic/eui";
 import _ from 'lodash';
 import { CoreStart } from '../../../../../src/core/public';
-import { ON_LOAD_QUERY } from "../../utils/constants";
-
+import { ON_LOAD_QUERY } from "../../../common/constants";
 
 interface CustomView {
     http: CoreStart['http']

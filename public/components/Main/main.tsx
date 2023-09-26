@@ -101,7 +101,6 @@ interface MainState {
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   messages: Array<QueryMessage>;
   isResultFullScreen: boolean;
-  tablenames: string[]
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -233,7 +232,6 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
-      tablenames : []
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -733,12 +731,6 @@ export class Main extends React.Component<MainProps, MainState> {
                     >
                       Create
                     </EuiButton>
-                  </EuiFlexItem>
-                  <EuiSpacer/>
-                  <EuiFlexItem grow={false}>
-                    <EuiFieldSearch
-                        placeholder="Search"
-                      />
                   </EuiFlexItem>
                   <EuiSpacer/>
                   <TableView
