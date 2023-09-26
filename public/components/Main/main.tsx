@@ -471,7 +471,8 @@ export class Main extends React.Component<MainProps, MainState> {
           {
             queries,
             queryResultsJSON: results,
-          }
+          },
+          () => console.log('Successfully updated the states')
         );
       });
     }
