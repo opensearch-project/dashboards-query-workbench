@@ -711,6 +711,15 @@ export class Main extends React.Component<MainProps, MainState> {
             <EuiText>Data Sources</EuiText>
             <EuiComboBox
               placeholder='Connection Name'
+              options={[
+                { label: 'S3', value: 'S3' },
+                { label: 'Opensearch', value: 'Opensearch' },
+              ]}
+              selectedOptions={this.state.selectedDatasource ? [{ label: this.state.selectedDatasource }] : []}
+              onChange={(selectedOptions) => {
+                const selectedValue = selectedOptions[0] ? selectedOptions[0].value : '';
+                this.handleComboOptionChange(selectedValue);
+              }}
             />
             <EuiSpacer />
           </EuiFlexItem>
@@ -739,7 +748,10 @@ export class Main extends React.Component<MainProps, MainState> {
                       </EuiButton>
                     </EuiFlexItem>
                     <EuiSpacer />
-                    <TableView http={this.httpClient} />
+                    <TableView 
+                      http={this.httpClient} 
+                      dataConnection={this.state.selectedDatasource}
+                      />
                     <EuiSpacer />
                   </EuiFlexItem>
                 </EuiFlexGroup>

@@ -11,10 +11,11 @@ import { CoreStart } from '../../../../../src/core/public';
 import { ON_LOAD_QUERY } from "../../../common/constants";
 
 interface CustomView {
-    http: CoreStart['http']
+    http: CoreStart['http'],
+    dataConnection: string
 }
 
-export const TableView = ({ http }: CustomView) => {
+export const TableView = ({ http, dataConnection }: CustomView) => {
     const [tablenames, setTablenames] = useState<string[]>([]);
     const [selectedNode, setSelectedNode] = useState<string | null>(null);
     const [childData, setChildData] = useState<string[]>([]);
@@ -73,7 +74,7 @@ export const TableView = ({ http }: CustomView) => {
         callback: () => handleNodeClick(element),
         isSelectable: true, 
         isExpanded: true,
-        children: selectedNode === element ? childData.map(child => ({
+        children: dataConnection === 'S3' && selectedNode === element ? childData.map(child => ({
             label: child,
             id: `${element}_${child}`,
             icon: <EuiIcon type='tableDensityCompact' size="s" />,
