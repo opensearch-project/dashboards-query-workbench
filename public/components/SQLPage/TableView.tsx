@@ -93,7 +93,6 @@ export const TableView = ({ http }: CustomView) => {
             <EuiTreeView
                 aria-label="Sample Folder Tree"
                 items={treeData}
-                aria-labelledby=""
             />
         </>
     )

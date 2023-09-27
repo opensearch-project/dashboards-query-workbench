@@ -15,7 +15,6 @@ import {
   EuiPageContentBody, 
   EuiComboBox, 
   EuiText, 
-  EuiFieldSearch
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
@@ -101,6 +100,7 @@ interface MainState {
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   messages: Array<QueryMessage>;
   isResultFullScreen: boolean;
+  selectedDatasource: string;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -232,6 +232,7 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
+      selectedDatasource: ''
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -624,6 +625,12 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
+  handleComboOptionChange = (selectedOption: string) => {
+    this.setState({ 
+      selectedDatasource: selectedOption });
+  };
+
+
   render() {
     let page;
     let link;
@@ -701,13 +708,11 @@ export class Main extends React.Component<MainProps, MainState> {
       <>
         <EuiFlexGroup direction='row' alignItems='center'>
           <EuiFlexItem>
-            <EuiText>
-              Data Sources
-            </EuiText>
+            <EuiText>Data Sources</EuiText>
             <EuiComboBox
-                placeholder='Connection Name'
-                  />
-                <EuiSpacer/>
+              placeholder='Connection Name'
+            />
+            <EuiSpacer />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
             <Switch onChange={this.onChange} language={this.state.language} />
@@ -718,36 +723,36 @@ export class Main extends React.Component<MainProps, MainState> {
             </EuiButton>
           </EuiFlexItem>
         </EuiFlexGroup>
-      <EuiPage paddingSize='none'>
-      {(this.state.language=='SQL')?       
-        <EuiPanel >
-          <EuiPageSideBar >
-            <EuiFlexGroup direction="column">
-                <EuiFlexItem>
-                  <EuiFlexItem grow={false}>
-                    <EuiButton
-                      iconType="arrowDown"
-                      iconSide="right"
-                      fullWidth
-                    >
-                      Create
-                    </EuiButton>
+        <EuiPage paddingSize='none'>
+          {this.state.language === 'SQL' ? (
+            <EuiPanel>
+              <EuiPageSideBar>
+                <EuiFlexGroup direction="column">
+                  <EuiFlexItem>
+                    <EuiFlexItem grow={false}>
+                      <EuiButton
+                        iconType="arrowDown"
+                        iconSide="right"
+                        fullWidth
+                      >
+                        Create
+                      </EuiButton>
+                    </EuiFlexItem>
+                    <EuiSpacer />
+                    <TableView http={this.httpClient} />
+                    <EuiSpacer />
                   </EuiFlexItem>
-                  <EuiSpacer/>
-                  <TableView
-                    http = {this.httpClient}/>
-                  <EuiSpacer/>
-                </EuiFlexItem>
-            </EuiFlexGroup>
-          </EuiPageSideBar>
-        </EuiPanel>  : null}  
-        <EuiPageContent paddingSize='m'>
-          <EuiPageContentBody>
-            <EuiFlexGroup alignItems="center">
-            </EuiFlexGroup>
-          <EuiSpacer size="l" />
-          <div>{page}</div>
+                </EuiFlexGroup>
+              </EuiPageSideBar>
+            </EuiPanel>
+          ) : null}
 
+          <EuiPageContent paddingSize='m'>
+            <EuiPageContentBody>
+              <EuiFlexGroup alignItems="center">
+              </EuiFlexGroup>
+              <EuiSpacer size="l" />
+              <div>{page}</div>
           <EuiSpacer size="l" />
           <div className="sql-console-query-result">
             <QueryResults
