@@ -14,10 +14,9 @@ import {
   mockNotOkQueryResultResponse,
   mockQueryTranslationResponse,
   mockResultWithNull,
-  sampleEmptyPanel
+  mockHttpQuery
 } from "../../../test/mocks/mockData";
 import Main from "./main";
-import { HttpResponse } from "src/core/public/http";
 
 const setBreadcrumbsMock = jest.fn();
 
@@ -26,7 +25,7 @@ describe("<Main /> spec", () => {
   it("renders the component", async () => {
     
     const client = httpClientMock;
-    client.post = jest.fn().mockResolvedValue(sampleEmptyPanel)
+    client.post = jest.fn().mockResolvedValue(mockHttpQuery)
     
     const asyncTest = () => {
       render(
