@@ -734,7 +734,7 @@ export class Main extends React.Component<MainProps, MainState> {
           </EuiFlexItem>
         </EuiFlexGroup>
         <EuiPage paddingSize='none'>
-          {this.state.language === 'SQL' ? (
+          {this.state.language === 'SQL' && (
             <EuiPanel>
               <EuiPageSideBar>
                 <EuiFlexGroup direction="column">
@@ -758,7 +758,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 </EuiFlexGroup>
               </EuiPageSideBar>
             </EuiPanel>
-          ) : null}
+          )}
 
           <EuiPageContent paddingSize='m'>
             <EuiPageContentBody>
