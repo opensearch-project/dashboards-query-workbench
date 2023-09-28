@@ -2334,15 +2334,10 @@ export const mockResultWithNull =
     "resp": "{\"schema\":[{\"name\":\"name\",\"type\":\"keyword\"},{\"name\":\"city\",\"type\":\"keyword\"}],\"datarows\":[[\"Hattie\",\"Seattle\"],[\"John\"]]}"
   }
 }
-export const sampleEmptyPanel = {
-  objectId: 'L8Sx53wBDp0rvEg3yoLb',
-  lastUpdatedTimeMs: 1636053619774,
-  createdTimeMs: 1635545733895,
-  tenant: '',
-  operationalPanel: {
-    name: 'Test Panel 1',
-    visualizations: [],
-    timeRange: { to: 'now/y', from: 'now/y' },
-    queryFilter: { query: "where host = 'www.opensearch.org'", language: 'ppl' },
-  },
-};
+export const mockHttpQuery = 
+{
+  "data": {
+    "ok": true,
+    resp: "{\"schema\":[{\"name\":\"TABLE_CAT\",\"type\":\"keyword\"}],\"datarows\":[[\"opensearch\",null,\".kibana_1\",\"BASE TABLE\",null,null,null,null,null,null]]}"
+  }
+}
