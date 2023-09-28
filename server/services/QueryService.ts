@@ -39,10 +39,11 @@ export default class QueryService {
     }
   };
 
-  describeQueryGetInternal = async (request: any, format: string, responseFormat: string) => {
+  describeQueryGetInternal = async (request: any, format: string, jobId: string, responseFormat: string) => {
     try {
-
-      const queryResponse = await this.client.asScoped(request).callAsCurrentUser(format);
+      const queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, {
+        jobId: jobId,
+      });
       return {
         data: {
           ok: true,
@@ -97,8 +98,7 @@ export default class QueryService {
     return this.describeQueryInternal(request, 'sql.sparkSqlQuery', null);
   };
 
-  describeSQLAsyncGetQuery = async (request: any) => {
-
-    return this.describeQueryGetInternal(request, 'sql.sparkSqlGetQuery', null);
+  describeSQLAsyncGetQuery = async (request: any, jobId: string) => {
+    return this.describeQueryGetInternal(request, 'sql.sparkSqlGetQuery', jobId, null);
   };
 }

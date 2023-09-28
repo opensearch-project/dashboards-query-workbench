@@ -102,7 +102,13 @@ export default function sqlPlugin(Client, config, components) {
 
   sql.sparkSqlGetQuery = ca({
     url: {
-      fmt: `${SPARK_SQL_QUERY_ROUTE}/00fdiiri6t2k400q`,
+      fmt: `${SPARK_SQL_QUERY_ROUTE}/<%=jobId%>`,
+      req: {
+        jobId: {
+          type: 'string',
+          required: true,
+        },
+      },
     },
     needBody: true,
     method: 'GET',

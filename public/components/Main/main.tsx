@@ -129,9 +129,7 @@ export function getQueryResultsForTable(
           errorMessage: errorQueryResponse(queryResultResponseDetail),
         };
       } else {
-        const responseObj = queryResultResponseDetail.data
-          ? JSON.parse(queryResultResponseDetail.data)
-          : '';
+        const responseObj = queryResultResponseDetail.data ? queryResultResponseDetail.data : '';
         let fields: string[] = [];
         let dataRows: DataRow[] = [];
 
@@ -397,6 +395,9 @@ export class Main extends React.Component<MainProps, MainState> {
 
               const queryId: string = _.get(responseObj, 'queryId');
               console.log('queryId for spark query', queryId);
+              setTimeout(() => {
+                this.callGetStartPolling(queries, queryId);
+              }, 90 * 1000);
 
               return {
                 fulfilled: queryResultResponseDetail.fulfilled,
@@ -424,48 +425,6 @@ export class Main extends React.Component<MainProps, MainState> {
         ); // added callback function to handle async issues
       });
 
-      //TODO: NEED TO TURN THE BELOW INTO THE POLLING CODE
-      // ====================================================================================================================================================================
-      // send out a getter for spark query with queryId in tow
-      const nextP = Promise.all(
-        queries.map((query: string) =>
-          this.httpClient.get('../api/spark_sql_console/get').catch((error: any) => {
-            this.setState({
-              messages: [
-                {
-                  text: error.message,
-                  className: 'error-message',
-                },
-              ],
-            });
-          })
-        )
-      );
-
-      Promise.all([nextP]).then(([response]) => {
-        const results: ResponseDetail<string>[] = response.map((response) =>
-          this.processQueryResponse(response as IHttpResponse<ResponseData>)
-        );
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results);
-        this.setState(
-          {
-            queries: queries,
-            queryResults: results,
-            queryResultsTable: resultTable,
-            selectedTabId: getDefaultTabId(results),
-            selectedTabName: getDefaultTabLabel(results, queries[0]),
-            messages: this.getMessage(resultTable),
-            itemIdToExpandedRowMap: {},
-            queryResultsJSON: [],
-            queryResultsCSV: [],
-            queryResultsTEXT: [],
-            searchQuery: '',
-          },
-          () => console.log('Successfully updated the states')
-        ); // added callback function to handle async issues
-      });
-      // ==================================================================================================================================================================
-
       // Promise.all([responsePromise]).then(([response]) => {
       //   const results: ResponseDetail<string>[] = response.map((response) =>
       //     this.processQueryResponse(response as IHttpResponse<ResponseData>)
@@ -489,6 +448,50 @@ export class Main extends React.Component<MainProps, MainState> {
       //   ); // added callback function to handle async issues
       // });
     }
+  };
+
+  callGetStartPolling = (queries: string[], jobId: string) => {
+    //TODO: NEED TO TURN THE BELOW INTO THE POLLING CODE
+    // ====================================================================================================================================================================
+    // send out a getter for spark query with queryId in tow
+    const nextP = Promise.all(
+      queries.map((query: string) =>
+        this.httpClient.get('../api/spark_sql_console/get/' + jobId).catch((error: any) => {
+          this.setState({
+            messages: [
+              {
+                text: error.message,
+                className: 'error-message',
+              },
+            ],
+          });
+        })
+      )
+    );
+
+    Promise.all([nextP]).then(([response]) => {
+      const results: ResponseDetail<string>[] = response.map((response) =>
+        this.processQueryResponse(response as IHttpResponse<ResponseData>)
+      );
+      const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results);
+      this.setState(
+        {
+          queries: queries,
+          queryResults: results,
+          queryResultsTable: resultTable,
+          selectedTabId: getDefaultTabId(results),
+          selectedTabName: getDefaultTabLabel(results, queries[0]),
+          messages: this.getMessage(resultTable),
+          itemIdToExpandedRowMap: {},
+          queryResultsJSON: [],
+          queryResultsCSV: [],
+          queryResultsTEXT: [],
+          searchQuery: '',
+        },
+        () => console.log('Successfully updated the states')
+      ); // added callback function to handle async issues
+    });
+    // ==================================================================================================================================================================
   };
 
   onTranslate = (queriesString: string): void => {

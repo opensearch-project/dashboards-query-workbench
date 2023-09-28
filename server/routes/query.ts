@@ -150,7 +150,7 @@ export default function query(server: IRouter, service: QueryService) {
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLAsyncQuery(request);
-      console.log("node:", request);
+      // console.log("node:", request);
       return response.ok({
         body: retVal,
       });
@@ -159,13 +159,16 @@ export default function query(server: IRouter, service: QueryService) {
 
   server.get(
     {
-      path: ROUTE_PATH_SPARK_SQL_GET_QUERY,
-      validate: false,
+      path: ROUTE_PATH_SPARK_SQL_GET_QUERY + "/{id}",
+      validate: {
+        params: schema.object({
+          id: schema.string(),
+        }),
+      },
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.describeSQLAsyncGetQuery(request);
-      console.log("context:", context);
-      console.log("node:", request);
+      // console.log('id in the url:',request.params.id);
+      const retVal = await service.describeSQLAsyncGetQuery(request, request.params.id);
       return response.ok({
         body: retVal,
       });
