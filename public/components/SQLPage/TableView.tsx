@@ -25,7 +25,7 @@ export const TableView = ({ http, dataConnection }: CustomView) => {
     const getSidebarContent = () => {
         const query = { query: ON_LOAD_QUERY }
         http
-            .post(`../api/sql_console/sqlquery`, {
+            .post(`/api/sql_console/sqlquery`, {
                 body: JSON.stringify(query),
             })
             .then((res) => {

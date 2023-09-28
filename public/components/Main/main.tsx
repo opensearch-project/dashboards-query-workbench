@@ -32,7 +32,7 @@ import { PPLPage } from '../PPLPage/PPLPage';
 import Switch from '../QueryLanguageSwitch/Switch';
 import QueryResults from '../QueryResults/QueryResults';
 import { SQLPage } from '../SQLPage/SQLPage';
-import {TableView} from '../SQLPage/TableView'
+import { TableView } from '../SQLPage/TableView'
 
 interface ResponseData {
   ok: boolean;
@@ -77,7 +77,7 @@ export type DataRow = {
   rowId: number;
   data: { [key: string]: any };
 };
- 
+
 interface MainProps {
   httpClient: CoreStart['http'];
   setBreadcrumbs: (newBreadcrumbs: ChromeBreadcrumb[]) => void;
@@ -710,6 +710,7 @@ export class Main extends React.Component<MainProps, MainState> {
           <EuiFlexItem>
             <EuiText>Data Sources</EuiText>
             <EuiComboBox
+              singleSelection={true}
               placeholder='Connection Name'
               options={[
                 { label: 'S3', value: 'S3' },

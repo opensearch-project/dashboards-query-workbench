@@ -1,4 +1,3 @@
-
 /*
  * Copyright OpenSearch Contributors
  * SPDX-License-Identifier: Apache-2.0
@@ -121,7 +120,6 @@ describe("<Main /> spec", () => {
       fireEvent.click(onClearButton);
     };
     await asyncTest();
-    // expect(client.post).not.toHaveBeenCalled();
     expect(document.body.children[0]).toMatchSnapshot();
   });
 });
