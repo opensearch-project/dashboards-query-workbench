@@ -20,7 +20,7 @@ export default class QueryService {
         query: request.body.query,
       };
       const params = {
-        body: JSON.stringify(queryRequest),
+        body: JSON.stringify(request.body),
       };
 
       const queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, params);
@@ -72,5 +72,9 @@ export default class QueryService {
 
   describePPLText = async (request: any) => {
     return this.describeQueryInternal(request, 'sql.pplText', null);
+  };
+
+  describeSQLAsyncQuery = async (request: any) => {
+    return this.describeQueryInternal(request, 'sql.sparkSqlQuery', null);
   };
 }

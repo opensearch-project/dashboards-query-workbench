@@ -101,6 +101,11 @@ interface MainState {
   messages: Array<QueryMessage>;
   isResultFullScreen: boolean;
   selectedDatasource: string;
+  // data: pollingResult;
+  // loading: pollingLoading;
+  // error: pollingError;
+  // startPolling: any;
+  // stopPolling: any;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -353,11 +358,14 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      let endpoint = '../api/spark_sql_console';
+      // + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, {
+              body: JSON.stringify({ lang: 'sql', query: query }),
+            })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -406,7 +414,7 @@ export class Main extends React.Component<MainProps, MainState> {
       const translationPromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -486,7 +494,7 @@ export class Main extends React.Component<MainProps, MainState> {
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -520,7 +528,7 @@ export class Main extends React.Component<MainProps, MainState> {
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -554,7 +562,7 @@ export class Main extends React.Component<MainProps, MainState> {
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [

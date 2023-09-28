@@ -16,6 +16,7 @@ import {
   ROUTE_PATH_PPL_CSV,
   ROUTE_PATH_PPL_JSON,
   ROUTE_PATH_PPL_TEXT,
+  ROUTE_PATH_SPARK_SQL_QUERY,
 } from '../utils/constants';
 
 export default function query(server: IRouter, service: QueryService) {
@@ -138,4 +139,20 @@ export default function query(server: IRouter, service: QueryService) {
       });
     }
   );
+
+  server.post(
+    {
+      path: ROUTE_PATH_SPARK_SQL_QUERY,
+      validate: {
+        body: schema.any(),
+      },
+    },
+    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      const retVal = await service.describeSQLAsyncQuery(request);
+      console.log("node:", request);
+      return response.ok({
+        body: retVal,
+      });
+    }
+  )
 }
