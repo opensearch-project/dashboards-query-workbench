@@ -99,4 +99,12 @@ export default function sqlPlugin(Client, config, components) {
     needBody: true,
     method: 'POST',
   });
+
+  sql.sparkSqlGetQuery = ca({
+    url: {
+      fmt: `${SPARK_SQL_QUERY_ROUTE}/00fdiiri6t2k400q`,
+    },
+    needBody: true,
+    method: 'GET',
+  });
 }

@@ -17,6 +17,7 @@ import {
   ROUTE_PATH_PPL_JSON,
   ROUTE_PATH_PPL_TEXT,
   ROUTE_PATH_SPARK_SQL_QUERY,
+  ROUTE_PATH_SPARK_SQL_GET_QUERY,
 } from '../utils/constants';
 
 export default function query(server: IRouter, service: QueryService) {
@@ -149,6 +150,21 @@ export default function query(server: IRouter, service: QueryService) {
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLAsyncQuery(request);
+      console.log("node:", request);
+      return response.ok({
+        body: retVal,
+      });
+    }
+  )
+
+  server.get(
+    {
+      path: ROUTE_PATH_SPARK_SQL_GET_QUERY,
+      validate: false,
+    },
+    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      const retVal = await service.describeSQLAsyncGetQuery(request);
+      console.log("context:", context);
       console.log("node:", request);
       return response.ok({
         body: retVal,

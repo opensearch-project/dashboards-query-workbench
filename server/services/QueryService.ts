@@ -16,14 +16,33 @@ export default class QueryService {
 
   describeQueryInternal = async (request: any, format: string, responseFormat: string) => {
     try {
-      const queryRequest = {
-        query: request.body.query,
-      };
       const params = {
         body: JSON.stringify(request.body),
       };
 
       const queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, params);
+      return {
+        data: {
+          ok: true,
+          resp: _.isEqual(responseFormat, 'json') ? JSON.stringify(queryResponse) : queryResponse,
+        },
+      };
+    } catch (err) {
+      console.log(err);
+      return {
+        data: {
+          ok: false,
+          resp: err.message,
+          body: err.body
+        },
+      };
+    }
+  };
+
+  describeQueryGetInternal = async (request: any, format: string, responseFormat: string) => {
+    try {
+
+      const queryResponse = await this.client.asScoped(request).callAsCurrentUser(format);
       return {
         data: {
           ok: true,
@@ -76,5 +95,10 @@ export default class QueryService {
 
   describeSQLAsyncQuery = async (request: any) => {
     return this.describeQueryInternal(request, 'sql.sparkSqlQuery', null);
+  };
+
+  describeSQLAsyncGetQuery = async (request: any) => {
+
+    return this.describeQueryGetInternal(request, 'sql.sparkSqlGetQuery', null);
   };
 }
