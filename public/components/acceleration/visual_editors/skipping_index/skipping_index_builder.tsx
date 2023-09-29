@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from 'react';
 import {
   EuiBasicTable,
+  EuiButton,
+  EuiButtonIcon,
+  EuiFlexGroup,
+  EuiFlexItem,
   EuiSelect,
   EuiSpacer,
   EuiText,
-  EuiButtonIcon,
-  EuiButton,
-  EuiFlexGroup,
-  EuiFlexItem,
 } from '@elastic/eui';
 import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
 import { CreateAccelerationForm, SkippingIndexRowType } from '../../../../../common/types';
 import { AddFieldsModal } from './add_fields_modal';
 import { DeleteFieldsModal } from './delete_fields_modal';

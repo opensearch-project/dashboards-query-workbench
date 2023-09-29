@@ -4,12 +4,12 @@
  */
 
 import {
+  EuiLink,
   EuiPageHeader,
   EuiPageHeaderSection,
-  EuiTitle,
   EuiSpacer,
   EuiText,
-  EuiLink,
+  EuiTitle,
 } from '@elastic/eui';
 import React from 'react';
 import { OPENSEARCH_ACC_DOCUMENTATION_URL } from '../../../../common/constants';
@@ -20,7 +20,7 @@ export const CreateAccelerationHeader = () => {
       <EuiPageHeader>
         <EuiPageHeaderSection>
           <EuiTitle size="l" data-test-subj="acceleration-header">
-            <h1>Create Acceleration Index</h1>
+            <h1>Accelerate data</h1>
           </EuiTitle>
         </EuiPageHeaderSection>
       </EuiPageHeader>
