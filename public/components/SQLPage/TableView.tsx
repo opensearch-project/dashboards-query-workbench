@@ -5,7 +5,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import { EuiIcon, EuiTreeView } from "@elastic/eui";
+import { EuiEmptyPrompt, EuiIcon, EuiTreeView } from "@elastic/eui";
 import _ from 'lodash';
 import { CoreStart } from '../../../../../src/core/public';
 import { ON_LOAD_QUERY } from "../../../common/constants";
@@ -91,10 +91,17 @@ export const TableView = ({ http, dataConnection }: CustomView) => {
 
     return (
         <>
-            <EuiTreeView
-                aria-label="Sample Folder Tree"
-                items={treeData}
-            />
+            {treeData.length > 0 ? 
+                <EuiTreeView
+                    aria-label="Sample Folder Tree"
+                    items={treeData}
+                />
+            :   <EuiEmptyPrompt
+                    iconType="alert"
+                    iconColor="danger"
+                    title={<h2>Error loading Datasources</h2>}
+                />
+            }
         </>
     )
 }
