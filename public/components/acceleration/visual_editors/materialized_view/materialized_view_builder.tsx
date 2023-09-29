@@ -3,26 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
-import { CreateAccelerationForm, MaterializedViewColumn } from '../../../../../common/types';
-import _ from 'lodash';
 import {
-  EuiSpacer,
-  EuiText,
   EuiExpression,
   EuiFlexGroup,
   EuiFlexItem,
+  EuiSpacer,
+  EuiText,
   htmlIdGenerator,
 } from '@elastic/eui';
+import _ from 'lodash';
+import React, { useEffect, useState } from 'react';
+import { CreateAccelerationForm, MaterializedViewColumn } from '../../../../../common/types';
 import { AddColumnPopOver } from './add_column_popover';
 import { ColumnExpression } from './column_expression';
 import { GroupByTumbleExpression } from './group_by_tumble_expression';
-import { useEffect } from 'react';
 
 interface MaterializedViewBuilderProps {
   accelerationFormData: CreateAccelerationForm;
   setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
+
+const newColumnExpressionId = htmlIdGenerator()();
 
 export const MaterializedViewBuilder = ({
   accelerationFormData,
@@ -37,7 +38,7 @@ export const MaterializedViewBuilder = ({
     if (accelerationFormData.dataTableFields.length > 0) {
       setColumnExpressionValues([
         {
-          id: htmlIdGenerator()(),
+          id: newColumnExpressionId,
           functionName: 'count',
           functionParam: accelerationFormData.dataTableFields[0].fieldName,
           fieldAlias: 'counter1',

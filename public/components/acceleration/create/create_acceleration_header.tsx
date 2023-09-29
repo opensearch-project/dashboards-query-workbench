@@ -4,12 +4,12 @@
  */
 
 import {
+  EuiLink,
   EuiPageHeader,
   EuiPageHeaderSection,
-  EuiTitle,
   EuiSpacer,
   EuiText,
-  EuiLink,
+  EuiTitle,
 } from '@elastic/eui';
 import React from 'react';
 import { OPENSEARCH_ACC_DOCUMENTATION_URL } from '../../../../common/constants';

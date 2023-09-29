@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
 import { EuiComboBox, EuiComboBoxOptionOption, EuiFormRow, EuiLink, EuiText } from '@elastic/eui';
+import React, { useState } from 'react';
 import {
   ACCELERATION_INDEX_TYPES,
   ACC_INDEX_TYPE_DOCUMENTATION_URL,

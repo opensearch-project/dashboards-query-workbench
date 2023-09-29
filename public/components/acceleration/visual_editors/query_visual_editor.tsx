@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
 import { EuiSpacer } from '@elastic/eui';
+import React from 'react';
 import { CreateAccelerationForm } from '../../../../common/types';
-import { SkippingIndexBuilder } from './skipping_index/skipping_index_builder';
 import { CoveringIndexBuilder } from './covering_index/covering_index_builder';
 import { MaterializedViewBuilder } from './materialized_view/materialized_view_builder';
+import { SkippingIndexBuilder } from './skipping_index/skipping_index_builder';
 
 interface QueryVisualEditorProps {
   accelerationFormData: CreateAccelerationForm;

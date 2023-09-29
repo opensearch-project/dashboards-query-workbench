@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import _ from 'lodash';
 import {
   CreateAccelerationForm,
   GroupByTumbleType,
   MaterializedViewColumn,
   SkippingIndexRowType,
 } from '../../../../common/types';
-import { isTimePlural } from '../create/utils';
+import { pluralizeTime } from '../create/utils';
 
 /* Add index options to query */
 const buildIndexOptions = (accelerationformData: CreateAccelerationForm) => {
@@ -34,7 +33,7 @@ const buildIndexOptions = (accelerationformData: CreateAccelerationForm) => {
   if (refreshType === 'interval') {
     const { refreshWindow, refreshInterval } = accelerationformData.refreshIntervalOptions;
     indexOptions.push(
-      `refresh_interval = '${refreshWindow} ${refreshInterval}${isTimePlural(refreshWindow)}'`
+      `refresh_interval = '${refreshWindow} ${refreshInterval}${pluralizeTime(refreshWindow)}'`
     );
   }
 
@@ -141,7 +140,7 @@ const buildMaterializedViewColumns = (columnsValues: MaterializedViewColumn[]) =
 /* Build group by tumble values */
 const buildTumbleValue = (GroupByTumbleValue: GroupByTumbleType) => {
   const { timeField, tumbleWindow, tumbleInterval } = GroupByTumbleValue;
-  return `(${timeField}, '${tumbleWindow} ${tumbleInterval}${isTimePlural(tumbleWindow)}')`;
+  return `(${timeField}, '${tumbleWindow} ${tumbleInterval}${pluralizeTime(tumbleWindow)}')`;
 };
 
 /*

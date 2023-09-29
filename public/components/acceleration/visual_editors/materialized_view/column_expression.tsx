@@ -3,14 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from 'react';
-import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
-import {
-  MaterializedViewColumn,
-  CreateAccelerationForm,
-  AggregationFunctionType,
-} from '../../../../../common/types';
-import _ from 'lodash';
 import {
   EuiButtonIcon,
   EuiComboBox,
@@ -21,6 +13,14 @@ import {
   EuiFormRow,
   EuiPopover,
 } from '@elastic/eui';
+import _ from 'lodash';
+import React, { useState } from 'react';
+import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
+import {
+  AggregationFunctionType,
+  CreateAccelerationForm,
+  MaterializedViewColumn,
+} from '../../../../../common/types';
 
 interface ColumnExpressionProps {
   index: number;

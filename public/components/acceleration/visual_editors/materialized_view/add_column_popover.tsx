@@ -3,30 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { ChangeEvent, useState } from 'react';
 import {
-  EuiPopover,
-  EuiButtonEmpty,
-  EuiPopoverTitle,
-  EuiPopoverFooter,
   EuiButton,
+  EuiButtonEmpty,
+  EuiComboBox,
+  EuiFieldText,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiFieldText,
   EuiFormRow,
-  EuiComboBox,
-  htmlIdGenerator,
+  EuiPopover,
+  EuiPopoverFooter,
+  EuiPopoverTitle,
   EuiSpacer,
+  htmlIdGenerator,
 } from '@elastic/eui';
-
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
 import {
   AggregationFunctionType,
   CreateAccelerationForm,
   MaterializedViewColumn,
 } from '../../../../../common/types';
-import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
-import { useEffect } from 'react';
-import _ from 'lodash';
 
 interface AddColumnPopOverProps {
   isColumnPopOverOpen: boolean;

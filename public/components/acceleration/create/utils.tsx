@@ -3,28 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const isTimePlural = (timeWindow: number) => {
+import { ACCELERATION_INDEX_NAME_REGEX } from '../../../../common/constants';
+
+export const pluralizeTime = (timeWindow: number) => {
   return timeWindow > 1 ? 's' : '';
 };
 
 export const validateIndexName = (value: string) => {
-  const lowercaseUnderscoreHyphenRegex = /^[a-z_\-]+$/;
-
-  if (!lowercaseUnderscoreHyphenRegex.test(value)) {
-    return false;
-  }
-
-  // Check if the value does not begin with underscores or hyphens
-  if (value.startsWith('_') || value.startsWith('-')) {
-    return false;
-  }
-
-  // Check if the value does not contain disallowed characters
-  const disallowedCharacters = /[\s,:"*+\/|?#><]/;
-  if (disallowedCharacters.test(value)) {
-    return false;
-  }
-
-  // If all checks pass, the value is valid
-  return true;
+  // Check if the value does not begin with underscores or hyphens and all characters are lower case
+  return ACCELERATION_INDEX_NAME_REGEX.test(value);
 };

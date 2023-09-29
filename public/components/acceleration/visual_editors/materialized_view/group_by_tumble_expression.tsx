@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
 import {
   EuiComboBox,
+  EuiComboBoxOptionOption,
   EuiExpression,
   EuiFieldNumber,
   EuiFlexGroup,
@@ -13,12 +13,11 @@ import {
   EuiFormRow,
   EuiPopover,
   EuiSelect,
-  EuiComboBoxOptionOption,
 } from '@elastic/eui';
+import React, { useEffect, useState } from 'react';
 import { ACCELERATION_TIME_INTERVAL } from '../../../../../common/constants';
 import { CreateAccelerationForm, GroupByTumbleType } from '../../../../../common/types';
-import _ from 'lodash';
-import { isTimePlural } from '../../create/utils';
+import { pluralizeTime } from '../../create/utils';
 
 interface GroupByTumbleExpressionProps {
   accelerationFormData: CreateAccelerationForm;
@@ -68,7 +67,7 @@ export const GroupByTumbleExpression = ({
             description="GROUP BY"
             value={`TUMBLE(${groupbyValues.timeField}, '${groupbyValues.tumbleWindow} ${
               groupbyValues.tumbleInterval
-            }${isTimePlural(groupbyValues.tumbleWindow)}')`}
+            }${pluralizeTime(groupbyValues.tumbleWindow)}')`}
             isActive={IsGroupPopOverOpen}
             onClick={() => setIsGroupPopOverOpen(true)}
             isInvalid={groupbyValues.timeField === ''}

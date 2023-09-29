@@ -11,8 +11,7 @@ import {
   EuiText,
   htmlIdGenerator,
 } from '@elastic/eui';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CreateAccelerationForm } from '../../../../common/types';
 
 interface AccelerationDataSourceSelectorProps {

@@ -4,18 +4,18 @@
  */
 
 import {
-  EuiModal,
-  EuiModalHeader,
-  EuiModalHeaderTitle,
-  EuiModalBody,
-  EuiModalFooter,
   EuiButton,
   EuiInMemoryTable,
+  EuiModal,
+  EuiModalBody,
+  EuiModalFooter,
+  EuiModalHeader,
+  EuiModalHeaderTitle,
   EuiTableFieldDataColumnType,
 } from '@elastic/eui';
+import _ from 'lodash';
 import React, { useState } from 'react';
 import { CreateAccelerationForm, DataTableFieldsType } from '../../../../../common/types';
-import _ from 'lodash';
 
 interface AddFieldsModalProps {
   setIsAddModalVisible: React.Dispatch<React.SetStateAction<boolean>>;

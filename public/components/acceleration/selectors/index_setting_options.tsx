@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, ChangeEvent } from 'react';
-import { CreateAccelerationForm } from '../../../../common/types';
 import {
   EuiFieldNumber,
   EuiFieldText,
@@ -14,8 +12,10 @@ import {
   EuiSpacer,
   EuiText,
 } from '@elastic/eui';
-import { IndexTypeSelector } from './index_type_selector';
+import React, { ChangeEvent, useState } from 'react';
 import { ACCELERATION_TIME_INTERVAL } from '../../../../common/constants';
+import { CreateAccelerationForm } from '../../../../common/types';
+import { IndexTypeSelector } from './index_type_selector';
 
 interface IndexSettingOptionsProps {
   accelerationFormData: CreateAccelerationForm;
