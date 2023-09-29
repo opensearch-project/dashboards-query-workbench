@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export type AggregationFunctionType = 'count' | 'sum' | 'avg' | 'max' | 'min';
+
 export interface MaterializedViewColumn {
   id: string;
-  functionName: 'count' | 'sum' | 'avg' | 'min' | 'max';
+  functionName: AggregationFunctionType;
   functionParam: string;
   fieldAlias?: string;
 }
@@ -23,19 +25,37 @@ export interface DataTableFieldsType {
   dataType: string;
 }
 
+export interface RefreshIntervalType {
+  refreshWindow: number;
+  refreshInterval: string;
+}
+
+export type AccelerationIndexType = 'skipping' | 'covering' | 'materialized';
+
+export interface GroupByTumbleType {
+  timeField: string;
+  tumbleWindow: number;
+  tumbleInterval: string;
+}
+
+export interface materializedViewQueryType {
+  columnsValues: MaterializedViewColumn[];
+  groupByTumbleValue: GroupByTumbleType;
+}
+
 export interface CreateAccelerationForm {
   dataSource: string;
+  database: string;
   dataTable: string;
   dataTableFields: DataTableFieldsType[];
-  accelerationIndexType: 'skipping' | 'covering' | 'materialized';
-  queryBuilderType: 'visual' | 'code';
+  accelerationIndexType: AccelerationIndexType;
   skippingIndexQueryData: SkippingIndexRowType[];
-  coveringIndexQueryData: string;
-  materializedViewQueryData: string;
+  coveringIndexQueryData: string[];
+  materializedViewQueryData: materializedViewQueryType;
   accelerationIndexName: string;
-  accelerationIndexAlias: string;
   primaryShardsCount: number;
   replicaShardsCount: number;
   refreshType: 'interval' | 'auto';
-  refreshIntervalSeconds: string | undefined;
+  checkpointLocation: string | undefined;
+  refreshIntervalOptions: RefreshIntervalType | undefined;
 }
