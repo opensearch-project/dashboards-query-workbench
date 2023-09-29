@@ -3,7 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiTitle } from '@elastic/eui';
+import { 
+  EuiButton, 
+  EuiFlexGroup, 
+  EuiFlexItem,
+  EuiSpacer, 
+  EuiPageSideBar , 
+  EuiPanel, 
+  EuiPage, 
+  EuiPageContent,
+  EuiPageContentBody, 
+  EuiComboBox, 
+  EuiText, 
+} from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
@@ -20,6 +32,7 @@ import { PPLPage } from '../PPLPage/PPLPage';
 import Switch from '../QueryLanguageSwitch/Switch';
 import QueryResults from '../QueryResults/QueryResults';
 import { SQLPage } from '../SQLPage/SQLPage';
+import { TableView } from '../SQLPage/TableView'
 
 interface ResponseData {
   ok: boolean;
@@ -87,6 +100,7 @@ interface MainState {
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   messages: Array<QueryMessage>;
   isResultFullScreen: boolean;
+  selectedDatasource: string;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -218,8 +232,8 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
+      selectedDatasource: ''
     };
-
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
     this.updatePPLQueries = _.debounce(this.updatePPLQueries, 250).bind(this);
@@ -611,6 +625,12 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
+  handleComboOptionChange = (selectedOption: string) => {
+    this.setState({ 
+      selectedDatasource: selectedOption });
+  };
+
+
   render() {
     let page;
     let link;
@@ -685,28 +705,67 @@ export class Main extends React.Component<MainProps, MainState> {
     }
 
     return (
-      <div>
-        <div className="sql-console-query-container">
-          <div className="query-language-switch">
-            <EuiFlexGroup alignItems="center">
-              <EuiFlexItem>
-                <EuiTitle size="l">
-                  <h1>Query Workbench</h1>
-                </EuiTitle>
-              </EuiFlexItem>
-              <EuiFlexItem grow={false}>
-                <Switch onChange={this.onChange} language={this.state.language} />
-              </EuiFlexItem>
-              <EuiFlexItem grow={false}>
-                <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
-                  {linkTitle}
-                </EuiButton>
-              </EuiFlexItem>
-            </EuiFlexGroup>
-          </div>
-          <EuiSpacer size="l" />
-          <div>{page}</div>
+      <>
+        <EuiFlexGroup direction='row' alignItems='center'>
+          <EuiFlexItem>
+            <EuiText>Data Sources</EuiText>
+            <EuiComboBox
+              singleSelection={true}
+              placeholder='Connection Name'
+              options={[
+                { label: 'S3', value: 'S3' },
+                { label: 'Opensearch', value: 'Opensearch' },
+              ]}
+              selectedOptions={this.state.selectedDatasource ? [{ label: this.state.selectedDatasource }] : []}
+              onChange={(selectedOptions) => {
+                const selectedValue = selectedOptions[0] ? selectedOptions[0].value : '';
+                this.handleComboOptionChange(selectedValue);
+              }}
+            />
+            <EuiSpacer />
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <Switch onChange={this.onChange} language={this.state.language} />
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
+              {linkTitle}
+            </EuiButton>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+        <EuiPage paddingSize='none'>
+          {this.state.language === 'SQL' && (
+            <EuiPanel>
+              <EuiPageSideBar>
+                <EuiFlexGroup direction="column">
+                  <EuiFlexItem>
+                    <EuiFlexItem grow={false}>
+                      <EuiButton
+                        iconType="arrowDown"
+                        iconSide="right"
+                        fullWidth
+                      >
+                        Create
+                      </EuiButton>
+                    </EuiFlexItem>
+                    <EuiSpacer />
+                    <TableView 
+                      http={this.httpClient} 
+                      dataConnection={this.state.selectedDatasource}
+                      />
+                    <EuiSpacer />
+                  </EuiFlexItem>
+                </EuiFlexGroup>
+              </EuiPageSideBar>
+            </EuiPanel>
+          )}
 
+          <EuiPageContent paddingSize='m'>
+            <EuiPageContentBody>
+              <EuiFlexGroup alignItems="center">
+              </EuiFlexGroup>
+              <EuiSpacer size="l" />
+              <div>{page}</div>
           <EuiSpacer size="l" />
           <div className="sql-console-query-result">
             <QueryResults
@@ -746,8 +805,11 @@ export class Main extends React.Component<MainProps, MainState> {
               setIsResultFullScreen={this.setIsResultFullScreen}
             />
           </div>
-        </div>
-      </div>
+          </EuiPageContentBody>
+        </EuiPageContent>
+      </EuiPage>
+      </>
+      
     );
   }
 }

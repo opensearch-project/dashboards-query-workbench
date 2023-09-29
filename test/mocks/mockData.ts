@@ -2334,3 +2334,10 @@ export const mockResultWithNull =
     "resp": "{\"schema\":[{\"name\":\"name\",\"type\":\"keyword\"},{\"name\":\"city\",\"type\":\"keyword\"}],\"datarows\":[[\"Hattie\",\"Seattle\"],[\"John\"]]}"
   }
 }
+export const mockHttpQuery = 
+{
+  "data": {
+    "ok": true,
+    resp: "{\"schema\":[{\"name\":\"TABLE_CAT\",\"type\":\"keyword\"}],\"datarows\":[[\"opensearch\",null,\".kibana_1\",\"BASE TABLE\",null,null,null,null,null,null]]}"
+  }
+}
