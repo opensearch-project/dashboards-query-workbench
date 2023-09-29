@@ -3,15 +3,8 @@
 exports[`<SQLPage /> spec renders the component 1`] = `
 <div>
   <div
-    class="euiPanel euiPanel--paddingLarge euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+    class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
   >
-    <div
-      class="euiText euiText--medium sql-query-panel-header"
-    >
-      <h3>
-        Query editor
-      </h3>
-    </div>
     <div
       class="euiSpacer euiSpacer--s"
     />
@@ -195,15 +188,8 @@ exports[`<SQLPage /> spec renders the component 1`] = `
 exports[`<SQLPage /> spec tests the action buttons 1`] = `
 <div>
   <div
-    class="euiPanel euiPanel--paddingLarge euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+    class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
   >
-    <div
-      class="euiText euiText--medium sql-query-panel-header"
-    >
-      <h3>
-        Query editor
-      </h3>
-    </div>
     <div
       class="euiSpacer euiSpacer--s"
     />
