@@ -4,46 +4,185 @@
  */
 
 import _ from 'lodash';
-import { CreateAccelerationForm, SkippingIndexRowType } from '../../../../common/types';
+import {
+  CreateAccelerationForm,
+  GroupByTumbleType,
+  MaterializedViewColumn,
+  SkippingIndexRowType,
+} from '../../../../common/types';
+import { isTimePlural } from '../create/utils';
 
-const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[]) => {
-  return _.reduce(
-    skippingIndexQueryData,
-    function (columns, n, index) {
-      const columnValue = columns + `   ${n.fieldName} ${n.accelerationMethod}`;
-      if (index !== skippingIndexQueryData.length - 1) return `${columnValue}, \n`;
-      else return `${columnValue} \n`;
-    },
-    ''
+/* Add index options to query */
+const buildIndexOptions = (accelerationformData: CreateAccelerationForm) => {
+  const {
+    primaryShardsCount,
+    replicaShardsCount,
+    refreshType,
+    checkpointLocation,
+  } = accelerationformData;
+  const indexOptions: string[] = [];
+
+  // Add index settings option
+  indexOptions.push(
+    `index_settings = '{"number_of_shards":${primaryShardsCount},"number_of_replicas":${replicaShardsCount}}'`
   );
+
+  // Add auto refresh option
+  indexOptions.push(`auto_refresh = ${refreshType === 'auto'}`);
+
+  // Add refresh interval option
+  if (refreshType === 'interval') {
+    const { refreshWindow, refreshInterval } = accelerationformData.refreshIntervalOptions;
+    indexOptions.push(
+      `refresh_interval = '${refreshWindow} ${refreshInterval}${isTimePlural(refreshWindow)}'`
+    );
+  }
+
+  // Add checkpoint location option
+  if (checkpointLocation) {
+    indexOptions.push(`checkpoint_location = '${checkpointLocation}'`);
+  }
+
+  // Combine all options with commas and return as a single string
+  return `WITH (\n${indexOptions.join(',\n')}\n)`;
 };
 
+/* Add skipping index columns to query */
+const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[]) => {
+  return skippingIndexQueryData
+    .map((n) => `   ${n.fieldName} ${n.accelerationMethod}`)
+    .join(', \n');
+};
+
+/*
+ * Builds create skipping index query
+ * Skipping Index create query example:
+ *
+ * CREATE SKIPPING INDEX
+ * [IF NOT EXISTS]
+ * ON datasource.database.table
+ * FOR COLUMNS (
+ *    field1 VALUE_SET,
+ *    field2 PARTITION,
+ *    field3 MIN_MAX,
+ * ) WITH (
+ * auto_refresh = false,
+ * refresh_interval = '1 minute',
+ * checkpoint_location = 's3://test/',
+ * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
+ * )
+ */
 const skippingIndexQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
-  /*
-   * Skipping Index Example
-   *
-   * CREATE SKIPPING INDEX ON table_name
-   * FOR COLUMNS (
-   *    field1 VALUE_SET,
-   *    field2 PARTITION,
-   *    field3 MIN_MAX,
-   * )
-   */
-  let codeQuery = 'CREATE SKIPPING INDEX ON ' + accelerationformData.dataTable;
-  codeQuery = codeQuery + '\n FOR COLUMNS ( \n';
-  codeQuery = codeQuery + buildSkippingIndexColumns(accelerationformData.skippingIndexQueryData);
-  codeQuery = codeQuery + ')';
+  const { dataSource, database, dataTable, skippingIndexQueryData } = accelerationformData;
+
+  const codeQuery = `CREATE SKIPPING INDEX 
+[IF NOT EXISTS]
+ON ${dataSource}.${database}.${dataTable}
+  FOR COLUMNS (
+${buildSkippingIndexColumns(skippingIndexQueryData)}
+  ) ${buildIndexOptions(accelerationformData)}`;
+
   return codeQuery;
 };
 
+/* Add covering index columns to query */
+const buildCoveringIndexColumns = (coveringIndexQueryData: string[]) => {
+  return coveringIndexQueryData.map((field) => `   ${field}`).join(', \n');
+};
+
+/*
+ * Builds create covering index query
+ * Covering Index create query example:
+ *
+ * CREATE INDEX index_name
+ * [IF NOT EXISTS]
+ * ON datasource.database.table
+ * FOR COLUMNS (
+ *    field1,
+ *    field2,
+ *    field3,
+ * ) WITH (
+ * auto_refresh = false,
+ * refresh_interval = '1 minute',
+ * checkpoint_location = 's3://test/',
+ * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
+ * )
+ */
 const coveringIndexQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
-  return '';
+  const {
+    dataSource,
+    database,
+    dataTable,
+    accelerationIndexName,
+    coveringIndexQueryData,
+  } = accelerationformData;
+
+  const codeQuery = `CREATE INDEX ${accelerationIndexName}
+[IF NOT EXISTS]
+ON ${dataSource}.${database}.${dataTable}
+  FOR COLUMNS (
+${buildCoveringIndexColumns(coveringIndexQueryData)}
+  ) ${buildIndexOptions(accelerationformData)}`;
+
+  return codeQuery;
 };
 
+const buildMaterializedViewColumns = (columnsValues: MaterializedViewColumn[]) => {
+  return columnsValues
+    .map(
+      (column) =>
+        `   ${column.functionName}(${column.functionParam}) ${
+          column.fieldAlias && `AS ${column.fieldAlias}`
+        }`
+    )
+    .join(', \n');
+};
+
+/* Build group by tumble values */
+const buildTumbleValue = (GroupByTumbleValue: GroupByTumbleType) => {
+  const { timeField, tumbleWindow, tumbleInterval } = GroupByTumbleValue;
+  return `(${timeField}, '${tumbleWindow} ${tumbleInterval}${isTimePlural(tumbleWindow)}')`;
+};
+
+/*
+ * Builds create materialized view query
+ * Materialized View create query example:
+ *
+ * CREATE MATERIALIZED VIEW datasource.database.index_name
+ * [IF NOT EXISTS]
+ * AS SELECT
+ * count(field) as counter,
+ * count(*) as counter1,
+ * sum(field2),
+ * avg(field3) as average
+ *  WITH (
+ * auto_refresh = false,
+ * refresh_interval = '1 minute',
+ * checkpoint_location = 's3://test/',
+ * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
+ * )
+ */
 const materializedQueryViewBuilder = (accelerationformData: CreateAccelerationForm) => {
-  return '';
+  const {
+    dataSource,
+    database,
+    dataTable,
+    accelerationIndexName,
+    materializedViewQueryData,
+  } = accelerationformData;
+
+  const codeQuery = `CREATE MATERIALIZED VIEW ${dataSource}.${database}.${accelerationIndexName}
+[IF NOT EXISTS]
+AS SELECT
+${buildMaterializedViewColumns(materializedViewQueryData.columnsValues)}
+FROM ${dataSource}.${database}.${dataTable}
+GROUP BY TUMBLE ${buildTumbleValue(materializedViewQueryData.groupByTumbleValue)}
+ ${buildIndexOptions(accelerationformData)}`;
+
+  return codeQuery;
 };
 
+/* Builds create acceleration index query */
 export const accelerationQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
   switch (accelerationformData.accelerationIndexType) {
     case 'skipping': {
