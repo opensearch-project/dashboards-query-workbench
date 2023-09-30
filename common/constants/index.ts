@@ -8,6 +8,8 @@ export const PLUGIN_NAME = 'Query Workbench';
 export const OPENSEARCH_ACC_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 export const ACC_INDEX_TYPE_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 
+export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
+
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
   { label: 'Covering Index', value: 'covering' },
