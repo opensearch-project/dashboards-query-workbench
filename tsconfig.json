@@ -4,19 +4,31 @@
 
   // tell the TypeScript compiler where to find your source files
   "include": [
+    "common/**/*",
     "server/**/*",
     "public/**/*",
     "test/**/*",
+    "../../typings/**/*",
     "babel.config.js"
   ],
   "exclude": ["node_modules", "*/node_modules/"],
 
   "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "baseUrl": ".",
+    "target": "esnext",
+    "module": "commonjs",
+    "outDir": "./target",
+    "noEmit": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "lib": ["es5", "es2015", "es2017", "dom"]
+    "forceConsistentCasingInFileNames": true,
+    "allowUnusedLabels": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "alwaysStrict": false,
+    "noImplicitUseStrict": false,
+    "types": ["jest", "node"]
   }
 }
