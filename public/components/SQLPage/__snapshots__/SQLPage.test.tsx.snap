@@ -381,6 +381,24 @@ exports[`<SQLPage /> spec tests the action buttons 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="euiFlexItem euiFlexItem--flexGrowZero"
+      >
+        <button
+          class="euiButton euiButton--primary euiButton--fill sql-accelerate-button"
+          type="button"
+        >
+          <span
+            class="euiButtonContent euiButton__content"
+          >
+            <span
+              class="euiButton__text"
+            >
+              Accelerate Table
+            </span>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
