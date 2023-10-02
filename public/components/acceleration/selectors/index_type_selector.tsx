@@ -6,6 +6,7 @@
 import { EuiComboBox, EuiComboBoxOptionOption, EuiFormRow, EuiLink, EuiText } from '@elastic/eui';
 import React, { useState } from 'react';
 import {
+  ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
   ACCELERATION_INDEX_TYPES,
   ACC_INDEX_TYPE_DOCUMENTATION_URL,
 } from '../../../../common/constants';
@@ -23,6 +24,17 @@ export const IndexTypeSelector = ({
   const [selectedIndexType, setSelectedIndexType] = useState<EuiComboBoxOptionOption<string>[]>([
     ACCELERATION_INDEX_TYPES[0],
   ]);
+
+  const onChangeIndexType = (indexTypeOption: EuiComboBoxOptionOption<string>[]) => {
+    const indexType = indexTypeOption[0].value as AccelerationIndexType;
+    setAccelerationFormData({
+      ...accelerationFormData,
+      accelerationIndexType: indexType,
+      accelerationIndexName:
+        indexType === 'skipping' ? ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME : '',
+    });
+    setSelectedIndexType(indexTypeOption);
+  };
   return (
     <>
       <EuiFormRow
@@ -41,13 +53,7 @@ export const IndexTypeSelector = ({
           singleSelection={{ asPlainText: true }}
           options={ACCELERATION_INDEX_TYPES}
           selectedOptions={selectedIndexType}
-          onChange={(indexType) => {
-            setAccelerationFormData({
-              ...accelerationFormData,
-              accelerationIndexType: indexType[0].value as AccelerationIndexType,
-            });
-            setSelectedIndexType(indexType);
-          }}
+          onChange={onChangeIndexType}
           isInvalid={selectedIndexType.length === 0}
           isClearable={false}
         />

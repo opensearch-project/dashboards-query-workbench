@@ -15,7 +15,11 @@ import {
 } from '@elastic/eui';
 import _ from 'lodash';
 import React, { useState } from 'react';
-import { CreateAccelerationForm, DataTableFieldsType } from '../../../../../common/types';
+import {
+  CreateAccelerationForm,
+  DataTableFieldsType,
+  SkippingIndexRowType,
+} from '../../../../../common/types';
 
 interface AddFieldsModalProps {
   setIsAddModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +32,7 @@ export const AddFieldsModal = ({
   accelerationFormData,
   setAccelerationFormData,
 }: AddFieldsModalProps) => {
-  const [selectedFields, setSelectedFields] = useState([]);
+  const [selectedFields, setSelectedFields] = useState<DataTableFieldsType[]>([]);
 
   const tableColumns: Array<EuiTableFieldDataColumnType<DataTableFieldsType>> = [
     {
@@ -86,7 +90,7 @@ export const AddFieldsModal = ({
               skippingIndexQueryData: [
                 ...accelerationFormData.skippingIndexQueryData,
                 ...selectedFields.map((x) => {
-                  return { ...x, accelerationMethod: 'PARTITION' };
+                  return { ...x, accelerationMethod: 'PARTITION' } as SkippingIndexRowType;
                 }),
               ],
             });

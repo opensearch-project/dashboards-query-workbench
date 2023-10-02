@@ -12,11 +12,13 @@ export interface MaterializedViewColumn {
   fieldAlias?: string;
 }
 
+export type SkippingIndexAccMethodType = 'PARTITION' | 'VALUE_SET' | 'MIN_MAX';
+
 export interface SkippingIndexRowType {
   id: string;
   fieldName: string;
   dataType: string;
-  accelerationMethod: 'PARTITION' | 'VALUE_SET' | 'MIN_MAX';
+  accelerationMethod: SkippingIndexAccMethodType;
 }
 
 export interface DataTableFieldsType {
@@ -43,6 +45,20 @@ export interface materializedViewQueryType {
   groupByTumbleValue: GroupByTumbleType;
 }
 
+export interface FormErrorsType {
+  dataSourceError: string[];
+  databaseError: string[];
+  dataTableError: string[];
+  skippingIndexError: string[];
+  coveringIndexError: string[];
+  materializedViewError: string[];
+  indexNameError: string[];
+  primaryShardsError: string[];
+  replicaShardsError: string[];
+  refreshIntervalError: string[];
+  checkpointLocationError: string[];
+}
+
 export interface CreateAccelerationForm {
   dataSource: string;
   database: string;
@@ -57,5 +73,6 @@ export interface CreateAccelerationForm {
   replicaShardsCount: number;
   refreshType: 'interval' | 'auto';
   checkpointLocation: string | undefined;
-  refreshIntervalOptions: RefreshIntervalType | undefined;
+  refreshIntervalOptions: RefreshIntervalType;
+  formErrors: FormErrorsType;
 }

@@ -17,6 +17,7 @@ import {
   EuiSpacer,
   htmlIdGenerator,
 } from '@elastic/eui';
+import { EuiComboBoxOptionOption } from '@opensearch-project/oui';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
 import {
@@ -43,7 +44,7 @@ export const AddColumnPopOver = ({
   const [selectedFunction, setSelectedFunction] = useState([
     ACCELERATION_AGGREGRATION_FUNCTIONS[0],
   ]);
-  const [selectedField, setSelectedField] = useState([]);
+  const [selectedField, setSelectedField] = useState<EuiComboBoxOptionOption[]>([]);
   const [selectedAlias, setSeletedAlias] = useState('');
 
   const resetSelectedField = () => {

@@ -13,9 +13,13 @@ import {
   EuiSpacer,
   EuiText,
 } from '@elastic/eui';
-import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { CreateAccelerationForm, SkippingIndexRowType } from '../../../../../common/types';
+import { SKIPPING_INDEX_ACCELERATION_METHODS } from '../../../../../common/constants';
+import {
+  CreateAccelerationForm,
+  SkippingIndexAccMethodType,
+  SkippingIndexRowType,
+} from '../../../../../common/types';
 import { AddFieldsModal } from './add_fields_modal';
 import { DeleteFieldsModal } from './delete_fields_modal';
 
@@ -34,12 +38,6 @@ export const SkippingIndexBuilder = ({
 
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-
-  const accelerationMethods = [
-    { value: 'PARTITION', text: 'Partition' },
-    { value: 'VALUE_SET', text: 'Value Set' },
-    { value: 'MIN_MAX', text: 'Min Max' },
-  ];
 
   let modal;
 
@@ -67,13 +65,15 @@ export const SkippingIndexBuilder = ({
   };
 
   const onChangeAccelerationMethod = (
-    e: { target: { value: 'PARTITION' | 'VALUE_SET' | 'MIN_MAX' } },
+    e: React.ChangeEvent<HTMLSelectElement>,
     updateRow: SkippingIndexRowType
   ) => {
     setAccelerationFormData({
       ...accelerationFormData,
-      skippingIndexQueryData: _.map(accelerationFormData.skippingIndexQueryData, (row) =>
-        row.id === updateRow.id ? { ...row, accelerationMethod: e.target.value } : row
+      skippingIndexQueryData: accelerationFormData.skippingIndexQueryData.map((row) =>
+        row.id === updateRow.id
+          ? { ...row, accelerationMethod: e.target.value as SkippingIndexAccMethodType }
+          : row
       ),
     });
   };
@@ -96,7 +96,7 @@ export const SkippingIndexBuilder = ({
       render: (item: SkippingIndexRowType) => (
         <EuiSelect
           id="selectDocExample"
-          options={accelerationMethods}
+          options={SKIPPING_INDEX_ACCELERATION_METHODS}
           value={item.accelerationMethod}
           onChange={(e) => onChangeAccelerationMethod(e, item)}
           aria-label="Use aria labels when no actual label is in use"
@@ -111,8 +111,7 @@ export const SkippingIndexBuilder = ({
             onClick={() => {
               setAccelerationFormData({
                 ...accelerationFormData,
-                skippingIndexQueryData: _.filter(
-                  accelerationFormData.skippingIndexQueryData,
+                skippingIndexQueryData: accelerationFormData.skippingIndexQueryData.filter(
                   (o) => item.id !== o.id
                 ),
               });
@@ -153,7 +152,7 @@ export const SkippingIndexBuilder = ({
   return (
     <>
       <EuiText data-test-subj="skipping-index-builder">
-        <h3>Skipping Index Builder</h3>
+        <h3>Skipping index definition</h3>
       </EuiText>
       <EuiSpacer size="s" />
       <EuiBasicTable
@@ -166,6 +165,7 @@ export const SkippingIndexBuilder = ({
         pagination={pagination}
         onChange={({ page }) => onTableChange(page)}
         hasActions={true}
+        error={accelerationFormData.formErrors.skippingIndexError.join('')}
       />
       <EuiFlexGroup gutterSize="s" alignItems="center" responsive={false} wrap>
         <EuiFlexItem grow={false}>
