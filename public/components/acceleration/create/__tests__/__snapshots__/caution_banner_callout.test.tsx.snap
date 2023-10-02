@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Acceleration callout renders acceleration flyout callout 1`] = `ReactWrapper {}`;

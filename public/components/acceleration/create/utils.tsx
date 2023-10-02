@@ -100,10 +100,10 @@ export const validateMaterializedViewData = (
   if (materializedViewQueryData.columnsValues.length < 1)
     return ['Add columns to materialized view definition'];
 
-  if (materializedViewQueryData.groupByTumbleValue.timeField !== '')
+  if (materializedViewQueryData.groupByTumbleValue.timeField === '')
     return ['Add a time field to tumble function in materialized view definition'];
 
-  if (materializedViewQueryData.groupByTumbleValue.tumbleWindow > 0)
+  if (materializedViewQueryData.groupByTumbleValue.tumbleWindow < 1)
     return ['Add a valid time window to tumble function in materialized view definition'];
   return [];
 };

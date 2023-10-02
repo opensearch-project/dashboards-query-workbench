@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create acceleration flyout components renders acceleration flyout component with default options 1`] = `ReactWrapper {}`;

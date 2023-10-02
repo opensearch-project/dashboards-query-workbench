@@ -13,6 +13,7 @@ import {
   EuiFormRow,
   EuiPopover,
 } from '@elastic/eui';
+import producer from 'immer';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
@@ -21,6 +22,7 @@ import {
   CreateAccelerationForm,
   MaterializedViewColumn,
 } from '../../../../../common/types';
+import { validateMaterializedViewData } from '../../create/utils';
 
 interface ColumnExpressionProps {
   index: number;
@@ -28,6 +30,7 @@ interface ColumnExpressionProps {
   columnExpressionValues: MaterializedViewColumn[];
   setColumnExpressionValues: React.Dispatch<React.SetStateAction<MaterializedViewColumn[]>>;
   accelerationFormData: CreateAccelerationForm;
+  setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
 
 export const ColumnExpression = ({
@@ -36,6 +39,7 @@ export const ColumnExpression = ({
   columnExpressionValues,
   setColumnExpressionValues,
   accelerationFormData,
+  setAccelerationFormData,
 }: ColumnExpressionProps) => {
   const [isFunctionPopOverOpen, setIsFunctionPopOverOpen] = useState(false);
   const [isAliasPopOverOpen, setIsAliasPopOverOpen] = useState(false);
@@ -44,6 +48,22 @@ export const ColumnExpression = ({
     const updatedArray = [...columnExpressionValues];
     updatedArray[index] = newValue;
     setColumnExpressionValues(updatedArray);
+  };
+
+  const onDeleteColumnExpression = () => {
+    const newColumnExpresionValue = [
+      ..._.filter(columnExpressionValues, (o) => o.id !== currentColumnExpressionValue.id),
+    ];
+    setAccelerationFormData(
+      producer((accData) => {
+        accData.materializedViewQueryData.columnsValues = newColumnExpresionValue;
+        accData.formErrors.materializedViewError = validateMaterializedViewData(
+          accData.accelerationIndexType,
+          accData.materializedViewQueryData
+        );
+      })
+    );
+    setColumnExpressionValues(newColumnExpresionValue);
   };
 
   return (
@@ -89,6 +109,7 @@ export const ColumnExpression = ({
                           index
                         )
                       }
+                      isClearable={false}
                     />
                   </EuiFormRow>
                 </EuiFlexItem>
@@ -116,6 +137,7 @@ export const ColumnExpression = ({
                           index
                         )
                       }
+                      isClearable={false}
                     />
                   </EuiFormRow>
                 </EuiFlexItem>
@@ -162,14 +184,7 @@ export const ColumnExpression = ({
         <EuiFlexItem grow={false}>
           <EuiButtonIcon
             color="danger"
-            onClick={() => {
-              setColumnExpressionValues([
-                ..._.filter(
-                  columnExpressionValues,
-                  (o) => o.id !== currentColumnExpressionValue.id
-                ),
-              ]);
-            }}
+            onClick={onDeleteColumnExpression}
             iconType="trash"
             aria-label="delete-column-expression"
           />

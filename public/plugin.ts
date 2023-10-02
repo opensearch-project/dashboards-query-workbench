@@ -4,8 +4,8 @@
  */
 
 import { AppMountParameters, CoreSetup, CoreStart, Plugin } from '../../../src/core/public';
-import { WorkbenchPluginSetup, WorkbenchPluginStart, AppPluginStartDependencies } from './types';
 import { PLUGIN_NAME } from '../common/constants';
+import { AppPluginStartDependencies, WorkbenchPluginSetup, WorkbenchPluginStart } from './types';
 
 export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPluginStart> {
   public setup(core: CoreSetup): WorkbenchPluginSetup {

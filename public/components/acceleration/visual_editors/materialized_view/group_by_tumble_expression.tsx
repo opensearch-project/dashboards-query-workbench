@@ -14,10 +14,11 @@ import {
   EuiPopover,
   EuiSelect,
 } from '@elastic/eui';
-import React, { useEffect, useState } from 'react';
+import producer from 'immer';
+import React, { useState } from 'react';
 import { ACCELERATION_TIME_INTERVAL } from '../../../../../common/constants';
 import { CreateAccelerationForm, GroupByTumbleType } from '../../../../../common/types';
-import { pluralizeTime } from '../../create/utils';
+import { hasError, pluralizeTime, validateMaterializedViewData } from '../../create/utils';
 
 interface GroupByTumbleExpressionProps {
   accelerationFormData: CreateAccelerationForm;
@@ -35,28 +36,35 @@ export const GroupByTumbleExpression = ({
     tumbleInterval: ACCELERATION_TIME_INTERVAL[0].value,
   });
 
+  const updateGroupByStates = (newGroupByValue: GroupByTumbleType) => {
+    setGroupByValues(newGroupByValue);
+    setAccelerationFormData(
+      producer((accData) => {
+        accData.materializedViewQueryData.groupByTumbleValue = newGroupByValue;
+        accData.formErrors.materializedViewError = validateMaterializedViewData(
+          accData.accelerationIndexType,
+          accData.materializedViewQueryData
+        );
+      })
+    );
+  };
+
   const onChangeTumbleWindow = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGroupByValues({ ...groupbyValues, tumbleWindow: +e.target.value });
+    const newGroupByValue = { ...groupbyValues, tumbleWindow: +e.target.value };
+    updateGroupByStates(newGroupByValue);
   };
 
   const onChangeTumbleInterval = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setGroupByValues({ ...groupbyValues, tumbleInterval: e.target.value });
+    const newGroupByValue = { ...groupbyValues, tumbleInterval: e.target.value };
+    updateGroupByStates(newGroupByValue);
   };
 
   const onChangeTimeField = (selectedOptions: EuiComboBoxOptionOption[]) => {
-    if (selectedOptions.length > 0)
-      setGroupByValues({ ...groupbyValues, timeField: selectedOptions[0].label });
+    if (selectedOptions.length > 0) {
+      const newGroupByValue = { ...groupbyValues, timeField: selectedOptions[0].label };
+      updateGroupByStates(newGroupByValue);
+    }
   };
-
-  useEffect(() => {
-    setAccelerationFormData({
-      ...accelerationFormData,
-      materializedViewQueryData: {
-        ...accelerationFormData.materializedViewQueryData,
-        groupByTumbleValue: groupbyValues,
-      },
-    });
-  }, [groupbyValues]);
 
   return (
     <EuiFlexItem grow={false}>
@@ -70,7 +78,10 @@ export const GroupByTumbleExpression = ({
             }${pluralizeTime(groupbyValues.tumbleWindow)}')`}
             isActive={IsGroupPopOverOpen}
             onClick={() => setIsGroupPopOverOpen(true)}
-            isInvalid={groupbyValues.timeField === ''}
+            isInvalid={
+              hasError(accelerationFormData.formErrors, 'materializedViewError') &&
+              groupbyValues.timeField === ''
+            }
           />
         }
         isOpen={IsGroupPopOverOpen}
@@ -89,6 +100,7 @@ export const GroupByTumbleExpression = ({
                   .map((value) => ({ label: value.fieldName }))}
                 selectedOptions={[{ label: groupbyValues.timeField }]}
                 onChange={onChangeTimeField}
+                isClearable={false}
               />
             </EuiFormRow>
           </EuiFlexItem>

@@ -103,7 +103,7 @@ export const CreateAcceleration = ({
           <EuiForm
             isInvalid={hasError(accelerationFormData.formErrors)}
             error={Object.values(accelerationFormData.formErrors).flat()}
-            component="form"
+            component="div"
             id="acceleration-form"
           >
             <AccelerationDataSourceSelector
