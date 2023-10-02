@@ -13,6 +13,7 @@ import {
   EuiSpacer,
   EuiText,
 } from '@elastic/eui';
+import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { SKIPPING_INDEX_ACCELERATION_METHODS } from '../../../../../common/constants';
 import {
@@ -20,6 +21,7 @@ import {
   SkippingIndexAccMethodType,
   SkippingIndexRowType,
 } from '../../../../../common/types';
+import { validateSkippingIndexData } from '../../create/utils';
 import { AddFieldsModal } from './add_fields_modal';
 import { DeleteFieldsModal } from './delete_fields_modal';
 
@@ -139,7 +141,15 @@ export const SkippingIndexBuilder = ({
           accelerationMethod: 'PARTITION',
         },
       ];
-      setAccelerationFormData({ ...accelerationFormData, skippingIndexQueryData: tableRows });
+      setAccelerationFormData(
+        producer((accData) => {
+          accData.skippingIndexQueryData = tableRows;
+          accData.formErrors.skippingIndexError = validateSkippingIndexData(
+            accData.accelerationIndexType,
+            tableRows
+          );
+        })
+      );
     } else {
       setAccelerationFormData({ ...accelerationFormData, skippingIndexQueryData: [] });
     }

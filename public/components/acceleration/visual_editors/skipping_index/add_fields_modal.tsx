@@ -13,6 +13,7 @@ import {
   EuiModalHeaderTitle,
   EuiTableFieldDataColumnType,
 } from '@elastic/eui';
+import producer from 'immer';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import {
@@ -20,6 +21,7 @@ import {
   DataTableFieldsType,
   SkippingIndexRowType,
 } from '../../../../../common/types';
+import { validateSkippingIndexData } from '../../create/utils';
 
 interface AddFieldsModalProps {
   setIsAddModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -85,15 +87,19 @@ export const AddFieldsModal = ({
         <EuiButton onClick={() => setIsAddModalVisible(false)}>Cancel</EuiButton>
         <EuiButton
           onClick={() => {
-            setAccelerationFormData({
-              ...accelerationFormData,
-              skippingIndexQueryData: [
-                ...accelerationFormData.skippingIndexQueryData,
-                ...selectedFields.map((x) => {
-                  return { ...x, accelerationMethod: 'PARTITION' } as SkippingIndexRowType;
-                }),
-              ],
-            });
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.skippingIndexQueryData.push(
+                  ...selectedFields.map((x) => {
+                    return { ...x, accelerationMethod: 'PARTITION' } as SkippingIndexRowType;
+                  })
+                );
+                accData.formErrors.skippingIndexError = validateSkippingIndexData(
+                  accData.accelerationIndexType,
+                  accData.skippingIndexQueryData
+                );
+              })
+            );
             setIsAddModalVisible(false);
           }}
           fill
