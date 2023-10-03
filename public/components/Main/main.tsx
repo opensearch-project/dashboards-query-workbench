@@ -540,7 +540,7 @@ export class Main extends React.Component<MainProps, MainState> {
   cancelAsyncQuery = async () => {
     Promise.all([
       this.httpClient
-        .delete('/api/spark_sql_console/cancel/' + this.state.asyncJobId)
+        .delete('/api/spark_sql_console/job/' + this.state.asyncJobId)
         .catch((error: any) => {
           this.setState({
             messages: [

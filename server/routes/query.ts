@@ -17,8 +17,7 @@ import {
   ROUTE_PATH_PPL_JSON,
   ROUTE_PATH_PPL_TEXT,
   ROUTE_PATH_SPARK_SQL_QUERY,
-  ROUTE_PATH_SPARK_SQL_GET_QUERY,
-  ROUTE_PATH_ASYNC_QUERY_CANCEL,
+  ROUTE_PATH_SPARK_SQL_JOB_QUERY,
 } from '../utils/constants';
 
 export default function query(server: IRouter, service: QueryService) {
@@ -159,7 +158,7 @@ export default function query(server: IRouter, service: QueryService) {
 
   server.get(
     {
-      path: ROUTE_PATH_SPARK_SQL_GET_QUERY + "/{id}",
+      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}",
       validate: {
         params: schema.object({
           id: schema.string(),
@@ -176,7 +175,7 @@ export default function query(server: IRouter, service: QueryService) {
 
   server.delete(
     {
-      path: ROUTE_PATH_ASYNC_QUERY_CANCEL + "/{id}",
+      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}",
       validate: {
         params: schema.object({
           id: schema.string(),
