@@ -11,8 +11,10 @@ import {
   EuiText,
   htmlIdGenerator,
 } from '@elastic/eui';
+import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CreateAccelerationForm } from '../../../../common/types';
+import { hasError, validateDataSource } from '../create/utils';
 
 interface AccelerationDataSourceSelectorProps {
   accelerationFormData: CreateAccelerationForm;
@@ -109,6 +111,8 @@ export const AccelerationDataSourceSelector = ({
       <EuiFormRow
         label="Data source"
         helpText="A data source has to be configured and active to be able to select it and index data from."
+        isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
+        error={accelerationFormData.formErrors.dataSourceError}
       >
         <EuiComboBox
           placeholder="Select a data source"
@@ -116,39 +120,49 @@ export const AccelerationDataSourceSelector = ({
           options={dataConnections}
           selectedOptions={selectedDataConnection}
           onChange={(dataConnectionOptions) => {
-            setAccelerationFormData({
-              ...accelerationFormData,
-              dataSource: dataConnectionOptions[0].label,
-            });
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.dataSource = dataConnectionOptions[0].label;
+                accData.formErrors.dataSourceError = validateDataSource(
+                  dataConnectionOptions[0].label
+                );
+              })
+            );
             setSelectedDataConnection(dataConnectionOptions);
           }}
-          isInvalid={selectedDataConnection.length === 0}
           isClearable={false}
+          isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
         />
       </EuiFormRow>
       <EuiFormRow
         label="Database"
         helpText="Select the database that contains the tables you'd like to use."
+        isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
+        error={accelerationFormData.formErrors.databaseError}
       >
         <EuiComboBox
           placeholder="Select a database"
           singleSelection={{ asPlainText: true }}
           options={databases}
           selectedOptions={selectedDatabase}
-          onChange={(tableOptions) => {
-            setAccelerationFormData({
-              ...accelerationFormData,
-              database: tableOptions[0].label,
-            });
-            setSelectedDatabase(tableOptions);
+          onChange={(databaseOptions) => {
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.database = databaseOptions[0].label;
+                accData.formErrors.databaseError = validateDataSource(databaseOptions[0].label);
+              })
+            );
+            setSelectedDatabase(databaseOptions);
           }}
-          isInvalid={selectedDatabase.length === 0}
           isClearable={false}
+          isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
         />
       </EuiFormRow>
       <EuiFormRow
         label="Table"
         helpText="Select the Spark table that has the data you would like to index."
+        isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}
+        error={accelerationFormData.formErrors.dataTableError}
       >
         <EuiComboBox
           placeholder="Select a table"
@@ -156,14 +170,16 @@ export const AccelerationDataSourceSelector = ({
           options={tables}
           selectedOptions={selectedTable}
           onChange={(tableOptions) => {
-            setAccelerationFormData({
-              ...accelerationFormData,
-              dataTable: tableOptions[0].label,
-            });
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.dataTable = tableOptions[0].label;
+                accData.formErrors.dataTableError = validateDataSource(tableOptions[0].label);
+              })
+            );
             setSelectedTable(tableOptions);
           }}
-          isInvalid={selectedTable.length === 0}
           isClearable={false}
+          isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}
         />
       </EuiFormRow>
     </>

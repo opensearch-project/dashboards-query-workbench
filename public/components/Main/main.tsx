@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { 
-  EuiButton, 
-  EuiFlexGroup, 
+import {
+  EuiButton,
+  EuiComboBox,
+  EuiFlexGroup,
   EuiFlexItem,
-  EuiSpacer, 
-  EuiPageSideBar , 
-  EuiPanel, 
-  EuiPage, 
+  EuiPage,
   EuiPageContent,
-  EuiPageContentBody, 
-  EuiComboBox, 
-  EuiText, 
+  EuiPageContentBody,
+  EuiPageSideBar,
+  EuiPanel,
+  EuiSpacer,
+  EuiText,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
@@ -22,17 +22,17 @@ import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
+  Tree,
   getDefaultTabId,
   getDefaultTabLabel,
   getQueries,
   getSelectedResults,
-  Tree,
 } from '../../utils/utils';
 import { PPLPage } from '../PPLPage/PPLPage';
 import Switch from '../QueryLanguageSwitch/Switch';
 import QueryResults from '../QueryResults/QueryResults';
 import { SQLPage } from '../SQLPage/SQLPage';
-import { TableView } from '../SQLPage/TableView'
+import { TableView } from '../SQLPage/TableView';
 
 interface ResponseData {
   ok: boolean;
@@ -217,7 +217,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.onChange = this.onChange.bind(this);
     this.state = {
       language: 'SQL',
-      sqlQueriesString: 'SHOW tables LIKE %;',
+      sqlQueriesString: "SHOW tables LIKE '%';",
       pplQueriesString: '',
       queries: [],
       queryTranslations: [],
@@ -232,7 +232,7 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
-      selectedDatasource: ''
+      selectedDatasource: '',
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -607,11 +607,11 @@ export class Main extends React.Component<MainProps, MainState> {
     ); // added callback function to handle async issues
   };
 
-  updateSQLQueries(query: string) {
+  updateSQLQueries = (query: string) => {
     this.setState({
       sqlQueriesString: query,
     });
-  }
+  };
 
   updatePPLQueries(query: string) {
     this.setState({
@@ -626,10 +626,10 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   handleComboOptionChange = (selectedOption: string) => {
-    this.setState({ 
-      selectedDatasource: selectedOption });
+    this.setState({
+      selectedDatasource: selectedOption,
+    });
   };
-
 
   render() {
     let page;
@@ -645,6 +645,7 @@ export class Main extends React.Component<MainProps, MainState> {
           sqlQuery={this.state.sqlQueriesString}
           sqlTranslations={this.state.queryTranslations}
           updateSQLQueries={this.updateSQLQueries}
+          selectedDatasource={this.state.selectedDatasource}
         />
       );
       link = 'https://opensearch.org/docs/latest/search-plugins/sql/index/';
@@ -706,17 +707,19 @@ export class Main extends React.Component<MainProps, MainState> {
 
     return (
       <>
-        <EuiFlexGroup direction='row' alignItems='center'>
+        <EuiFlexGroup direction="row" alignItems="center">
           <EuiFlexItem>
             <EuiText>Data Sources</EuiText>
             <EuiComboBox
               singleSelection={true}
-              placeholder='Connection Name'
+              placeholder="Connection Name"
               options={[
                 { label: 'S3', value: 'S3' },
                 { label: 'Opensearch', value: 'Opensearch' },
               ]}
-              selectedOptions={this.state.selectedDatasource ? [{ label: this.state.selectedDatasource }] : []}
+              selectedOptions={
+                this.state.selectedDatasource ? [{ label: this.state.selectedDatasource }] : []
+              }
               onChange={(selectedOptions) => {
                 const selectedValue = selectedOptions[0] ? selectedOptions[0].value : '';
                 this.handleComboOptionChange(selectedValue);
@@ -733,26 +736,22 @@ export class Main extends React.Component<MainProps, MainState> {
             </EuiButton>
           </EuiFlexItem>
         </EuiFlexGroup>
-        <EuiPage paddingSize='none'>
+        <EuiPage paddingSize="none">
           {this.state.language === 'SQL' && (
             <EuiPanel>
               <EuiPageSideBar>
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
-                      <EuiButton
-                        iconType="arrowDown"
-                        iconSide="right"
-                        fullWidth
-                      >
+                      <EuiButton iconType="arrowDown" iconSide="right" fullWidth>
                         Create
                       </EuiButton>
                     </EuiFlexItem>
                     <EuiSpacer />
-                    <TableView 
-                      http={this.httpClient} 
+                    <TableView
+                      http={this.httpClient}
                       dataConnection={this.state.selectedDatasource}
-                      />
+                    />
                     <EuiSpacer />
                   </EuiFlexItem>
                 </EuiFlexGroup>
@@ -760,56 +759,54 @@ export class Main extends React.Component<MainProps, MainState> {
             </EuiPanel>
           )}
 
-          <EuiPageContent paddingSize='m'>
+          <EuiPageContent paddingSize="m">
             <EuiPageContentBody>
-              <EuiFlexGroup alignItems="center">
-              </EuiFlexGroup>
+              <EuiFlexGroup alignItems="center"></EuiFlexGroup>
               <EuiSpacer size="l" />
               <div>{page}</div>
-          <EuiSpacer size="l" />
-          <div className="sql-console-query-result">
-            <QueryResults
-              language={this.state.language}
-              queries={this.state.queries}
-              queryResults={this.state.queryResultsTable}
-              queryResultsJDBC={getSelectedResults(
-                this.state.queryResults,
-                this.state.selectedTabId
-              )}
-              queryResultsJSON={getSelectedResults(
-                this.state.queryResultsJSON,
-                this.state.selectedTabId
-              )}
-              queryResultsCSV={getSelectedResults(
-                this.state.queryResultsCSV,
-                this.state.selectedTabId
-              )}
-              queryResultsTEXT={getSelectedResults(
-                this.state.queryResultsTEXT,
-                this.state.selectedTabId
-              )}
-              messages={this.state.messages}
-              selectedTabId={this.state.selectedTabId}
-              selectedTabName={this.state.selectedTabName}
-              onSelectedTabIdChange={this.onSelectedTabIdChange}
-              itemIdToExpandedRowMap={this.state.itemIdToExpandedRowMap}
-              onQueryChange={this.onQueryChange}
-              updateExpandedMap={this.updateExpandedMap}
-              searchQuery={this.state.searchQuery}
-              tabsOverflow={false}
-              getJson={this.getJson}
-              getJdbc={this.getJdbc}
-              getCsv={this.getCsv}
-              getText={this.getText}
-              isResultFullScreen={this.state.isResultFullScreen}
-              setIsResultFullScreen={this.setIsResultFullScreen}
-            />
-          </div>
-          </EuiPageContentBody>
-        </EuiPageContent>
-      </EuiPage>
+              <EuiSpacer size="l" />
+              <div className="sql-console-query-result">
+                <QueryResults
+                  language={this.state.language}
+                  queries={this.state.queries}
+                  queryResults={this.state.queryResultsTable}
+                  queryResultsJDBC={getSelectedResults(
+                    this.state.queryResults,
+                    this.state.selectedTabId
+                  )}
+                  queryResultsJSON={getSelectedResults(
+                    this.state.queryResultsJSON,
+                    this.state.selectedTabId
+                  )}
+                  queryResultsCSV={getSelectedResults(
+                    this.state.queryResultsCSV,
+                    this.state.selectedTabId
+                  )}
+                  queryResultsTEXT={getSelectedResults(
+                    this.state.queryResultsTEXT,
+                    this.state.selectedTabId
+                  )}
+                  messages={this.state.messages}
+                  selectedTabId={this.state.selectedTabId}
+                  selectedTabName={this.state.selectedTabName}
+                  onSelectedTabIdChange={this.onSelectedTabIdChange}
+                  itemIdToExpandedRowMap={this.state.itemIdToExpandedRowMap}
+                  onQueryChange={this.onQueryChange}
+                  updateExpandedMap={this.updateExpandedMap}
+                  searchQuery={this.state.searchQuery}
+                  tabsOverflow={false}
+                  getJson={this.getJson}
+                  getJdbc={this.getJdbc}
+                  getCsv={this.getCsv}
+                  getText={this.getText}
+                  isResultFullScreen={this.state.isResultFullScreen}
+                  setIsResultFullScreen={this.setIsResultFullScreen}
+                />
+              </div>
+            </EuiPageContentBody>
+          </EuiPageContent>
+        </EuiPage>
       </>
-      
     );
   }
 }

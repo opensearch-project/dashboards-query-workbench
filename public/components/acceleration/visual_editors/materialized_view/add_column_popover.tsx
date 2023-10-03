@@ -17,6 +17,8 @@ import {
   EuiSpacer,
   htmlIdGenerator,
 } from '@elastic/eui';
+import { EuiComboBoxOptionOption } from '@opensearch-project/oui';
+import producer from 'immer';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
 import {
@@ -24,6 +26,7 @@ import {
   CreateAccelerationForm,
   MaterializedViewColumn,
 } from '../../../../../common/types';
+import { validateMaterializedViewData } from '../../create/utils';
 
 interface AddColumnPopOverProps {
   isColumnPopOverOpen: boolean;
@@ -31,6 +34,7 @@ interface AddColumnPopOverProps {
   columnExpressionValues: MaterializedViewColumn[];
   setColumnExpressionValues: React.Dispatch<React.SetStateAction<MaterializedViewColumn[]>>;
   accelerationFormData: CreateAccelerationForm;
+  setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
 
 export const AddColumnPopOver = ({
@@ -39,11 +43,12 @@ export const AddColumnPopOver = ({
   columnExpressionValues,
   setColumnExpressionValues,
   accelerationFormData,
+  setAccelerationFormData,
 }: AddColumnPopOverProps) => {
   const [selectedFunction, setSelectedFunction] = useState([
     ACCELERATION_AGGREGRATION_FUNCTIONS[0],
   ]);
-  const [selectedField, setSelectedField] = useState([]);
+  const [selectedField, setSelectedField] = useState<EuiComboBoxOptionOption[]>([]);
   const [selectedAlias, setSeletedAlias] = useState('');
 
   const resetSelectedField = () => {
@@ -61,6 +66,31 @@ export const AddColumnPopOver = ({
 
   const onChangeAlias = (e: ChangeEvent<HTMLInputElement>) => {
     setSeletedAlias(e.target.value);
+  };
+
+  const onAddExpression = () => {
+    const newColumnExpresionValue = [
+      ...columnExpressionValues,
+      {
+        id: htmlIdGenerator()(),
+        functionName: selectedFunction[0].label as AggregationFunctionType,
+        functionParam: selectedField[0].label,
+        fieldAlias: selectedAlias,
+      },
+    ];
+
+    setAccelerationFormData(
+      producer((accData) => {
+        accData.materializedViewQueryData.columnsValues = newColumnExpresionValue;
+        accData.formErrors.materializedViewError = validateMaterializedViewData(
+          accData.accelerationIndexType,
+          accData.materializedViewQueryData
+        );
+      })
+    );
+
+    setColumnExpressionValues(newColumnExpresionValue);
+    setIsColumnPopOverOpen(false);
   };
 
   useEffect(() => {
@@ -96,6 +126,7 @@ export const AddColumnPopOver = ({
                 options={ACCELERATION_AGGREGRATION_FUNCTIONS}
                 selectedOptions={selectedFunction}
                 onChange={setSelectedFunction}
+                isClearable={false}
               />
             </EuiFormRow>
           </EuiFlexItem>
@@ -109,6 +140,7 @@ export const AddColumnPopOver = ({
                 ]}
                 selectedOptions={selectedField}
                 onChange={setSelectedField}
+                isClearable={false}
               />
             </EuiFormRow>
           </EuiFlexItem>
@@ -119,22 +151,7 @@ export const AddColumnPopOver = ({
         </EuiFormRow>
       </>
       <EuiPopoverFooter>
-        <EuiButton
-          size="s"
-          fill
-          onClick={() => {
-            setColumnExpressionValues([
-              ...columnExpressionValues,
-              {
-                id: htmlIdGenerator()(),
-                functionName: selectedFunction[0].label as AggregationFunctionType,
-                functionParam: selectedField[0].label,
-                fieldAlias: selectedAlias,
-              },
-            ]);
-            setIsColumnPopOverOpen(false);
-          }}
-        >
+        <EuiButton size="s" fill onClick={onAddExpression}>
           Add
         </EuiButton>
       </EuiPopoverFooter>

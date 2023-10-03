@@ -11,9 +11,15 @@ import {
   EuiText,
   htmlIdGenerator,
 } from '@elastic/eui';
+import producer from 'immer';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { CreateAccelerationForm, MaterializedViewColumn } from '../../../../../common/types';
+import {
+  AggregationFunctionType,
+  CreateAccelerationForm,
+  MaterializedViewColumn,
+} from '../../../../../common/types';
+import { hasError, validateMaterializedViewData } from '../../create/utils';
 import { AddColumnPopOver } from './add_column_popover';
 import { ColumnExpression } from './column_expression';
 import { GroupByTumbleExpression } from './group_by_tumble_expression';
@@ -36,26 +42,26 @@ export const MaterializedViewBuilder = ({
 
   useEffect(() => {
     if (accelerationFormData.dataTableFields.length > 0) {
-      setColumnExpressionValues([
+      const newColumnExpresionValue = [
         {
           id: newColumnExpressionId,
-          functionName: 'count',
+          functionName: 'count' as AggregationFunctionType,
           functionParam: accelerationFormData.dataTableFields[0].fieldName,
           fieldAlias: 'counter1',
         },
-      ]);
+      ];
+      setAccelerationFormData(
+        producer((accData) => {
+          accData.materializedViewQueryData.columnsValues = newColumnExpresionValue;
+          accData.formErrors.materializedViewError = validateMaterializedViewData(
+            accData.accelerationIndexType,
+            accData.materializedViewQueryData
+          );
+        })
+      );
+      setColumnExpressionValues(newColumnExpresionValue);
     }
   }, [accelerationFormData.dataTableFields]);
-
-  useEffect(() => {
-    setAccelerationFormData({
-      ...accelerationFormData,
-      materializedViewQueryData: {
-        ...accelerationFormData.materializedViewQueryData,
-        columnsValues: columnExpressionValues,
-      },
-    });
-  }, [columnExpressionValues]);
 
   return (
     <>
@@ -74,7 +80,15 @@ export const MaterializedViewBuilder = ({
 
       <EuiFlexGroup>
         <EuiFlexItem grow={false}>
-          <EuiExpression color="accent" description="AS SELECT" value="" />
+          <EuiExpression
+            color="accent"
+            description="AS SELECT"
+            value=""
+            isInvalid={
+              hasError(accelerationFormData.formErrors, 'materializedViewError') &&
+              columnExpressionValues.length < 1
+            }
+          />
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
           <AddColumnPopOver
@@ -83,6 +97,7 @@ export const MaterializedViewBuilder = ({
             columnExpressionValues={columnExpressionValues}
             setColumnExpressionValues={setColumnExpressionValues}
             accelerationFormData={accelerationFormData}
+            setAccelerationFormData={setAccelerationFormData}
           />
         </EuiFlexItem>
       </EuiFlexGroup>
@@ -95,6 +110,7 @@ export const MaterializedViewBuilder = ({
               columnExpressionValues={columnExpressionValues}
               setColumnExpressionValues={setColumnExpressionValues}
               accelerationFormData={accelerationFormData}
+              setAccelerationFormData={setAccelerationFormData}
             />
           );
         })}

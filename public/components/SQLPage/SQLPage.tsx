@@ -3,43 +3,43 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
-import React from "react";
 import {
-  EuiPanel,
   EuiButton,
+  EuiCodeBlock,
+  EuiCodeEditor,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiOverlayMask,
   EuiModal,
-  EuiModalHeader,
-  EuiModalHeaderTitle,
   EuiModalBody,
   EuiModalFooter,
-  EuiCodeBlock,
-  EuiText,
-  EuiCodeEditor,
+  EuiModalHeader,
+  EuiModalHeaderTitle,
+  EuiOverlayMask,
+  EuiPanel,
   EuiSpacer,
-} from "@elastic/eui";
-import { ResponseDetail, TranslateResult } from '../Main/main';
-import _ from 'lodash';
-import "brace/mode/sql";
-import "../../ace-themes/sql_console";
+} from '@elastic/eui';
 import 'brace/ext/language_tools';
+import 'brace/mode/sql';
+import React from 'react';
+import '../../ace-themes/sql_console';
+import { ResponseDetail, TranslateResult } from '../Main/main';
+import { CreateAcceleration } from '../acceleration/create/create_acceleration';
 
 interface SQLPageProps {
-  onRun: (query: string) => void,
-  onTranslate: (query: string) => void,
-  onClear: () => void,
-  updateSQLQueries: (query: string) => void
-  sqlQuery: string,
-  sqlTranslations: ResponseDetail<TranslateResult>[]
+  onRun: (query: string) => void;
+  onTranslate: (query: string) => void;
+  onClear: () => void;
+  updateSQLQueries: (query: string) => void;
+  sqlQuery: string;
+  sqlTranslations: ResponseDetail<TranslateResult>[];
+  selectedDatasource: string;
 }
 
 interface SQLPageState {
-  sqlQuery: string,
-  translation: string,
-  isModalVisible: boolean
+  sqlQuery: string;
+  translation: string;
+  isModalVisible: boolean;
+  flyoutComponent: JSX.Element;
 }
 
 export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
@@ -47,19 +47,35 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
     super(props);
     this.state = {
       sqlQuery: this.props.sqlQuery,
-      translation: "",
-      isModalVisible: false
+      translation: '',
+      isModalVisible: false,
+      flyoutComponent: <></>,
     };
   }
 
   setIsModalVisible(visible: boolean): void {
     this.setState({
-      isModalVisible: visible
-    })
+      isModalVisible: visible,
+    });
   }
 
-  render() {
+  resetFlyout = () => {
+    this.setState({ flyoutComponent: <></> });
+  };
 
+  setAccelerationFlyout = () => {
+    this.setState({
+      flyoutComponent: (
+        <CreateAcceleration
+          dataSource="ds"
+          resetFlyout={this.resetFlyout}
+          updateQueries={this.props.updateSQLQueries}
+        />
+      ),
+    });
+  };
+
+  render() {
     const closeModal = () => this.setIsModalVisible(false);
     const showModal = () => this.setIsModalVisible(true);
 
@@ -68,11 +84,13 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
         return this.props.sqlTranslations[0].fulfilled;
       }
       return false;
-    }
+    };
 
     const explainContent = sqlTranslationsNotEmpty()
-    ? this.props.sqlTranslations.map((queryTranslation: any) => JSON.stringify(queryTranslation.data, null, 2)).join("\n")
-    : 'This query is not explainable.';
+      ? this.props.sqlTranslations
+          .map((queryTranslation: any) => JSON.stringify(queryTranslation.data, null, 2))
+          .join('\n')
+      : 'This query is not explainable.';
 
     let modal;
 
@@ -85,11 +103,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
             </EuiModalHeader>
 
             <EuiModalBody>
-              <EuiCodeBlock
-                language="json"
-                fontSize="m"
-                isCopyable
-              >
+              <EuiCodeBlock language="json" fontSize="m" isCopyable>
                 {explainContent}
               </EuiCodeBlock>
             </EuiModalBody>
@@ -97,7 +111,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
             <EuiModalFooter>
               <EuiButton onClick={closeModal} fill>
                 Close
-            </EuiButton>
+              </EuiButton>
             </EuiModalFooter>
           </EuiModal>
         </EuiOverlayMask>
@@ -105,60 +119,68 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
     }
 
     return (
-      <EuiPanel className="sql-console-query-editor container-panel" paddingSize="m">
-        <EuiSpacer size="s" />
-        <EuiCodeEditor
-          mode="sql"
-          theme="sql_console"
-          width="100%"
-          height="7rem"
-          value={this.props.sqlQuery}
-          onChange={this.props.updateSQLQueries}
-          showPrintMargin={false}
-          setOptions={{
-            fontSize: "14px",
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true
-          }}
-          aria-label="Code Editor"
-        />
-        <EuiSpacer />
-        <EuiFlexGroup className="action-container" gutterSize="m">
-          <EuiFlexItem
-            grow={false}
-            onClick={() => this.props.onRun(this.props.sqlQuery)}
-          >
-            <EuiButton fill={true} className="sql-editor-button" >
-              Run
-            </EuiButton>
-          </EuiFlexItem>
-          <EuiFlexItem
-            grow={false}
-            onClick={() => {
-              this.props.updateSQLQueries("");
-              this.props.onClear();
+      <>
+        <EuiPanel className="sql-console-query-editor container-panel" paddingSize="m">
+          <EuiSpacer size="s" />
+          <EuiCodeEditor
+            mode="sql"
+            theme="sql_console"
+            width="100%"
+            height="7rem"
+            value={this.props.sqlQuery}
+            onChange={this.props.updateSQLQueries}
+            showPrintMargin={false}
+            setOptions={{
+              fontSize: '14px',
+              enableBasicAutocompletion: true,
+              enableLiveAutocompletion: true,
             }}
-          >
-            <EuiButton className="sql-editor-button">
-              Clear
-            </EuiButton>
-          </EuiFlexItem>
-          <EuiFlexItem
-            grow={false}
-            onClick={() =>
-              this.props.onTranslate(this.props.sqlQuery)
-            }
-          >
-            <EuiButton
-              className="sql-editor-button"
-              onClick={showModal}
-            >
-              Explain
-            </EuiButton>
-            {modal}
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      </EuiPanel>
-    )
+            aria-label="Code Editor"
+          />
+          <EuiSpacer />
+          <EuiFlexGroup justifyContent="spaceBetween">
+            <EuiFlexItem>
+              <EuiFlexGroup className="action-container" gutterSize="m">
+                <EuiFlexItem grow={false} onClick={() => this.props.onRun(this.props.sqlQuery)}>
+                  <EuiButton fill={true} className="sql-editor-button">
+                    Run
+                  </EuiButton>
+                </EuiFlexItem>
+                <EuiFlexItem
+                  grow={false}
+                  onClick={() => {
+                    this.props.updateSQLQueries('');
+                    this.props.onClear();
+                  }}
+                >
+                  <EuiButton className="sql-editor-button">Clear</EuiButton>
+                </EuiFlexItem>
+                <EuiFlexItem
+                  grow={false}
+                  onClick={() => this.props.onTranslate(this.props.sqlQuery)}
+                >
+                  <EuiButton className="sql-editor-button" onClick={showModal}>
+                    Explain
+                  </EuiButton>
+                </EuiFlexItem>
+              </EuiFlexGroup>
+            </EuiFlexItem>
+            {this.props.selectedDatasource === 'S3' && (
+              <EuiFlexItem grow={false}>
+                <EuiButton
+                  fill={true}
+                  className="sql-accelerate-button"
+                  onClick={this.setAccelerationFlyout}
+                >
+                  Accelerate Table
+                </EuiButton>
+              </EuiFlexItem>
+            )}
+          </EuiFlexGroup>
+        </EuiPanel>
+        {modal}
+        {this.state.flyoutComponent}
+      </>
+    );
   }
 }

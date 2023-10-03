@@ -3,24 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import '@testing-library/jest-dom/extend-expect';
+import { fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import { SQLPage } from './SQLPage';
 
-import React from "react";
-import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent } from "@testing-library/react";
-import { SQLPage } from "./SQLPage";
-
-
-describe("<SQLPage /> spec", () => {
-
-  it("renders the component", () => {
+describe('<SQLPage /> spec', () => {
+  it('renders the component', () => {
     render(
       <SQLPage
-        onRun={() => { }}
-        onTranslate={() => { }}
-        onClear={() => { }}
-        updateSQLQueries={() => { }}
+        onRun={() => {}}
+        onTranslate={() => {}}
+        onClear={() => {}}
+        updateSQLQueries={() => {}}
         sqlTranslations={[]}
         sqlQuery={''}
+        selectedDatasource={''}
       />
     );
     expect(document.body.children[0]).toMatchSnapshot();
@@ -40,6 +38,7 @@ describe("<SQLPage /> spec", () => {
         updateSQLQueries={updateSQLQueries}
         sqlTranslations={[]}
         sqlQuery={''}
+        selectedDatasource={'S3'}
       />
     );
 
@@ -53,10 +52,5 @@ describe("<SQLPage /> spec", () => {
 
     fireEvent.click(getByText('Explain'));
     expect(onTranslate).toHaveBeenCalledTimes(1);
-
   });
-
 });
-
-
-

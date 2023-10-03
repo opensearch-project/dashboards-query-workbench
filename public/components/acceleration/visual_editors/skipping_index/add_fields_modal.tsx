@@ -13,9 +13,15 @@ import {
   EuiModalHeaderTitle,
   EuiTableFieldDataColumnType,
 } from '@elastic/eui';
+import producer from 'immer';
 import _ from 'lodash';
 import React, { useState } from 'react';
-import { CreateAccelerationForm, DataTableFieldsType } from '../../../../../common/types';
+import {
+  CreateAccelerationForm,
+  DataTableFieldsType,
+  SkippingIndexRowType,
+} from '../../../../../common/types';
+import { validateSkippingIndexData } from '../../create/utils';
 
 interface AddFieldsModalProps {
   setIsAddModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +34,7 @@ export const AddFieldsModal = ({
   accelerationFormData,
   setAccelerationFormData,
 }: AddFieldsModalProps) => {
-  const [selectedFields, setSelectedFields] = useState([]);
+  const [selectedFields, setSelectedFields] = useState<DataTableFieldsType[]>([]);
 
   const tableColumns: Array<EuiTableFieldDataColumnType<DataTableFieldsType>> = [
     {
@@ -81,15 +87,19 @@ export const AddFieldsModal = ({
         <EuiButton onClick={() => setIsAddModalVisible(false)}>Cancel</EuiButton>
         <EuiButton
           onClick={() => {
-            setAccelerationFormData({
-              ...accelerationFormData,
-              skippingIndexQueryData: [
-                ...accelerationFormData.skippingIndexQueryData,
-                ...selectedFields.map((x) => {
-                  return { ...x, accelerationMethod: 'PARTITION' };
-                }),
-              ],
-            });
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.skippingIndexQueryData.push(
+                  ...selectedFields.map((x) => {
+                    return { ...x, accelerationMethod: 'PARTITION' } as SkippingIndexRowType;
+                  })
+                );
+                accData.formErrors.skippingIndexError = validateSkippingIndexData(
+                  accData.accelerationIndexType,
+                  accData.skippingIndexQueryData
+                );
+              })
+            );
             setIsAddModalVisible(false);
           }}
           fill
