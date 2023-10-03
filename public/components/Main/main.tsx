@@ -480,34 +480,32 @@ export class Main extends React.Component<MainProps, MainState> {
   };
 
   callGetStartPolling = async (queries: string[]) => {
-    const nextP = Promise.all([
-      this.httpClient
-        .get('/api/spark_sql_console/get/' + this.state.asyncJobId)
-        .catch((error: any) => {
-          this.setState({
-            messages: [
-              {
-                text: error.message,
-                className: 'error-message',
-              },
-            ],
-          });
-        }),
-    ]);
+    const nextP = this.httpClient
+      .get('/api/spark_sql_console/get/' + this.state.asyncJobId)
+      .catch((error: any) => {
+        this.setState({
+          messages: [
+            {
+              text: error.message,
+              className: 'error-message',
+            },
+          ],
+        });
+      });
 
-    return await Promise.all([nextP]).then(([response]) => {
-      const results: ResponseDetail<string>[] = response.map((response) =>
-        this.processQueryResponse(response as IHttpResponse<ResponseData>)
+    return await nextP.then((response) => {
+      const result: ResponseDetail<string> = this.processQueryResponse(
+        response as IHttpResponse<ResponseData>
       );
-      const status = results[0].data['status'];
+      const status = result.data['status'];
       if (_.isEqual(status, 'SUCCESS')) {
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results, false);
+        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable([result], false);
         this.setState({
           queries: queries,
-          queryResults: results,
+          queryResults: [result],
           queryResultsTable: resultTable,
-          selectedTabId: getDefaultTabId(results),
-          selectedTabName: getDefaultTabLabel(results, queries[0]),
+          selectedTabId: getDefaultTabId([result]),
+          selectedTabName: getDefaultTabLabel([result], queries[0]),
           messages: this.getMessage(resultTable),
           itemIdToExpandedRowMap: {},
           queryResultsJSON: [],
