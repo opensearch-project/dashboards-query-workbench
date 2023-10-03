@@ -238,7 +238,7 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
-      selectedDatasource: '',
+      selectedDatasource: 'Opensearch',
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
       asyncJobId: '',
