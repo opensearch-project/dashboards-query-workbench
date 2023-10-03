@@ -74,10 +74,6 @@ export const MaterializedViewBuilder = ({
         value={`${accelerationFormData.dataSource}.${accelerationFormData.database}.${accelerationFormData.accelerationIndexName}`}
       />
 
-      <EuiFlexItem grow={false}>
-        <EuiExpression description="[IF NOT EXISTS]" value="" />
-      </EuiFlexItem>
-
       <EuiFlexGroup>
         <EuiFlexItem grow={false}>
           <EuiExpression
