@@ -616,7 +616,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Specify the number of primary shards for the index. Default is 5.  The number of primary shards cannot be changed after the index is created.
+                          Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created.
                         </div>
                       </div>
                     </div>
@@ -872,7 +872,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed.  Prefix and suffix are added to the name of generated OpenSearch index.
+                          Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.
                         </div>
                       </div>
                     </div>
@@ -1876,7 +1876,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Specify the number of primary shards for the index. Default is 5.  The number of primary shards cannot be changed after the index is created.
+                            Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created.
                           </div>
                         </div>
                       </div>,
@@ -2154,7 +2154,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed.  Prefix and suffix are added to the name of generated OpenSearch index.
+                            Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.
                           </div>
                         </div>
                       </div>,

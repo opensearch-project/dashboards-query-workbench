@@ -107,7 +107,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed.  Prefix and suffix are added to the name of generated OpenSearch index.
+        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.
       </div>
     </div>
   </div>,
@@ -218,7 +218,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed.  Prefix and suffix are added to the name of generated OpenSearch index.
+        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.
       </div>
     </div>
   </div>,
@@ -327,7 +327,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed.  Prefix and suffix are added to the name of generated OpenSearch index.
+        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.
       </div>
     </div>
   </div>,
