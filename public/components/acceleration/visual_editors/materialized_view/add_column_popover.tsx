@@ -7,6 +7,7 @@ import {
   EuiButton,
   EuiButtonEmpty,
   EuiComboBox,
+  EuiComboBoxOptionOption,
   EuiFieldText,
   EuiFlexGroup,
   EuiFlexItem,
@@ -17,7 +18,6 @@ import {
   EuiSpacer,
   htmlIdGenerator,
 } from '@elastic/eui';
-import { EuiComboBoxOptionOption } from '@opensearch-project/oui';
 import producer from 'immer';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
