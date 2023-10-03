@@ -33,6 +33,7 @@ import Switch from '../QueryLanguageSwitch/Switch';
 import QueryResults from '../QueryResults/QueryResults';
 import { SQLPage } from '../SQLPage/SQLPage';
 import { TableView } from '../SQLPage/TableView';
+import { AsyncQueryLoadingStatus } from '../../../common/types';
 
 interface ResponseData {
   ok: boolean;
@@ -101,6 +102,8 @@ interface MainState {
   messages: Array<QueryMessage>;
   isResultFullScreen: boolean;
   selectedDatasource: string;
+  asyncLoading: boolean;
+  asyncLoadingStatus: AsyncQueryLoadingStatus;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -235,6 +238,8 @@ export class Main extends React.Component<MainProps, MainState> {
       messages: [],
       isResultFullScreen: false,
       selectedDatasource: '',
+      asyncLoading: false,
+      asyncLoadingStatus: 'SUCCESS',
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -513,8 +518,10 @@ export class Main extends React.Component<MainProps, MainState> {
           queryResultsCSV: [],
           queryResultsTEXT: [],
           searchQuery: '',
+          asyncLoading: false,
+          asyncLoadingStatus: status,
         });
-      } else {
+      } else if (_.isEqual(status, 'FAILURE')) {
         this.setState({
           messages: [
             {
@@ -522,6 +529,11 @@ export class Main extends React.Component<MainProps, MainState> {
               className: 'error-message',
             },
           ],
+        });
+      } else {
+        this.setState({
+          asyncLoading: true,
+          asyncLoadingStatus: status,
         });
       }
       return status;
@@ -836,6 +848,8 @@ export class Main extends React.Component<MainProps, MainState> {
             getText={this.getText}
             isResultFullScreen={this.state.isResultFullScreen}
             setIsResultFullScreen={this.setIsResultFullScreen}
+            asyncLoading={this.state.asyncLoading}
+            asyncLoadingStatus={this.state.asyncLoadingStatus}
           />
         </div>
       );
@@ -937,6 +951,8 @@ export class Main extends React.Component<MainProps, MainState> {
                   getText={this.getText}
                   isResultFullScreen={this.state.isResultFullScreen}
                   setIsResultFullScreen={this.setIsResultFullScreen}
+                  asyncLoading={this.state.asyncLoading}
+                  asyncLoadingStatus={this.state.asyncLoadingStatus}
                 />
               </div>
             </EuiPageContentBody>
