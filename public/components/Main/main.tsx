@@ -481,7 +481,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
   callGetStartPolling = async (queries: string[]) => {
     const nextP = this.httpClient
-      .get('/api/spark_sql_console/get/' + this.state.asyncJobId)
+      .get('/api/spark_sql_console/job/' + this.state.asyncJobId)
       .catch((error: any) => {
         this.setState({
           messages: [
