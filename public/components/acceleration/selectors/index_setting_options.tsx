@@ -112,8 +112,7 @@ export const IndexSettingOptions = ({
       />
       <EuiFormRow
         label="Number of primary shards"
-        helpText="Specify the number of primary shards for the index. Default is 5. 
-        The number of primary shards cannot be changed after the index is created."
+        helpText="Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created."
         isInvalid={hasError(accelerationFormData.formErrors, 'primaryShardsError')}
         error={accelerationFormData.formErrors.primaryShardsError}
       >

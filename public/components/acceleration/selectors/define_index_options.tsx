@@ -93,8 +93,7 @@ export const DefineIndexOptions = ({
       <EuiSpacer size="s" />
       <EuiFormRow
         label="Index name"
-        helpText='Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \, |, ?, #, >, or < are not allowed. 
-        Prefix and suffix are added to the name of generated OpenSearch index.'
+        helpText='Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \, |, ?, #, >, or < are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.'
         isInvalid={hasError(accelerationFormData.formErrors, 'indexNameError')}
         error={accelerationFormData.formErrors.indexNameError}
         labelAppend={
