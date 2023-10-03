@@ -449,16 +449,28 @@ export class Main extends React.Component<MainProps, MainState> {
 
               const queryId: string = _.get(responseObj, 'queryId');
 
+              // clear state from previous results and start async loading
               this.setState({
+                queryTranslations: [],
+                queryResultsTable: [],
+                queryResults: [],
+                queryResultsCSV: [],
+                queryResultsJSON: [],
+                queryResultsTEXT: [],
+                messages: [],
+                selectedTabId: MESSAGE_TAB_LABEL,
+                selectedTabName: MESSAGE_TAB_LABEL,
+                itemIdToExpandedRowMap: {},
                 asyncLoading: true,
+                asyncLoadingStatus: 'SCHEDULED',
                 asyncJobId: queryId,
               });
+              this.callGetStartPolling(queries);
               const interval = setInterval(() => {
-                console.log('interval iteration');
                 if (!this.state.asyncLoading) {
                   clearInterval(interval);
                 }
-                this.callGetStartPolling(queries, queryId);
+                this.callGetStartPolling(queries);
               }, 2 * 1000);
             }
           }
@@ -467,18 +479,20 @@ export class Main extends React.Component<MainProps, MainState> {
     }
   };
 
-  callGetStartPolling = async (queries: string[], jobId: string) => {
+  callGetStartPolling = async (queries: string[]) => {
     const nextP = Promise.all([
-      this.httpClient.get('/api/spark_sql_console/get/' + jobId).catch((error: any) => {
-        this.setState({
-          messages: [
-            {
-              text: error.message,
-              className: 'error-message',
-            },
-          ],
-        });
-      }),
+      this.httpClient
+        .get('/api/spark_sql_console/get/' + this.state.asyncJobId)
+        .catch((error: any) => {
+          this.setState({
+            messages: [
+              {
+                text: error.message,
+                className: 'error-message',
+              },
+            ],
+          });
+        }),
     ]);
 
     return await Promise.all([nextP]).then(([response]) => {
@@ -504,7 +518,6 @@ export class Main extends React.Component<MainProps, MainState> {
           asyncLoadingStatus: status,
         });
       } else if (_.isEqual(status, 'FAILED') || _.isEqual(status, 'CANCELLED')) {
-        console.log('fail or cancel');
         this.setState({
           asyncLoading: false,
           asyncLoadingStatus: status,
