@@ -33,6 +33,7 @@ import Switch from '../QueryLanguageSwitch/Switch';
 import QueryResults from '../QueryResults/QueryResults';
 import { SQLPage } from '../SQLPage/SQLPage';
 import { TableView } from '../SQLPage/TableView';
+import { AsyncQueryLoadingStatus } from '../../../common/types';
 
 interface ResponseData {
   ok: boolean;
@@ -101,6 +102,9 @@ interface MainState {
   messages: Array<QueryMessage>;
   isResultFullScreen: boolean;
   selectedDatasource: string;
+  asyncLoading: boolean;
+  asyncLoadingStatus: AsyncQueryLoadingStatus;
+  asyncJobId: string;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -114,7 +118,8 @@ const errorQueryResponse = (queryResultResponseDetail: any) => {
 };
 
 export function getQueryResultsForTable(
-  queryResults: ResponseDetail<string>[]
+  queryResults: ResponseDetail<string>[],
+  jsonParseData: boolean
 ): ResponseDetail<QueryResult>[] {
   return queryResults.map(
     (queryResultResponseDetail: ResponseDetail<string>): ResponseDetail<QueryResult> => {
@@ -124,9 +129,10 @@ export function getQueryResultsForTable(
           errorMessage: errorQueryResponse(queryResultResponseDetail),
         };
       } else {
-        const responseObj = queryResultResponseDetail.data
+        const resultData = jsonParseData
           ? JSON.parse(queryResultResponseDetail.data)
-          : '';
+          : queryResultResponseDetail.data;
+        const responseObj = queryResultResponseDetail.data ? resultData : '';
         let fields: string[] = [];
         let dataRows: DataRow[] = [];
 
@@ -232,7 +238,10 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
-      selectedDatasource: '',
+      selectedDatasource: 'Opensearch',
+      asyncLoading: false,
+      asyncLoadingStatus: 'SUCCESS',
+      asyncJobId: '',
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -353,7 +362,7 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
@@ -370,12 +379,11 @@ export class Main extends React.Component<MainProps, MainState> {
             })
         )
       );
-
       Promise.all([responsePromise]).then(([response]) => {
         const results: ResponseDetail<string>[] = response.map((response) =>
           this.processQueryResponse(response as IHttpResponse<ResponseData>)
         );
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results);
+        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results, true);
         this.setState(
           {
             queries: queries,
@@ -396,17 +404,165 @@ export class Main extends React.Component<MainProps, MainState> {
     }
   };
 
+  onRunAsync = (queriesString: string): void => {
+    // switch to an async query here if using any datasource != Opensearch
+
+    // finding regular query here
+    const queries: string[] = getQueries(queriesString);
+    const language = this.state.language;
+    if (queries.length > 0) {
+      let endpoint = '/api/spark_sql_console';
+      const responsePromise = Promise.all(
+        queries.map((query: string) =>
+          this.httpClient
+            .post(endpoint, {
+              body: JSON.stringify({ lang: language, query: query, datasource: 'my_glue' }), // TODO: dynamically datasource when accurate
+            })
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: 'error-message',
+                  },
+                ],
+              });
+            })
+        )
+      );
+
+      Promise.all([responsePromise]).then(([response]) => {
+        const results: ResponseDetail<string>[] = response.map((response) =>
+          this.processQueryResponse(response as IHttpResponse<ResponseData>)
+        );
+        results.map(
+          (queryResultResponseDetail: ResponseDetail<string>): ResponseDetail<QueryResult> => {
+            if (!queryResultResponseDetail.fulfilled) {
+              return {
+                fulfilled: queryResultResponseDetail.fulfilled,
+                errorMessage: errorQueryResponse(queryResultResponseDetail),
+              };
+            } else {
+              const responseObj = queryResultResponseDetail.data
+                ? queryResultResponseDetail.data
+                : '';
+
+              const queryId: string = _.get(responseObj, 'queryId');
+
+              // clear state from previous results and start async loading
+              this.setState({
+                queryTranslations: [],
+                queryResultsTable: [],
+                queryResults: [],
+                queryResultsCSV: [],
+                queryResultsJSON: [],
+                queryResultsTEXT: [],
+                messages: [],
+                selectedTabId: MESSAGE_TAB_LABEL,
+                selectedTabName: MESSAGE_TAB_LABEL,
+                itemIdToExpandedRowMap: {},
+                asyncLoading: true,
+                asyncLoadingStatus: 'SCHEDULED',
+                asyncJobId: queryId,
+              });
+              this.callGetStartPolling(queries);
+              const interval = setInterval(() => {
+                if (!this.state.asyncLoading) {
+                  clearInterval(interval);
+                }
+                this.callGetStartPolling(queries);
+              }, 2 * 1000);
+            }
+          }
+        );
+      });
+    }
+  };
+
+  callGetStartPolling = async (queries: string[]) => {
+    const nextP = this.httpClient
+      .get('/api/spark_sql_console/job/' + this.state.asyncJobId)
+      .catch((error: any) => {
+        this.setState({
+          messages: [
+            {
+              text: error.message,
+              className: 'error-message',
+            },
+          ],
+        });
+      });
+
+    return await nextP.then((response) => {
+      const result: ResponseDetail<string> = this.processQueryResponse(
+        response as IHttpResponse<ResponseData>
+      );
+      const status = result.data['status'];
+      if (_.isEqual(status, 'SUCCESS')) {
+        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable([result], false);
+        this.setState({
+          queries: queries,
+          queryResults: [result],
+          queryResultsTable: resultTable,
+          selectedTabId: getDefaultTabId([result]),
+          selectedTabName: getDefaultTabLabel([result], queries[0]),
+          messages: this.getMessage(resultTable),
+          itemIdToExpandedRowMap: {},
+          queryResultsJSON: [],
+          queryResultsCSV: [],
+          queryResultsTEXT: [],
+          searchQuery: '',
+          asyncLoading: false,
+          asyncLoadingStatus: status,
+        });
+      } else if (_.isEqual(status, 'FAILED') || _.isEqual(status, 'CANCELLED')) {
+        this.setState({
+          asyncLoading: false,
+          asyncLoadingStatus: status,
+          messages: [
+            {
+              text: status,
+              className: 'error-message',
+            },
+          ],
+        });
+      } else {
+        this.setState({
+          asyncLoading: true,
+          asyncLoadingStatus: status,
+        });
+      }
+    });
+  };
+
+  cancelAsyncQuery = async () => {
+    Promise.all([
+      this.httpClient
+        .delete('/api/spark_sql_console/job/' + this.state.asyncJobId)
+        .catch((error: any) => {
+          this.setState({
+            messages: [
+              {
+                text: error.message,
+                className: 'error-message',
+              },
+            ],
+          });
+        }),
+    ]);
+  };
+
   onTranslate = (queriesString: string): void => {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
 
     if (queries.length > 0) {
       let endpoint =
-        '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
+        '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
       const translationPromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -452,7 +608,7 @@ export class Main extends React.Component<MainProps, MainState> {
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post('../api/sql_console/sqljson', { body: JSON.stringify({ query }) })
+            .post('/api/sql_console/sqljson', { body: JSON.stringify({ query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -482,11 +638,11 @@ export class Main extends React.Component<MainProps, MainState> {
   getJdbc = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -516,11 +672,11 @@ export class Main extends React.Component<MainProps, MainState> {
   getCsv = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
+      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -550,11 +706,11 @@ export class Main extends React.Component<MainProps, MainState> {
   getText = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
+      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -639,13 +795,16 @@ export class Main extends React.Component<MainProps, MainState> {
     if (this.state.language == 'SQL') {
       page = (
         <SQLPage
-          onRun={this.onRun}
+          onRun={
+            _.isEqual(this.state.selectedDatasource, 'Opensearch') ? this.onRun : this.onRunAsync
+          }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
           sqlQuery={this.state.sqlQueriesString}
           sqlTranslations={this.state.queryTranslations}
           updateSQLQueries={this.updateSQLQueries}
           selectedDatasource={this.state.selectedDatasource}
+          asyncLoading={this.state.asyncLoading}
         />
       );
       link = 'https://opensearch.org/docs/latest/search-plugins/sql/index/';
@@ -653,12 +812,15 @@ export class Main extends React.Component<MainProps, MainState> {
     } else {
       page = (
         <PPLPage
-          onRun={this.onRun}
+          onRun={
+            _.isEqual(this.state.selectedDatasource, 'Opensearch') ? this.onRun : this.onRunAsync
+          }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
           pplQuery={this.state.pplQueriesString}
           pplTranslations={this.state.queryTranslations}
           updatePPLQueries={this.updatePPLQueries}
+          asyncLoading={this.state.asyncLoading}
         />
       );
       link = 'https://opensearch.org/docs/latest/observability-plugin/ppl/index/';
@@ -700,6 +862,9 @@ export class Main extends React.Component<MainProps, MainState> {
             getText={this.getText}
             isResultFullScreen={this.state.isResultFullScreen}
             setIsResultFullScreen={this.setIsResultFullScreen}
+            asyncLoading={this.state.asyncLoading}
+            asyncLoadingStatus={this.state.asyncLoadingStatus}
+            cancelAsyncQuery={this.cancelAsyncQuery}
           />
         </div>
       );
@@ -801,6 +966,9 @@ export class Main extends React.Component<MainProps, MainState> {
                   getText={this.getText}
                   isResultFullScreen={this.state.isResultFullScreen}
                   setIsResultFullScreen={this.setIsResultFullScreen}
+                  asyncLoading={this.state.asyncLoading}
+                  asyncLoadingStatus={this.state.asyncLoadingStatus}
+                  cancelAsyncQuery={this.cancelAsyncQuery}
                 />
               </div>
             </EuiPageContentBody>

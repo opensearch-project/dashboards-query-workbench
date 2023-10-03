@@ -30,11 +30,20 @@ exports[`<Main /> spec click clear button 1`] = `
               data-test-subj="comboBoxInput"
               tabindex="-1"
             >
-              <p
-                class="euiComboBoxPlaceholder"
+              <span
+                class="euiBadge euiBadge--hollow euiBadge--iconLeft euiComboBoxPill"
+                title="Opensearch"
               >
-                Connection Name
-              </p>
+                <span
+                  class="euiBadge__content"
+                >
+                  <span
+                    class="euiBadge__text"
+                  >
+                    Opensearch
+                  </span>
+                </span>
+              </span>
               <div
                 class="euiComboBox__input"
                 style="font-size: 14px; display: inline-block;"
@@ -54,6 +63,27 @@ exports[`<Main /> spec click clear button 1`] = `
             <div
               class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
             >
+              <button
+                aria-label="Clear input"
+                class="euiFormControlLayoutClearButton"
+                data-test-subj="comboBoxClearButton"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiFormControlLayoutClearButton__icon"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                  />
+                </svg>
+              </button>
               <button
                 aria-label="Open list of options"
                 class="euiFormControlLayoutCustomIcon euiFormControlLayoutCustomIcon--clickable"
@@ -573,11 +603,20 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
               data-test-subj="comboBoxInput"
               tabindex="-1"
             >
-              <p
-                class="euiComboBoxPlaceholder"
+              <span
+                class="euiBadge euiBadge--hollow euiBadge--iconLeft euiComboBoxPill"
+                title="Opensearch"
               >
-                Connection Name
-              </p>
+                <span
+                  class="euiBadge__content"
+                >
+                  <span
+                    class="euiBadge__text"
+                  >
+                    Opensearch
+                  </span>
+                </span>
+              </span>
               <div
                 class="euiComboBox__input"
                 style="font-size: 14px; display: inline-block;"
@@ -597,6 +636,27 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
             <div
               class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
             >
+              <button
+                aria-label="Clear input"
+                class="euiFormControlLayoutClearButton"
+                data-test-subj="comboBoxClearButton"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiFormControlLayoutClearButton__icon"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                  />
+                </svg>
+              </button>
               <button
                 aria-label="Open list of options"
                 class="euiFormControlLayoutCustomIcon euiFormControlLayoutCustomIcon--clickable"
@@ -1116,11 +1176,20 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
               data-test-subj="comboBoxInput"
               tabindex="-1"
             >
-              <p
-                class="euiComboBoxPlaceholder"
+              <span
+                class="euiBadge euiBadge--hollow euiBadge--iconLeft euiComboBoxPill"
+                title="Opensearch"
               >
-                Connection Name
-              </p>
+                <span
+                  class="euiBadge__content"
+                >
+                  <span
+                    class="euiBadge__text"
+                  >
+                    Opensearch
+                  </span>
+                </span>
+              </span>
               <div
                 class="euiComboBox__input"
                 style="font-size: 14px; display: inline-block;"
@@ -1140,6 +1209,27 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
             <div
               class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
             >
+              <button
+                aria-label="Clear input"
+                class="euiFormControlLayoutClearButton"
+                data-test-subj="comboBoxClearButton"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiFormControlLayoutClearButton__icon"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                  />
+                </svg>
+              </button>
               <button
                 aria-label="Open list of options"
                 class="euiFormControlLayoutCustomIcon euiFormControlLayoutCustomIcon--clickable"
@@ -1659,11 +1749,20 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
               data-test-subj="comboBoxInput"
               tabindex="-1"
             >
-              <p
-                class="euiComboBoxPlaceholder"
+              <span
+                class="euiBadge euiBadge--hollow euiBadge--iconLeft euiComboBoxPill"
+                title="Opensearch"
               >
-                Connection Name
-              </p>
+                <span
+                  class="euiBadge__content"
+                >
+                  <span
+                    class="euiBadge__text"
+                  >
+                    Opensearch
+                  </span>
+                </span>
+              </span>
               <div
                 class="euiComboBox__input"
                 style="font-size: 14px; display: inline-block;"
@@ -1683,6 +1782,27 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
             <div
               class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
             >
+              <button
+                aria-label="Clear input"
+                class="euiFormControlLayoutClearButton"
+                data-test-subj="comboBoxClearButton"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiFormControlLayoutClearButton__icon"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                  />
+                </svg>
+              </button>
               <button
                 aria-label="Open list of options"
                 class="euiFormControlLayoutCustomIcon euiFormControlLayoutCustomIcon--clickable"
@@ -2268,11 +2388,20 @@ exports[`<Main /> spec click run button, response fills null and missing values 
               data-test-subj="comboBoxInput"
               tabindex="-1"
             >
-              <p
-                class="euiComboBoxPlaceholder"
+              <span
+                class="euiBadge euiBadge--hollow euiBadge--iconLeft euiComboBoxPill"
+                title="Opensearch"
               >
-                Connection Name
-              </p>
+                <span
+                  class="euiBadge__content"
+                >
+                  <span
+                    class="euiBadge__text"
+                  >
+                    Opensearch
+                  </span>
+                </span>
+              </span>
               <div
                 class="euiComboBox__input"
                 style="font-size: 14px; display: inline-block;"
@@ -2292,6 +2421,27 @@ exports[`<Main /> spec click run button, response fills null and missing values 
             <div
               class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
             >
+              <button
+                aria-label="Clear input"
+                class="euiFormControlLayoutClearButton"
+                data-test-subj="comboBoxClearButton"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiFormControlLayoutClearButton__icon"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                  />
+                </svg>
+              </button>
               <button
                 aria-label="Open list of options"
                 class="euiFormControlLayoutCustomIcon euiFormControlLayoutCustomIcon--clickable"
@@ -2876,11 +3026,20 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
               data-test-subj="comboBoxInput"
               tabindex="-1"
             >
-              <p
-                class="euiComboBoxPlaceholder"
+              <span
+                class="euiBadge euiBadge--hollow euiBadge--iconLeft euiComboBoxPill"
+                title="Opensearch"
               >
-                Connection Name
-              </p>
+                <span
+                  class="euiBadge__content"
+                >
+                  <span
+                    class="euiBadge__text"
+                  >
+                    Opensearch
+                  </span>
+                </span>
+              </span>
               <div
                 class="euiComboBox__input"
                 style="font-size: 14px; display: inline-block;"
@@ -2900,6 +3059,27 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
             <div
               class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
             >
+              <button
+                aria-label="Clear input"
+                class="euiFormControlLayoutClearButton"
+                data-test-subj="comboBoxClearButton"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiFormControlLayoutClearButton__icon"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                  />
+                </svg>
+              </button>
               <button
                 aria-label="Open list of options"
                 class="euiFormControlLayoutCustomIcon euiFormControlLayoutCustomIcon--clickable"
@@ -3419,11 +3599,20 @@ exports[`<Main /> spec renders the component 1`] = `
               data-test-subj="comboBoxInput"
               tabindex="-1"
             >
-              <p
-                class="euiComboBoxPlaceholder"
+              <span
+                class="euiBadge euiBadge--hollow euiBadge--iconLeft euiComboBoxPill"
+                title="Opensearch"
               >
-                Connection Name
-              </p>
+                <span
+                  class="euiBadge__content"
+                >
+                  <span
+                    class="euiBadge__text"
+                  >
+                    Opensearch
+                  </span>
+                </span>
+              </span>
               <div
                 class="euiComboBox__input"
                 style="font-size: 14px; display: inline-block;"
@@ -3443,6 +3632,23 @@ exports[`<Main /> spec renders the component 1`] = `
             <div
               class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
             >
+              <button
+                aria-label="Clear input"
+                class="euiFormControlLayoutClearButton"
+                data-test-subj="comboBoxClearButton"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutClearButton__icon"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+              </button>
               <button
                 aria-label="Open list of options"
                 class="euiFormControlLayoutCustomIcon euiFormControlLayoutCustomIcon--clickable"
