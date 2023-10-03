@@ -50,7 +50,7 @@ export const GroupByTumbleExpression = ({
   };
 
   const onChangeTumbleWindow = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newGroupByValue = { ...groupbyValues, tumbleWindow: +e.target.value };
+    const newGroupByValue = { ...groupbyValues, tumbleWindow: parseInt(e.target.value, 10) };
     updateGroupByStates(newGroupByValue);
   };
 

@@ -83,7 +83,7 @@ export const CreateAcceleration = ({
 
   const copyToEditor = () => {
     const errors = formValidator(accelerationFormData);
-    if (Object.values(errors).some((e) => !!e.length)) {
+    if (hasError(errors)) {
       setAccelerationFormData({ ...accelerationFormData, formErrors: errors });
       return;
     }

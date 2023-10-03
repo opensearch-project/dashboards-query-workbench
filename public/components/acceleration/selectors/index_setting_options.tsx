@@ -55,13 +55,13 @@ export const IndexSettingOptions = ({
   const [checkpoint, setCheckpoint] = useState('');
 
   const onChangePrimaryShards = (e: ChangeEvent<HTMLInputElement>) => {
-    const countPrimaryShards = +e.target.value;
+    const countPrimaryShards = parseInt(e.target.value, 10);
     setAccelerationFormData({ ...accelerationFormData, primaryShardsCount: countPrimaryShards });
     setPrimaryShards(countPrimaryShards);
   };
 
   const onChangeReplicaCount = (e: ChangeEvent<HTMLInputElement>) => {
-    const replicaCount = +e.target.value;
+    const replicaCount = parseInt(e.target.value, 10);
     setAccelerationFormData({ ...accelerationFormData, replicaShardsCount: replicaCount });
     setReplicaCount(replicaCount);
   };
@@ -75,7 +75,7 @@ export const IndexSettingOptions = ({
   };
 
   const onChangeRefreshWindow = (e: ChangeEvent<HTMLInputElement>) => {
-    const windowCount = +e.target.value;
+    const windowCount = parseInt(e.target.value, 10);
     setAccelerationFormData(
       producer((accData) => {
         accData.refreshIntervalOptions.refreshWindow = windowCount;
@@ -127,7 +127,9 @@ export const IndexSettingOptions = ({
           onBlur={(e) => {
             setAccelerationFormData(
               producer((accData) => {
-                accData.formErrors.primaryShardsError = validatePrimaryShardCount(+e.target.value);
+                accData.formErrors.primaryShardsError = validatePrimaryShardCount(
+                  parseInt(e.target.value, 10)
+                );
               })
             );
           }}
@@ -150,7 +152,9 @@ export const IndexSettingOptions = ({
           onBlur={(e) => {
             setAccelerationFormData(
               producer((accData) => {
-                accData.formErrors.replicaShardsError = validateReplicaCount(+e.target.value);
+                accData.formErrors.replicaShardsError = validateReplicaCount(
+                  parseInt(e.target.value, 10)
+                );
               })
             );
           }}
@@ -187,7 +191,7 @@ export const IndexSettingOptions = ({
                 producer((accData) => {
                   accData.formErrors.refreshIntervalError = validateRefreshInterval(
                     refreshTypeSelected,
-                    +e.target.value
+                    parseInt(e.target.value, 10)
                   );
                 })
               );
