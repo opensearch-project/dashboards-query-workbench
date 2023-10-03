@@ -72,6 +72,7 @@ interface QueryResultsProps {
   setIsResultFullScreen: (isFullScreen: boolean) => void;
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
+  cancelAsyncQuery: () => void;
 }
 
 interface QueryResultsState {
@@ -441,6 +442,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
               <AsyncQueryBody
                 asyncLoading={this.props.asyncLoading}
                 asyncLoadingStatus={this.props.asyncLoadingStatus}
+                cancelAsyncQuery={this.props.cancelAsyncQuery}
               />
             </EuiFlexGroup>
             <EuiSpacer size="xxl" />

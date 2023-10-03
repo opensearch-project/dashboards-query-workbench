@@ -104,6 +104,7 @@ interface MainState {
   selectedDatasource: string;
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
+  asyncJobId: string;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -240,6 +241,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedDatasource: '',
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
+      asyncJobId: '',
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -360,7 +362,7 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
@@ -409,8 +411,7 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/spark_sql_console';
-      // + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      let endpoint = '/api/spark_sql_console';
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
@@ -434,7 +435,7 @@ export class Main extends React.Component<MainProps, MainState> {
         const results: ResponseDetail<string>[] = response.map((response) =>
           this.processQueryResponse(response as IHttpResponse<ResponseData>)
         );
-        const resultTable: ResponseDetail<QueryResult>[] = results.map(
+        results.map(
           (queryResultResponseDetail: ResponseDetail<string>): ResponseDetail<QueryResult> => {
             if (!queryResultResponseDetail.fulfilled) {
               return {
@@ -447,47 +448,28 @@ export class Main extends React.Component<MainProps, MainState> {
                 : '';
 
               const queryId: string = _.get(responseObj, 'queryId');
-              console.log('queryId for spark async query', queryId);
 
-              let success = false;
-              setInterval(() => {
-                if (!success) {
-                  let status = this.callGetStartPolling(queries, queryId);
-                  status.then((res) => {
-                    console.log('getter status:', res);
-                    success = _.isEqual(res, 'SUCCESS');
-                  });
+              this.setState({
+                asyncLoading: true,
+                asyncJobId: queryId,
+              });
+              const interval = setInterval(() => {
+                console.log('interval iteration');
+                if (!this.state.asyncLoading) {
+                  clearInterval(interval);
                 }
+                this.callGetStartPolling(queries, queryId);
               }, 2 * 1000);
-
-              return {
-                fulfilled: queryResultResponseDetail.fulfilled,
-                errorMessage: queryId,
-              };
             }
           }
         );
-
-        this.setState({
-          queries: queries,
-          queryResults: results,
-          queryResultsTable: resultTable,
-          selectedTabId: getDefaultTabId(results),
-          selectedTabName: getDefaultTabLabel(results, queries[0]),
-          messages: this.getMessage(resultTable),
-          itemIdToExpandedRowMap: {},
-          queryResultsJSON: [],
-          queryResultsCSV: [],
-          queryResultsTEXT: [],
-          searchQuery: '',
-        });
       });
     }
   };
 
   callGetStartPolling = async (queries: string[], jobId: string) => {
     const nextP = Promise.all([
-      this.httpClient.get('../api/spark_sql_console/get/' + jobId).catch((error: any) => {
+      this.httpClient.get('/api/spark_sql_console/get/' + jobId).catch((error: any) => {
         this.setState({
           messages: [
             {
@@ -521,8 +503,11 @@ export class Main extends React.Component<MainProps, MainState> {
           asyncLoading: false,
           asyncLoadingStatus: status,
         });
-      } else if (_.isEqual(status, 'FAILURE')) {
+      } else if (_.isEqual(status, 'FAILED') || _.isEqual(status, 'CANCELLED')) {
+        console.log('fail or cancel');
         this.setState({
+          asyncLoading: false,
+          asyncLoadingStatus: status,
           messages: [
             {
               text: status,
@@ -536,8 +521,24 @@ export class Main extends React.Component<MainProps, MainState> {
           asyncLoadingStatus: status,
         });
       }
-      return status;
     });
+  };
+
+  cancelAsyncQuery = async () => {
+    Promise.all([
+      this.httpClient
+        .delete('/api/spark_sql_console/cancel/' + this.state.asyncJobId)
+        .catch((error: any) => {
+          this.setState({
+            messages: [
+              {
+                text: error.message,
+                className: 'error-message',
+              },
+            ],
+          });
+        }),
+    ]);
   };
 
   onTranslate = (queriesString: string): void => {
@@ -546,7 +547,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
     if (queries.length > 0) {
       let endpoint =
-        '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
+        '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
       const translationPromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
@@ -596,7 +597,7 @@ export class Main extends React.Component<MainProps, MainState> {
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post('../api/sql_console/sqljson', { body: JSON.stringify({ query }) })
+            .post('/api/sql_console/sqljson', { body: JSON.stringify({ query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -626,7 +627,7 @@ export class Main extends React.Component<MainProps, MainState> {
   getJdbc = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
@@ -660,7 +661,7 @@ export class Main extends React.Component<MainProps, MainState> {
   getCsv = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
+      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
@@ -694,7 +695,7 @@ export class Main extends React.Component<MainProps, MainState> {
   getText = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
+      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
@@ -792,6 +793,7 @@ export class Main extends React.Component<MainProps, MainState> {
           sqlTranslations={this.state.queryTranslations}
           updateSQLQueries={this.updateSQLQueries}
           selectedDatasource={this.state.selectedDatasource}
+          asyncLoading={this.state.asyncLoading}
         />
       );
       link = 'https://opensearch.org/docs/latest/search-plugins/sql/index/';
@@ -807,6 +809,7 @@ export class Main extends React.Component<MainProps, MainState> {
           pplQuery={this.state.pplQueriesString}
           pplTranslations={this.state.queryTranslations}
           updatePPLQueries={this.updatePPLQueries}
+          asyncLoading={this.state.asyncLoading}
         />
       );
       link = 'https://opensearch.org/docs/latest/observability-plugin/ppl/index/';
@@ -850,6 +853,7 @@ export class Main extends React.Component<MainProps, MainState> {
             setIsResultFullScreen={this.setIsResultFullScreen}
             asyncLoading={this.state.asyncLoading}
             asyncLoadingStatus={this.state.asyncLoadingStatus}
+            cancelAsyncQuery={this.cancelAsyncQuery}
           />
         </div>
       );
@@ -953,6 +957,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   setIsResultFullScreen={this.setIsResultFullScreen}
                   asyncLoading={this.state.asyncLoading}
                   asyncLoadingStatus={this.state.asyncLoadingStatus}
+                  cancelAsyncQuery={this.cancelAsyncQuery}
                 />
               </div>
             </EuiPageContentBody>

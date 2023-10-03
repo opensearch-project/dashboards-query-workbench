@@ -77,4 +77,4 @@ export interface CreateAccelerationForm {
   formErrors: FormErrorsType;
 }
 
-export type AsyncQueryLoadingStatus = "SUCCESS" | "FAILURE" | "RUNNING" | "SCHEDULED"
+export type AsyncQueryLoadingStatus = "SUCCESS" | "FAILED" | "RUNNING" | "SCHEDULED | CANCELED"

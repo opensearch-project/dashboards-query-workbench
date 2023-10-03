@@ -3,17 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiFlexGroup, EuiText, EuiLoadingSpinner } from '@elastic/eui';
+import { EuiFlexGroup, EuiText, EuiLoadingSpinner, EuiButton } from '@elastic/eui';
 import { AsyncQueryLoadingStatus } from '../../../common/types';
 import React from 'react';
 
 interface AsyncQueryBodyProps {
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
+  cancelAsyncQuery: () => void;
 }
 
 export function AsyncQueryBody(props: AsyncQueryBodyProps) {
-  const { asyncLoading, asyncLoadingStatus } = props;
+  const { asyncLoading, asyncLoadingStatus, cancelAsyncQuery } = props;
 
   // TODO: implement query failure display
   // TODO: implement query cancellation
@@ -24,7 +25,8 @@ export function AsyncQueryBody(props: AsyncQueryBodyProps) {
       <EuiText>
         <h3>Query running</h3>
       </EuiText>
-      <EuiText>stage: {asyncLoadingStatus}</EuiText>
+      <EuiText>status: {asyncLoadingStatus}</EuiText>
+      <EuiButton onClick={cancelAsyncQuery}>Cancel</EuiButton>
     </EuiFlexGroup>
   );
 }

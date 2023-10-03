@@ -33,6 +33,7 @@ interface SQLPageProps {
   sqlQuery: string;
   sqlTranslations: ResponseDetail<TranslateResult>[];
   selectedDatasource: string;
+  asyncLoading: boolean;
 }
 
 interface SQLPageState {
@@ -142,8 +143,12 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
             <EuiFlexItem>
               <EuiFlexGroup className="action-container" gutterSize="m">
                 <EuiFlexItem grow={false} onClick={() => this.props.onRun(this.props.sqlQuery)}>
-                  <EuiButton fill={true} className="sql-editor-button">
-                    Run
+                  <EuiButton
+                    fill={true}
+                    className="sql-editor-button"
+                    isLoading={this.props.asyncLoading}
+                  >
+                    {this.props.asyncLoading ? 'Running' : 'Run'}
                   </EuiButton>
                 </EuiFlexItem>
                 <EuiFlexItem

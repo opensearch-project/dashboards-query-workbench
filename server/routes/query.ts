@@ -18,6 +18,7 @@ import {
   ROUTE_PATH_PPL_TEXT,
   ROUTE_PATH_SPARK_SQL_QUERY,
   ROUTE_PATH_SPARK_SQL_GET_QUERY,
+  ROUTE_PATH_ASYNC_QUERY_CANCEL,
 } from '../utils/constants';
 
 export default function query(server: IRouter, service: QueryService) {
@@ -167,6 +168,23 @@ export default function query(server: IRouter, service: QueryService) {
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLAsyncGetQuery(request, request.params.id);
+      return response.ok({
+        body: retVal,
+      });
+    }
+  )
+
+  server.delete(
+    {
+      path: ROUTE_PATH_ASYNC_QUERY_CANCEL + "/{id}",
+      validate: {
+        params: schema.object({
+          id: schema.string(),
+        }),
+      },
+    },
+    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      const retVal = await service.describeAsyncDeleteQuery(request, request.params.id);
       return response.ok({
         body: retVal,
       });
