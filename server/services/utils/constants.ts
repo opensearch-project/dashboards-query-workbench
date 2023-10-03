@@ -13,6 +13,7 @@ export const PPL_QUERY_ROUTE = `/_plugins/_ppl`;
 export const FORMAT_CSV = `format=csv`;
 export const FORMAT_JSON = `format=json`;
 export const FORMAT_TEXT = `format=raw`;
+export const SPARK_SQL_QUERY_ROUTE = `/_plugins/_async_query`;
 
 export const DEFAULT_HEADERS = {
   'Content-Type': 'application/json',

@@ -76,3 +76,5 @@ export interface CreateAccelerationForm {
   refreshIntervalOptions: RefreshIntervalType;
   formErrors: FormErrorsType;
 }
+
+export type AsyncQueryLoadingStatus = "SUCCESS" | "FAILED" | "RUNNING" | "SCHEDULED" | "CANCELED"
