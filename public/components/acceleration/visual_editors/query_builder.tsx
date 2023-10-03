@@ -12,7 +12,7 @@ import {
 import { pluralizeTime } from '../create/utils';
 
 /* Add index options to query */
-const buildIndexOptions = (accelerationformData: CreateAccelerationForm) => {
+export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) => {
   const {
     primaryShardsCount,
     replicaShardsCount,
@@ -71,7 +71,7 @@ const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
  * )
  */
-const skippingIndexQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
+export const skippingIndexQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
   const { dataSource, database, dataTable, skippingIndexQueryData } = accelerationformData;
 
   const codeQuery = `CREATE SKIPPING INDEX 
@@ -107,7 +107,7 @@ const buildCoveringIndexColumns = (coveringIndexQueryData: string[]) => {
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
  * )
  */
-const coveringIndexQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
+export const coveringIndexQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
   const {
     dataSource,
     database,
@@ -130,8 +130,8 @@ const buildMaterializedViewColumns = (columnsValues: MaterializedViewColumn[]) =
   return columnsValues
     .map(
       (column) =>
-        `   ${column.functionName}(${column.functionParam}) ${
-          column.fieldAlias && `AS ${column.fieldAlias}`
+        `   ${column.functionName}(${column.functionParam})${
+          column.fieldAlias ? ` AS ${column.fieldAlias}` : ``
         }`
     )
     .join(', \n');
@@ -161,7 +161,7 @@ const buildTumbleValue = (GroupByTumbleValue: GroupByTumbleType) => {
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
  * )
  */
-const materializedQueryViewBuilder = (accelerationformData: CreateAccelerationForm) => {
+export const materializedQueryViewBuilder = (accelerationformData: CreateAccelerationForm) => {
   const {
     dataSource,
     database,

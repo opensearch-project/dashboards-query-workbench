@@ -1,0 +1,336 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index options acceleration components renders acceleration index options with covering index options 1`] = `
+Array [
+  <div
+    className="euiText euiText--medium"
+    data-test-subj="define-index-header"
+  >
+    <h3>
+      Index settings
+    </h3>
+  </div>,
+  <div
+    className="euiSpacer euiSpacer--s"
+  />,
+  <div
+    className="euiFormRow"
+    id="some_html_id-row"
+  >
+    <div
+      className="euiFormRow__labelWrapper"
+    >
+      <label
+        aria-invalid={false}
+        className="euiFormLabel euiFormRow__label"
+        htmlFor="some_html_id"
+      >
+        Index name
+      </label>
+       
+      <div
+        className="euiText euiText--extraSmall"
+      >
+        <button
+          className="euiLink euiLink--primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Help
+        </button>
+      </div>
+    </div>
+    <div
+      className="euiFormRow__fieldWrapper"
+    >
+      <div
+        className="euiFormControlLayout euiFormControlLayout--group"
+      >
+        <label
+          className="euiFormLabel euiFormControlLayout__prepend"
+          htmlFor="some_html_id"
+        >
+          flint_{Datasource Name}_{Database Name}_{Table Name}_
+        </label>
+        <span
+          className="euiToolTipAnchor"
+          onKeyUp={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+        >
+          <svg
+            aria-label="Info"
+            className="euiIcon euiIcon--medium euiIcon--subdued"
+            focusable="true"
+            height={16}
+            onBlur={[Function]}
+            onFocus={[Function]}
+            role="img"
+            style={null}
+            tabIndex={0}
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.5 11.508 7.468 8H6.25V7h2.401l.03 3.508H9.8v1H7.5Zm-.25-6.202a.83.83 0 0 1 .207-.577c.137-.153.334-.229.59-.229.256 0 .454.076.594.23.14.152.209.345.209.576 0 .228-.07.417-.21.568-.14.15-.337.226-.593.226-.256 0-.453-.075-.59-.226a.81.81 0 0 1-.207-.568ZM8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10Zm0 1A6 6 0 1 1 8 2a6 6 0 0 1 0 12Z"
+              fillRule="evenodd"
+            />
+          </svg>
+        </span>
+        <div
+          className="euiFormControlLayout__childrenWrapper"
+        >
+          <input
+            aria-describedby="some_html_id-help-0"
+            aria-label="Enter Index Name"
+            className="euiFieldText euiFieldText--inGroup"
+            disabled={false}
+            id="some_html_id"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter index name"
+            type="text"
+            value="covering-idx"
+          />
+        </div>
+        <label
+          className="euiFormLabel euiFormControlLayout__append"
+          htmlFor="some_html_id"
+        >
+          _index
+        </label>
+      </div>
+      <div
+        className="euiFormHelpText euiFormRow__text"
+        id="some_html_id-help-0"
+      >
+        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.
+      </div>
+    </div>
+  </div>,
+  "",
+]
+`;
+
+exports[`Index options acceleration components renders acceleration index options with default options 1`] = `
+Array [
+  <div
+    className="euiText euiText--medium"
+    data-test-subj="define-index-header"
+  >
+    <h3>
+      Index settings
+    </h3>
+  </div>,
+  <div
+    className="euiSpacer euiSpacer--s"
+  />,
+  <div
+    className="euiFormRow"
+    id="some_html_id-row"
+  >
+    <div
+      className="euiFormRow__labelWrapper"
+    >
+      <label
+        aria-invalid={false}
+        className="euiFormLabel euiFormRow__label"
+        htmlFor="some_html_id"
+      >
+        Index name
+      </label>
+       
+      <div
+        className="euiText euiText--extraSmall"
+      >
+        <button
+          className="euiLink euiLink--primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Help
+        </button>
+      </div>
+    </div>
+    <div
+      className="euiFormRow__fieldWrapper"
+    >
+      <div
+        className="euiFormControlLayout euiFormControlLayout--group"
+      >
+        <label
+          className="euiFormLabel euiFormControlLayout__prepend"
+          htmlFor="some_html_id"
+        >
+          flint_{Datasource Name}_{Database Name}_{Table Name}_
+        </label>
+        <span
+          className="euiToolTipAnchor"
+          onKeyUp={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+        >
+          <svg
+            aria-hidden={true}
+            aria-label="Info"
+            className="euiIcon euiIcon--medium euiIcon--subdued euiIcon-isLoading"
+            focusable="true"
+            height={16}
+            onBlur={[Function]}
+            onFocus={[Function]}
+            role="img"
+            style={null}
+            tabIndex={0}
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          />
+        </span>
+        <div
+          className="euiFormControlLayout__childrenWrapper"
+        >
+          <input
+            aria-describedby="some_html_id-help-0"
+            aria-label="Enter Index Name"
+            className="euiFieldText euiFieldText--inGroup"
+            disabled={true}
+            id="some_html_id"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter index name"
+            type="text"
+            value="skipping"
+          />
+        </div>
+        <label
+          className="euiFormLabel euiFormControlLayout__append"
+          htmlFor="some_html_id"
+        >
+          _index
+        </label>
+      </div>
+      <div
+        className="euiFormHelpText euiFormRow__text"
+        id="some_html_id-help-0"
+      >
+        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.
+      </div>
+    </div>
+  </div>,
+  "",
+]
+`;
+
+exports[`Index options acceleration components renders acceleration index options with materialized index options 1`] = `
+Array [
+  <div
+    className="euiText euiText--medium"
+    data-test-subj="define-index-header"
+  >
+    <h3>
+      Index settings
+    </h3>
+  </div>,
+  <div
+    className="euiSpacer euiSpacer--s"
+  />,
+  <div
+    className="euiFormRow"
+    id="some_html_id-row"
+  >
+    <div
+      className="euiFormRow__labelWrapper"
+    >
+      <label
+        aria-invalid={false}
+        className="euiFormLabel euiFormRow__label"
+        htmlFor="some_html_id"
+      >
+        Index name
+      </label>
+       
+      <div
+        className="euiText euiText--extraSmall"
+      >
+        <button
+          className="euiLink euiLink--primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Help
+        </button>
+      </div>
+    </div>
+    <div
+      className="euiFormRow__fieldWrapper"
+    >
+      <div
+        className="euiFormControlLayout euiFormControlLayout--group"
+      >
+        <label
+          className="euiFormLabel euiFormControlLayout__prepend"
+          htmlFor="some_html_id"
+        >
+          flint_{Datasource Name}_{Database Name}_{Table Name}_
+        </label>
+        <span
+          className="euiToolTipAnchor"
+          onKeyUp={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+        >
+          <svg
+            aria-label="Info"
+            className="euiIcon euiIcon--medium euiIcon--subdued"
+            focusable="true"
+            height={16}
+            onBlur={[Function]}
+            onFocus={[Function]}
+            role="img"
+            style={null}
+            tabIndex={0}
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.5 11.508 7.468 8H6.25V7h2.401l.03 3.508H9.8v1H7.5Zm-.25-6.202a.83.83 0 0 1 .207-.577c.137-.153.334-.229.59-.229.256 0 .454.076.594.23.14.152.209.345.209.576 0 .228-.07.417-.21.568-.14.15-.337.226-.593.226-.256 0-.453-.075-.59-.226a.81.81 0 0 1-.207-.568ZM8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10Zm0 1A6 6 0 1 1 8 2a6 6 0 0 1 0 12Z"
+              fillRule="evenodd"
+            />
+          </svg>
+        </span>
+        <div
+          className="euiFormControlLayout__childrenWrapper"
+        >
+          <input
+            aria-describedby="some_html_id-help-0"
+            aria-label="Enter Index Name"
+            className="euiFieldText euiFieldText--inGroup"
+            disabled={false}
+            id="some_html_id"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter index name"
+            type="text"
+            value="mv_metrics"
+          />
+        </div>
+      </div>
+      <div
+        className="euiFormHelpText euiFormRow__text"
+        id="some_html_id-help-0"
+      >
+        Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \\, |, ?, #, &gt;, or &lt; are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.
+      </div>
+    </div>
+  </div>,
+  "",
+]
+`;

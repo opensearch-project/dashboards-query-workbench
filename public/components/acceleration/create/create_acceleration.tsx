@@ -12,11 +12,15 @@ import {
   EuiFlyoutBody,
   EuiFlyoutFooter,
   EuiFlyoutHeader,
+  EuiForm,
   EuiSpacer,
 } from '@elastic/eui';
 import React, { useState } from 'react';
-import { ACCELERATION_TIME_INTERVAL } from '../../../../common/constants';
-import { CreateAccelerationForm } from '../../../../common/types/';
+import {
+  ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
+  ACCELERATION_TIME_INTERVAL,
+} from '../../../../common/constants';
+import { CreateAccelerationForm } from '../../../../common/types';
 import { DefineIndexOptions } from '../selectors/define_index_options';
 import { IndexSettingOptions } from '../selectors/index_setting_options';
 import { AccelerationDataSourceSelector } from '../selectors/source_selector';
@@ -24,16 +28,17 @@ import { accelerationQueryBuilder } from '../visual_editors/query_builder';
 import { QueryVisualEditor } from '../visual_editors/query_visual_editor';
 import { CautionBannerCallout } from './caution_banner_callout';
 import { CreateAccelerationHeader } from './create_acceleration_header';
+import { formValidator, hasError } from './utils';
 
 export interface CreateAccelerationProps {
   dataSource: string;
-  setIsFlyoutVisible(visible: boolean): void;
+  resetFlyout: () => void;
   updateQueries: (query: string) => void;
 }
 
 export const CreateAcceleration = ({
   dataSource,
-  setIsFlyoutVisible,
+  resetFlyout,
   updateQueries,
 }: CreateAccelerationProps) => {
   const [accelerationFormData, setAccelerationFormData] = useState<CreateAccelerationForm>({
@@ -52,7 +57,7 @@ export const CreateAcceleration = ({
         tumbleInterval: '',
       },
     },
-    accelerationIndexName: '',
+    accelerationIndexName: ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
     primaryShardsCount: 5,
     replicaShardsCount: 1,
     refreshType: 'auto',
@@ -61,65 +66,76 @@ export const CreateAcceleration = ({
       refreshWindow: 1,
       refreshInterval: ACCELERATION_TIME_INTERVAL[1].value,
     },
+    formErrors: {
+      dataSourceError: [],
+      databaseError: [],
+      dataTableError: [],
+      skippingIndexError: [],
+      coveringIndexError: [],
+      materializedViewError: [],
+      indexNameError: [],
+      primaryShardsError: [],
+      replicaShardsError: [],
+      refreshIntervalError: [],
+      checkpointLocationError: [],
+    },
   });
 
   const copyToEditor = () => {
+    const errors = formValidator(accelerationFormData);
+    if (hasError(errors)) {
+      setAccelerationFormData({ ...accelerationFormData, formErrors: errors });
+      return;
+    }
     updateQueries(accelerationQueryBuilder(accelerationFormData));
+    resetFlyout();
   };
 
   return (
     <>
-      <EuiFlyout
-        ownFocus
-        onClose={() => setIsFlyoutVisible(false)}
-        aria-labelledby="flyoutTitle"
-        size="m"
-      >
+      <EuiFlyout ownFocus onClose={resetFlyout} aria-labelledby="flyoutTitle" size="m">
         <EuiFlyoutHeader hasBorder>
           <CreateAccelerationHeader />
         </EuiFlyoutHeader>
         <EuiFlyoutBody>
           <CautionBannerCallout />
           <EuiSpacer size="l" />
-          <AccelerationDataSourceSelector
-            accelerationFormData={accelerationFormData}
-            setAccelerationFormData={setAccelerationFormData}
-          />
-          <EuiSpacer size="xxl" />
-          <IndexSettingOptions
-            accelerationFormData={accelerationFormData}
-            setAccelerationFormData={setAccelerationFormData}
-          />
-          <EuiSpacer size="xxl" />
-          <DefineIndexOptions
-            accelerationFormData={accelerationFormData}
-            setAccelerationFormData={setAccelerationFormData}
-          />
-          <EuiSpacer size="m" />
-          <QueryVisualEditor
-            accelerationFormData={accelerationFormData}
-            setAccelerationFormData={setAccelerationFormData}
-          />
+          <EuiForm
+            isInvalid={hasError(accelerationFormData.formErrors)}
+            error={Object.values(accelerationFormData.formErrors).flat()}
+            component="div"
+            id="acceleration-form"
+          >
+            <AccelerationDataSourceSelector
+              accelerationFormData={accelerationFormData}
+              setAccelerationFormData={setAccelerationFormData}
+            />
+            <EuiSpacer size="xxl" />
+            <IndexSettingOptions
+              accelerationFormData={accelerationFormData}
+              setAccelerationFormData={setAccelerationFormData}
+            />
+            <EuiSpacer size="xxl" />
+            <DefineIndexOptions
+              accelerationFormData={accelerationFormData}
+              setAccelerationFormData={setAccelerationFormData}
+            />
+            <EuiSpacer size="m" />
+            <QueryVisualEditor
+              accelerationFormData={accelerationFormData}
+              setAccelerationFormData={setAccelerationFormData}
+            />
+          </EuiForm>
         </EuiFlyoutBody>
         <EuiFlyoutFooter>
           <EuiFlexGroup justifyContent="spaceBetween">
             <EuiFlexItem grow={false}>
-              <EuiButtonEmpty
-                iconType="cross"
-                onClick={() => setIsFlyoutVisible(false)}
-                flush="left"
-              >
+              <EuiButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
                 Close
               </EuiButtonEmpty>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
-              <EuiButton
-                onClick={() => {
-                  copyToEditor();
-                  setIsFlyoutVisible(false);
-                }}
-                fill
-              >
+              <EuiButton onClick={copyToEditor} fill>
                 Copy Query to Editor
               </EuiButton>
             </EuiFlexItem>

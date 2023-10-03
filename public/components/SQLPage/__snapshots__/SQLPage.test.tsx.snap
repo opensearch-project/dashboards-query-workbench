@@ -124,61 +124,69 @@ exports[`<SQLPage /> spec renders the component 1`] = `
       class="euiSpacer euiSpacer--l"
     />
     <div
-      class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--directionRow euiFlexGroup--responsive action-container"
+      class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
     >
       <div
-        class="euiFlexItem euiFlexItem--flexGrowZero"
+        class="euiFlexItem"
       >
-        <button
-          class="euiButton euiButton--primary euiButton--fill sql-editor-button"
-          type="button"
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--directionRow euiFlexGroup--responsive action-container"
         >
-          <span
-            class="euiButtonContent euiButton__content"
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
           >
-            <span
-              class="euiButton__text"
+            <button
+              class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+              type="button"
             >
-              Run
-            </span>
-          </span>
-        </button>
-      </div>
-      <div
-        class="euiFlexItem euiFlexItem--flexGrowZero"
-      >
-        <button
-          class="euiButton euiButton--primary sql-editor-button"
-          type="button"
-        >
-          <span
-            class="euiButtonContent euiButton__content"
+              <span
+                class="euiButtonContent euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Run
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
           >
-            <span
-              class="euiButton__text"
+            <button
+              class="euiButton euiButton--primary sql-editor-button"
+              type="button"
             >
-              Clear
-            </span>
-          </span>
-        </button>
-      </div>
-      <div
-        class="euiFlexItem euiFlexItem--flexGrowZero"
-      >
-        <button
-          class="euiButton euiButton--primary sql-editor-button"
-          type="button"
-        >
-          <span
-            class="euiButtonContent euiButton__content"
+              <span
+                class="euiButtonContent euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Clear
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
           >
-            <span
-              class="euiButton__text"
+            <button
+              class="euiButton euiButton--primary sql-editor-button"
+              type="button"
             >
-              Explain
-            </span>
-          </span>
-        </button>
+              <span
+                class="euiButtonContent euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Explain
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -309,31 +317,75 @@ exports[`<SQLPage /> spec tests the action buttons 1`] = `
       class="euiSpacer euiSpacer--l"
     />
     <div
-      class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--directionRow euiFlexGroup--responsive action-container"
+      class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
     >
       <div
-        class="euiFlexItem euiFlexItem--flexGrowZero"
+        class="euiFlexItem"
       >
-        <button
-          class="euiButton euiButton--primary euiButton--fill sql-editor-button"
-          type="button"
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--directionRow euiFlexGroup--responsive action-container"
         >
-          <span
-            class="euiButtonContent euiButton__content"
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
           >
-            <span
-              class="euiButton__text"
+            <button
+              class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+              type="button"
             >
-              Run
-            </span>
-          </span>
-        </button>
+              <span
+                class="euiButtonContent euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Run
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <button
+              class="euiButton euiButton--primary sql-editor-button"
+              type="button"
+            >
+              <span
+                class="euiButtonContent euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Clear
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <button
+              class="euiButton euiButton--primary sql-editor-button"
+              type="button"
+            >
+              <span
+                class="euiButtonContent euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Explain
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
       <div
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--fill sql-accelerate-button"
           type="button"
         >
           <span
@@ -342,25 +394,7 @@ exports[`<SQLPage /> spec tests the action buttons 1`] = `
             <span
               class="euiButton__text"
             >
-              Clear
-            </span>
-          </span>
-        </button>
-      </div>
-      <div
-        class="euiFlexItem euiFlexItem--flexGrowZero"
-      >
-        <button
-          class="euiButton euiButton--primary sql-editor-button"
-          type="button"
-        >
-          <span
-            class="euiButtonContent euiButton__content"
-          >
-            <span
-              class="euiButton__text"
-            >
-              Explain
+              Accelerate Table
             </span>
           </span>
         </button>

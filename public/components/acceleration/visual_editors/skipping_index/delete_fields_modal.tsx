@@ -28,7 +28,7 @@ export const DeleteFieldsModal = ({
   accelerationFormData,
   setAccelerationFormData,
 }: AddFieldsModalProps) => {
-  const [selectedFields, setSelectedFields] = useState([]);
+  const [selectedFields, setSelectedFields] = useState<SkippingIndexRowType[]>([]);
 
   const tableColumns: Array<EuiTableFieldDataColumnType<SkippingIndexRowType>> = [
     {

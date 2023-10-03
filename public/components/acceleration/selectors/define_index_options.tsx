@@ -20,10 +20,11 @@ import {
   EuiSpacer,
   EuiText,
 } from '@elastic/eui';
+import producer from 'immer';
 import React, { ChangeEvent, useState } from 'react';
 import { ACCELERATION_INDEX_NAME_INFO } from '../../../../common/constants';
 import { CreateAccelerationForm } from '../../../../common/types';
-import { validateIndexName } from '../create/utils';
+import { hasError, validateIndexName } from '../create/utils';
 
 interface DefineIndexOptionsProps {
   accelerationFormData: CreateAccelerationForm;
@@ -34,7 +35,6 @@ export const DefineIndexOptions = ({
   accelerationFormData,
   setAccelerationFormData,
 }: DefineIndexOptionsProps) => {
-  const [indexName, setIndexName] = useState('');
   const [modalComponent, setModalComponent] = useState(<></>);
 
   const modalValue = (
@@ -61,7 +61,6 @@ export const DefineIndexOptions = ({
 
   const onChangeIndexName = (e: ChangeEvent<HTMLInputElement>) => {
     setAccelerationFormData({ ...accelerationFormData, accelerationIndexName: e.target.value });
-    setIndexName(e.target.value);
   };
 
   const getPreprend = () => {
@@ -94,8 +93,9 @@ export const DefineIndexOptions = ({
       <EuiSpacer size="s" />
       <EuiFormRow
         label="Index name"
-        helpText='Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \, |, ?, #, >, or < are not allowed. 
-        Prefix and suffix are added to the name of generated OpenSearch index.'
+        helpText='Must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \, |, ?, #, >, or < are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.'
+        isInvalid={hasError(accelerationFormData.formErrors, 'indexNameError')}
+        error={accelerationFormData.formErrors.indexNameError}
         labelAppend={
           <EuiText size="xs">
             <EuiLink onClick={() => setModalComponent(modalValue)}>Help</EuiLink>
@@ -104,13 +104,20 @@ export const DefineIndexOptions = ({
       >
         <EuiFieldText
           placeholder="Enter index name"
-          value={accelerationFormData.accelerationIndexType === 'skipping' ? 'skipping' : indexName}
+          value={accelerationFormData.accelerationIndexName}
           onChange={onChangeIndexName}
           aria-label="Enter Index Name"
           prepend={getPreprend()}
           append={getAppend()}
           disabled={accelerationFormData.accelerationIndexType === 'skipping'}
-          isInvalid={validateIndexName(indexName)}
+          isInvalid={hasError(accelerationFormData.formErrors, 'indexNameError')}
+          onBlur={(e) => {
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.formErrors.indexNameError = validateIndexName(e.target.value);
+              })
+            );
+          }}
         />
       </EuiFormRow>
       {modalComponent}

@@ -17,6 +17,7 @@ import {
 import React, { useState } from 'react';
 import { ACCELERATION_ADD_FIELDS_TEXT } from '../../../../../common/constants';
 import { CreateAccelerationForm } from '../../../../../common/types';
+import { hasError } from '../../create/utils';
 
 interface CoveringIndexBuilderProps {
   accelerationFormData: CreateAccelerationForm;
@@ -74,7 +75,10 @@ export const CoveringIndexBuilder = ({
                 value={columnsValue}
                 isActive={isPopOverOpen}
                 onClick={() => setIsPopOverOpen(true)}
-                isInvalid={columnsValue === ACCELERATION_ADD_FIELDS_TEXT}
+                isInvalid={
+                  hasError(accelerationFormData.formErrors, 'coveringIndexError') &&
+                  columnsValue === ACCELERATION_ADD_FIELDS_TEXT
+                }
               />
             }
             isOpen={isPopOverOpen}

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Acceleration callout renders acceleration flyout callout 1`] = `
+<div
+  className="euiCallOut euiCallOut--warning"
+>
+  <div
+    className="euiCallOutHeader"
+  >
+    <svg
+      aria-hidden={true}
+      className="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiCallOutHeader__icon"
+      focusable="false"
+      height={16}
+      role="img"
+      style={null}
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    />
+    <span
+      className="euiCallOutHeader__title"
+    >
+      Considerations for data indexing
+    </span>
+  </div>
+  <div
+    className="euiText euiText--small"
+  >
+    <div
+      className="euiTextColor euiTextColor--default"
+    >
+      <p>
+        Warning about not indexing personal or sensitive data, something about the cost of indexing.
+      </p>
+    </div>
+  </div>
+</div>
+`;
