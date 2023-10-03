@@ -150,7 +150,6 @@ export default function query(server: IRouter, service: QueryService) {
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLAsyncQuery(request);
-      // console.log("node:", request);
       return response.ok({
         body: retVal,
       });
@@ -167,7 +166,6 @@ export default function query(server: IRouter, service: QueryService) {
       },
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      // console.log('id in the url:',request.params.id);
       const retVal = await service.describeSQLAsyncGetQuery(request, request.params.id);
       return response.ok({
         body: retVal,

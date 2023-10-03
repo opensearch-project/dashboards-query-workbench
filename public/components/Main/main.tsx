@@ -114,7 +114,8 @@ const errorQueryResponse = (queryResultResponseDetail: any) => {
 };
 
 export function getQueryResultsForTable(
-  queryResults: ResponseDetail<string>[]
+  queryResults: ResponseDetail<string>[],
+  jsonParseData: boolean
 ): ResponseDetail<QueryResult>[] {
   return queryResults.map(
     (queryResultResponseDetail: ResponseDetail<string>): ResponseDetail<QueryResult> => {
@@ -124,7 +125,10 @@ export function getQueryResultsForTable(
           errorMessage: errorQueryResponse(queryResultResponseDetail),
         };
       } else {
-        const responseObj = queryResultResponseDetail.data ? queryResultResponseDetail.data : '';
+        const resultData = jsonParseData
+          ? JSON.parse(queryResultResponseDetail.data)
+          : queryResultResponseDetail.data;
+        const responseObj = queryResultResponseDetail.data ? resultData : '';
         let fields: string[] = [];
         let dataRows: DataRow[] = [];
 
@@ -215,7 +219,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.onChange = this.onChange.bind(this);
     this.state = {
       language: 'SQL',
-      sqlQueriesString: 'select * from my_glue.default.http_logs limit 10',
+      sqlQueriesString: "SHOW tables LIKE '%';",
       pplQueriesString: '',
       queries: [],
       queryTranslations: [],
@@ -351,13 +355,62 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
+      let endpoint = '../api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      const responsePromise = Promise.all(
+        queries.map((query: string) =>
+          this.httpClient
+            .post(endpoint, { body: JSON.stringify({ query }) })
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: 'error-message',
+                  },
+                ],
+              });
+            })
+        )
+      );
+      Promise.all([responsePromise]).then(([response]) => {
+        const results: ResponseDetail<string>[] = response.map((response) =>
+          this.processQueryResponse(response as IHttpResponse<ResponseData>)
+        );
+        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results, true);
+        this.setState(
+          {
+            queries: queries,
+            queryResults: results,
+            queryResultsTable: resultTable,
+            selectedTabId: getDefaultTabId(results),
+            selectedTabName: getDefaultTabLabel(results, queries[0]),
+            messages: this.getMessage(resultTable),
+            itemIdToExpandedRowMap: {},
+            queryResultsJSON: [],
+            queryResultsCSV: [],
+            queryResultsTEXT: [],
+            searchQuery: '',
+          },
+          () => console.log('Successfully updated the states')
+        ); // added callback function to handle async issues
+      });
+    }
+  };
+
+  onRunAsync = (queriesString: string): void => {
+    // switch to an async query here if using any datasource != Opensearch
+
+    // finding regular query here
+    const queries: string[] = getQueries(queriesString);
+    const language = this.state.language;
+    if (queries.length > 0) {
       let endpoint = '../api/spark_sql_console';
       // + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
             .post(endpoint, {
-              body: JSON.stringify({ lang: language, query: query }),
+              body: JSON.stringify({ lang: language, query: query, datasource: 'my_glue' }), // TODO: dynamically datasource when accurate
             })
             .catch((error: any) => {
               this.setState({
@@ -447,7 +500,7 @@ export class Main extends React.Component<MainProps, MainState> {
       );
       const status = results[0].data['status'];
       if (_.isEqual(status, 'SUCCESS')) {
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results);
+        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results, false);
         this.setState({
           queries: queries,
           queryResults: results,
@@ -718,7 +771,9 @@ export class Main extends React.Component<MainProps, MainState> {
     if (this.state.language == 'SQL') {
       page = (
         <SQLPage
-          onRun={this.onRun}
+          onRun={
+            _.isEqual(this.state.selectedDatasource, 'Opensearch') ? this.onRun : this.onRunAsync
+          }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
           sqlQuery={this.state.sqlQueriesString}
@@ -732,7 +787,9 @@ export class Main extends React.Component<MainProps, MainState> {
     } else {
       page = (
         <PPLPage
-          onRun={this.onRun}
+          onRun={
+            _.isEqual(this.state.selectedDatasource, 'Opensearch') ? this.onRun : this.onRunAsync
+          }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
           pplQuery={this.state.pplQueriesString}

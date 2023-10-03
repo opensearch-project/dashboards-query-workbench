@@ -14,10 +14,10 @@ export default class QueryService {
     this.client = client;
   }
 
-  describeQueryInternal = async (request: any, format: string, responseFormat: string) => {
+  describeQueryPostInternal = async (request: any, format: string, responseFormat: string, body: any) => {
     try {
       const params = {
-        body: JSON.stringify(request.body),
+        body: JSON.stringify(body),
       };
 
       const queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, params);
@@ -63,39 +63,39 @@ export default class QueryService {
   };
 
   describeSQLQuery = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.sqlQuery', 'json');
+    return this.describeQueryPostInternal(request, 'sql.sqlQuery', 'json', {query: request.body.query});
   };
 
   describePPLQuery = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.pplQuery', 'json');
+    return this.describeQueryPostInternal(request, 'sql.pplQuery', 'json', {query: request.body.query});
   };
 
   describeSQLCsv = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.sqlCsv', null);
+    return this.describeQueryPostInternal(request, 'sql.sqlCsv', null, {query: request.body.query});
   };
 
   describePPLCsv = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.pplCsv', null);
+    return this.describeQueryPostInternal(request, 'sql.pplCsv', null, {query: request.body.query});
   };
 
   describeSQLJson = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.sqlJson', 'json');
+    return this.describeQueryPostInternal(request, 'sql.sqlJson', 'json', {query: request.body.query});
   };
 
   describePPLJson = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.pplJson', 'json');
+    return this.describeQueryPostInternal(request, 'sql.pplJson', 'json', {query: request.body.query});
   };
 
   describeSQLText = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.sqlText', null);
+    return this.describeQueryPostInternal(request, 'sql.sqlText', null, {query: request.body.query});
   };
 
   describePPLText = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.pplText', null);
+    return this.describeQueryPostInternal(request, 'sql.pplText', null, {query: request.body.query});
   };
 
   describeSQLAsyncQuery = async (request: any) => {
-    return this.describeQueryInternal(request, 'sql.sparkSqlQuery', null);
+    return this.describeQueryPostInternal(request, 'sql.sparkSqlQuery', null, request.body);
   };
 
   describeSQLAsyncGetQuery = async (request: any, jobId: string) => {
