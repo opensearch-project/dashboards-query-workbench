@@ -83,6 +83,8 @@ export type DataRow = {
 interface MainProps {
   httpClient: CoreStart['http'];
   setBreadcrumbs: (newBreadcrumbs: ChromeBreadcrumb[]) => void;
+  isAccelerationFlyoutOpen: boolean;
+  urlDataSource: string;
 }
 
 interface MainState {
