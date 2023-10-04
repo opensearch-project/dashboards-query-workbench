@@ -8,7 +8,31 @@ export const PLUGIN_NAME = 'Query Workbench';
 export const OPENSEARCH_ACC_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 export const ACC_INDEX_TYPE_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 
+export const SKIPPING_INDEX = `skipping_index`
 export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
+export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
+(status VALUE_SET) 
+WITH (
+  auto_refresh = true
+  )`
+export const COVERING_INDEX_QUERY =`CREATE INDEX covering_idx ON myS3.logs_db.http_logs
+ (status) 
+ WITH (
+  auto_refresh = true
+  )`
+export const CREATE_DATABASE_QUERY =`CREATE DATABASE myS3.logs_db`
+export const CREATE_TABLE_QUERY =`CREATE EXTERNAL TABLE logs (
+  key BIGINT,
+  status INTEGER,
+  size FLOAT,
+  agent STRING,
+  timestamp DATE
+)
+USING JSON
+OPTIONS (
+  path 's3://test/path',
+  compression 'gzip'
+);`
 
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
