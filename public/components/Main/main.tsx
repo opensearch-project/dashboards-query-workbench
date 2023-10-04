@@ -14,7 +14,7 @@ import {
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
-  EuiText
+  EuiText,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
@@ -417,7 +417,11 @@ export class Main extends React.Component<MainProps, MainState> {
         queries.map((query: string) =>
           this.httpClient
             .post(endpoint, {
-              body: JSON.stringify({ lang: language, query: query, datasource: this.state.selectedDatasource[0].label}), // TODO: dynamically datasource when accurate
+              body: JSON.stringify({
+                lang: language,
+                query: query,
+                datasource: this.state.selectedDatasource[0].label,
+              }), // TODO: dynamically datasource when accurate
             })
             .catch((error: any) => {
               this.setState({
@@ -797,7 +801,9 @@ export class Main extends React.Component<MainProps, MainState> {
       page = (
         <SQLPage
           onRun={
-            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch') ? this.onRun : this.onRunAsync
+            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch')
+              ? this.onRun
+              : this.onRunAsync
           }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
@@ -814,7 +820,9 @@ export class Main extends React.Component<MainProps, MainState> {
       page = (
         <PPLPage
           onRun={
-            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch') ? this.onRun : this.onRunAsync
+            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch')
+              ? this.onRun
+              : this.onRunAsync
           }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
@@ -903,6 +911,7 @@ export class Main extends React.Component<MainProps, MainState> {
                     <TableView
                       http={this.httpClient}
                       selectedItems={this.state.selectedDatasource}
+                      updateSQLQueries={this.updateSQLQueries}
                     />
                     <EuiSpacer />
                   </EuiFlexItem>

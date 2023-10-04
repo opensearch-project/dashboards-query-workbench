@@ -8,14 +8,16 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { ON_LOAD_QUERY } from '../../../common/constants';
+import { AccelerationIndexFlyout } from './acceleration_index_flyout';
 import { getJobId, pollQueryStatus } from './utils';
 
 interface CustomView {
   http: CoreStart['http'];
   selectedItems: any[];
+  updateSQLQueries: (query: string) => void;
 }
 
-export const TableView = ({ http, selectedItems }: CustomView) => {
+export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView) => {
   const [tablenames, setTablenames] = useState<string[]>([]);
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [childData, setChildData] = useState<string[]>([]);
@@ -23,6 +25,29 @@ export const TableView = ({ http, selectedItems }: CustomView) => {
   const [indexData, setIndexedData] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [indiciesData, setIndiciesData] = useState<string[]>([]);
+  const [indexFlyout, setIndexFlyout] = useState(<></>);
+
+  const resetFlyout = () => {
+    setIndexFlyout(<></>);
+  };
+
+  const handleAccelerationIndexClick = (
+    dataSource: string,
+    database: string,
+    dataTable: string,
+    indexName: string
+  ) => {
+    setIndexFlyout(
+      <AccelerationIndexFlyout
+        dataSource={dataSource}
+        database={database}
+        dataTable={dataTable}
+        indexName={indexName}
+        resetFlyout={resetFlyout}
+        updateSQLQueries={updateSQLQueries}
+      />
+    );
+  };
 
   const get_async_query_results = (id, http, callback) => {
     pollQueryStatus(id, http, callback);
@@ -141,6 +166,13 @@ export const TableView = ({ http, selectedItems }: CustomView) => {
                     label: indexChild,
                     id: `${table}_${indexChild}`,
                     icon: <EuiIcon type="bolt" size="s" />,
+                    callback: () =>
+                      handleAccelerationIndexClick(
+                        selectedItems[0].label,
+                        database,
+                        table,
+                        indexChild
+                      ),
                   }))
                 : undefined,
           }))
@@ -158,6 +190,7 @@ export const TableView = ({ http, selectedItems }: CustomView) => {
           title={<h2>Error loading Datasources</h2>}
         />
       )}
+      {indexFlyout}
     </>
   );
 };
