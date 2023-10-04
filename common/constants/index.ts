@@ -13,7 +13,7 @@ export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
   { label: 'Covering Index', value: 'covering' },
-  { label: 'Materialized View', value: 'materialized' },
+  // { label: 'Materialized View', value: 'materialized' }, Hidden Option -> Until opensearch-spark feature is ready
 ];
 
 export const ACCELERATION_AGGREGRATION_FUNCTIONS = [

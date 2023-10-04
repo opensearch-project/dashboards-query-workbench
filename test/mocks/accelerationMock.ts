@@ -201,8 +201,7 @@ export const skippingIndexBuilderMock1: CreateAccelerationForm = {
   checkpointLocation: 's3://test/',
 };
 
-export const skippingIndexBuilderMockResult1 = `CREATE SKIPPING INDEX 
-[IF NOT EXISTS]
+export const skippingIndexBuilderMockResult1 = `CREATE SKIPPING INDEX
 ON datasource.database.table
   FOR COLUMNS (
    field1 PARTITION, 
@@ -234,8 +233,7 @@ export const skippingIndexBuilderMock2: CreateAccelerationForm = {
   checkpointLocation: 's3://test/',
 };
 
-export const skippingIndexBuilderMockResult2 = `CREATE SKIPPING INDEX 
-[IF NOT EXISTS]
+export const skippingIndexBuilderMockResult2 = `CREATE SKIPPING INDEX
 ON datasource.database.table
   FOR COLUMNS (
    field1 PARTITION
@@ -263,7 +261,6 @@ export const coveringIndexBuilderMock1: CreateAccelerationForm = {
 };
 
 export const coveringIndexBuilderMockResult1 = `CREATE INDEX index_name
-[IF NOT EXISTS]
 ON datasource.database.table
   FOR COLUMNS (
    field1, 
@@ -290,7 +287,6 @@ export const coveringIndexBuilderMock2: CreateAccelerationForm = {
 };
 
 export const coveringIndexBuilderMockResult2 = `CREATE INDEX index_name
-[IF NOT EXISTS]
 ON datasource.database.table
   FOR COLUMNS (
    field1
@@ -330,7 +326,6 @@ export const materializedViewBuilderMock1: CreateAccelerationForm = {
 };
 
 export const materializedViewBuilderMockResult1 = `CREATE MATERIALIZED VIEW datasource.database.index_name
-[IF NOT EXISTS]
 AS SELECT
    count(field) AS counter, 
    count(*) AS counter1, 
@@ -366,7 +361,6 @@ export const materializedViewBuilderMock2: CreateAccelerationForm = {
 };
 
 export const materializedViewBuilderMockResult2 = `CREATE MATERIALIZED VIEW datasource.database.index_name
-[IF NOT EXISTS]
 AS SELECT
    count(field)
 FROM datasource.database.table

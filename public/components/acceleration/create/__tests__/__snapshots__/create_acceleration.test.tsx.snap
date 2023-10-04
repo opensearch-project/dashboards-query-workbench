@@ -109,40 +109,6 @@ Array [
                   class="euiFlyoutBody__overflowContent"
                 >
                   <div
-                    class="euiCallOut euiCallOut--warning"
-                  >
-                    <div
-                      class="euiCallOutHeader"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiCallOutHeader__icon"
-                        focusable="false"
-                        height="16"
-                        role="img"
-                        viewBox="0 0 16 16"
-                        width="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                      />
-                      <span
-                        class="euiCallOutHeader__title"
-                      >
-                        Considerations for data indexing
-                      </span>
-                    </div>
-                    <div
-                      class="euiText euiText--small"
-                    >
-                      <div
-                        class="euiTextColor euiTextColor--default"
-                      >
-                        <p>
-                          Warning about not indexing personal or sensitive data, something about the cost of indexing.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div
                     class="euiSpacer euiSpacer--l"
                   />
                   <div
@@ -608,7 +574,7 @@ Array [
                               min="1"
                               placeholder="Number of primary shards"
                               type="number"
-                              value="5"
+                              value="1"
                             />
                           </div>
                         </div>
@@ -616,7 +582,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created.
+                          Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
                         </div>
                       </div>
                     </div>
@@ -1253,41 +1219,6 @@ Array [
                   className="euiFlyoutBody__overflowContent"
                 >
                   <div
-                    className="euiCallOut euiCallOut--warning"
-                  >
-                    <div
-                      className="euiCallOutHeader"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiCallOutHeader__icon"
-                        focusable="false"
-                        height={16}
-                        role="img"
-                        style={null}
-                        viewBox="0 0 16 16"
-                        width={16}
-                        xmlns="http://www.w3.org/2000/svg"
-                      />
-                      <span
-                        className="euiCallOutHeader__title"
-                      >
-                        Considerations for data indexing
-                      </span>
-                    </div>
-                    <div
-                      className="euiText euiText--small"
-                    >
-                      <div
-                        className="euiTextColor euiTextColor--default"
-                      >
-                        <p>
-                          Warning about not indexing personal or sensitive data, something about the cost of indexing.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div
                     className="euiSpacer euiSpacer--l"
                   />
                   <div
@@ -1868,7 +1799,7 @@ Array [
                                 onFocus={[Function]}
                                 placeholder="Number of primary shards"
                                 type="number"
-                                value={5}
+                                value={1}
                               />
                             </div>
                           </div>
@@ -1876,7 +1807,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created.
+                            Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
                           </div>
                         </div>
                       </div>,

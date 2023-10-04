@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
-import React from 'react';
 import { I18nProvider } from '@osd/i18n/react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import { EuiPage, EuiPageBody } from '@elastic/eui';
 
@@ -23,29 +22,64 @@ interface WorkbenchAppDeps {
   chrome: CoreStart['chrome'];
 }
 
-const onChange = () => {};
-
-export const WorkbenchApp = ({ basename, notifications, http, navigation, chrome }: WorkbenchAppDeps) => {
+export const WorkbenchApp = ({
+  basename,
+  notifications,
+  http,
+  navigation,
+  chrome,
+}: WorkbenchAppDeps) => {
   return (
-    <Router basename={'/' + basename}>
+    <HashRouter>
       <I18nProvider>
         <div>
           <EuiPage>
             <EuiPageBody>
-              <Route 
-                path="/" 
-                render={(props) => 
-                  <Main 
-                    httpClient={http} 
-                    {...props} 
-                    setBreadcrumbs={chrome.setBreadcrumbs} 
-                  />
-                } 
-              />
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={(props) => (
+                    <Main
+                      httpClient={http}
+                      {...props}
+                      setBreadcrumbs={chrome.setBreadcrumbs}
+                      isAccelerationFlyoutOpen={false}
+                      urlDataSource=""
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/:dataSource"
+                  render={(props) => (
+                    <Main
+                      httpClient={http}
+                      {...props}
+                      setBreadcrumbs={chrome.setBreadcrumbs}
+                      isAccelerationFlyoutOpen={false}
+                      urlDataSource={props.match.params.dataSource}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/accelerate/:dataSource"
+                  render={(props) => (
+                    <Main
+                      httpClient={http}
+                      {...props}
+                      setBreadcrumbs={chrome.setBreadcrumbs}
+                      isAccelerationFlyoutOpen={true}
+                      urlDataSource={props.match.params.dataSource}
+                    />
+                  )}
+                />
+              </Switch>
             </EuiPageBody>
           </EuiPage>
         </div>
       </I18nProvider>
-    </Router>
+    </HashRouter>
   );
 };

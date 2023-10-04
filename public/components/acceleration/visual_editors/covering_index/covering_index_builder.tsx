@@ -58,9 +58,6 @@ export const CoveringIndexBuilder = ({
             value={accelerationFormData.accelerationIndexName}
           />
         </EuiFlexItem>
-        <EuiFlexItem grow={false}>
-          <EuiExpression description="[IF NOT EXISTS]" />
-        </EuiFlexItem>
         <EuiFlexItem>
           <EuiExpression
             description="ON"

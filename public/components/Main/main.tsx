@@ -14,7 +14,7 @@ import {
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
-  EuiText
+  EuiText,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
@@ -83,6 +83,8 @@ export type DataRow = {
 interface MainProps {
   httpClient: CoreStart['http'];
   setBreadcrumbs: (newBreadcrumbs: ChromeBreadcrumb[]) => void;
+  isAccelerationFlyoutOpen: boolean;
+  urlDataSource: string;
 }
 
 interface MainState {
@@ -417,7 +419,11 @@ export class Main extends React.Component<MainProps, MainState> {
         queries.map((query: string) =>
           this.httpClient
             .post(endpoint, {
-              body: JSON.stringify({ lang: language, query: query, datasource: this.state.selectedDatasource[0].label}), // TODO: dynamically datasource when accurate
+              body: JSON.stringify({
+                lang: language,
+                query: query,
+                datasource: this.state.selectedDatasource[0].label,
+              }), // TODO: dynamically datasource when accurate
             })
             .catch((error: any) => {
               this.setState({
@@ -796,8 +802,11 @@ export class Main extends React.Component<MainProps, MainState> {
     if (this.state.language == 'SQL') {
       page = (
         <SQLPage
+          http={this.httpClient}
           onRun={
-            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch') ? this.onRun : this.onRunAsync
+            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch')
+              ? this.onRun
+              : this.onRunAsync
           }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
@@ -814,7 +823,9 @@ export class Main extends React.Component<MainProps, MainState> {
       page = (
         <PPLPage
           onRun={
-            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch') ? this.onRun : this.onRunAsync
+            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch')
+              ? this.onRun
+              : this.onRunAsync
           }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
@@ -876,7 +887,11 @@ export class Main extends React.Component<MainProps, MainState> {
         <EuiFlexGroup direction="row" alignItems="center">
           <EuiFlexItem>
             <EuiText>Data Sources</EuiText>
-            <DataSelect http={this.httpClient} onSelect={this.handleDataSelect} />
+            <DataSelect
+              http={this.httpClient}
+              onSelect={this.handleDataSelect}
+              urlDataSource={this.props.urlDataSource}
+            />
             <EuiSpacer />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
@@ -903,6 +918,7 @@ export class Main extends React.Component<MainProps, MainState> {
                     <TableView
                       http={this.httpClient}
                       selectedItems={this.state.selectedDatasource}
+                      updateSQLQueries={this.updateSQLQueries}
                     />
                     <EuiSpacer />
                   </EuiFlexItem>

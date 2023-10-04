@@ -41,7 +41,7 @@ export const validatePrimaryShardCount = (primaryShardCount: number) => {
 };
 
 export const validateReplicaCount = (replicaCount: number) => {
-  return replicaCount < 1 ? ['Replica count should be greater than 0'] : [];
+  return replicaCount < 0 ? ['Replica count should be equal or greater than 0'] : [];
 };
 
 export const validateRefreshInterval = (refreshType: string, refreshWindow: number) => {
