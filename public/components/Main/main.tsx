@@ -887,7 +887,11 @@ export class Main extends React.Component<MainProps, MainState> {
         <EuiFlexGroup direction="row" alignItems="center">
           <EuiFlexItem>
             <EuiText>Data Sources</EuiText>
-            <DataSelect http={this.httpClient} onSelect={this.handleDataSelect} />
+            <DataSelect
+              http={this.httpClient}
+              onSelect={this.handleDataSelect}
+              urlDataSource={this.props.urlDataSource}
+            />
             <EuiSpacer />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiEmptyPrompt, EuiIcon, EuiTreeView } from '@elastic/eui';
+import { EuiComboBoxOptionOption, EuiEmptyPrompt, EuiIcon, EuiTreeView } from '@elastic/eui';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
@@ -13,7 +13,7 @@ import { getJobId, pollQueryStatus } from './utils';
 
 interface CustomView {
   http: CoreStart['http'];
-  selectedItems: any[];
+  selectedItems: EuiComboBoxOptionOption[];
   updateSQLQueries: (query: string) => void;
 }
 
@@ -89,7 +89,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
 
   useEffect(() => {
     getSidebarContent();
-  }, [selectedItems[0]['label']]);
+  }, [selectedItems]);
 
   const handleNodeClick = (nodeLabel: string) => {
     setSelectedNode(nodeLabel);
