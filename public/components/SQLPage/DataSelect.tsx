@@ -11,9 +11,10 @@ interface CustomView {
   http: CoreStart['http'];
   onSelect: (selectedItems: []) => void;
   urlDataSource: string;
+  asyncLoading: boolean;
 }
 
-export const DataSelect = ({ http, onSelect, urlDataSource }: CustomView) => {
+export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading }: CustomView) => {
   const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([
     { label: 'OpenSearch' },
   ]);
@@ -84,6 +85,7 @@ export const DataSelect = ({ http, onSelect, urlDataSource }: CustomView) => {
       options={options}
       selectedOptions={selectedOptions}
       onChange={(selectedItems) => handleSelectionChange(selectedItems)}
+      isDisabled={asyncLoading}
     />
   );
 };

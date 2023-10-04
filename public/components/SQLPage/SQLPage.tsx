@@ -141,6 +141,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
               enableLiveAutocompletion: true,
             }}
             aria-label="Code Editor"
+            isReadOnly={this.props.asyncLoading}
           />
           <EuiSpacer />
           <EuiFlexGroup justifyContent="spaceBetween">
@@ -162,13 +163,19 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     this.props.onClear();
                   }}
                 >
-                  <EuiButton className="sql-editor-button">Clear</EuiButton>
+                  <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                    Clear
+                  </EuiButton>
                 </EuiFlexItem>
                 <EuiFlexItem
                   grow={false}
                   onClick={() => this.props.onTranslate(this.props.sqlQuery)}
                 >
-                  <EuiButton className="sql-editor-button" onClick={showModal}>
+                  <EuiButton
+                    className="sql-editor-button"
+                    onClick={showModal}
+                    isDisabled={this.props.asyncLoading}
+                  >
                     Explain
                   </EuiButton>
                 </EuiFlexItem>
@@ -181,6 +188,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     fill={true}
                     className="sql-accelerate-button"
                     onClick={this.setAccelerationFlyout}
+                    isDisabled={this.props.asyncLoading}
                   >
                     Accelerate Table
                   </EuiButton>
