@@ -3,40 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
-import React from "react";
-import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent } from "@testing-library/react";
-import { httpClientMock } from "../../../test/mocks";
+import '@testing-library/jest-dom/extend-expect';
+import { fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import { httpClientMock } from '../../../test/mocks';
 import {
-  mockQueryResultJDBCResponse,
+  mockDatasourcesQuery,
+  mockHttpQuery,
   mockNotOkQueryResultResponse,
+  mockQueryResultJDBCResponse,
   mockQueryTranslationResponse,
   mockResultWithNull,
-  mockHttpQuery
-} from "../../../test/mocks/mockData";
-import Main from "./main";
+} from '../../../test/mocks/mockData';
+import Main from './main';
 
 const setBreadcrumbsMock = jest.fn();
 
-describe("<Main /> spec", () => {
-
-  it("renders the component", async () => {
-    
+describe('<Main /> spec', () => {
+  it('renders the component', async () => {
     const client = httpClientMock;
-    client.post = jest.fn().mockResolvedValue(mockHttpQuery)
-    
+    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     const asyncTest = () => {
-      render(
-        <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
-      );
+      render(<Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />);
     };
     await asyncTest();
     expect(document.body.children[0]).toMatchSnapshot();
   });
 
-
-  it("click run button, and response is ok", async () => {
+  it('click run button, and response is ok', async () => {
     const client = httpClientMock;
     client.post = jest.fn().mockResolvedValue(mockQueryResultJDBCResponse);
 
@@ -51,9 +46,10 @@ describe("<Main /> spec", () => {
     expect(document.body.children[0]).toMatchSnapshot();
   });
 
-  it("click run button, response fills null and missing values", async () => {
+  it('click run button, response fills null and missing values', async () => {
     const client = httpClientMock;
     client.post = jest.fn().mockResolvedValue(mockResultWithNull);
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
@@ -64,11 +60,12 @@ describe("<Main /> spec", () => {
     };
     await asyncTest();
     expect(document.body.children[0]).toMatchSnapshot();
-  })
+  });
 
-  it("click run button, and response causes an error", async () => {
+  it('click run button, and response causes an error', async () => {
     const client = httpClientMock;
     client.post = jest.fn().mockRejectedValue('err');
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
@@ -81,9 +78,10 @@ describe("<Main /> spec", () => {
     expect(document.body.children[0]).toMatchSnapshot();
   });
 
-  it("click run button, and response is not ok", async () => {
+  it('click run button, and response is not ok', async () => {
     const client = httpClientMock;
     client.post = jest.fn().mockResolvedValue(mockNotOkQueryResultResponse);
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
@@ -96,9 +94,11 @@ describe("<Main /> spec", () => {
     expect(document.body.children[0]).toMatchSnapshot();
   });
 
-  it("click translation button, and response is ok", async () => {
+  it('click translation button, and response is ok', async () => {
     const client = httpClientMock;
     client.post = jest.fn().mockResolvedValue(mockQueryTranslationResponse);
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
+
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
@@ -110,8 +110,10 @@ describe("<Main /> spec", () => {
     expect(document.body.children[0]).toMatchSnapshot();
   });
 
-  it("click clear button", async () => {
+  it('click clear button', async () => {
     const client = httpClientMock;
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
+
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
