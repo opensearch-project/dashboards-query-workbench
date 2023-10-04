@@ -18,7 +18,11 @@ import {
   ACCELERATION_INDEX_TYPES,
   ACC_INDEX_TYPE_DOCUMENTATION_URL,
 } from '../../../../common/constants';
-import { AccelerationIndexType, CreateAccelerationForm } from '../../../../common/types';
+import {
+  AccelerationIndexType,
+  CreateAccelerationForm,
+  DataTableFieldsType,
+} from '../../../../common/types';
 import { getJobId, pollQueryStatus } from '../../SQLPage/utils';
 
 interface IndexTypeSelectorProps {
@@ -48,22 +52,16 @@ export const IndexTypeSelector = ({
       };
       getJobId(query, http, (id: string) => {
         pollQueryStatus(id, http, (data: any[]) => {
+          let dataTableFields: DataTableFieldsType[] = [];
+          if (data.length > 0)
+            dataTableFields = data.map((field, index) => ({
+              id: `${idPrefix}${index + 1}`,
+              fieldName: field.col_name,
+              dataType: field.data_type,
+            }));
           setAccelerationFormData({
             ...accelerationFormData,
-            dataTableFields: [
-              { id: `${idPrefix}1`, fieldName: 'Field1', dataType: 'Integer' },
-              { id: `${idPrefix}2`, fieldName: 'Field2', dataType: 'Integer' },
-              { id: `${idPrefix}3`, fieldName: 'Field3', dataType: 'Integer' },
-              { id: `${idPrefix}4`, fieldName: 'Field4', dataType: 'Integer' },
-              { id: `${idPrefix}5`, fieldName: 'Field5', dataType: 'Integer' },
-              { id: `${idPrefix}6`, fieldName: 'Field6', dataType: 'Integer' },
-              { id: `${idPrefix}7`, fieldName: 'Field7', dataType: 'Integer' },
-              { id: `${idPrefix}8`, fieldName: 'Field8', dataType: 'Integer' },
-              { id: `${idPrefix}9`, fieldName: 'Field9', dataType: 'Integer' },
-              { id: `${idPrefix}10`, fieldName: 'Field10', dataType: 'Integer' },
-              { id: `${idPrefix}11`, fieldName: 'Field11', dataType: 'Integer' },
-              { id: `${idPrefix}12`, fieldName: 'Field12', dataType: 'TimestampType' },
-            ],
+            dataTableFields: dataTableFields,
           });
           setLoading(false);
         });
