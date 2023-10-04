@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
-import React from "react";
+import React from 'react';
 import {
   EuiPanel,
   EuiButton,
@@ -20,23 +19,24 @@ import {
   EuiModalHeader,
   EuiModalHeaderTitle,
   EuiOverlayMask,
-} from "@elastic/eui";
+} from '@elastic/eui';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 import _ from 'lodash';
 
 interface PPLPageProps {
-  onRun: (query: string) => void,
-  onTranslate: (query: string) => void,
-  onClear: () => void,
-  updatePPLQueries: (query: string) => void,
-  pplQuery: string,
-  pplTranslations: ResponseDetail<TranslateResult>[]
+  onRun: (query: string) => void;
+  onTranslate: (query: string) => void;
+  onClear: () => void;
+  updatePPLQueries: (query: string) => void;
+  pplQuery: string;
+  pplTranslations: ResponseDetail<TranslateResult>[];
+  asyncLoading: boolean;
 }
 
 interface PPLPageState {
-  pplQuery: string,
-  translation: string,
-  isModalVisible: boolean
+  pplQuery: string;
+  translation: string;
+  isModalVisible: boolean;
 }
 
 export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
@@ -44,19 +44,18 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
     super(props);
     this.state = {
       pplQuery: this.props.pplQuery,
-      translation: "",
-      isModalVisible: false
+      translation: '',
+      isModalVisible: false,
     };
   }
 
   setIsModalVisible(visible: boolean): void {
     this.setState({
-      isModalVisible: visible
-    })
+      isModalVisible: visible,
+    });
   }
 
   render() {
-
     const closeModal = () => this.setIsModalVisible(false);
     const showModal = () => this.setIsModalVisible(true);
 
@@ -65,10 +64,12 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
         return this.props.pplTranslations[0].fulfilled;
       }
       return false;
-    }
+    };
 
     const explainContent = pplTranslationsNotEmpty()
-      ? this.props.pplTranslations.map((queryTranslation: any) => JSON.stringify(queryTranslation.data, null, 2)).join("\n")
+      ? this.props.pplTranslations
+          .map((queryTranslation: any) => JSON.stringify(queryTranslation.data, null, 2))
+          .join('\n')
       : 'This query is not explainable.';
 
     let modal;
@@ -82,11 +83,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
             </EuiModalHeader>
 
             <EuiModalBody>
-              <EuiCodeBlock
-                language="json"
-                fontSize="m"
-                isCopyable
-              >
+              <EuiCodeBlock language="json" fontSize="m" isCopyable>
                 {explainContent}
               </EuiCodeBlock>
             </EuiModalBody>
@@ -94,7 +91,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
             <EuiModalFooter>
               <EuiButton onClick={closeModal} fill>
                 Close
-            </EuiButton>
+              </EuiButton>
             </EuiModalFooter>
           </EuiModal>
         </EuiOverlayMask>
@@ -103,7 +100,9 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
 
     return (
       <EuiPanel className="sql-console-query-editor container-panel" paddingSize="l">
-        <EuiText className="sql-query-panel-header"><h3>Query editor</h3></EuiText>
+        <EuiText className="sql-query-panel-header">
+          <h3>Query editor</h3>
+        </EuiText>
         <EuiSpacer size="s" />
         <EuiCodeEditor
           theme="sql_console"
@@ -113,46 +112,51 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
           onChange={this.props.updatePPLQueries}
           showPrintMargin={false}
           setOptions={{
-            fontSize: "14px",
+            fontSize: '14px',
             showLineNumbers: false,
             showGutter: false,
           }}
           aria-label="Code Editor"
+          isReadOnly={this.props.asyncLoading}
         />
         <EuiSpacer />
         <EuiFlexGroup className="action-container" gutterSize="m">
-          <EuiFlexItem className="sql-editor-buttons"
+          <EuiFlexItem
+            className="sql-editor-buttons"
             grow={false}
             onClick={() => this.props.onRun(this.props.pplQuery)}
           >
-            <EuiButton fill={true} className="sql-editor-button" >
-              Run
+            <EuiButton
+              fill={true}
+              className="sql-editor-button"
+              isLoading={this.props.asyncLoading}
+            >
+              {this.props.asyncLoading ? 'Running' : 'Run'}
             </EuiButton>
           </EuiFlexItem>
           <EuiFlexItem
             grow={false}
             onClick={() => {
-              this.props.updatePPLQueries("");
+              this.props.updatePPLQueries('');
               this.props.onClear();
             }}
           >
-            <EuiButton className="sql-editor-button">
+            <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
               Clear
             </EuiButton>
           </EuiFlexItem>
-          <EuiFlexItem
-            grow={false}
-            onClick={() =>
-              this.props.onTranslate(this.props.pplQuery)
-            }
-          >
-            <EuiButton className="sql-editor-button" onClick={showModal}>
+          <EuiFlexItem grow={false} onClick={() => this.props.onTranslate(this.props.pplQuery)}>
+            <EuiButton
+              className="sql-editor-button"
+              onClick={showModal}
+              isDisabled={this.props.asyncLoading}
+            >
               Explain
             </EuiButton>
             {modal}
           </EuiFlexItem>
         </EuiFlexGroup>
-      </EuiPanel >
-    )
+      </EuiPanel>
+    );
   }
 }

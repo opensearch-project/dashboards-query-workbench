@@ -4,7 +4,7 @@
  */
 
 
-import { SQL_TRANSLATE_ROUTE, SQL_QUERY_ROUTE, PPL_QUERY_ROUTE, PPL_TRANSLATE_ROUTE, FORMAT_CSV, FROMAT_JDBC, FORMAT_JSON, FORMAT_TEXT } from '../../services/utils/constants';
+import { SQL_TRANSLATE_ROUTE, SQL_QUERY_ROUTE, PPL_QUERY_ROUTE, PPL_TRANSLATE_ROUTE, FORMAT_CSV, FROMAT_JDBC, FORMAT_JSON, FORMAT_TEXT, SPARK_SQL_QUERY_ROUTE, DATASOURCES_GET_QUERY } from '../../services/utils/constants';
 
 export default function sqlPlugin(Client, config, components) {
   const ca = components.clientAction.factory;
@@ -90,5 +90,49 @@ export default function sqlPlugin(Client, config, components) {
     },
     needBody: true,
     method: 'POST',
+  });
+
+  sql.sparkSqlQuery = ca({
+    url: {
+      fmt: `${SPARK_SQL_QUERY_ROUTE}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.sparkSqlGetQuery = ca({
+    url: {
+      fmt: `${SPARK_SQL_QUERY_ROUTE}/<%=jobId%>`,
+      req: {
+        jobId: {
+          type: 'string',
+          required: true,
+        },
+      },
+    },
+    needBody: true,
+    method: 'GET',
+  });
+
+  sql.datasourcesGetQuery = ca({
+    url: {
+      fmt: `${DATASOURCES_GET_QUERY}`,
+    },
+    needBody: false,
+    method: 'GET',
+  });
+
+  sql.asyncDeleteQuery = ca({
+    url: {
+      fmt: `${SPARK_SQL_QUERY_ROUTE}/<%=jobId%>`,
+      req: {
+        jobId: {
+          type: 'string',
+          required: true,
+        },
+      },
+    },
+    needBody: true,
+    method: 'DELETE',
   });
 }

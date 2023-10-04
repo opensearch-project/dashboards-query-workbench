@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Acceleration header renders acceleration flyout header 1`] = `
+<div>
+  <header
+    className="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
+  >
+    <div
+      className="euiPageHeaderSection"
+    >
+      <h1
+        className="euiTitle euiTitle--large"
+        data-test-subj="acceleration-header"
+      >
+        Accelerate data
+      </h1>
+    </div>
+  </header>
+  <div
+    className="euiSpacer euiSpacer--s"
+  />
+  <div
+    className="euiText euiText--small"
+  >
+    <div
+      className="euiTextColor euiTextColor--subdued"
+    >
+      Create OpenSearch Indexes from external data connections for better performance.
+       
+      <a
+        className="euiLink euiLink--primary"
+        href="https://opensearch.org/docs/latest"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Learn more
+        <svg
+          aria-hidden={true}
+          aria-label="External link"
+          className="euiIcon euiIcon--small euiIcon-isLoading euiLink__externalIcon"
+          focusable="false"
+          height={16}
+          role="img"
+          style={null}
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <span
+          className="euiScreenReaderOnly"
+        >
+          (opens in a new tab or window)
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;

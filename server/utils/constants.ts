@@ -13,3 +13,6 @@ export const ROUTE_PATH_SQL_JSON = '/api/sql_console/sqljson';
 export const ROUTE_PATH_PPL_JSON = '/api/sql_console/ppljson';
 export const ROUTE_PATH_SQL_TEXT = '/api/sql_console/sqltext';
 export const ROUTE_PATH_PPL_TEXT = '/api/sql_console/ppltext';
+export const ROUTE_PATH_SPARK_SQL_QUERY = '/api/spark_sql_console';
+export const ROUTE_PATH_SPARK_SQL_JOB_QUERY = '/api/spark_sql_console/job';
+export const ROUTE_PATH_GET_DATASOURCES = '/api/get_datasources'
