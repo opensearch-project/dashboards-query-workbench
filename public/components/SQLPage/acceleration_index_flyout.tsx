@@ -70,29 +70,29 @@ export const AccelerationIndexFlyout = ({
           </div>
         </EuiFlyoutHeader>
         <EuiFlyoutBody>
-          <h3>Acceleration index Source</h3>
-          <EuiHorizontalRule />
+          <h2>Acceleration index Source</h2>
+          <EuiHorizontalRule margin="s" />
           <EuiFlexGroup>
-            <EuiFlexItem grow={false}>
+            <EuiFlexItem>
               <h3>Data Source</h3>
               <EuiSpacer />
               <p>{dataSource}</p>
             </EuiFlexItem>
-            <EuiFlexItem grow={false}>
+            <EuiFlexItem>
               <h3>Database</h3>
               <EuiSpacer />
               <p>{database}</p>
             </EuiFlexItem>
-            <EuiFlexItem grow={false}>
+            <EuiFlexItem>
               <h3>Table</h3>
               <EuiSpacer />
               <p>{dataTable}</p>
             </EuiFlexItem>
           </EuiFlexGroup>
           <h3>Acceleration index destination</h3>
-          <EuiHorizontalRule />
+          <EuiHorizontalRule margin="s" />
           <EuiFlexGroup>
-            <EuiFlexItem grow={false}>
+            <EuiFlexItem>
               <h3>OpenSearch Index</h3>
               <EuiSpacer />
               <p>
@@ -103,23 +103,35 @@ export const AccelerationIndexFlyout = ({
             </EuiFlexItem>
           </EuiFlexGroup>
           <h3>Acceleration index actions</h3>
-          <EuiHorizontalRule />
+          <EuiHorizontalRule margin="s" />
           <EuiFlexGroup>
-            <EuiFlexItem grow={false}>
-              <EuiButton iconSide="right" fill iconType="lensApp" onClick={updateDescribeQuery}>
+            <EuiFlexItem>
+              <EuiButton
+                iconSide="right"
+                fill
+                iconType="lensApp"
+                onClick={updateDescribeQuery}
+                size="s"
+              >
                 Describe Index
               </EuiButton>
             </EuiFlexItem>
-            <EuiFlexItem grow={false}>
-              <EuiButton iconSide="right" iconType="trash" onClick={updateDropQuery} color="danger">
+            <EuiFlexItem>
+              <EuiButton
+                iconSide="right"
+                iconType="trash"
+                onClick={updateDropQuery}
+                color="danger"
+                size="s"
+              >
                 Drop Index
               </EuiButton>
             </EuiFlexItem>
           </EuiFlexGroup>
         </EuiFlyoutBody>
         <EuiFlyoutFooter>
-          <EuiFlexGroup justifyContent="spaceBetween">
-            <EuiFlexItem grow={false}>
+          <EuiFlexGroup>
+            <EuiFlexItem>
               <EuiButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
                 Close
               </EuiButtonEmpty>
