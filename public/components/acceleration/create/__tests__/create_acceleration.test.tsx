@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EuiComboBoxOptionOption } from '@elastic/eui';
 import { waitFor } from '@testing-library/dom';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -16,7 +17,7 @@ describe('Create acceleration flyout components', () => {
   configure({ adapter: new Adapter() });
 
   it('renders acceleration flyout component with default options', async () => {
-    const dataSource = '';
+    const selectedDatasource: EuiComboBoxOptionOption[] = [];
     const resetFlyout = jest.fn();
     const updateQueries = jest.fn();
     const client = httpClientMock;
@@ -25,7 +26,7 @@ describe('Create acceleration flyout components', () => {
     const wrapper = mount(
       <CreateAcceleration
         http={client}
-        dataSource={dataSource}
+        selectedDatasource={selectedDatasource}
         resetFlyout={resetFlyout}
         updateQueries={updateQueries}
       />

@@ -442,11 +442,11 @@ Array [
               onClick={[Function]}
               tabIndex={-1}
             >
-              <p
-                className="euiComboBoxPlaceholder"
+              <span
+                className="euiComboBoxPill euiComboBoxPill--plainText"
               >
-                Select a data source
-              </p>
+                ds
+              </span>
               <div
                 className="euiComboBox__input"
                 style={

@@ -15,17 +15,19 @@ interface AccelerationDataSourceSelectorProps {
   http: CoreStart['http'];
   accelerationFormData: CreateAccelerationForm;
   setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
+  selectedDatasource: EuiComboBoxOptionOption[];
 }
 
 export const AccelerationDataSourceSelector = ({
   http,
   accelerationFormData,
   setAccelerationFormData,
+  selectedDatasource,
 }: AccelerationDataSourceSelectorProps) => {
   const [dataConnections, setDataConnections] = useState<EuiComboBoxOptionOption<string>[]>([]);
   const [selectedDataConnection, setSelectedDataConnection] = useState<
     EuiComboBoxOptionOption<string>[]
-  >([]);
+  >(selectedDatasource.length > 0 ? [{ label: selectedDatasource[0].label }] : []);
   const [databases, setDatabases] = useState<EuiComboBoxOptionOption<string>[]>([]);
   const [selectedDatabase, setSelectedDatabase] = useState<EuiComboBoxOptionOption<string>[]>([]);
   const [tables, setTables] = useState<EuiComboBoxOptionOption<string>[]>([]);

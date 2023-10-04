@@ -72,7 +72,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
       flyoutComponent: (
         <CreateAcceleration
           http={this.props.http}
-          dataSource="ds"
+          selectedDatasource={this.props.selectedDatasource}
           resetFlyout={this.resetFlyout}
           updateQueries={this.props.updateSQLQueries}
         />

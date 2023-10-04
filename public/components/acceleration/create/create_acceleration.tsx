@@ -6,6 +6,7 @@
 import {
   EuiButton,
   EuiButtonEmpty,
+  EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
   EuiFlyout,
@@ -32,19 +33,19 @@ import { formValidator, hasError } from './utils';
 
 export interface CreateAccelerationProps {
   http: CoreStart['http'];
-  dataSource: string;
+  selectedDatasource: EuiComboBoxOptionOption[];
   resetFlyout: () => void;
   updateQueries: (query: string) => void;
 }
 
 export const CreateAcceleration = ({
   http,
-  dataSource,
+  selectedDatasource,
   resetFlyout,
   updateQueries,
 }: CreateAccelerationProps) => {
   const [accelerationFormData, setAccelerationFormData] = useState<CreateAccelerationForm>({
-    dataSource: '',
+    dataSource: selectedDatasource.length > 0 ? selectedDatasource[0].label : '',
     dataTable: '',
     database: '',
     dataTableFields: [],
@@ -111,6 +112,7 @@ export const CreateAcceleration = ({
               http={http}
               accelerationFormData={accelerationFormData}
               setAccelerationFormData={setAccelerationFormData}
+              selectedDatasource={selectedDatasource}
             />
             <EuiSpacer size="xxl" />
             <IndexSettingOptions
