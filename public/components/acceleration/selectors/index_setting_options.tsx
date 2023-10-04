@@ -14,6 +14,7 @@ import {
 } from '@elastic/eui';
 import producer from 'immer';
 import React, { ChangeEvent, useState } from 'react';
+import { CoreStart } from '../../../../../../src/core/public';
 import { ACCELERATION_TIME_INTERVAL } from '../../../../common/constants';
 import { CreateAccelerationForm } from '../../../../common/types';
 import {
@@ -26,11 +27,13 @@ import {
 import { IndexTypeSelector } from './index_type_selector';
 
 interface IndexSettingOptionsProps {
+  http: CoreStart['http'];
   accelerationFormData: CreateAccelerationForm;
   setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
 
 export const IndexSettingOptions = ({
+  http,
   accelerationFormData,
   setAccelerationFormData,
 }: IndexSettingOptionsProps) => {
@@ -107,6 +110,7 @@ export const IndexSettingOptions = ({
       </EuiText>
       <EuiSpacer size="s" />
       <IndexTypeSelector
+        http={http}
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />

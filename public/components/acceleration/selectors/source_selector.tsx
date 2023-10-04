@@ -3,14 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  EuiComboBox,
-  EuiComboBoxOptionOption,
-  EuiFormRow,
-  EuiSpacer,
-  EuiText,
-  htmlIdGenerator,
-} from '@elastic/eui';
+import { EuiComboBox, EuiComboBoxOptionOption, EuiFormRow, EuiSpacer, EuiText } from '@elastic/eui';
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
@@ -68,10 +61,30 @@ export const AccelerationDataSourceSelector = ({
       query: `SHOW SCHEMAS IN ${accelerationFormData.dataSource}`,
       datasource: accelerationFormData.dataSource,
     };
-    getJobId(query, http, (id) => {
-      pollQueryStatus(id, http, (data) => {
-        console.log('data', data);
+    getJobId(query, http, (id: string) => {
+      pollQueryStatus(id, http, (data: any[][]) => {
+        let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
+        if (data.length > 0)
+          databaseOptions = data.map((subArray: any[]) => ({ label: subArray[0] }));
+        setDatabases(databaseOptions);
         setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+      });
+    });
+  };
+
+  const loadTables = () => {
+    setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: true });
+    const query = {
+      lang: 'sql',
+      query: `SHOW TABLES IN ${accelerationFormData.dataSource}.${accelerationFormData.database}`,
+      datasource: accelerationFormData.dataSource,
+    };
+    getJobId(query, http, (id: string) => {
+      pollQueryStatus(id, http, (data: any[]) => {
+        let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
+        if (data.length > 0) dataTableOptions = data.map((subArray) => ({ label: subArray[1] }));
+        setTables(dataTableOptions);
+        setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
       });
     });
   };
@@ -81,57 +94,16 @@ export const AccelerationDataSourceSelector = ({
   }, []);
 
   useEffect(() => {
-    // TODO: remove hardcoded responses
     if (accelerationFormData.dataSource !== '') {
       loadDatabases();
-      setDatabases([
-        {
-          label: 'Database1',
-        },
-        {
-          label: 'Database2',
-        },
-      ]);
     }
   }, [accelerationFormData.dataSource]);
 
   useEffect(() => {
-    // TODO: remove hardcoded responses
     if (accelerationFormData.database !== '') {
-      setTables([
-        {
-          label: 'Table1',
-        },
-        {
-          label: 'Table2',
-        },
-      ]);
+      loadTables();
     }
   }, [accelerationFormData.database]);
-
-  useEffect(() => {
-    // TODO: remove hardcoded responses
-    if (accelerationFormData.dataTable !== '') {
-      const idPrefix = htmlIdGenerator()();
-      setAccelerationFormData({
-        ...accelerationFormData,
-        dataTableFields: [
-          { id: `${idPrefix}1`, fieldName: 'Field1', dataType: 'Integer' },
-          { id: `${idPrefix}2`, fieldName: 'Field2', dataType: 'Integer' },
-          { id: `${idPrefix}3`, fieldName: 'Field3', dataType: 'Integer' },
-          { id: `${idPrefix}4`, fieldName: 'Field4', dataType: 'Integer' },
-          { id: `${idPrefix}5`, fieldName: 'Field5', dataType: 'Integer' },
-          { id: `${idPrefix}6`, fieldName: 'Field6', dataType: 'Integer' },
-          { id: `${idPrefix}7`, fieldName: 'Field7', dataType: 'Integer' },
-          { id: `${idPrefix}8`, fieldName: 'Field8', dataType: 'Integer' },
-          { id: `${idPrefix}9`, fieldName: 'Field9', dataType: 'Integer' },
-          { id: `${idPrefix}10`, fieldName: 'Field10', dataType: 'Integer' },
-          { id: `${idPrefix}11`, fieldName: 'Field11', dataType: 'Integer' },
-          { id: `${idPrefix}12`, fieldName: 'Field12', dataType: 'TimestampType' },
-        ],
-      });
-    }
-  }, [accelerationFormData.dataTable]);
 
   return (
     <>
