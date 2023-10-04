@@ -27,7 +27,6 @@ import { IndexSettingOptions } from '../selectors/index_setting_options';
 import { AccelerationDataSourceSelector } from '../selectors/source_selector';
 import { accelerationQueryBuilder } from '../visual_editors/query_builder';
 import { QueryVisualEditor } from '../visual_editors/query_visual_editor';
-import { CautionBannerCallout } from './caution_banner_callout';
 import { CreateAccelerationHeader } from './create_acceleration_header';
 import { formValidator, hasError } from './utils';
 
@@ -101,7 +100,6 @@ export const CreateAcceleration = ({
           <CreateAccelerationHeader />
         </EuiFlyoutHeader>
         <EuiFlyoutBody>
-          <CautionBannerCallout />
           <EuiSpacer size="l" />
           <EuiForm
             isInvalid={hasError(accelerationFormData.formErrors)}

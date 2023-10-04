@@ -196,7 +196,7 @@ Array [
             onFocus={[Function]}
             placeholder="Number of primary shards"
             type="number"
-            value={5}
+            value={1}
           />
         </div>
       </div>
@@ -204,7 +204,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created.
+        Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
       </div>
     </div>
   </div>,
@@ -583,7 +583,7 @@ Array [
             onFocus={[Function]}
             placeholder="Number of primary shards"
             type="number"
-            value={5}
+            value={1}
           />
         </div>
       </div>
@@ -591,7 +591,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created.
+        Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
       </div>
     </div>
   </div>,
@@ -970,7 +970,7 @@ Array [
             onFocus={[Function]}
             placeholder="Number of primary shards"
             type="number"
-            value={5}
+            value={1}
           />
         </div>
       </div>
@@ -978,7 +978,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created.
+        Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
       </div>
     </div>
   </div>,
