@@ -8,16 +8,17 @@ import { schema } from '@osd/config-schema';
 import { IOpenSearchDashboardsResponse, IRouter, ResponseError } from '../../../../src/core/server';
 import QueryService from '../services/QueryService';
 import {
-  ROUTE_PATH_SQL_QUERY,
-  ROUTE_PATH_PPL_QUERY,
-  ROUTE_PATH_SQL_CSV,
-  ROUTE_PATH_SQL_JSON,
-  ROUTE_PATH_SQL_TEXT,
+  ROUTE_PATH_GET_DATASOURCES,
   ROUTE_PATH_PPL_CSV,
   ROUTE_PATH_PPL_JSON,
+  ROUTE_PATH_PPL_QUERY,
   ROUTE_PATH_PPL_TEXT,
-  ROUTE_PATH_SPARK_SQL_QUERY,
   ROUTE_PATH_SPARK_SQL_JOB_QUERY,
+  ROUTE_PATH_SPARK_SQL_QUERY,
+  ROUTE_PATH_SQL_CSV,
+  ROUTE_PATH_SQL_JSON,
+  ROUTE_PATH_SQL_QUERY,
+  ROUTE_PATH_SQL_TEXT
 } from '../utils/constants';
 
 export default function query(server: IRouter, service: QueryService) {
@@ -189,4 +190,21 @@ export default function query(server: IRouter, service: QueryService) {
       });
     }
   )
+
+  server.get(
+    {
+      path: ROUTE_PATH_GET_DATASOURCES,
+      validate: {
+
+      },
+    },
+    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      const retVal = await service.describeSyncQueryDataSources(request);
+      return response.ok({
+        body: retVal,
+      });
+    }
+  )
+
+
 }
