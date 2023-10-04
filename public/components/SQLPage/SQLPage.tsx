@@ -171,17 +171,18 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                 </EuiFlexItem>
               </EuiFlexGroup>
             </EuiFlexItem>
-            {this.props.selectedDatasource[0].label !== 'OpenSearch' && (
-              <EuiFlexItem grow={false}>
-                <EuiButton
-                  fill={true}
-                  className="sql-accelerate-button"
-                  onClick={this.setAccelerationFlyout}
-                >
-                  Accelerate Table
-                </EuiButton>
-              </EuiFlexItem>
-            )}
+            {this.props.selectedDatasource &&
+              this.props.selectedDatasource[0].label !== 'OpenSearch' && (
+                <EuiFlexItem grow={false}>
+                  <EuiButton
+                    fill={true}
+                    className="sql-accelerate-button"
+                    onClick={this.setAccelerationFlyout}
+                  >
+                    Accelerate Table
+                  </EuiButton>
+                </EuiFlexItem>
+              )}
           </EuiFlexGroup>
         </EuiPanel>
         {modal}
