@@ -5,8 +5,8 @@
 
 
 import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 import _ from 'lodash';
+import 'regenerator-runtime/runtime';
 
 export default class QueryService {
   private client: any;
@@ -62,6 +62,28 @@ export default class QueryService {
     }
   };
 
+  describeQueryGetInternalSync = async (request: any, format: string, responseFormat: string) => {
+    try {
+      const queryResponse = await this.client.asScoped(request).callAsCurrentUser(format);
+      return {
+        data: {
+          ok: true,
+          resp: _.isEqual(responseFormat, 'json') ? JSON.stringify(queryResponse) : queryResponse,
+        },
+      };
+    } catch (err) {
+      console.log(err);
+      return {
+        data: {
+          ok: false,
+          resp: err.message,
+          body: err.body
+        },
+      };
+    }
+  };
+
+
   describeSQLQuery = async (request: any) => {
     return this.describeQueryPostInternal(request, 'sql.sqlQuery', 'json', request.body);
   };
@@ -101,7 +123,9 @@ export default class QueryService {
   describeSQLAsyncGetQuery = async (request: any, jobId: string) => {
     return this.describeQueryJobIdInternal(request, 'sql.sparkSqlGetQuery', jobId, null);
   };
-
+  describeSyncQueryDataSources = async (request: any) => {
+    return this.describeQueryGetInternalSync(request, 'sql.datasourcesGetQuery', null);
+  };
   describeAsyncDeleteQuery = async (request: any, jobId: string) => {
     return this.describeQueryJobIdInternal(request, 'sql.asyncDeleteQuery', jobId, null);
   };

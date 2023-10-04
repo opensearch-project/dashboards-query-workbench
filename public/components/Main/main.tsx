@@ -5,7 +5,7 @@
 
 import {
   EuiButton,
-  EuiComboBox,
+  EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
   EuiPage,
@@ -14,12 +14,13 @@ import {
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
-  EuiText,
+  EuiText
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
+import { AsyncQueryLoadingStatus } from '../../../common/types';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -31,9 +32,9 @@ import {
 import { PPLPage } from '../PPLPage/PPLPage';
 import Switch from '../QueryLanguageSwitch/Switch';
 import QueryResults from '../QueryResults/QueryResults';
+import { DataSelect } from '../SQLPage/DataSelect';
 import { SQLPage } from '../SQLPage/SQLPage';
 import { TableView } from '../SQLPage/TableView';
-import { AsyncQueryLoadingStatus } from '../../../common/types';
 
 interface ResponseData {
   ok: boolean;
@@ -101,7 +102,7 @@ interface MainState {
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   messages: Array<QueryMessage>;
   isResultFullScreen: boolean;
-  selectedDatasource: string;
+  selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
   asyncJobId: string;
@@ -238,7 +239,7 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
-      selectedDatasource: 'Opensearch',
+      selectedDatasource: [{ label: 'OpenSearch' }],
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
       asyncJobId: '',
@@ -416,7 +417,7 @@ export class Main extends React.Component<MainProps, MainState> {
         queries.map((query: string) =>
           this.httpClient
             .post(endpoint, {
-              body: JSON.stringify({ lang: language, query: query, datasource: 'my_glue' }), // TODO: dynamically datasource when accurate
+              body: JSON.stringify({ lang: language, query: query, datasource: this.state.selectedDatasource[0].label}), // TODO: dynamically datasource when accurate
             })
             .catch((error: any) => {
               this.setState({
@@ -781,9 +782,9 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
-  handleComboOptionChange = (selectedOption: string) => {
+  handleDataSelect = (selectedItems: []) => {
     this.setState({
-      selectedDatasource: selectedOption,
+      selectedDatasource: selectedItems,
     });
   };
 
@@ -796,7 +797,7 @@ export class Main extends React.Component<MainProps, MainState> {
       page = (
         <SQLPage
           onRun={
-            _.isEqual(this.state.selectedDatasource, 'Opensearch') ? this.onRun : this.onRunAsync
+            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch') ? this.onRun : this.onRunAsync
           }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
@@ -813,7 +814,7 @@ export class Main extends React.Component<MainProps, MainState> {
       page = (
         <PPLPage
           onRun={
-            _.isEqual(this.state.selectedDatasource, 'Opensearch') ? this.onRun : this.onRunAsync
+            _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch') ? this.onRun : this.onRunAsync
           }
           onTranslate={this.onTranslate}
           onClear={this.onClear}
@@ -875,21 +876,7 @@ export class Main extends React.Component<MainProps, MainState> {
         <EuiFlexGroup direction="row" alignItems="center">
           <EuiFlexItem>
             <EuiText>Data Sources</EuiText>
-            <EuiComboBox
-              singleSelection={true}
-              placeholder="Connection Name"
-              options={[
-                { label: 'S3', value: 'S3' },
-                { label: 'Opensearch', value: 'Opensearch' },
-              ]}
-              selectedOptions={
-                this.state.selectedDatasource ? [{ label: this.state.selectedDatasource }] : []
-              }
-              onChange={(selectedOptions) => {
-                const selectedValue = selectedOptions[0] ? selectedOptions[0].value : '';
-                this.handleComboOptionChange(selectedValue);
-              }}
-            />
+            <DataSelect http={this.httpClient} onSelect={this.handleDataSelect} />
             <EuiSpacer />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
@@ -915,7 +902,7 @@ export class Main extends React.Component<MainProps, MainState> {
                     <EuiSpacer />
                     <TableView
                       http={this.httpClient}
-                      dataConnection={this.state.selectedDatasource}
+                      selectedItems={this.state.selectedDatasource}
                     />
                     <EuiSpacer />
                   </EuiFlexItem>
