@@ -141,6 +141,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
               enableLiveAutocompletion: true,
             }}
             aria-label="Code Editor"
+            isReadOnly={this.props.asyncLoading}
           />
           <EuiSpacer />
           <EuiFlexGroup justifyContent="spaceBetween">
