@@ -50,7 +50,7 @@ export const IndexSettingOptions = ({
     },
   ];
 
-  const [primaryShards, setPrimaryShards] = useState(5);
+  const [primaryShards, setPrimaryShards] = useState(1);
   const [replicaCount, setReplicaCount] = useState(1);
   const [refreshTypeSelected, setRefreshTypeSelected] = useState(autoRefreshId);
   const [refreshWindow, setRefreshWindow] = useState(1);
@@ -116,7 +116,7 @@ export const IndexSettingOptions = ({
       />
       <EuiFormRow
         label="Number of primary shards"
-        helpText="Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created."
+        helpText="Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created."
         isInvalid={hasError(accelerationFormData.formErrors, 'primaryShardsError')}
         error={accelerationFormData.formErrors.primaryShardsError}
       >
