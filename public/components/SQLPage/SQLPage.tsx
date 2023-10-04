@@ -17,7 +17,7 @@ import {
   EuiModalHeaderTitle,
   EuiOverlayMask,
   EuiPanel,
-  EuiSpacer,
+  EuiSpacer
 } from '@elastic/eui';
 import 'brace/ext/language_tools';
 import 'brace/mode/sql';
@@ -124,7 +124,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
     }
 
     return (
-      <>
+      <>  
         <EuiPanel className="sql-console-query-editor container-panel" paddingSize="m">
           <EuiSpacer size="s" />
           <EuiCodeEditor
