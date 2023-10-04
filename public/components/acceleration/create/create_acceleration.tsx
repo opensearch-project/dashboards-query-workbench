@@ -16,6 +16,7 @@ import {
   EuiSpacer,
 } from '@elastic/eui';
 import React, { useState } from 'react';
+import { CoreStart } from '../../../../../../src/core/public';
 import {
   ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
   ACCELERATION_TIME_INTERVAL,
@@ -31,12 +32,14 @@ import { CreateAccelerationHeader } from './create_acceleration_header';
 import { formValidator, hasError } from './utils';
 
 export interface CreateAccelerationProps {
+  http: CoreStart['http'];
   dataSource: string;
   resetFlyout: () => void;
   updateQueries: (query: string) => void;
 }
 
 export const CreateAcceleration = ({
+  http,
   dataSource,
   resetFlyout,
   updateQueries,
@@ -107,6 +110,7 @@ export const CreateAcceleration = ({
             id="acceleration-form"
           >
             <AccelerationDataSourceSelector
+              http={http}
               accelerationFormData={accelerationFormData}
               setAccelerationFormData={setAccelerationFormData}
             />

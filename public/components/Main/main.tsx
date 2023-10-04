@@ -802,6 +802,7 @@ export class Main extends React.Component<MainProps, MainState> {
     if (this.state.language == 'SQL') {
       page = (
         <SQLPage
+          http={this.httpClient}
           onRun={
             _.isEqual(this.state.selectedDatasource[0].label, 'OpenSearch')
               ? this.onRun

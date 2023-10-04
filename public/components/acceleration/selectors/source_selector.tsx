@@ -13,15 +13,19 @@ import {
 } from '@elastic/eui';
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
+import { CoreStart } from '../../../../../../src/core/public';
 import { CreateAccelerationForm } from '../../../../common/types';
+import { getJobId, pollQueryStatus } from '../../SQLPage/utils';
 import { hasError, validateDataSource } from '../create/utils';
 
 interface AccelerationDataSourceSelectorProps {
+  http: CoreStart['http'];
   accelerationFormData: CreateAccelerationForm;
   setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
 
 export const AccelerationDataSourceSelector = ({
+  http,
   accelerationFormData,
   setAccelerationFormData,
 }: AccelerationDataSourceSelectorProps) => {
@@ -33,22 +37,53 @@ export const AccelerationDataSourceSelector = ({
   const [selectedDatabase, setSelectedDatabase] = useState<EuiComboBoxOptionOption<string>[]>([]);
   const [tables, setTables] = useState<EuiComboBoxOptionOption<string>[]>([]);
   const [selectedTable, setSelectedTable] = useState<EuiComboBoxOptionOption<string>[]>([]);
+  const [loadingComboBoxes, setLoadingComboBoxes] = useState({
+    dataSource: false,
+    database: false,
+    dataTable: false,
+  });
+
+  const loadDataSource = () => {
+    setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: true });
+    http
+      .get(`/api/get_datasources`)
+      .then((res) => {
+        const data = res.data.resp;
+        setDataConnections(
+          data
+            .filter((connection: any) => connection.connector.toUpperCase() === 'S3GLUE')
+            .map((connection: any) => ({ label: connection.name }))
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: false });
+  };
+
+  const loadDatabases = () => {
+    setLoadingComboBoxes({ ...loadingComboBoxes, database: true });
+    const query = {
+      lang: 'sql',
+      query: `SHOW SCHEMAS IN ${accelerationFormData.dataSource}`,
+      datasource: accelerationFormData.dataSource,
+    };
+    getJobId(query, http, (id) => {
+      pollQueryStatus(id, http, (data) => {
+        console.log('data', data);
+        setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+      });
+    });
+  };
 
   useEffect(() => {
-    // TODO: remove hardcoded responses
-    setDataConnections([
-      {
-        label: 'spark1',
-      },
-      {
-        label: 'spark2',
-      },
-    ]);
+    loadDataSource();
   }, []);
 
   useEffect(() => {
     // TODO: remove hardcoded responses
     if (accelerationFormData.dataSource !== '') {
+      loadDatabases();
       setDatabases([
         {
           label: 'Database1',
@@ -132,6 +167,7 @@ export const AccelerationDataSourceSelector = ({
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
+          isLoading={loadingComboBoxes.dataSource}
         />
       </EuiFormRow>
       <EuiFormRow
@@ -156,6 +192,7 @@ export const AccelerationDataSourceSelector = ({
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
+          isLoading={loadingComboBoxes.database}
         />
       </EuiFormRow>
       <EuiFormRow
@@ -180,6 +217,7 @@ export const AccelerationDataSourceSelector = ({
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}
+          isLoading={loadingComboBoxes.dataTable}
         />
       </EuiFormRow>
     </>

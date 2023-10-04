@@ -22,11 +22,13 @@ import {
 import 'brace/ext/language_tools';
 import 'brace/mode/sql';
 import React from 'react';
+import { CoreStart } from '../../../../../src/core/public';
 import '../../ace-themes/sql_console';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 import { CreateAcceleration } from '../acceleration/create/create_acceleration';
 
 interface SQLPageProps {
+  http: CoreStart['http'];
   onRun: (query: string) => void;
   onTranslate: (query: string) => void;
   onClear: () => void;
@@ -69,6 +71,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
     this.setState({
       flyoutComponent: (
         <CreateAcceleration
+          http={this.props.http}
           dataSource="ds"
           resetFlyout={this.resetFlyout}
           updateQueries={this.props.updateSQLQueries}
