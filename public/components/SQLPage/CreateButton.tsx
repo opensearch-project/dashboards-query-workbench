@@ -26,9 +26,7 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
   };
 
   const handleSubMenuClick = (query: string) => {
-    // Handle sub-menu item click here
     updateSQLQueries(query)
-    console.log(`Selected action: ${query}`);
     closePopover();
   };
 
@@ -78,12 +76,10 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
               {
                 name: 'FROM SQL',
                 panel: 1,
-                // onClick: () => togglePopover('FROM SQL'),
               },
               {
                 name: 'Accelerated Index',
                 panel: 2,
-                // onClick: () => togglePopover('Accelerated Index'),
               },
             ],
           },

@@ -3,7 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiComboBoxOptionOption, EuiEmptyPrompt, EuiFlexGroup, EuiFlexItem, EuiIcon, EuiLoadingSpinner, EuiTreeView } from '@elastic/eui';
+import {
+  EuiComboBoxOptionOption,
+  EuiEmptyPrompt,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiIcon,
+  EuiLoadingSpinner,
+  EuiTreeView,
+} from '@elastic/eui';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
@@ -85,7 +93,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       getJobId(query, http, (id) => {
         get_async_query_results(id, http, (data) => {
           setTablenames(data);
-          setIsLoading(false)
+          setIsLoading(false);
         });
       });
     }
@@ -127,8 +135,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     };
     getJobId(coverQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
-        data = [].concat(...data)
-        indiciesData.concat(data)
+        data = [].concat(...data);
+        indiciesData.concat(data);
         setIndexedData(indiciesData);
       });
     });
@@ -148,7 +156,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     getJobId(skipQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
         if (data.length > 0) {
-            indiciesData.push('skiping_index');
+          indiciesData.push('skiping_index');
           callCoverQuery(nodeLabel1);
 
           setChildLoadingStates((prevState) => ({
@@ -163,10 +171,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   const treeData = tablenames.map((database, index) => ({
     label: (
       <div>
-        {database}{' '}
-        {tableLoadingStates[database] &&  <EuiLoadingSpinner size="m" />}
+        {database} {tableLoadingStates[database] && <EuiLoadingSpinner size="m" />}
       </div>
-    ),    icon: <EuiIcon type="database" size="m" />,
+    ),
+    icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
       handleNodeClick(database);
@@ -178,8 +186,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
         ? childData.map((table) => ({
             label: (
               <div>
-                {table}{' '}
-                {childLoadingStates[table] &&  <EuiLoadingSpinner size="m" />}
+                {table} {childLoadingStates[table] && <EuiLoadingSpinner size="m" />}
               </div>
             ),
             id: `${database}_${table}`,
@@ -214,27 +221,23 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       <EuiFlexGroup>
         {isLoading ? (
           <EuiFlexGroup alignItems="center">
+            <EuiFlexItem grow={false}>Loading your databases</EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <EuiLoadingSpinner size="m" />
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        ) : treeData.length > 0 ? (
           <EuiFlexItem grow={false}>
-            Loading your databases
+            <EuiTreeView aria-label="Sample Folder Tree" items={treeData} />
           </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <EuiLoadingSpinner size="m" />
-          </EuiFlexItem>
-        </EuiFlexGroup>
         ) : (
-          treeData.length > 0 ? (
-            <EuiFlexItem grow={false}>
-              <EuiTreeView aria-label="Sample Folder Tree" items={treeData} />
-            </EuiFlexItem>
-          ) : (
-            <EuiFlexItem grow={false}>
-              <EuiEmptyPrompt
-                iconType="alert"
-                iconColor="danger"
-                title={<h2>Error loading Datasources</h2>}
-              />
-            </EuiFlexItem>
-          )
+          <EuiFlexItem grow={false}>
+            <EuiEmptyPrompt
+              iconType="alert"
+              iconColor="danger"
+              title={<h2>Error loading Datasources</h2>}
+            />
+          </EuiFlexItem>
         )}
         {indexFlyout}
       </EuiFlexGroup>
