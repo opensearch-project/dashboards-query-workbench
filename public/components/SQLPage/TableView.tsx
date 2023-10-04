@@ -156,7 +156,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     getJobId(skipQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
         if (data.length > 0) {
-          indiciesData.push('skiping_index');
+          indiciesData.push('skipping_index');
           callCoverQuery(nodeLabel1);
 
           setChildLoadingStates((prevState) => ({
@@ -220,7 +220,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     <>
       <EuiFlexGroup>
         {isLoading ? (
-          <EuiFlexGroup alignItems="center">
+          <EuiFlexGroup alignItems="center" gutterSize='s'>
             <EuiFlexItem grow={false}>Loading your databases</EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiLoadingSpinner size="m" />

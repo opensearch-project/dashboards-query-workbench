@@ -9,8 +9,9 @@ export const OPENSEARCH_ACC_DOCUMENTATION_URL = 'https://opensearch.org/docs/lat
 export const ACC_INDEX_TYPE_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 
 export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
-export const SKIPPING_INDEX_QUERY = `DESC SKIPPING INDEX ON my_glue.default.http_logs`
-export const COVERING_INDEX_QUERY =`SHOW INDEX ON myS3.default.http_logs`
+export const SKIPPING_INDEX_QUERY = `DESC SKIPPING INDEX ON datasource.database.table`
+export const COVERING_INDEX_QUERY =`SHOW INDEX ON datasource.database.table`
+export const CREATE_DATABASE_QUERY =`CREATE DATABASE databasename`
 
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },

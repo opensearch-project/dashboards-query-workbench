@@ -5,7 +5,7 @@
 
 import { EuiButton, EuiContextMenu, EuiPopover } from '@elastic/eui';
 import React, { useState } from 'react';
-import { COVERING_INDEX_QUERY, ON_LOAD_QUERY, SKIPPING_INDEX_QUERY } from '../../../common/constants';
+import { COVERING_INDEX_QUERY, CREATE_DATABASE_QUERY, SKIPPING_INDEX_QUERY } from '../../../common/constants';
 
 
 interface CreateButtonProps {
@@ -33,7 +33,7 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
   const fromSqlItems = [
     {
       name: 'Create Table',
-      onClick: () => handleSubMenuClick(ON_LOAD_QUERY),
+      onClick: () => handleSubMenuClick(CREATE_DATABASE_QUERY),
     },
     {
       name: 'SQL Command',
@@ -48,7 +48,7 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
     },
     {
       name: 'Covering Index',
-      onCLick: () => handleSubMenuClick(COVERING_INDEX_QUERY),
+      onClick: () => handleSubMenuClick(COVERING_INDEX_QUERY),
     },
   ];
 
@@ -85,7 +85,7 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
           },
           {
             id: 1,
-            title: 'FROM SQL Options',
+            title: 'FROM SPARK SQL Options',
             items: fromSqlItems,
           },
           {

@@ -108,7 +108,6 @@ interface MainState {
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
   asyncJobId: string;
-  selectedCreateOption: string;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -246,7 +245,6 @@ export class Main extends React.Component<MainProps, MainState> {
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
       asyncJobId: '',
-      selectedCreateOption: `SHOW tables LIKE '%';`
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
