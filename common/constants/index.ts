@@ -12,6 +12,7 @@ export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
 export const SKIPPING_INDEX_QUERY = `DESC SKIPPING INDEX ON datasource.database.table`
 export const COVERING_INDEX_QUERY =`SHOW INDEX ON datasource.database.table`
 export const CREATE_DATABASE_QUERY =`CREATE DATABASE databasename`
+export const CREATE_TABLE_QUERY =`CREATE TABLE databasename`
 
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },

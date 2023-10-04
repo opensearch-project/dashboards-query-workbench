@@ -10,6 +10,7 @@ import {
   EuiFlexItem,
   EuiPage,
   EuiPageContent,
+  EuiPageContentBody,
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
@@ -927,8 +928,8 @@ export class Main extends React.Component<MainProps, MainState> {
             </EuiPanel>
           )}
 
-          <EuiPageContent >
-            
+          <EuiPageContent paddingSize="m">
+            <EuiPageContentBody>
               <EuiFlexGroup alignItems="center"></EuiFlexGroup>
               <EuiSpacer size="l" />
               <div>{page}</div>
@@ -974,7 +975,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   cancelAsyncQuery={this.cancelAsyncQuery}
                 />
               </div>
-            
+            </EuiPageContentBody>
           </EuiPageContent>
         </EuiPage>
       </>

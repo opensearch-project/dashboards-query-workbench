@@ -5,7 +5,7 @@
 
 import { EuiButton, EuiContextMenu, EuiPopover } from '@elastic/eui';
 import React, { useState } from 'react';
-import { COVERING_INDEX_QUERY, CREATE_DATABASE_QUERY, SKIPPING_INDEX_QUERY } from '../../../common/constants';
+import { COVERING_INDEX_QUERY, CREATE_DATABASE_QUERY, CREATE_TABLE_QUERY, SKIPPING_INDEX_QUERY } from '../../../common/constants';
 
 
 interface CreateButtonProps {
@@ -37,7 +37,7 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
     },
     {
       name: 'SQL Command',
-      onClick: () => handleSubMenuClick(''),
+      onClick: () => handleSubMenuClick(CREATE_TABLE_QUERY),
     },
   ];
 
