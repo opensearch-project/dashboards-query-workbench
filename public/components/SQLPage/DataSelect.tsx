@@ -14,7 +14,7 @@ interface CustomView {
   asyncLoading: boolean;
 }
 
-export const DataSelect = ({ http, onSelect, urlDataSource }: CustomView) => {
+export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading }: CustomView) => {
   const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([
     { label: 'OpenSearch' },
   ]);

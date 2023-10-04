@@ -188,6 +188,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     fill={true}
                     className="sql-accelerate-button"
                     onClick={this.setAccelerationFlyout}
+                    isDisabled={this.props.asyncLoading}
                   >
                     Accelerate Table
                   </EuiButton>
