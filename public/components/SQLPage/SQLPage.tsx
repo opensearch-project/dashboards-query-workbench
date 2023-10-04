@@ -7,6 +7,7 @@ import {
   EuiButton,
   EuiCodeBlock,
   EuiCodeEditor,
+  EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
   EuiModal,
@@ -32,7 +33,7 @@ interface SQLPageProps {
   updateSQLQueries: (query: string) => void;
   sqlQuery: string;
   sqlTranslations: ResponseDetail<TranslateResult>[];
-  selectedDatasource: string;
+  selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
 }
 
@@ -170,7 +171,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                 </EuiFlexItem>
               </EuiFlexGroup>
             </EuiFlexItem>
-            {this.props.selectedDatasource === 'S3' && (
+            {this.props.selectedDatasource[0].label !== 'OpenSearch' && (
               <EuiFlexItem grow={false}>
                 <EuiButton
                   fill={true}

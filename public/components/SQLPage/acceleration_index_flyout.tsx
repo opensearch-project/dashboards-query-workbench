@@ -43,6 +43,7 @@ export const AccelerationIndexFlyout = ({
         ? `DESC SKIPPING INDEX ON ${dataSource}.${database}.${dataTable}`
         : `DESC INDEX ${indexName} ON ${dataSource}.${database}.${dataTable}`;
     updateSQLQueries(describeQuery);
+    resetFlyout();
   };
 
   const updateDropQuery = () => {
@@ -51,6 +52,7 @@ export const AccelerationIndexFlyout = ({
         ? `DROP SKIPPING INDEX ON ${dataSource}.${database}.${dataTable}`
         : `DROP INDEX ${indexName} ON ${dataSource}.${database}.${dataTable}`;
     updateSQLQueries(describeQuery);
+    resetFlyout();
   };
 
   return (
@@ -109,7 +111,7 @@ export const AccelerationIndexFlyout = ({
               </EuiButton>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
-              <EuiButton iconSide="right" iconType="trash" onClick={updateDropQuery}>
+              <EuiButton iconSide="right" iconType="trash" onClick={updateDropQuery} color="danger">
                 Drop Index
               </EuiButton>
             </EuiFlexItem>
