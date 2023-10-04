@@ -58,7 +58,6 @@ const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[
  * Skipping Index create query example:
  *
  * CREATE SKIPPING INDEX
- * [IF NOT EXISTS]
  * ON datasource.database.table
  * FOR COLUMNS (
  *    field1 VALUE_SET,
@@ -74,8 +73,7 @@ const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[
 export const skippingIndexQueryBuilder = (accelerationformData: CreateAccelerationForm) => {
   const { dataSource, database, dataTable, skippingIndexQueryData } = accelerationformData;
 
-  const codeQuery = `CREATE SKIPPING INDEX 
-[IF NOT EXISTS]
+  const codeQuery = `CREATE SKIPPING INDEX
 ON ${dataSource}.${database}.${dataTable}
   FOR COLUMNS (
 ${buildSkippingIndexColumns(skippingIndexQueryData)}
@@ -94,7 +92,6 @@ const buildCoveringIndexColumns = (coveringIndexQueryData: string[]) => {
  * Covering Index create query example:
  *
  * CREATE INDEX index_name
- * [IF NOT EXISTS]
  * ON datasource.database.table
  * FOR COLUMNS (
  *    field1,
@@ -117,7 +114,6 @@ export const coveringIndexQueryBuilder = (accelerationformData: CreateAccelerati
   } = accelerationformData;
 
   const codeQuery = `CREATE INDEX ${accelerationIndexName}
-[IF NOT EXISTS]
 ON ${dataSource}.${database}.${dataTable}
   FOR COLUMNS (
 ${buildCoveringIndexColumns(coveringIndexQueryData)}
@@ -148,7 +144,6 @@ const buildTumbleValue = (GroupByTumbleValue: GroupByTumbleType) => {
  * Materialized View create query example:
  *
  * CREATE MATERIALIZED VIEW datasource.database.index_name
- * [IF NOT EXISTS]
  * AS SELECT
  * count(field) as counter,
  * count(*) as counter1,
@@ -171,7 +166,6 @@ export const materializedQueryViewBuilder = (accelerationformData: CreateAcceler
   } = accelerationformData;
 
   const codeQuery = `CREATE MATERIALIZED VIEW ${dataSource}.${database}.${accelerationIndexName}
-[IF NOT EXISTS]
 AS SELECT
 ${buildMaterializedViewColumns(materializedViewQueryData.columnsValues)}
 FROM ${dataSource}.${database}.${dataTable}

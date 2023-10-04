@@ -7,6 +7,7 @@ import {
   EuiButton,
   EuiCodeBlock,
   EuiCodeEditor,
+  EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
   EuiModal,
@@ -21,18 +22,20 @@ import {
 import 'brace/ext/language_tools';
 import 'brace/mode/sql';
 import React from 'react';
+import { CoreStart } from '../../../../../src/core/public';
 import '../../ace-themes/sql_console';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 import { CreateAcceleration } from '../acceleration/create/create_acceleration';
 
 interface SQLPageProps {
+  http: CoreStart['http'];
   onRun: (query: string) => void;
   onTranslate: (query: string) => void;
   onClear: () => void;
   updateSQLQueries: (query: string) => void;
   sqlQuery: string;
   sqlTranslations: ResponseDetail<TranslateResult>[];
-  selectedDatasource: string;
+  selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
 }
 
@@ -68,7 +71,8 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
     this.setState({
       flyoutComponent: (
         <CreateAcceleration
-          dataSource="ds"
+          http={this.props.http}
+          selectedDatasource={this.props.selectedDatasource}
           resetFlyout={this.resetFlyout}
           updateQueries={this.props.updateSQLQueries}
         />
@@ -170,17 +174,18 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                 </EuiFlexItem>
               </EuiFlexGroup>
             </EuiFlexItem>
-            {this.props.selectedDatasource === 'S3' && (
-              <EuiFlexItem grow={false}>
-                <EuiButton
-                  fill={true}
-                  className="sql-accelerate-button"
-                  onClick={this.setAccelerationFlyout}
-                >
-                  Accelerate Table
-                </EuiButton>
-              </EuiFlexItem>
-            )}
+            {this.props.selectedDatasource &&
+              this.props.selectedDatasource[0].label !== 'OpenSearch' && (
+                <EuiFlexItem grow={false}>
+                  <EuiButton
+                    fill={true}
+                    className="sql-accelerate-button"
+                    onClick={this.setAccelerationFlyout}
+                  >
+                    Accelerate Table
+                  </EuiButton>
+                </EuiFlexItem>
+              )}
           </EuiFlexGroup>
         </EuiPanel>
         {modal}

@@ -14,6 +14,7 @@ import {
 } from '@elastic/eui';
 import producer from 'immer';
 import React, { ChangeEvent, useState } from 'react';
+import { CoreStart } from '../../../../../../src/core/public';
 import { ACCELERATION_TIME_INTERVAL } from '../../../../common/constants';
 import { CreateAccelerationForm } from '../../../../common/types';
 import {
@@ -26,11 +27,13 @@ import {
 import { IndexTypeSelector } from './index_type_selector';
 
 interface IndexSettingOptionsProps {
+  http: CoreStart['http'];
   accelerationFormData: CreateAccelerationForm;
   setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
 
 export const IndexSettingOptions = ({
+  http,
   accelerationFormData,
   setAccelerationFormData,
 }: IndexSettingOptionsProps) => {
@@ -47,7 +50,7 @@ export const IndexSettingOptions = ({
     },
   ];
 
-  const [primaryShards, setPrimaryShards] = useState(5);
+  const [primaryShards, setPrimaryShards] = useState(1);
   const [replicaCount, setReplicaCount] = useState(1);
   const [refreshTypeSelected, setRefreshTypeSelected] = useState(autoRefreshId);
   const [refreshWindow, setRefreshWindow] = useState(1);
@@ -107,12 +110,13 @@ export const IndexSettingOptions = ({
       </EuiText>
       <EuiSpacer size="s" />
       <IndexTypeSelector
+        http={http}
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
       <EuiFormRow
         label="Number of primary shards"
-        helpText="Specify the number of primary shards for the index. Default is 5. The number of primary shards cannot be changed after the index is created."
+        helpText="Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created."
         isInvalid={hasError(accelerationFormData.formErrors, 'primaryShardsError')}
         error={accelerationFormData.formErrors.primaryShardsError}
       >

@@ -10,13 +10,18 @@ import { CoreStart } from '../../../../../src/core/public';
 interface CustomView {
   http: CoreStart['http'];
   onSelect: (selectedItems: []) => void;
+  urlDataSource: string;
 }
 
-export const DataSelect = ({ http, onSelect }: CustomView) => {
-  const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([{ label: 'OpenSearch' }]);
+export const DataSelect = ({ http, onSelect, urlDataSource }: CustomView) => {
+  const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([
+    { label: 'OpenSearch' },
+  ]);
   const [options, setOptions] = useState<any[]>([]);
 
   const datasources = () => {
+    let dataOptions: EuiComboBoxOptionOption[] = [];
+    let urlSourceFound = false;
     http
       .get(`/api/get_datasources`)
       .then((res) => {
@@ -34,21 +39,29 @@ export const DataSelect = ({ http, onSelect }: CustomView) => {
             }
 
             connectorGroups[connector].push(name);
+            if (name === urlDataSource) {
+              urlSourceFound = true;
+            }
           }
         });
-        options.push({ label: 'OpenSearch' });
+        dataOptions.push({ label: 'OpenSearch' });
+
         for (const connector in connectorGroups) {
           if (connectorGroups.hasOwnProperty(connector)) {
             const connectorNames = connectorGroups[connector];
 
-            options.push({
+            dataOptions.push({
               label: connector,
               options: connectorNames.map((name) => ({ label: name })),
             });
           }
         }
 
-        setOptions(options);
+        setOptions(dataOptions);
+        if (urlSourceFound) {
+          setSelectedOptions([{ label: urlDataSource }]);
+          onSelect([{ label: urlDataSource }]);
+        }
       })
       .catch((err) => {
         console.error(err);

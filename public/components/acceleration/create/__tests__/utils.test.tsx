@@ -96,11 +96,11 @@ describe('validatePrimaryShardCount', () => {
 
 describe('validateReplicaCount', () => {
   it('should return an array with an error message when replicaCount is less than 1', () => {
-    expect(validateReplicaCount(0)).toEqual(['Replica count should be greater than 0']);
-    expect(validateReplicaCount(-1)).toEqual(['Replica count should be greater than 0']); // form throws validation error, doesn't allow user to proceed
+    expect(validateReplicaCount(-1)).toEqual(['Replica count should be equal or greater than 0']); // form throws validation error, doesn't allow user to proceed
   });
 
   it('should return an empty array when replicaCount is greater than or equal to 1', () => {
+    expect(validateReplicaCount(0)).toEqual([]);
     expect(validateReplicaCount(1)).toEqual([]);
     expect(validateReplicaCount(5)).toEqual([]);
     expect(validateReplicaCount(100)).toEqual([]);

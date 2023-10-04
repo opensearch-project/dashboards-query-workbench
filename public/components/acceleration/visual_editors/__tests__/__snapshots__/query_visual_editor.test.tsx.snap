@@ -40,20 +40,6 @@ Array [
         </span>
       </div>
       <div
-        className="euiFlexItem euiFlexItem--flexGrowZero"
-      >
-        <span
-          className="euiExpression euiExpression-isUppercase euiExpression--success"
-        >
-          <span
-            className="euiExpression__description"
-          >
-            [IF NOT EXISTS]
-          </span>
-           
-        </span>
-      </div>
-      <div
         className="euiFlexItem"
       >
         <span
@@ -354,20 +340,6 @@ Array [
         ..skipping
       </span>
     </span>,
-    <div
-      className="euiFlexItem euiFlexItem--flexGrowZero"
-    >
-      <span
-        className="euiExpression euiExpression-isUppercase euiExpression--success"
-      >
-        <span
-          className="euiExpression__description"
-        >
-          [IF NOT EXISTS]
-        </span>
-         
-      </span>
-    </div>,
     <div
       className="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
     >

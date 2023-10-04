@@ -188,6 +188,7 @@ exports[`<SQLPage /> spec renders the component 1`] = `
           </div>
         </div>
       </div>
+      
     </div>
   </div>
 </div>

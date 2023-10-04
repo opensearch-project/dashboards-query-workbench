@@ -6,6 +6,7 @@
 import {
   EuiButton,
   EuiButtonEmpty,
+  EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
   EuiFlyout,
@@ -16,6 +17,7 @@ import {
   EuiSpacer,
 } from '@elastic/eui';
 import React, { useState } from 'react';
+import { CoreStart } from '../../../../../../src/core/public';
 import {
   ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
   ACCELERATION_TIME_INTERVAL,
@@ -26,23 +28,24 @@ import { IndexSettingOptions } from '../selectors/index_setting_options';
 import { AccelerationDataSourceSelector } from '../selectors/source_selector';
 import { accelerationQueryBuilder } from '../visual_editors/query_builder';
 import { QueryVisualEditor } from '../visual_editors/query_visual_editor';
-import { CautionBannerCallout } from './caution_banner_callout';
 import { CreateAccelerationHeader } from './create_acceleration_header';
 import { formValidator, hasError } from './utils';
 
 export interface CreateAccelerationProps {
-  dataSource: string;
+  http: CoreStart['http'];
+  selectedDatasource: EuiComboBoxOptionOption[];
   resetFlyout: () => void;
   updateQueries: (query: string) => void;
 }
 
 export const CreateAcceleration = ({
-  dataSource,
+  http,
+  selectedDatasource,
   resetFlyout,
   updateQueries,
 }: CreateAccelerationProps) => {
   const [accelerationFormData, setAccelerationFormData] = useState<CreateAccelerationForm>({
-    dataSource: '',
+    dataSource: selectedDatasource.length > 0 ? selectedDatasource[0].label : '',
     dataTable: '',
     database: '',
     dataTableFields: [],
@@ -58,7 +61,7 @@ export const CreateAcceleration = ({
       },
     },
     accelerationIndexName: ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
-    primaryShardsCount: 5,
+    primaryShardsCount: 1,
     replicaShardsCount: 1,
     refreshType: 'auto',
     checkpointLocation: undefined,
@@ -98,7 +101,6 @@ export const CreateAcceleration = ({
           <CreateAccelerationHeader />
         </EuiFlyoutHeader>
         <EuiFlyoutBody>
-          <CautionBannerCallout />
           <EuiSpacer size="l" />
           <EuiForm
             isInvalid={hasError(accelerationFormData.formErrors)}
@@ -107,11 +109,14 @@ export const CreateAcceleration = ({
             id="acceleration-form"
           >
             <AccelerationDataSourceSelector
+              http={http}
               accelerationFormData={accelerationFormData}
               setAccelerationFormData={setAccelerationFormData}
+              selectedDatasource={selectedDatasource}
             />
             <EuiSpacer size="xxl" />
             <IndexSettingOptions
+              http={http}
               accelerationFormData={accelerationFormData}
               setAccelerationFormData={setAccelerationFormData}
             />
