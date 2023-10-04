@@ -8,6 +8,8 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import toJson from 'enzyme-to-json';
 import React from 'react';
+import { httpClientMock } from '../../../../../test/mocks';
+import { mockDatasourcesQuery } from '../../../../../test/mocks/mockData';
 import { CreateAcceleration } from '../create_acceleration';
 
 describe('Create acceleration flyout components', () => {
@@ -17,9 +19,12 @@ describe('Create acceleration flyout components', () => {
     const dataSource = '';
     const resetFlyout = jest.fn();
     const updateQueries = jest.fn();
+    const client = httpClientMock;
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
     const wrapper = mount(
       <CreateAcceleration
+        http={client}
         dataSource={dataSource}
         resetFlyout={resetFlyout}
         updateQueries={updateQueries}

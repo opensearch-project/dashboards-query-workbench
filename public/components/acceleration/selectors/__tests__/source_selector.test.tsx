@@ -9,7 +9,9 @@ import Adapter from 'enzyme-adapter-react-16';
 import toJson from 'enzyme-to-json';
 import React from 'react';
 import { CreateAccelerationForm } from '../../../../../common/types';
+import { httpClientMock } from '../../../../../test/mocks';
 import { createAccelerationEmptyDataMock } from '../../../../../test/mocks/accelerationMock';
+import { mockDatasourcesQuery } from '../../../../../test/mocks/mockData';
 import { AccelerationDataSourceSelector } from '../source_selector';
 
 describe('Source selector components', () => {
@@ -18,8 +20,12 @@ describe('Source selector components', () => {
   it('renders source selector with default options', async () => {
     const accelerationFormData = createAccelerationEmptyDataMock;
     const setAccelerationFormData = jest.fn();
+    const client = httpClientMock;
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
+
     const wrapper = mount(
       <AccelerationDataSourceSelector
+        http={client}
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
@@ -43,8 +49,12 @@ describe('Source selector components', () => {
       dataTable: 'tb',
     };
     const setAccelerationFormData = jest.fn();
+    const client = httpClientMock;
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
+    client.post = jest.fn().mockResolvedValue([]);
     const wrapper = mount(
       <AccelerationDataSourceSelector
+        http={client}
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
