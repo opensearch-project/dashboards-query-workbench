@@ -117,6 +117,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
             showGutter: false,
           }}
           aria-label="Code Editor"
+          isReadOnly={this.props.asyncLoading}
         />
         <EuiSpacer />
         <EuiFlexGroup className="action-container" gutterSize="m">
@@ -140,10 +141,16 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               this.props.onClear();
             }}
           >
-            <EuiButton className="sql-editor-button">Clear</EuiButton>
+            <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+              Clear
+            </EuiButton>
           </EuiFlexItem>
           <EuiFlexItem grow={false} onClick={() => this.props.onTranslate(this.props.pplQuery)}>
-            <EuiButton className="sql-editor-button" onClick={showModal}>
+            <EuiButton
+              className="sql-editor-button"
+              onClick={showModal}
+              isDisabled={this.props.asyncLoading}
+            >
               Explain
             </EuiButton>
             {modal}

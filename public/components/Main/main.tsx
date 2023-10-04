@@ -423,7 +423,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 lang: language,
                 query: query,
                 datasource: this.state.selectedDatasource[0].label,
-              }), // TODO: dynamically datasource when accurate
+              }),
             })
             .catch((error: any) => {
               this.setState({
@@ -891,11 +891,16 @@ export class Main extends React.Component<MainProps, MainState> {
               http={this.httpClient}
               onSelect={this.handleDataSelect}
               urlDataSource={this.props.urlDataSource}
+              asyncLoading={this.state.asyncLoading}
             />
             <EuiSpacer />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
-            <Switch onChange={this.onChange} language={this.state.language} />
+            <Switch
+              onChange={this.onChange}
+              language={this.state.language}
+              asyncLoading={this.state.asyncLoading}
+            />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
             <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
