@@ -8,6 +8,7 @@ export const PLUGIN_NAME = 'Query Workbench';
 export const OPENSEARCH_ACC_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 export const ACC_INDEX_TYPE_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 
+export const SKIPPING_INDEX = `skipping_index`
 export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
 (status VALUE_SET) 

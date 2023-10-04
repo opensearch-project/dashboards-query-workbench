@@ -15,7 +15,7 @@ import {
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
-import { ON_LOAD_QUERY } from '../../../common/constants';
+import { ON_LOAD_QUERY, SKIPPING_INDEX } from '../../../common/constants';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
 import { getJobId, pollQueryStatus } from './utils';
 
@@ -156,7 +156,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     getJobId(skipQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
         if (data.length > 0) {
-          indiciesData.push('skipping_index');
+          indiciesData.push(SKIPPING_INDEX);
           callCoverQuery(nodeLabel1);
 
           setChildLoadingStates((prevState) => ({
