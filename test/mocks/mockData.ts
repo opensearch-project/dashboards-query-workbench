@@ -2341,3 +2341,12 @@ export const mockHttpQuery =
     resp: "{\"schema\":[{\"name\":\"TABLE_CAT\",\"type\":\"keyword\"}],\"datarows\":[[\"opensearch\",null,\".kibana_1\",\"BASE TABLE\",null,null,null,null,null,null]]}"
   }
 }
+export const mockDatasourcesQuery = 
+{
+  "data": {
+    "ok": true,
+    resp: "[{  \"name\": \"my_glue\",  \"description\": \"\",  \"connector\": \"S3GLUE\",  \"allowedRoles\": [],  \"properties\": {      \"glue.indexstore.opensearch.uri\": \"\",      \"glue.indexstore.opensearch.region\": \"\"  }}]"
+  }
+}
+
+
