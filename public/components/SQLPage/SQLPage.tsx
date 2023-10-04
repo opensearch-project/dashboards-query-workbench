@@ -162,13 +162,19 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     this.props.onClear();
                   }}
                 >
-                  <EuiButton className="sql-editor-button">Clear</EuiButton>
+                  <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                    Clear
+                  </EuiButton>
                 </EuiFlexItem>
                 <EuiFlexItem
                   grow={false}
                   onClick={() => this.props.onTranslate(this.props.sqlQuery)}
                 >
-                  <EuiButton className="sql-editor-button" onClick={showModal}>
+                  <EuiButton
+                    className="sql-editor-button"
+                    onClick={showModal}
+                    isDisabled={this.props.asyncLoading}
+                  >
                     Explain
                   </EuiButton>
                 </EuiFlexItem>
