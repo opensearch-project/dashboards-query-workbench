@@ -14,7 +14,7 @@ import {
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
-  EuiText,
+  EuiText
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
@@ -32,6 +32,7 @@ import {
 import { PPLPage } from '../PPLPage/PPLPage';
 import Switch from '../QueryLanguageSwitch/Switch';
 import QueryResults from '../QueryResults/QueryResults';
+import { CreateButton } from '../SQLPage/CreateButton';
 import { DataSelect } from '../SQLPage/DataSelect';
 import { SQLPage } from '../SQLPage/SQLPage';
 import { TableView } from '../SQLPage/TableView';
@@ -915,9 +916,9 @@ export class Main extends React.Component<MainProps, MainState> {
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
-                      <EuiButton iconType="arrowDown" iconSide="right" fullWidth>
-                        Create
-                      </EuiButton>
+                      <CreateButton
+                        updateSQLQueries={this.updateSQLQueries}
+                      />
                     </EuiFlexItem>
                     <EuiSpacer />
                     <TableView
