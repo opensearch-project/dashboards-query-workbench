@@ -881,6 +881,7 @@ export class Main extends React.Component<MainProps, MainState> {
             asyncLoading={this.state.asyncLoading}
             asyncLoadingStatus={this.state.asyncLoadingStatus}
             cancelAsyncQuery={this.cancelAsyncQuery}
+            selectedDatasource={this.state.selectedDatasource}
           />
         </div>
       );
@@ -919,7 +920,10 @@ export class Main extends React.Component<MainProps, MainState> {
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
-                      <CreateButton updateSQLQueries={this.updateSQLQueries} />
+                      <CreateButton
+                        updateSQLQueries={this.updateSQLQueries}
+                        selectedDatasource={this.state.selectedDatasource}
+                      />
                     </EuiFlexItem>
                     <EuiSpacer />
                     <TableView
@@ -979,6 +983,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   asyncLoading={this.state.asyncLoading}
                   asyncLoadingStatus={this.state.asyncLoadingStatus}
                   cancelAsyncQuery={this.cancelAsyncQuery}
+                  selectedDatasource={this.state.selectedDatasource}
                 />
               </div>
             </EuiPageContentBody>
