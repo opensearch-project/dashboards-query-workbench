@@ -9939,6 +9939,10 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
 <div>
   <div>
     <div
+      class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsFlexStart euiFlexGroup--directionRow euiFlexGroup--responsive"
+      style="padding: 20px 20px 0px 20px;"
+    />
+    <div
       class="sql-console-results-container"
     >
       <div>
