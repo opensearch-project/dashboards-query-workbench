@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiButton, EuiContextMenu, EuiPopover } from '@elastic/eui';
+import { EuiButton, EuiComboBoxOptionOption, EuiContextMenu, EuiPopover } from '@elastic/eui';
 import React, { useState } from 'react';
 import {
   COVERING_INDEX_QUERY,
@@ -14,9 +14,10 @@ import {
 
 interface CreateButtonProps {
   updateSQLQueries: (query: string) => void;
+  selectedDatasource: EuiComboBoxOptionOption[];
 }
 
-export const CreateButton = ({ updateSQLQueries }: CreateButtonProps) => {
+export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateButtonProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -63,42 +64,46 @@ export const CreateButton = ({ updateSQLQueries }: CreateButtonProps) => {
   );
 
   return (
-    <EuiPopover
-      button={button}
-      isOpen={isPopoverOpen}
-      closePopover={closePopover}
-      panelPaddingSize="s"
-      anchorPosition="downLeft"
-    >
-      <EuiContextMenu
-        initialPanelId={0}
-        panels={[
-          {
-            id: 0,
-            title: 'Create options',
-            items: [
+    <>
+      {selectedDatasource && selectedDatasource[0].label !== 'OpenSearch' && (
+        <EuiPopover
+          button={button}
+          isOpen={isPopoverOpen}
+          closePopover={closePopover}
+          panelPaddingSize="s"
+          anchorPosition="downLeft"
+        >
+          <EuiContextMenu
+            initialPanelId={0}
+            panels={[
               {
-                name: 'Spark SQL',
-                panel: 1,
+                id: 0,
+                title: 'Create options',
+                items: [
+                  {
+                    name: 'Spark SQL',
+                    panel: 1,
+                  },
+                  {
+                    name: 'Acceleration Index',
+                    panel: 2,
+                  },
+                ],
               },
               {
-                name: 'Acceleration Index',
-                panel: 2,
+                id: 1,
+                title: 'SPARK SQL Options',
+                items: fromSqlItems,
               },
-            ],
-          },
-          {
-            id: 1,
-            title: 'SPARK SQL Options',
-            items: fromSqlItems,
-          },
-          {
-            id: 2,
-            title: 'Acceleration Index Options',
-            items: acceleratedIndexItems,
-          },
-        ]}
-      />
-    </EuiPopover>
+              {
+                id: 2,
+                title: 'Acceleration Index Options',
+                items: acceleratedIndexItems,
+              },
+            ]}
+          />
+        </EuiPopover>
+      )}
+    </>
   );
 };

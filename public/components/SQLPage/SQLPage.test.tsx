@@ -18,7 +18,7 @@ describe('<SQLPage /> spec', () => {
         updateSQLQueries={() => {}}
         sqlTranslations={[]}
         sqlQuery={''}
-        selectedDatasource={''}
+        selectedDatasource={[{ label: 'OpenSearch' }]}
       />
     );
     expect(document.body.children[0]).toMatchSnapshot();
@@ -38,7 +38,7 @@ describe('<SQLPage /> spec', () => {
         updateSQLQueries={updateSQLQueries}
         sqlTranslations={[]}
         sqlQuery={''}
-        selectedDatasource={'S3'}
+        selectedDatasource={[{ label: 'OpenSearch' }]}
       />
     );
 
