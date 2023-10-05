@@ -183,6 +183,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
+      setChildData([]);
       selectedItems[0].label !== 'OpenSearch' && handleNodeClick(database);
     },
     isSelectable: true,
