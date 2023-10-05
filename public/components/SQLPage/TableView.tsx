@@ -175,6 +175,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
+      setChildData([])
       handleNodeClick(database);
     },
     isSelectable: true,
