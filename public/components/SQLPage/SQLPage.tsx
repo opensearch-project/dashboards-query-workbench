@@ -141,7 +141,6 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
               enableLiveAutocompletion: true,
             }}
             aria-label="Code Editor"
-            isReadOnly={this.props.asyncLoading}
           />
           <EuiSpacer />
           <EuiFlexGroup justifyContent="spaceBetween">
@@ -167,18 +166,21 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     Clear
                   </EuiButton>
                 </EuiFlexItem>
-                <EuiFlexItem
-                  grow={false}
-                  onClick={() => this.props.onTranslate(this.props.sqlQuery)}
-                >
-                  <EuiButton
-                    className="sql-editor-button"
-                    onClick={showModal}
-                    isDisabled={this.props.asyncLoading}
-                  >
-                    Explain
-                  </EuiButton>
-                </EuiFlexItem>
+                {this.props.selectedDatasource &&
+                  this.props.selectedDatasource[0].label === 'OpenSearch' && (
+                    <EuiFlexItem
+                      grow={false}
+                      onClick={() => this.props.onTranslate(this.props.sqlQuery)}
+                    >
+                      <EuiButton
+                        className="sql-editor-button"
+                        onClick={showModal}
+                        isDisabled={this.props.asyncLoading}
+                      >
+                        Explain
+                      </EuiButton>
+                    </EuiFlexItem>
+                  )}
               </EuiFlexGroup>
             </EuiFlexItem>
             {this.props.selectedDatasource &&

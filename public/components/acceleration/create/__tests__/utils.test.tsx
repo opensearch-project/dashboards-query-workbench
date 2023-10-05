@@ -134,12 +134,13 @@ describe('validateIndexName', () => {
     expect(validateIndexName('-invalid')).toEqual(['Enter a valid index name']);
     expect(validateIndexName('InVal1d')).toEqual(['Enter a valid index name']);
     expect(validateIndexName('invalid_with spaces')).toEqual(['Enter a valid index name']);
+    expect(validateIndexName('another-valid-name')).toEqual(['Enter a valid index name']);
   });
 
   it('should return an empty array when the index name is valid', () => {
     expect(validateIndexName('valid')).toEqual([]);
     expect(validateIndexName('valid_name')).toEqual([]);
-    expect(validateIndexName('another-valid-name')).toEqual([]);
+    expect(validateIndexName('valid_name_index')).toEqual([]);
   });
 
   it('should use the ACCELERATION_INDEX_NAME_REGEX pattern to validate the index name', () => {

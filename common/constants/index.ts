@@ -63,7 +63,7 @@ export const SKIPPING_INDEX_ACCELERATION_METHODS = [
 ];
 
 export const ACCELERATION_ADD_FIELDS_TEXT = '(add fields here)';
-export const ACCELERATION_INDEX_NAME_REGEX = /^[a-z][a-z_\-]*$/;
+export const ACCELERATION_INDEX_NAME_REGEX = /^[a-z][a-z_]*$/;
 export const ACCELERATION_S3_URL_REGEX = /^(s3|s3a):\/\/[a-zA-Z0-9.\-]+\/.*/;
 export const ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME = 'skipping';
 
@@ -78,7 +78,7 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
 - 'Materialized View' indices also enable users to define their index name, but they do not have a suffix.
   - An example of a 'Materialized View' index name might look like: \`flint_mydatasource_mydb_mytable_myindexname\`.
 ##### Note:
-- All user given index names must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \, |, ?, #, >, or < are not allowed.  
+- All user given index names must be in lowercase letters. Index name cannot begin with underscores. Spaces, commas, and characters -, :, ", *, +, /, \, |, ?, #, >, or < are not allowed.  
   `;
 
 export const SIDEBAR_POLL_INTERVAL_MS = 5000;

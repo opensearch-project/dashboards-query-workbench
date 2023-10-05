@@ -3,20 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 // @ts-ignore
-import { SortableProperties } from "@elastic/eui/lib/services";
+import { SortableProperties } from '@elastic/eui/lib/services';
 // @ts-ignore
-import { Comparators, EuiBasicTable, EuiCodeEditor, EuiModal, EuiModalBody, EuiModalFooter, EuiModalHeader, EuiModalHeaderTitle, EuiOverlayMask, EuiPanel, EuiPortal, EuiSearchBar, EuiSideNav } from "@elastic/eui";
 import {
+  Comparators,
   EuiButton,
   EuiButtonIcon,
+  EuiCodeEditor,
+  EuiComboBoxOptionOption,
   EuiContextMenu,
   EuiFlexGroup,
   EuiFlexItem,
   EuiLink,
+  EuiModal,
+  EuiModalBody,
+  EuiModalFooter,
+  EuiModalHeader,
+  EuiModalHeaderTitle,
+  EuiOverlayMask,
   EuiPopover,
+  EuiSearchBar,
+  EuiSideNav,
   EuiTable,
   EuiTableBody,
   EuiTableHeader,
@@ -25,21 +34,21 @@ import {
   EuiTableRow,
   EuiTableRowCell,
   EuiText,
-  Pager
-} from "@elastic/eui";
+  Pager,
+} from '@elastic/eui';
+import _ from 'lodash';
+import '../../ace-themes/sql_console';
+import { COLUMN_WIDTH, PAGE_OPTIONS, SMALL_COLUMN_WIDTH } from '../../utils/constants';
 import {
+  Node,
   findRootNode,
   getMessageString,
   getRowTree,
   isEmpty,
-  Node,
   onDownloadFile,
-  scrollToNode
-} from "../../utils/utils";
-import "../../ace-themes/sql_console";
-import { COLUMN_WIDTH, PAGE_OPTIONS, SMALL_COLUMN_WIDTH } from "../../utils/constants";
-import { DataRow, ItemIdToExpandedRowMap, QueryMessage, QueryResult } from "../Main/main";
-import _ from "lodash";
+  scrollToNode,
+} from '../../utils/utils';
+import { DataRow, ItemIdToExpandedRowMap, QueryMessage, QueryResult } from '../Main/main';
 
 const DoubleScrollbar = require('react-double-scrollbar');
 
@@ -63,6 +72,7 @@ interface QueryResultsBodyProps {
   lastItemIndex: number;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   sortedColumn: string;
+  selectedDatasource: EuiComboBoxOptionOption[];
   onChangeItemsPerPage: (itemsPerPage: number) => void;
   onChangePage: (pageIndex: number) => void;
   onQueryChange: (query: object) => void;
@@ -115,13 +125,13 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       itemIdToExpandedRowMap: this.props.itemIdToExpandedRowMap,
       searchQuery: this.props.searchQuery,
       selectedItemMap: {},
-      selectedItemName: "",
+      selectedItemName: '',
       selectedItemData: {},
       navView: false,
       isPopoverOpen: false,
       isDownloadPopoverOpen: false,
       isModalVisible: false,
-      downloadErrorModal: {}
+      downloadErrorModal: {},
     };
 
     this.expandedRowColSpan = 0;
@@ -133,38 +143,38 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         id: 0,
         items: [
           {
-            name: "Download JSON",
+            name: 'Download JSON',
             onClick: () => {
               this.onDownloadJSON();
-            }
+            },
           },
           {
-            name: "Download JDBC",
+            name: 'Download JDBC',
             onClick: () => {
               this.onDownloadJDBC();
-            }
+            },
           },
           {
-            name: "Download CSV",
+            name: 'Download CSV',
             onClick: () => {
               this.onDownloadCSV();
-            }
+            },
           },
           {
-            name: "Download Text",
+            name: 'Download Text',
             onClick: () => {
               this.onDownloadText();
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     ];
   }
 
   setIsModalVisible(visible: boolean): void {
     this.setState({
-      isModalVisible: visible
-    })
+      isModalVisible: visible,
+    });
   }
 
   getModal = (errorMessage: string): any => {
@@ -177,9 +187,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
           </EuiModalHeader>
 
           <EuiModalBody>
-            <EuiText>
-              {errorMessage}
-            </EuiText>
+            <EuiText>{errorMessage}</EuiText>
           </EuiModalBody>
 
           <EuiModalFooter>
@@ -191,14 +199,16 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       </EuiOverlayMask>
     );
     return modal;
-  }
+  };
 
   // Actions for Download files
   onDownloadJSON() {
     if (this.props.language == 'PPL') {
       this.setState({
-        downloadErrorModal: this.getModal("PPL result in JSON format is not supported, please select JDBC format."),
-      })
+        downloadErrorModal: this.getModal(
+          'PPL result in JSON format is not supported, please select JDBC format.'
+        ),
+      });
       this.setIsModalVisible(true);
       return;
     }
@@ -208,9 +218,9 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     setTimeout(() => {
       const jsonObject = JSON.parse(this.props.queryResultsJSON);
       const data = JSON.stringify(jsonObject, undefined, 4);
-      onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+      onDownloadFile(data, 'json', this.props.selectedTabName + '.json');
     }, 2000);
-  };
+  }
 
   onDownloadJDBC = (): void => {
     if (!this.props.queryResultsJDBC) {
@@ -219,15 +229,17 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     setTimeout(() => {
       const jsonObject = JSON.parse(this.props.queryResultsJDBC);
       const data = JSON.stringify(jsonObject, undefined, 4);
-      onDownloadFile(data, "json", this.props.selectedTabName + ".json");
+      onDownloadFile(data, 'json', this.props.selectedTabName + '.json');
     }, 2000);
   };
 
   onDownloadCSV = (): void => {
     if (this.props.language == 'PPL') {
       this.setState({
-        downloadErrorModal: this.getModal("PPL result in CSV format is not supported, please select JDBC format."),
-      })
+        downloadErrorModal: this.getModal(
+          'PPL result in CSV format is not supported, please select JDBC format.'
+        ),
+      });
       this.setIsModalVisible(true);
       return;
     }
@@ -236,15 +248,17 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     }
     setTimeout(() => {
       const data = this.props.queryResultsCSV;
-      onDownloadFile(data, "csv", this.props.selectedTabName + ".csv");
+      onDownloadFile(data, 'csv', this.props.selectedTabName + '.csv');
     }, 2000);
   };
 
   onDownloadText = (): void => {
     if (this.props.language == 'PPL') {
       this.setState({
-        downloadErrorModal: this.getModal("PPL result in Text format is not supported, please select JDBC format."),
-      })
+        downloadErrorModal: this.getModal(
+          'PPL result in Text format is not supported, please select JDBC format.'
+        ),
+      });
       this.setIsModalVisible(true);
       return;
     }
@@ -253,27 +267,29 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     }
     setTimeout(() => {
       const data = this.props.queryResultsTEXT;
-      onDownloadFile(data, "plain", this.props.selectedTabName + ".txt");
+      onDownloadFile(data, 'plain', this.props.selectedTabName + '.txt');
     }, 2000);
   };
 
   // Actions for Downloads Button
   onDownloadButtonClick = (): void => {
-    this.setState(prevState => ({
-      isDownloadPopoverOpen: !prevState.isDownloadPopoverOpen
+    this.setState((prevState) => ({
+      isDownloadPopoverOpen: !prevState.isDownloadPopoverOpen,
     }));
   };
 
   closeDownloadPopover = (): void => {
     this.setState({
-      isDownloadPopoverOpen: false
+      isDownloadPopoverOpen: false,
     });
   };
 
   // It filters table values that conatins the given items
   getItems(records: DataRow[]) {
-    const matchingItems = this.props.searchQuery ? this.searchItems(records, this.props.searchQuery) : records;
-    let field: string = "";
+    const matchingItems = this.props.searchQuery
+      ? this.searchItems(records, this.props.searchQuery)
+      : records;
+    let field: string = '';
     if (_.get(this.props.sortedColumn, this.columns)) {
       field = this.props.sortedColumn;
     }
@@ -283,7 +299,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   searchItems(dataRows: DataRow[], searchQuery: string): DataRow[] {
     let rows: { [key: string]: any }[] = [];
     for (const row of dataRows) {
-      rows.push(row.data)
+      rows.push(row.data);
     }
     const searchResult = EuiSearchBar.Query.execute(searchQuery, rows);
     let result: DataRow[] = [];
@@ -291,9 +307,9 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       let dataRow: DataRow = {
         // rowId does not matter here since the data rows would be sorted later
         rowId: 0,
-        data: row
-      }
-      result.push(dataRow)
+        data: row,
+      };
+      result.push(dataRow);
     }
     return result;
   }
@@ -307,7 +323,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     const property = this.props.sortableProperties.getSortablePropertyByName(field);
     const copy = [...dataRows];
     let comparator = (a: DataRow, b: DataRow) => {
-      if (typeof property === "undefined") {
+      if (typeof property === 'undefined') {
         return 0;
       }
       let dataA = a.data;
@@ -321,7 +337,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         }
       }
       return 0;
-    }
+    };
     if (!this.props.sortableProperties.isAscendingByName(field)) {
       Comparators.reverse(comparator);
     }
@@ -332,58 +348,58 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   getFieldValue(fieldValue: any, field: string): FieldValue {
     let hasExpandingRow: boolean = false;
     let hasExpandingArray: boolean = false;
-    let value: string = "";
-    let link: string = "";
+    let value: string = '';
+    let link: string = '';
 
     if (fieldValue === null) {
       return {
         hasExpandingRow: hasExpandingRow,
-        value: "",
+        value: '',
         hasExpandingArray,
-        link
+        link,
       };
     }
 
-    if (typeof fieldValue === "boolean") {
+    if (typeof fieldValue === 'boolean') {
       return {
         hasExpandingRow: hasExpandingRow,
         value: String(fieldValue),
         hasExpandingArray,
-        link
-      }
+        link,
+      };
     }
 
     // Not an object or array
-    if (typeof fieldValue !== "object") {
+    if (typeof fieldValue !== 'object') {
       return {
         hasExpandingRow: hasExpandingRow,
         value: fieldValue,
         hasExpandingArray,
-        link
+        link,
       };
     }
 
     // Array of strings or objects
     if (Array.isArray(fieldValue)) {
-      if (typeof fieldValue[0] !== "object") {
+      if (typeof fieldValue[0] !== 'object') {
         hasExpandingArray = true;
-        link = field.concat(": [", fieldValue.length.toString(), "]");
+        link = field.concat(': [', fieldValue.length.toString(), ']');
       } else {
         hasExpandingRow = true;
-        link = field.concat(": {", fieldValue.length.toString(), "}");
+        link = field.concat(': {', fieldValue.length.toString(), '}');
       }
     }
     // Single object
     else {
       hasExpandingRow = true;
-      link = field.concat(": {1}");
+      link = field.concat(': {1}');
     }
 
     return {
       hasExpandingRow: hasExpandingRow,
       hasExpandingArray: hasExpandingArray,
       value: value,
-      link: link
+      link: link,
     };
   }
 
@@ -394,13 +410,13 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         onClick={() => this.toggleNodeData(node, expandedRowMap)}
         aria-label={
           expandedRowMap[node.nodeId] && expandedRowMap[node.nodeId].expandedRow
-            ? "Collapse"
-            : "Expand"
+            ? 'Collapse'
+            : 'Expand'
         }
         iconType={
           expandedRowMap[node.nodeId] && expandedRowMap[node.nodeId].expandedRow
-            ? "minusInCircle"
-            : "plusInCircle"
+            ? 'minusInCircle'
+            : 'plusInCircle'
         }
       />
     );
@@ -415,17 +431,17 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         onClick={() => this.updateExpandedRowMap(node, expandedRowMap)}
         aria-label={
           expandedRowMap[node.parent!.nodeId] &&
-            expandedRowMap[node.parent!.nodeId].selectedNodes &&
-            expandedRowMap[node.parent!.nodeId].selectedNodes.hasOwnProperty(node.nodeId)
-            ? "Collapse"
-            : "Expand"
+          expandedRowMap[node.parent!.nodeId].selectedNodes &&
+          expandedRowMap[node.parent!.nodeId].selectedNodes.hasOwnProperty(node.nodeId)
+            ? 'Collapse'
+            : 'Expand'
         }
         iconType={
           expandedRowMap[node.parent!.nodeId] &&
-            expandedRowMap[node.parent!.nodeId].selectedNodes &&
-            expandedRowMap[node.parent!.nodeId].selectedNodes.hasOwnProperty(node.nodeId)
-            ? "minusInCircle"
-            : "plusInCircle"
+          expandedRowMap[node.parent!.nodeId].selectedNodes &&
+          expandedRowMap[node.parent!.nodeId].selectedNodes.hasOwnProperty(node.nodeId)
+            ? 'minusInCircle'
+            : 'plusInCircle'
         }
       />
     );
@@ -434,18 +450,23 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   addExpandingIconColumn(columns: any[]) {
     const expandIconColumn = [
       {
-        id: "expandIcon",
-        label: "",
+        id: 'expandIcon',
+        label: '',
         isSortable: false,
-        width: "30px"
-      }
+        width: '30px',
+      },
     ];
 
     columns = expandIconColumn.concat(columns);
     return columns;
   }
 
-  updateSelectedNodes(parentNode: Node, selectedNode: Node, expandedRowMap: ItemIdToExpandedRowMap, keepOpen = false) {
+  updateSelectedNodes(
+    parentNode: Node,
+    selectedNode: Node,
+    expandedRowMap: ItemIdToExpandedRowMap,
+    keepOpen = false
+  ) {
     if (!parentNode) {
       return expandedRowMap;
     }
@@ -472,7 +493,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
     if (expandedRowMap[node.nodeId]) {
       newItemIdToExpandedRowMap[node.nodeId].expandedRow = (
-        <div id={node.nodeId} style={{ padding: "0 0 20px 19px" }}>
+        <div id={node.nodeId} style={{ padding: '0 0 20px 19px' }}>
           {this.renderNav(node, node.name, expandedRowMap)}
         </div>
       );
@@ -480,11 +501,20 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     return newItemIdToExpandedRowMap;
   }
 
-  updateExpandedRowMap(node: Node | undefined, expandedRowMap: ItemIdToExpandedRowMap, keepOpen = false) {
+  updateExpandedRowMap(
+    node: Node | undefined,
+    expandedRowMap: ItemIdToExpandedRowMap,
+    keepOpen = false
+  ) {
     if (!node) {
       return expandedRowMap;
     }
-    let newItemIdToExpandedRowMap = this.updateSelectedNodes(node.parent, node, expandedRowMap, keepOpen);
+    let newItemIdToExpandedRowMap = this.updateSelectedNodes(
+      node.parent,
+      node,
+      expandedRowMap,
+      keepOpen
+    );
     const rootNode = findRootNode(node, expandedRowMap);
     if (expandedRowMap[rootNode.nodeId]) {
       newItemIdToExpandedRowMap = this.updateExpandedRow(node.parent, newItemIdToExpandedRowMap);
@@ -524,15 +554,10 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
     for (let i = 0; i < nodes.length; i++) {
       itemList.push(
-        this.createItem(expandedRowMap, nodes[i], nodes[i].name,
-          {
-            icon: this.addExpandingSideNavIcon(nodes[i], expandedRowMap),
-            items: this.getChildrenItems(
-              nodes[i].children,
-              nodes[i],
-              expandedRowMap
-            )
-          })
+        this.createItem(expandedRowMap, nodes[i], nodes[i].name, {
+          icon: this.addExpandingSideNavIcon(nodes[i], expandedRowMap),
+          items: this.getChildrenItems(nodes[i].children, nodes[i], expandedRowMap),
+        })
       );
     }
     return itemList;
@@ -543,7 +568,8 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     let isSelected: boolean | undefined = false;
 
     if (!isEmpty(node.parent)) {
-      isSelected = expandedRowMap[node.parent!.nodeId] &&
+      isSelected =
+        expandedRowMap[node.parent!.nodeId] &&
         expandedRowMap[node.parent!.nodeId].selectedNodes &&
         expandedRowMap[node.parent!.nodeId].selectedNodes!.hasOwnProperty(nodeId);
     }
@@ -565,7 +591,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         className={
           this.props.messages && this.props.messages.length > 0
             ? this.props.messages[0].className
-            : "successful-message"
+            : 'successful-message'
         }
         mode="text"
         theme="sql_console"
@@ -574,10 +600,10 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         showPrintMargin={false}
         readOnly={true}
         setOptions={{
-          fontSize: "14px",
+          fontSize: '14px',
           readOnly: true,
           highlightActiveLine: false,
-          highlightGutterLine: false
+          highlightGutterLine: false,
         }}
         aria-label="Code Editor"
       />
@@ -586,8 +612,8 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
   renderHeaderCells(columns: any[]) {
     return columns.map((field: any) => {
-      const label: string = field.id === "expandIcon" ? field.label : field;
-      const colwidth = field.id === "expandIcon" ? SMALL_COLUMN_WIDTH : COLUMN_WIDTH;
+      const label: string = field.id === 'expandIcon' ? field.label : field;
+      const colwidth = field.id === 'expandIcon' ? SMALL_COLUMN_WIDTH : COLUMN_WIDTH;
       return (
         <EuiTableHeaderCell
           key={label}
@@ -604,8 +630,8 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   // Inner tables sorting is not enabled
   renderHeaderCellsWithNoSorting(columns: any[]) {
     return columns.map((field: any) => {
-      const label = field.id === "expandIcon" ? field.label : field;
-      const colwidth = field.id === "expandIcon" ? field.width : COLUMN_WIDTH;
+      const label = field.id === 'expandIcon' ? field.label : field;
+      const colwidth = field.id === 'expandIcon' ? field.width : COLUMN_WIDTH;
       return (
         <EuiTableHeaderCell key={label} width={colwidth}>
           {label}
@@ -614,11 +640,18 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     });
   }
 
-  renderRow(item: DataRow, columns: string[], rowId: string, expandedRowMap: ItemIdToExpandedRowMap) {
+  renderRow(
+    item: DataRow,
+    columns: string[],
+    rowId: string,
+    expandedRowMap: ItemIdToExpandedRowMap
+  ) {
     let rows: any[] = [];
     const data = item.data;
     // If the data is an array or an object we add it to the expandedRowMap
-    if (data && ((typeof data === "object" && !isEmpty(data)) || (Array.isArray(data) && data.length > 0))
+    if (
+      data &&
+      ((typeof data === 'object' && !isEmpty(data)) || (Array.isArray(data) && data.length > 0))
     ) {
       let rowItems: any[] = [];
 
@@ -638,30 +671,30 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
           expandedRowMap[rowId] = { nodes: tree };
         }
         const expandingNode =
-          tree && tree._root.children.length > 0 ? this.addExpandingNodeIcon(tree._root, expandedRowMap) : "";
+          tree && tree._root.children.length > 0
+            ? this.addExpandingNodeIcon(tree._root, expandedRowMap)
+            : '';
 
         if (columns.length > 0) {
           columns.map((field: any) => {
             // Table cell
-            if (field.id !== "expandIcon") {
+            if (field.id !== 'expandIcon') {
               const fieldObj = this.getFieldValue(rowItem[field], field);
               let fieldValue: any;
 
               // If field is expandable
               if (fieldObj.hasExpandingRow || fieldObj.hasExpandingArray) {
-                const fieldNode = expandedRowMap[tree._root.nodeId].nodes._root.children.find((node: Node) => node.name === field);
+                const fieldNode = expandedRowMap[tree._root.nodeId].nodes._root.children.find(
+                  (node: Node) => node.name === field
+                );
                 fieldValue = (
                   <span>
-                    {" "}
+                    {' '}
                     {fieldObj.value}
                     <EuiLink
                       color="primary"
                       onClick={() => {
-                        this.updateExpandedRowMap(
-                          fieldNode,
-                          expandedRowMap,
-                          true
-                        );
+                        this.updateExpandedRowMap(fieldNode, expandedRowMap, true);
                         scrollToNode(tree._root.nodeId);
                       }}
                     >
@@ -693,7 +726,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
             }
           });
         } else {
-          const fieldObj = this.getFieldValue(rowItem, "");
+          const fieldObj = this.getFieldValue(rowItem, '');
           tableCells.push(
             <EuiTableRowCell key={`rowCell-default-${rowId}`} truncateText={false} textOnly={true}>
               {fieldObj.value}
@@ -701,13 +734,17 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
           );
         }
 
-        const tableRow = <EuiTableRow key={`row-${rowId}`} data-test-subj={'tableRow'}>{tableCells}</EuiTableRow>;
+        const tableRow = (
+          <EuiTableRow key={`row-${rowId}`} data-test-subj={'tableRow'}>
+            {tableCells}
+          </EuiTableRow>
+        );
         let row = <Fragment key={`row-wrapper-${rowId}`}>{tableRow}</Fragment>;
 
         if (expandedRowMap[rowId] && expandedRowMap[rowId].expandedRow) {
           const tableRow = (
             <EuiTableRow className="expanded-row" key={`expanded-row-${rowId}`}>
-              {tableCells}{" "}
+              {tableCells}{' '}
             </EuiTableRow>
           );
           const expandedRow = (
@@ -737,12 +774,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         const item = items[itemIndex];
         if (item) {
           const rowId = item.rowId;
-          const rowsForItem = this.renderRow(
-            item,
-            columns,
-            rowId.toString(10),
-            expandedRowMap
-          );
+          const rowsForItem = this.renderRow(item, columns, rowId.toString(10), expandedRowMap);
           rows.push(rowsForItem);
         }
       }
@@ -754,9 +786,9 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     const search = {
       box: {
         incremental: this.state.incremental,
-        placeholder: "Search keyword",
-        schema: true
-      }
+        placeholder: 'Search keyword',
+        schema: true,
+      },
     };
     return (
       <div className="search-bar">
@@ -777,15 +809,15 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
     if (Array.isArray(data)) {
       items = data;
-      columns = typeof items[0] === "object" ? Object.keys(items[0]) : [];
-    } else if (typeof data === "object") {
+      columns = typeof items[0] === 'object' ? Object.keys(items[0]) : [];
+    } else if (typeof data === 'object') {
       records.push(data);
       items = records;
       columns = this.addExpandingIconColumn(Object.keys(data));
     }
     let dataRow: DataRow = {
       rowId: 0,
-      data: items
+      data: items,
     };
 
     return (
@@ -811,7 +843,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         name: node.name,
         isSelected: false,
         onClick: () => console.log('open side nav'),
-      }
+      },
     ];
 
     return (
@@ -819,7 +851,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         mobileTitle="Navigate within $APP_NAME"
         items={sideNav}
         className="sideNavItem__items"
-        style={{ width: "300px", padding: "0 0 20px 9px" }}
+        style={{ width: '300px', padding: '0 0 20px 9px' }}
       />
     );
   }
@@ -856,12 +888,14 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         this.expandedRowColSpan = this.columns.length;
       }
 
+      this.componentDidUpdate;
+
       return (
         <div>
-          {this.props.language === 'SQL' && (
-            <>
-              <EuiFlexGroup alignItems="flexStart" style={{ padding: 20, paddingBottom: 0 }}>
-                {/*Table name*/}
+          <>
+            <EuiFlexGroup alignItems="flexStart" style={{ padding: 20, paddingBottom: 0 }}>
+              {/*Table name*/}
+              {this.props.language === 'SQL' && (
                 <EuiFlexItem>
                   <EuiText className="table-name">
                     <h4>
@@ -874,27 +908,30 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
                     {this.renderSearchBar()}
                   </div>
                 </EuiFlexItem>
-
-                {/*Download button*/}
-                <EuiFlexItem grow={false}>
-                  <div className="download-container">
-                    <EuiPopover
-                      className="download-button-container"
-                      id="singlePanel"
-                      button={downloadsButton}
-                      isOpen={this.state.isDownloadPopoverOpen}
-                      closePopover={this.closeDownloadPopover}
-                      panelPaddingSize="none"
-                      anchorPosition="downLeft"
-                    >
-                      <EuiContextMenu initialPanelId={0} panels={this.panels} />
-                    </EuiPopover>
-                  </div>
-                </EuiFlexItem>
-              </EuiFlexGroup>
-              {modal}
-            </>
-          )}
+              )}
+              {/*Download button*/}
+              {this.props.language === 'SQL' &&
+                this.props.selectedDatasource &&
+                this.props.selectedDatasource[0].label === 'OpenSearch' && (
+                  <EuiFlexItem grow={false}>
+                    <div className="download-container">
+                      <EuiPopover
+                        className="download-button-container"
+                        id="singlePanel"
+                        button={downloadsButton}
+                        isOpen={this.state.isDownloadPopoverOpen}
+                        closePopover={this.closeDownloadPopover}
+                        panelPaddingSize="none"
+                        anchorPosition="downLeft"
+                      >
+                        <EuiContextMenu initialPanelId={0} panels={this.panels} />
+                      </EuiPopover>
+                    </div>
+                  </EuiFlexItem>
+                )}
+            </EuiFlexGroup>
+            {modal}
+          </>
 
           {/*Table*/}
           <div className="sql-console-results-container">
@@ -908,11 +945,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
                     </EuiTableHeader>
 
                     <EuiTableBody>
-                      {this.renderRows(
-                        this.items,
-                        this.columns,
-                        this.props.itemIdToExpandedRowMap
-                      )}
+                      {this.renderRows(this.items, this.columns, this.props.itemIdToExpandedRowMap)}
                     </EuiTableBody>
                   </EuiTable>
                 </EuiFlexItem>
