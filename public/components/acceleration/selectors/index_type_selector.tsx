@@ -52,7 +52,6 @@ export const IndexTypeSelector = ({
       };
       getJobId(query, http, (id: string) => {
         pollQueryStatus(id, http, (data: any[]) => {
-          console.log('data', data);
           const dataTableFields: DataTableFieldsType[] = data
             .filter((row) => !row[0].startsWith('#'))
             .map((row, index) => ({
@@ -60,7 +59,6 @@ export const IndexTypeSelector = ({
               fieldName: row[0],
               dataType: row[1],
             }));
-          console.log('dataTableFields', dataTableFields);
           setAccelerationFormData({
             ...accelerationFormData,
             dataTableFields: dataTableFields,
