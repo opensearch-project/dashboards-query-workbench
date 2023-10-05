@@ -5,14 +5,18 @@
 
 import { EuiButton, EuiContextMenu, EuiPopover } from '@elastic/eui';
 import React, { useState } from 'react';
-import { COVERING_INDEX_QUERY, CREATE_DATABASE_QUERY, CREATE_TABLE_QUERY, SKIPPING_INDEX_QUERY } from '../../../common/constants';
-
+import {
+  COVERING_INDEX_QUERY,
+  CREATE_DATABASE_QUERY,
+  CREATE_TABLE_QUERY,
+  SKIPPING_INDEX_QUERY,
+} from '../../../common/constants';
 
 interface CreateButtonProps {
-  updateSQLQueries: (query: string) => void
+  updateSQLQueries: (query: string) => void;
 }
 
-export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
+export const CreateButton = ({ updateSQLQueries }: CreateButtonProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -26,17 +30,17 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
   };
 
   const handleSubMenuClick = (query: string) => {
-    updateSQLQueries(query)
+    updateSQLQueries(query);
     closePopover();
   };
 
   const fromSqlItems = [
     {
-      name: 'Create Table',
+      name: 'Create Database',
       onClick: () => handleSubMenuClick(CREATE_DATABASE_QUERY),
     },
     {
-      name: 'SQL Command',
+      name: 'Create Table',
       onClick: () => handleSubMenuClick(CREATE_TABLE_QUERY),
     },
   ];
@@ -71,10 +75,10 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
         panels={[
           {
             id: 0,
-            title: 'Choose an option',
+            title: 'Create options',
             items: [
               {
-                name: 'FROM SQL',
+                name: 'Spark SQL',
                 panel: 1,
               },
               {
@@ -85,7 +89,7 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
           },
           {
             id: 1,
-            title: 'FROM SPARK SQL Options',
+            title: 'SPARK SQL Options',
             items: fromSqlItems,
           },
           {
@@ -97,4 +101,4 @@ export const CreateButton = ({updateSQLQueries}: CreateButtonProps) => {
       />
     </EuiPopover>
   );
-}
+};

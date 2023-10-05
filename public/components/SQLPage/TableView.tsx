@@ -10,6 +10,8 @@ import {
   EuiFlexItem,
   EuiIcon,
   EuiLoadingSpinner,
+  EuiText,
+  EuiToolTip,
   EuiTreeView,
 } from '@elastic/eui';
 import _ from 'lodash';
@@ -169,7 +171,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   const treeData = tablenames.map((database, index) => ({
     label: (
       <div>
-        {database} {tableLoadingStates[database] && <EuiLoadingSpinner size="m" />}
+        <EuiToolTip position="right" content={database} delay="long">
+          <EuiText>{_.truncate(database, { length: 50 })}</EuiText>
+        </EuiToolTip>{' '}
+        {tableLoadingStates[database] && <EuiLoadingSpinner size="m" />}
       </div>
     ),
     icon: <EuiIcon type="database" size="m" />,
@@ -184,7 +189,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
         ? childData.map((table) => ({
             label: (
               <div>
-                {table} {childLoadingStates[table] && <EuiLoadingSpinner size="m" />}
+                <EuiToolTip position="right" content={table} delay="long">
+                  <EuiText>{_.truncate(table, { length: 50 })}</EuiText>
+                </EuiToolTip>{' '}
+                {childLoadingStates[table] && <EuiLoadingSpinner size="m" />}
               </div>
             ),
             id: `${database}_${table}`,
@@ -202,7 +210,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
             children:
               selectedChildNode === table
                 ? indexData.map((indexChild) => ({
-                    label: indexChild,
+                    label: (
+                      <div>
+                        <EuiToolTip position="right" content={indexChild} delay="long">
+                          <EuiText>{_.truncate(indexChild, { length: 50 })}</EuiText>
+                        </EuiToolTip>
+                      </div>
+                    ),
                     id: `${table}_${indexChild}`,
                     icon: <EuiIcon type="bolt" size="s" />,
                     callback: () =>
@@ -224,7 +238,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
         {isLoading ? (
           <EuiFlexGroup alignItems="center" gutterSize="s">
             <EuiFlexItem grow={false}>Loading your databases</EuiFlexItem>
-            <EuiFlexItem grow={false}>
+            <EuiFlexItem>
               <EuiLoadingSpinner size="m" />
             </EuiFlexItem>
           </EuiFlexGroup>

@@ -14,7 +14,7 @@ import {
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
-  EuiText
+  EuiText,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
@@ -912,13 +912,11 @@ export class Main extends React.Component<MainProps, MainState> {
         <EuiPage paddingSize="none">
           {this.state.language === 'SQL' && (
             <EuiPanel>
-              <EuiPageSideBar>
+              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px' }}>
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
-                      <CreateButton
-                        updateSQLQueries={this.updateSQLQueries}
-                      />
+                      <CreateButton updateSQLQueries={this.updateSQLQueries} />
                     </EuiFlexItem>
                     <EuiSpacer />
                     <TableView
