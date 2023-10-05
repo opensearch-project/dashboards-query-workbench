@@ -10,6 +10,8 @@ import {
   EuiFlexItem,
   EuiIcon,
   EuiLoadingSpinner,
+  EuiText,
+  EuiToolTip,
   EuiTreeView,
 } from '@elastic/eui';
 import _ from 'lodash';
@@ -32,8 +34,11 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   const [selectedChildNode, setSelectedChildNode] = useState<string | null>(null);
   const [indexData, setIndexedData] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [indiciesData, setIndiciesData] = useState<string[]>([]);
   const [indexFlyout, setIndexFlyout] = useState(<></>);
+  const [childLoadingStates, setChildLoadingStates] = useState<{ [key: string]: boolean }>({});
+  const [tableLoadingStates, setTableLoadingStates] = useState<{ [key: string]: boolean }>({});
+
+  let indiciesData: string[] = [];
 
   const resetFlyout = () => {
     setIndexFlyout(<></>);
@@ -56,15 +61,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       />
     );
   };
-  const [childLoadingStates, setChildLoadingStates] = useState<{ [key: string]: boolean }>({});
-  const [tableLoadingStates, setTableLoadingStates] = useState<{ [key: string]: boolean }>({});
 
   const get_async_query_results = (id, http, callback) => {
     pollQueryStatus(id, http, callback);
   };
 
   const getSidebarContent = () => {
-    if (selectedItems[0].label == 'OpenSearch') {
+    if (selectedItems[0].label === 'OpenSearch') {
       setTablenames([]);
       const query = { query: ON_LOAD_QUERY };
       http
@@ -100,6 +103,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   };
 
   useEffect(() => {
+    setIsLoading(false);
     getSidebarContent();
   }, [selectedItems]);
 
@@ -135,9 +139,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     };
     getJobId(coverQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
-        data = [].concat(...data);
-        indiciesData.concat(data);
-        setIndexedData(indiciesData);
+        const res = [].concat(data);
+        const final = indiciesData.concat(...res);
+        setIndexedData(final);
+        setChildLoadingStates((prevState) => ({
+          ...prevState,
+          [nodeLabel1]: false,
+        }));
       });
     });
   };
@@ -157,13 +165,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       get_async_query_results(id, http, (data) => {
         if (data.length > 0) {
           indiciesData.push(SKIPPING_INDEX);
-          callCoverQuery(nodeLabel1);
-
-          setChildLoadingStates((prevState) => ({
-            ...prevState,
-            [nodeLabel1]: false,
-          }));
         }
+        callCoverQuery(nodeLabel1);
       });
     });
   };
@@ -171,13 +174,17 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   const treeData = tablenames.map((database, index) => ({
     label: (
       <div>
-        {database} {tableLoadingStates[database] && <EuiLoadingSpinner size="m" />}
+        <EuiToolTip position="right" content={database} delay="long">
+          <EuiText>{_.truncate(database, { length: 50 })}</EuiText>
+        </EuiToolTip>{' '}
+        {tableLoadingStates[database] && <EuiLoadingSpinner size="m" />}
       </div>
     ),
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
-      handleNodeClick(database);
+      setChildData([]);
+      selectedItems[0].label !== 'OpenSearch' && handleNodeClick(database);
     },
     isSelectable: true,
     isExpanded: true,
@@ -186,7 +193,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
         ? childData.map((table) => ({
             label: (
               <div>
-                {table} {childLoadingStates[table] && <EuiLoadingSpinner size="m" />}
+                <EuiToolTip position="right" content={table} delay="long">
+                  <EuiText>{_.truncate(table, { length: 50 })}</EuiText>
+                </EuiToolTip>{' '}
+                {childLoadingStates[table] && <EuiLoadingSpinner size="m" />}
               </div>
             ),
             id: `${database}_${table}`,
@@ -194,13 +204,23 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
             callback: () => {
               setIndexedData([]);
               handleChildClick(table);
+              setChildLoadingStates((prevState) => ({
+                ...prevState,
+                [selectedChildNode]: false,
+              }));
             },
             sSelectable: true,
             isExpanded: true,
             children:
               selectedChildNode === table
                 ? indexData.map((indexChild) => ({
-                    label: indexChild,
+                    label: (
+                      <div>
+                        <EuiToolTip position="right" content={indexChild} delay="long">
+                          <EuiText>{_.truncate(indexChild, { length: 50 })}</EuiText>
+                        </EuiToolTip>
+                      </div>
+                    ),
                     id: `${table}_${indexChild}`,
                     icon: <EuiIcon type="bolt" size="s" />,
                     callback: () =>
@@ -220,9 +240,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     <>
       <EuiFlexGroup>
         {isLoading ? (
-          <EuiFlexGroup alignItems="center" gutterSize='s'>
-            <EuiFlexItem grow={false}>Loading your databases</EuiFlexItem>
-            <EuiFlexItem grow={false}>
+          <EuiFlexGroup alignItems="center" gutterSize="s">
+            <EuiFlexItem grow={false}>Loading databases</EuiFlexItem>
+            <EuiFlexItem>
               <EuiLoadingSpinner size="m" />
             </EuiFlexItem>
           </EuiFlexGroup>
