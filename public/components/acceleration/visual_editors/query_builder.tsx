@@ -58,8 +58,7 @@ const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[
  * Skipping Index create query example:
  *
  * CREATE SKIPPING INDEX
- * ON datasource.database.table
- * FOR COLUMNS (
+ * ON datasource.database.table (
  *    field1 VALUE_SET,
  *    field2 PARTITION,
  *    field3 MIN_MAX,
@@ -74,8 +73,7 @@ export const skippingIndexQueryBuilder = (accelerationformData: CreateAccelerati
   const { dataSource, database, dataTable, skippingIndexQueryData } = accelerationformData;
 
   const codeQuery = `CREATE SKIPPING INDEX
-ON ${dataSource}.${database}.${dataTable}
-  FOR COLUMNS (
+ON ${dataSource}.${database}.${dataTable} (
 ${buildSkippingIndexColumns(skippingIndexQueryData)}
   ) ${buildIndexOptions(accelerationformData)}`;
 
@@ -92,8 +90,7 @@ const buildCoveringIndexColumns = (coveringIndexQueryData: string[]) => {
  * Covering Index create query example:
  *
  * CREATE INDEX index_name
- * ON datasource.database.table
- * FOR COLUMNS (
+ * ON datasource.database.table (
  *    field1,
  *    field2,
  *    field3,
@@ -114,8 +111,7 @@ export const coveringIndexQueryBuilder = (accelerationformData: CreateAccelerati
   } = accelerationformData;
 
   const codeQuery = `CREATE INDEX ${accelerationIndexName}
-ON ${dataSource}.${database}.${dataTable}
-  FOR COLUMNS (
+ON ${dataSource}.${database}.${dataTable} (
 ${buildCoveringIndexColumns(coveringIndexQueryData)}
   ) ${buildIndexOptions(accelerationformData)}`;
 

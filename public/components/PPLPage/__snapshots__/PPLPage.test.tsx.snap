@@ -18,7 +18,7 @@ exports[`<PPLPage /> spec renders the component 1`] = `
     <div
       class="euiCodeEditorWrapper"
       data-test-subj="codeEditorContainer"
-      style="width: 100%; height: 5rem;"
+      style="width: 100%; height: 7rem;"
     >
       <button
         class="euiCodeEditorKeyboardHint"
@@ -39,7 +39,7 @@ exports[`<PPLPage /> spec renders the component 1`] = `
       <div
         class=" ace_editor ace-tm"
         id="some_html_id"
-        style="width: 100%; height: 5rem; font-size: 14px;"
+        style="width: 100%; height: 7rem; font-size: 14px;"
       >
         <textarea
           aria-label="Code Editor"
@@ -211,7 +211,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
     <div
       class="euiCodeEditorWrapper"
       data-test-subj="codeEditorContainer"
-      style="width: 100%; height: 5rem;"
+      style="width: 100%; height: 7rem;"
     >
       <button
         class="euiCodeEditorKeyboardHint"
@@ -232,7 +232,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
       <div
         class=" ace_editor ace-tm"
         id="some_html_id"
-        style="width: 100%; height: 5rem; font-size: 14px;"
+        style="width: 100%; height: 7rem; font-size: 14px;"
       >
         <textarea
           aria-label="Code Editor"

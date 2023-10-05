@@ -2,19 +2,26 @@
  * Copyright OpenSearch Contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-const POLL_INTERVAL_MS = 5000;
+
 import _ from 'lodash';
 import { CoreStart } from '../../../../../src/core/public';
+import { SIDEBAR_POLL_INTERVAL_MS } from '../../../common/constants';
 
+let previousJobTimer: NodeJS.Timeout | null = null;
 
-
-export const pollQueryStatus = (id: string, http :CoreStart['http'], callback) => {
+export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) => {
+  if (previousJobTimer) {
+    clearTimeout(previousJobTimer);
+  }
   http
     .get(`/api/spark_sql_console/job/` + id)
     .then((res) => {
       const status = res.data.resp.status;
       if (status === 'PENDING' || status === 'RUNNING' || status === 'SCHEDULED') {
-        setTimeout(() => pollQueryStatus(id, http, callback), POLL_INTERVAL_MS);
+        previousJobTimer = setTimeout(
+          () => pollQueryStatus(id, http, callback),
+          SIDEBAR_POLL_INTERVAL_MS
+        );
       } else if (status === 'FAILED') {
         callback([]);
       } else if (status === 'SUCCESS') {
@@ -36,7 +43,7 @@ export const getJobId = (query: {}, http: CoreStart['http'], callback) => {
     })
     .then((res) => {
       id = res.data.resp.queryId;
-      callback(id)
+      callback(id);
     })
     .catch((err) => {
       console.error(err);
