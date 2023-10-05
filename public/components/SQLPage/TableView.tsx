@@ -177,7 +177,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
-      handleNodeClick(database);
+      selectedItems[0].label != 'OpenSearch' && handleNodeClick(database);
     },
     isSelectable: true,
     isExpanded: true,
@@ -220,7 +220,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     <>
       <EuiFlexGroup>
         {isLoading ? (
-          <EuiFlexGroup alignItems="center" gutterSize='s'>
+          <EuiFlexGroup alignItems="center" gutterSize="s">
             <EuiFlexItem grow={false}>Loading your databases</EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiLoadingSpinner size="m" />
