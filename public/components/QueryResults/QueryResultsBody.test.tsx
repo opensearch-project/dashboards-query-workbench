@@ -3,21 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
-import React from "react";
-import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent, cleanup } from "@testing-library/react";
-import QueryResultsBody from "./QueryResultsBody";
+import '@testing-library/jest-dom/extend-expect';
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import QueryResultsBody from './QueryResultsBody';
 // @ts-ignore
-import { Pager } from "@elastic/eui/lib";
+import { Pager } from '@elastic/eui/lib';
 // @ts-ignore
-import { SortableProperties } from "@elastic/eui/lib/services";
-import { mockQueryResults, mockQueryResultJSONResponse, mockErrorMessage, mockSuccessfulMessage, mockSortableColumns, mockQueryResultJDBCResponse } from "../../../test/mocks/mockData";
-import userEvent from "@testing-library/user-event";
-import { QueryMessage, QueryResult } from "../Main/main";
+import { SortableProperties } from '@elastic/eui/lib/services';
+import userEvent from '@testing-library/user-event';
+import {
+  mockErrorMessage,
+  mockQueryResultJDBCResponse,
+  mockQueryResultJSONResponse,
+  mockQueryResults,
+  mockSortableColumns,
+  mockSuccessfulMessage,
+} from '../../../test/mocks/mockData';
+import { QueryMessage, QueryResult } from '../Main/main';
 
-
-function renderSQLQueryResultsBody(mockQueries: string[],
+function renderSQLQueryResultsBody(
+  mockQueries: string[],
   mockQueryResultsSelected: QueryResult,
   mockQueryResultsRaw: string,
   mockSortableProperties: SortableProperties,
@@ -28,11 +34,12 @@ function renderSQLQueryResultsBody(mockQueries: string[],
   getJson: (queries: string[]) => void,
   getJdbc: (queries: string[]) => void,
   getCsv: (queries: string[]) => void,
-  getText: (queries: string[]) => void) {
+  getText: (queries: string[]) => void
+) {
   return {
     ...render(
       <QueryResultsBody
-        language='SQL'
+        language="SQL"
         queries={[]}
         selectedTabId={'0'}
         selectedTabName={'Messages'}
@@ -43,14 +50,14 @@ function renderSQLQueryResultsBody(mockQueries: string[],
         queryResultsCSV={mockQueryResultsRaw}
         queryResultsTEXT={mockQueryResultsRaw}
         messages={[]}
-        searchQuery={""}
+        searchQuery={''}
         onQueryChange={onQueryChange}
         pager={new Pager(0, 10)}
         itemsPerPage={10}
         firstItemIndex={0}
         lastItemIndex={10}
         onChangeItemsPerPage={onChangeItemsPerPage}
-        onChangePage={() => { }}
+        onChangePage={() => {}}
         sortedColumn={'col1'}
         sortableProperties={mockSortableProperties}
         itemIdToExpandedRowMap={{}}
@@ -59,13 +66,13 @@ function renderSQLQueryResultsBody(mockQueries: string[],
         getJdbc={getJdbc}
         getCsv={getCsv}
         getText={getText}
+        selectedDatasource={[{ label: 'OpenSearch' }]}
       />
     ),
   };
 }
 
-describe("<QueryResultsBody /> spec", () => {
-
+describe('<QueryResultsBody /> spec', () => {
   afterEach(cleanup);
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
@@ -75,21 +82,32 @@ describe("<QueryResultsBody /> spec", () => {
   const getCsv = jest.fn();
   const getText = jest.fn();
 
-  it("renders the component", () => {
+  it('renders the component', () => {
     const mockSortableProperties = new SortableProperties(
       [
         {
-          name: "",
-          getValue: (item: any) => "",
-          isAscending: true
-        }
+          name: '',
+          getValue: (item: any) => '',
+          isAscending: true,
+        },
       ],
-      ""
+      ''
     );
 
-    const { queryByTestId } = renderSQLQueryResultsBody(undefined, undefined, undefined,
-      mockSortableProperties, mockErrorMessage, onQueryChange, updateExpandedMap, onChangeItemsPerPage,
-      getJson, getJdbc, getCsv, getText);
+    const { queryByTestId } = renderSQLQueryResultsBody(
+      undefined,
+      undefined,
+      undefined,
+      mockSortableProperties,
+      mockErrorMessage,
+      onQueryChange,
+      updateExpandedMap,
+      onChangeItemsPerPage,
+      getJson,
+      getJdbc,
+      getCsv,
+      getText
+    );
 
     // Download buttons, pagination, search area, table should not be visible when there is no data
     expect(queryByTestId('Download')).toBeNull();
@@ -98,21 +116,36 @@ describe("<QueryResultsBody /> spec", () => {
     expect(queryByTestId('Search')).toBeNull();
 
     expect(document.body.children[0]).toMatchSnapshot();
-
   });
 
-  it("renders component with mock QueryResults data", async () => {
+  it('renders component with mock QueryResults data', async () => {
     const mockSortableProperties = new SortableProperties(
       mockSortableColumns,
       mockSortableColumns[0].name
     );
 
-    (window as any).HTMLElement.prototype.scrollIntoView = function () { };
+    (window as any).HTMLElement.prototype.scrollIntoView = function () {};
 
-    const { getAllByText, getAllByTestId, getAllByLabelText, getByText, getByPlaceholderText } =
-      renderSQLQueryResultsBody(undefined, mockQueryResults[0].data, mockQueryResultJSONResponse.data.resp, mockSortableProperties,
-        mockSuccessfulMessage, onQueryChange, updateExpandedMap, onChangeItemsPerPage, getJson, getJdbc,
-        getCsv, getText);
+    const {
+      getAllByText,
+      getAllByTestId,
+      getAllByLabelText,
+      getByText,
+      getByPlaceholderText,
+    } = renderSQLQueryResultsBody(
+      undefined,
+      mockQueryResults[0].data,
+      mockQueryResultJSONResponse.data.resp,
+      mockSortableProperties,
+      mockSuccessfulMessage,
+      onQueryChange,
+      updateExpandedMap,
+      onChangeItemsPerPage,
+      getJson,
+      getJdbc,
+      getCsv,
+      getText
+    );
     expect(document.body.children[0]).toMatchSnapshot();
 
     // Test sorting
@@ -121,11 +154,11 @@ describe("<QueryResultsBody /> spec", () => {
 
     // Test pagination
     await fireEvent.click(getAllByText('Rows per page', { exact: false })[0]);
-    expect(getByText("10 rows"));
-    expect(getByText("20 rows"));
-    expect(getByText("50 rows"));
-    expect(getByText("100 rows"));
-    await fireEvent.click(getByText("20 rows"));
+    expect(getByText('10 rows'));
+    expect(getByText('20 rows'));
+    expect(getByText('50 rows'));
+    expect(getByText('100 rows'));
+    await fireEvent.click(getByText('20 rows'));
     expect(onChangeItemsPerPage).toHaveBeenCalled();
 
     // Test nested tables - click on row icon
@@ -141,19 +174,19 @@ describe("<QueryResultsBody /> spec", () => {
     const downloadButton = getAllByText('Download')[0];
     expect(downloadButton).not.toBe(null);
     await fireEvent.click(downloadButton);
-    expect(getByText("Download JSON"));
-    expect(getByText("Download JDBC"));
-    expect(getByText("Download CSV"));
-    expect(getByText("Download Text"));
-    await fireEvent.click(getByText("Download JSON"));
-    await fireEvent.click(getByText("Download JDBC"));
-    await fireEvent.click(getByText("Download CSV"));
-    await fireEvent.click(getByText("Download Text"));
+    expect(getByText('Download JSON'));
+    expect(getByText('Download JDBC'));
+    expect(getByText('Download CSV'));
+    expect(getByText('Download Text'));
+    await fireEvent.click(getByText('Download JSON'));
+    await fireEvent.click(getByText('Download JDBC'));
+    await fireEvent.click(getByText('Download CSV'));
+    await fireEvent.click(getByText('Download Text'));
 
     // Test search field
     const searchField = getByPlaceholderText('Search keyword');
     expect(searchField).not.toBe(null);
-    await userEvent.type(searchField, 'Test')
+    await userEvent.type(searchField, 'Test');
     expect(onQueryChange).toHaveBeenCalled();
 
     // Test collapse button
@@ -161,12 +194,11 @@ describe("<QueryResultsBody /> spec", () => {
     expect(getAllByLabelText('Collapse').length).toBeGreaterThan(0);
     await fireEvent.click(getAllByLabelText('Collapse')[0]);
     expect(updateExpandedMap).toHaveBeenCalled();
-
   });
 });
 
-
-function renderPPLQueryResultsBody(mockQueries: string[],
+function renderPPLQueryResultsBody(
+  mockQueries: string[],
   mockQueryResultsSelected: QueryResult,
   mockQueryResultsRaw: string,
   mockSortableProperties: SortableProperties,
@@ -177,11 +209,12 @@ function renderPPLQueryResultsBody(mockQueries: string[],
   getJson: (queries: string[]) => void,
   getJdbc: (queries: string[]) => void,
   getCsv: (queries: string[]) => void,
-  getText: (queries: string[]) => void) {
+  getText: (queries: string[]) => void
+) {
   return {
     ...render(
       <QueryResultsBody
-        language='PPL'
+        language="PPL"
         queries={[]}
         selectedTabId={'0'}
         selectedTabName={'Messages'}
@@ -192,14 +225,14 @@ function renderPPLQueryResultsBody(mockQueries: string[],
         queryResultsCSV={mockQueryResultsRaw}
         queryResultsTEXT={mockQueryResultsRaw}
         messages={[]}
-        searchQuery={""}
+        searchQuery={''}
         onQueryChange={onQueryChange}
         pager={new Pager(0, 10)}
         itemsPerPage={10}
         firstItemIndex={0}
         lastItemIndex={10}
         onChangeItemsPerPage={onChangeItemsPerPage}
-        onChangePage={() => { }}
+        onChangePage={() => {}}
         sortedColumn={'col1'}
         sortableProperties={mockSortableProperties}
         itemIdToExpandedRowMap={{}}
@@ -213,8 +246,7 @@ function renderPPLQueryResultsBody(mockQueries: string[],
   };
 }
 
-describe("<QueryResultsBody /> spec", () => {
-
+describe('<QueryResultsBody /> spec', () => {
   afterEach(cleanup);
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
@@ -224,21 +256,32 @@ describe("<QueryResultsBody /> spec", () => {
   const getCsv = jest.fn();
   const getText = jest.fn();
 
-  it("renders the component", () => {
+  it('renders the component', () => {
     const mockSortableProperties = new SortableProperties(
       [
         {
-          name: "",
-          getValue: (item: any) => "",
-          isAscending: true
-        }
+          name: '',
+          getValue: (item: any) => '',
+          isAscending: true,
+        },
       ],
-      ""
+      ''
     );
 
-    const { queryByTestId } = renderPPLQueryResultsBody(undefined, undefined, undefined,
-      mockSortableProperties, mockErrorMessage, onQueryChange, updateExpandedMap, onChangeItemsPerPage,
-      getJson, getJdbc, getCsv, getText);
+    const { queryByTestId } = renderPPLQueryResultsBody(
+      undefined,
+      undefined,
+      undefined,
+      mockSortableProperties,
+      mockErrorMessage,
+      onQueryChange,
+      updateExpandedMap,
+      onChangeItemsPerPage,
+      getJson,
+      getJdbc,
+      getCsv,
+      getText
+    );
 
     // Download buttons, pagination, search area, table should not be visible when there is no data
     expect(queryByTestId('Download')).toBeNull();
@@ -247,21 +290,36 @@ describe("<QueryResultsBody /> spec", () => {
     expect(queryByTestId('Search')).toBeNull();
 
     expect(document.body.children[0]).toMatchSnapshot();
-
   });
 
-  it("renders component with mock QueryResults data", async () => {
+  it('renders component with mock QueryResults data', async () => {
     const mockSortableProperties = new SortableProperties(
       mockSortableColumns,
       mockSortableColumns[0].name
     );
 
-    (window as any).HTMLElement.prototype.scrollIntoView = function () { };
+    (window as any).HTMLElement.prototype.scrollIntoView = function () {};
 
-    const { getAllByText, getAllByTestId, getAllByLabelText, getByText, getByPlaceholderText } =
-      renderPPLQueryResultsBody(undefined, mockQueryResults[0].data, mockQueryResultJDBCResponse.data.resp, mockSortableProperties,
-        mockSuccessfulMessage, onQueryChange, updateExpandedMap, onChangeItemsPerPage, getJson, getJdbc,
-        getCsv, getText);
+    const {
+      getAllByText,
+      getAllByTestId,
+      getAllByLabelText,
+      getByText,
+      getByPlaceholderText,
+    } = renderPPLQueryResultsBody(
+      undefined,
+      mockQueryResults[0].data,
+      mockQueryResultJDBCResponse.data.resp,
+      mockSortableProperties,
+      mockSuccessfulMessage,
+      onQueryChange,
+      updateExpandedMap,
+      onChangeItemsPerPage,
+      getJson,
+      getJdbc,
+      getCsv,
+      getText
+    );
     expect(document.body.children[0]).toMatchSnapshot();
 
     // Test sorting
@@ -270,11 +328,11 @@ describe("<QueryResultsBody /> spec", () => {
 
     // Test pagination
     await fireEvent.click(getAllByText('Rows per page', { exact: false })[0]);
-    expect(getByText("10 rows"));
-    expect(getByText("20 rows"));
-    expect(getByText("50 rows"));
-    expect(getByText("100 rows"));
-    await fireEvent.click(getByText("20 rows"));
+    expect(getByText('10 rows'));
+    expect(getByText('20 rows'));
+    expect(getByText('50 rows'));
+    expect(getByText('100 rows'));
+    await fireEvent.click(getByText('20 rows'));
     expect(onChangeItemsPerPage).toHaveBeenCalled();
 
     // Test nested tables - click on row icon
@@ -285,6 +343,5 @@ describe("<QueryResultsBody /> spec", () => {
     // Test nested tables - click on cell link
     await fireEvent.click(getAllByText('manufacturer: [2]', { exact: false })[0]);
     expect(updateExpandedMap).toHaveBeenCalled();
-
   });
 });
