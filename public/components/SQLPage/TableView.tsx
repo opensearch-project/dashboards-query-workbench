@@ -32,9 +32,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   const [selectedChildNode, setSelectedChildNode] = useState<string | null>(null);
   const [indexData, setIndexedData] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [indiciesData, setIndiciesData] = useState<string[]>([]);
   const [indexFlyout, setIndexFlyout] = useState(<></>);
-
+  let indiciesData: string[] = [];
   const resetFlyout = () => {
     setIndexFlyout(<></>);
   };
@@ -135,9 +134,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     };
     getJobId(coverQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
-        data = [].concat(...data);
-        indiciesData.concat(data);
-        setIndexedData(indiciesData);
+        const res = [].concat(data);
+        const final = indiciesData.concat(...res);
+        setIndexedData(final);
+        setChildLoadingStates((prevState) => ({
+          ...prevState,
+          [nodeLabel1]: false,
+        }));
       });
     });
   };
@@ -157,13 +160,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       get_async_query_results(id, http, (data) => {
         if (data.length > 0) {
           indiciesData.push(SKIPPING_INDEX);
-          callCoverQuery(nodeLabel1);
-
-          setChildLoadingStates((prevState) => ({
-            ...prevState,
-            [nodeLabel1]: false,
-          }));
         }
+        callCoverQuery(nodeLabel1);
       });
     });
   };
@@ -192,8 +190,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
             id: `${database}_${table}`,
             icon: <EuiIcon type="tableDensityCompact" size="s" />,
             callback: () => {
-              setIndexedData([]);
+              setIndexedData([])
               handleChildClick(table);
+              setChildLoadingStates((prevState) => ({
+                ...prevState,
+                [selectedChildNode]: false,
+              }));
             },
             sSelectable: true,
             isExpanded: true,
@@ -220,7 +222,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     <>
       <EuiFlexGroup>
         {isLoading ? (
-          <EuiFlexGroup alignItems="center" gutterSize='s'>
+          <EuiFlexGroup alignItems="center" gutterSize="s">
             <EuiFlexItem grow={false}>Loading your databases</EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiLoadingSpinner size="m" />
