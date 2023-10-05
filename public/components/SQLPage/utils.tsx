@@ -6,15 +6,18 @@ const POLL_INTERVAL_MS = 5000;
 import _ from 'lodash';
 import { CoreStart } from '../../../../../src/core/public';
 
+let previousJobTimer: NodeJS.Timeout[] = [];
 
-
-export const pollQueryStatus = (id: string, http :CoreStart['http'], callback) => {
+export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) => {
+  if (previousJobTimer) {
+    clearTimeout(previousJobTimer);
+  }
   http
     .get(`/api/spark_sql_console/job/` + id)
     .then((res) => {
       const status = res.data.resp.status;
       if (status === 'PENDING' || status === 'RUNNING' || status === 'SCHEDULED') {
-        setTimeout(() => pollQueryStatus(id, http, callback), POLL_INTERVAL_MS);
+        previousJobTimer = setTimeout(() => pollQueryStatus(id, http, callback), POLL_INTERVAL_MS);
       } else if (status === 'FAILED') {
         callback([]);
       } else if (status === 'SUCCESS') {
