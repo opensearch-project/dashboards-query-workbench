@@ -82,7 +82,7 @@ export const CreateButton = ({ updateSQLQueries }: CreateButtonProps) => {
                 panel: 1,
               },
               {
-                name: 'Accelerated Index',
+                name: 'Acceleration Index',
                 panel: 2,
               },
             ],
@@ -94,7 +94,7 @@ export const CreateButton = ({ updateSQLQueries }: CreateButtonProps) => {
           },
           {
             id: 2,
-            title: 'Accelerated Index Options',
+            title: 'Acceleration Index Options',
             items: acceleratedIndexItems,
           },
         ]}

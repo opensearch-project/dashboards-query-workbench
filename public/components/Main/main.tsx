@@ -790,6 +790,9 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   handleDataSelect = (selectedItems: []) => {
+    if (selectedItems[0].label !== 'OpenSearch' && this.state.language === 'SQL') {
+      this.updateSQLQueries('');
+    }
     this.setState({
       selectedDatasource: selectedItems,
     });

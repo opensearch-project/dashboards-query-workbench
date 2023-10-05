@@ -80,3 +80,5 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
 ##### Note:
 - All user given index names must be in lowercase letters. Cannot begin with underscores or hyphens. Spaces, commas, and characters :, ", *, +, /, \, |, ?, #, >, or < are not allowed.  
   `;
+
+export const SIDEBAR_POLL_INTERVAL_MS = 5000;

@@ -35,7 +35,11 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   const [indexData, setIndexedData] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [indexFlyout, setIndexFlyout] = useState(<></>);
+  const [childLoadingStates, setChildLoadingStates] = useState<{ [key: string]: boolean }>({});
+  const [tableLoadingStates, setTableLoadingStates] = useState<{ [key: string]: boolean }>({});
+
   let indiciesData: string[] = [];
+
   const resetFlyout = () => {
     setIndexFlyout(<></>);
   };
@@ -57,15 +61,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       />
     );
   };
-  const [childLoadingStates, setChildLoadingStates] = useState<{ [key: string]: boolean }>({});
-  const [tableLoadingStates, setTableLoadingStates] = useState<{ [key: string]: boolean }>({});
 
   const get_async_query_results = (id, http, callback) => {
     pollQueryStatus(id, http, callback);
   };
 
   const getSidebarContent = () => {
-    if (selectedItems[0].label == 'OpenSearch') {
+    if (selectedItems[0].label === 'OpenSearch') {
       setTablenames([]);
       const query = { query: ON_LOAD_QUERY };
       http
@@ -101,6 +103,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   };
 
   useEffect(() => {
+    setIsLoading(false);
     getSidebarContent();
   }, [selectedItems]);
 
@@ -180,7 +183,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
-      handleNodeClick(database);
+      selectedItems[0].label !== 'OpenSearch' && handleNodeClick(database);
     },
     isSelectable: true,
     isExpanded: true,
@@ -237,7 +240,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       <EuiFlexGroup>
         {isLoading ? (
           <EuiFlexGroup alignItems="center" gutterSize="s">
-            <EuiFlexItem grow={false}>Loading your databases</EuiFlexItem>
+            <EuiFlexItem grow={false}>Loading databases</EuiFlexItem>
             <EuiFlexItem>
               <EuiLoadingSpinner size="m" />
             </EuiFlexItem>
