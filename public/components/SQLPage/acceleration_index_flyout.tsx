@@ -6,6 +6,9 @@
 import {
   EuiButton,
   EuiButtonEmpty,
+  EuiDescriptionList,
+  EuiDescriptionListDescription,
+  EuiDescriptionListTitle,
   EuiFlexGroup,
   EuiFlexItem,
   EuiFlyout,
@@ -16,6 +19,7 @@ import {
   EuiPageHeader,
   EuiPageHeaderSection,
   EuiSpacer,
+  EuiText,
   EuiTitle,
 } from '@elastic/eui';
 import React from 'react';
@@ -63,78 +67,72 @@ export const AccelerationIndexFlyout = ({
             <EuiPageHeader>
               <EuiPageHeaderSection>
                 <EuiTitle size="l" data-test-subj="acceleration-index-desc-header">
-                  <h1>{indexName}</h1>
+                  <h2>{indexName}</h2>
                 </EuiTitle>
               </EuiPageHeaderSection>
             </EuiPageHeader>
           </div>
         </EuiFlyoutHeader>
         <EuiFlyoutBody>
-          <h2>Acceleration index Source</h2>
+          <EuiText>
+            <h3>Acceleration index source</h3>
+          </EuiText>
           <EuiHorizontalRule margin="s" />
-          <EuiFlexGroup>
-            <EuiFlexItem>
-              <h3>Data Source</h3>
-              <EuiSpacer />
-              <p>{dataSource}</p>
-            </EuiFlexItem>
-            <EuiFlexItem>
-              <h3>Database</h3>
-              <EuiSpacer />
-              <p>{database}</p>
-            </EuiFlexItem>
-            <EuiFlexItem>
-              <h3>Table</h3>
-              <EuiSpacer />
-              <p>{dataTable}</p>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-          <h3>Acceleration index destination</h3>
+          <EuiDescriptionList>
+            <EuiDescriptionListTitle>Data Source</EuiDescriptionListTitle>
+            <EuiDescriptionListDescription>{dataSource}</EuiDescriptionListDescription>
+            <EuiDescriptionListTitle>Database</EuiDescriptionListTitle>
+            <EuiDescriptionListDescription>{database}</EuiDescriptionListDescription>
+            <EuiDescriptionListTitle>Data Table</EuiDescriptionListTitle>
+            <EuiDescriptionListDescription>{dataTable}</EuiDescriptionListDescription>
+          </EuiDescriptionList>
+          <EuiSpacer size="xl" />
+          <EuiText>
+            <h3>Acceleration index destination</h3>
+          </EuiText>
           <EuiHorizontalRule margin="s" />
-          <EuiFlexGroup>
-            <EuiFlexItem>
-              <h3>OpenSearch Index</h3>
-              <EuiSpacer />
-              <p>
-                {indexName === 'skipping_index'
-                  ? `flint_${dataSource}_${database}_${dataTable}_skipping_index`
-                  : `flint_${dataSource}_${database}_${dataTable}_${indexName}_index`}
-              </p>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-          <h3>Acceleration index actions</h3>
-          <EuiHorizontalRule margin="s" />
-          <EuiFlexGroup>
-            <EuiFlexItem>
-              <EuiButton
-                iconSide="right"
-                fill
-                iconType="lensApp"
-                onClick={updateDescribeQuery}
-                size="s"
-              >
-                Describe Index
-              </EuiButton>
-            </EuiFlexItem>
-            <EuiFlexItem>
-              <EuiButton
-                iconSide="right"
-                iconType="trash"
-                onClick={updateDropQuery}
-                color="danger"
-                size="s"
-              >
-                Drop Index
-              </EuiButton>
-            </EuiFlexItem>
-          </EuiFlexGroup>
+          <EuiDescriptionList>
+            <EuiDescriptionListTitle>OpenSearch Index</EuiDescriptionListTitle>
+            <EuiDescriptionListDescription>
+              {indexName === 'skipping_index'
+                ? `flint_${dataSource}_${database}_${dataTable}_skipping_index`
+                : `flint_${dataSource}_${database}_${dataTable}_${indexName}_index`}
+            </EuiDescriptionListDescription>
+          </EuiDescriptionList>
+          <EuiSpacer size="xl" />
         </EuiFlyoutBody>
         <EuiFlyoutFooter>
-          <EuiFlexGroup>
-            <EuiFlexItem>
+          <EuiFlexGroup justifyContent="spaceBetween">
+            <EuiFlexItem grow={false}>
               <EuiButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
                 Close
               </EuiButtonEmpty>
+            </EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <EuiFlexGroup>
+                <EuiFlexItem grow={false}>
+                  <EuiButton
+                    iconSide="right"
+                    fill
+                    iconType="lensApp"
+                    onClick={updateDescribeQuery}
+                    size="s"
+                  >
+                    Describe Index
+                  </EuiButton>
+                </EuiFlexItem>
+                <EuiFlexItem grow={false}>
+                  <EuiButton
+                    iconSide="right"
+                    iconType="trash"
+                    onClick={updateDropQuery}
+                    color="danger"
+                    size="s"
+                  >
+                    Drop Index
+                  </EuiButton>
+                </EuiFlexItem>
+              </EuiFlexGroup>
             </EuiFlexItem>
           </EuiFlexGroup>
         </EuiFlyoutFooter>
