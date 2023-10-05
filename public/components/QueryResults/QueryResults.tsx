@@ -8,44 +8,45 @@ import React from 'react';
 import { SortableProperties, SortableProperty } from '@elastic/eui/lib/services';
 // @ts-ignore
 import {
-  EuiPanel,
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiTab,
-  EuiTabs,
-  EuiPopover,
-  EuiContextMenuItem,
-  EuiContextMenuPanel,
-  EuiHorizontalRule,
-  EuiSearchBar,
-  Pager,
-  EuiIcon,
-  EuiText,
-  EuiSpacer,
-  EuiTextAlign,
+  Comparators,
   EuiButton,
   EuiButtonIcon,
-  Comparators,
+  EuiComboBoxOptionOption,
+  EuiContextMenuItem,
+  EuiContextMenuPanel,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiHorizontalRule,
+  EuiIcon,
+  EuiPanel,
+  EuiPopover,
+  EuiSearchBar,
+  EuiSpacer,
+  EuiTab,
+  EuiTabs,
+  EuiText,
+  EuiTextAlign,
+  Pager,
 } from '@elastic/eui';
-import {
-  QueryResult,
-  QueryMessage,
-  Tab,
-  ResponseDetail,
-  ItemIdToExpandedRowMap,
-  DataRow,
-} from '../Main/main';
-import QueryResultsBody from './QueryResultsBody';
-import { getQueryIndex, needsScrolling, getSelectedResults } from '../../utils/utils';
+import _ from 'lodash';
+import { AsyncQueryLoadingStatus } from '../../../common/types';
+import { PanelWrapper } from '../../utils/PanelWrapper';
 import {
   DEFAULT_NUM_RECORDS_PER_PAGE,
   MESSAGE_TAB_LABEL,
   TAB_CONTAINER_ID,
 } from '../../utils/constants';
-import { PanelWrapper } from '../../utils/PanelWrapper';
-import _ from 'lodash';
+import { getQueryIndex, getSelectedResults, needsScrolling } from '../../utils/utils';
+import {
+  DataRow,
+  ItemIdToExpandedRowMap,
+  QueryMessage,
+  QueryResult,
+  ResponseDetail,
+  Tab,
+} from '../Main/main';
 import { AsyncQueryBody } from './AsyncQueryBody';
-import { AsyncQueryLoadingStatus } from '../../../common/types';
+import QueryResultsBody from './QueryResultsBody';
 
 interface QueryResultsProps {
   language: string;
@@ -73,6 +74,7 @@ interface QueryResultsProps {
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
   cancelAsyncQuery: () => void;
+  selectedDatasource: EuiComboBoxOptionOption[];
 }
 
 interface QueryResultsState {
@@ -429,6 +431,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
                     getCsv={this.props.getCsv}
                     getText={this.props.getText}
                     onSort={this.onSort}
+                    selectedDatasource={this.props.selectedDatasource}
                   />
                 </PanelWrapper>
               </>
