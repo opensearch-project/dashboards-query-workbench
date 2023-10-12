@@ -9,6 +9,10 @@ export const OPENSEARCH_ACC_DOCUMENTATION_URL = 'https://opensearch.org/docs/lat
 export const ACC_INDEX_TYPE_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 
 export const SKIPPING_INDEX = `skipping_index`;
+export const COVERING_INDEX = `covering_index`;
+export const DATABASE = `database`;
+export const TABLE = `table`;
+export const INDICIES = `indicies`
 export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
 (status VALUE_SET) 
