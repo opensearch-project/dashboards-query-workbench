@@ -240,7 +240,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       }
     },
     isSelectable: true,
-    isExpanded: false,
+    isExpanded: true,
     children: database.values.map((table) => ({
       label: (
         <div key={table.name}>
@@ -258,7 +258,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
         }
       },
       isSelectable: true,
-      isExpanded: false,
+      isExpanded: true,
       children: table.values.map((indexChild) => ({
         label: (
           <div key={indexChild.name}>
@@ -290,8 +290,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
             </EuiFlexItem>
             <EuiFlexItem grow={false}>Loading databases</EuiFlexItem>
             <EuiFlexItem grow={false}>
-              Loading can take more than 30s. Queries can be made after the data has loaded. Any
-              queries run before the data is loaded will be queued
+              <EuiText textAlign='center' color='subdued'>
+                Loading can take more than 30s. Queries can be made after the data has loaded. Any
+                queries run before the data is loaded will be queued
+              </EuiText>
             </EuiFlexItem>
           </EuiFlexGroup>
         ) : treeDataOpenSearch.length > 0 || treeDataDatabases.length > 0 ? (
