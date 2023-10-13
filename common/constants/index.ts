@@ -8,12 +8,12 @@ export const PLUGIN_NAME = 'Query Workbench';
 export const OPENSEARCH_ACC_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 export const ACC_INDEX_TYPE_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
 
-export const SKIPPING_INDEX = `skipping_index`;
-export const COVERING_INDEX = `covering_index`;
-export const DATABASE = `database`;
-export const TABLE = `table`;
-export const INDICIES = `indicies`
-export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
+export const SKIPPING_INDEX_NAME = `skipping_index`;
+export const COVERING_INDEX_NAME = `covering_index`;
+export const DATABASE_NAME = `database`;
+export const TABLE_NAME = `table`;
+export const INDICIES_NAME = `indicies`
+export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
 (status VALUE_SET) 
 WITH (
@@ -86,3 +86,5 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
   `;
 
 export const SIDEBAR_POLL_INTERVAL_MS = 5000;
+
+export const FETCH_OPENSEARCH_INDICES_PATH = '/api/sql_console/sqlquery'

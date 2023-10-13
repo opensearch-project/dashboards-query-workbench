@@ -19,11 +19,12 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import {
-  COVERING_INDEX,
-  DATABASE,
-  ON_LOAD_QUERY,
-  SKIPPING_INDEX,
-  TABLE,
+  COVERING_INDEX_NAME,
+  DATABASE_NAME,
+  FETCH_OPENSEARCH_INDICES_PATH,
+  LOAD_OPENSEARCH_INDICES_QUERY,
+  SKIPPING_INDEX_NAME,
+  TABLE_NAME,
 } from '../../../common/constants';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
 import { getJobId, pollQueryStatus } from './utils';
@@ -40,11 +41,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [indexFlyout, setIndexFlyout] = useState(<></>);
-  const [childLoadingStates, setChildLoadingStates] = useState<{ [key: string]: boolean }>({});
-  const [tableLoadingStates, setTableLoadingStates] = useState<{ [key: string]: boolean }>({});
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
-
-  let indicesData: string[] = [];
 
   const resetFlyout = () => {
     setIndexFlyout(<></>);
@@ -68,25 +65,21 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     );
   };
 
-  function mapToTreeItem(elements: string[], type: Tree): TreeItem[] {
+  function loadTreeItem(elements: string[], type: Tree): TreeItem[] {
     return elements.map((element) => {
-      const treeItem: TreeItem = {
+      let treeItem: TreeItem = {
         name: element,
         type: type,
         isExpanded: true,
       };
 
-      if (type === DATABASE) {
+      if (type === DATABASE_NAME || type === TABLE_NAME) {
         treeItem.values = [];
         treeItem.isExpanded = true;
-      } else if (type === TABLE) {
-        treeItem.values = [];
-        treeItem.isExpanded = true;
-      } else if (type === SKIPPING_INDEX) {
-        treeItem.values = [];
-        treeItem.type = SKIPPING_INDEX;
+      } else if (type === SKIPPING_INDEX_NAME) {
+        treeItem.type = SKIPPING_INDEX_NAME;
       } else {
-        treeItem.type = COVERING_INDEX;
+        treeItem.type = COVERING_INDEX_NAME;
       }
 
       return treeItem;
@@ -100,13 +93,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   const getSidebarContent = () => {
     if (selectedItems[0].label === 'OpenSearch') {
       setTableNames([]);
-      const query = { query: ON_LOAD_QUERY };
+      const query = { query: LOAD_OPENSEARCH_INDICES_QUERY };
       http
-        .post(`/api/sql_console/sqlquery`, {
+        .post(FETCH_OPENSEARCH_INDICES_PATH, {
           body: JSON.stringify(query),
         })
         .then((res) => {
-          const responseObj = res.data.resp ? JSON.parse(res.data.resp) : '';
+          const responseObj = res.data.resp ? JSON.parse(res.data.resp) : {};
           const dataRows: any[][] = _.get(responseObj, 'datarows');
           const fields = dataRows.map((data) => {
             return data[2];
@@ -127,7 +120,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       getJobId(query, http, (id) => {
         get_async_query_results(id, http, (data) => {
           data = [].concat(...data);
-          setTreeData(mapToTreeItem(data, DATABASE));
+          setTreeData(loadTreeItem(data, DATABASE_NAME));
           setIsLoading(false);
         });
       });
@@ -141,6 +134,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
 
   const handleDatabaseClick = (databaseName: string) => {
     setSelectedDatabase(databaseName);
+    setIsLoading(true);
     const query = {
       lang: 'sql',
       query: `SHOW TABLES IN ${selectedItems[0]['label']}.${databaseName}`,
@@ -149,7 +143,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     getJobId(query, http, (id) => {
       get_async_query_results(id, http, (data) => {
         data = data.map((subArray) => subArray[1]);
-        const values = mapToTreeItem(data, TABLE);
+        const values = loadTreeItem(data, TABLE_NAME);
         treeData.map((database) => {
           if (database.name === databaseName) {
             database.values = values;
@@ -160,7 +154,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     });
   };
 
-  const callCoverQuery = (tableName: string) => {
+  const loadCoveringIndex = (tableName: string) => {
     const coverQuery = {
       lang: 'sql',
       query: `SHOW INDEX ON ${selectedItems[0]['label']}.${selectedDatabase}.${tableName}`,
@@ -169,8 +163,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     getJobId(coverQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
         const res = [].concat(data);
-        let coverIndexObj = mapToTreeItem(res, COVERING_INDEX);
-        const final = indicesData.concat(...res);
+        let coverIndexObj = loadTreeItem(res, COVERING_INDEX_NAME);
         treeData.map((database) => {
           if (database.name === selectedDatabase) {
             database.values.map((table) => {
@@ -187,6 +180,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
 
   const handleTableClick = (tableName: string) => {
     setSelectedTable(tableName);
+    setIsLoading(true);
     const skipQuery = {
       lang: 'sql',
       query: `DESC SKIPPING INDEX ON ${selectedItems[0]['label']}.${selectedDatabase}.${tableName}`,
@@ -199,75 +193,57 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
             if (database.name === selectedDatabase) {
               database.values.map((table) => {
                 if (table.name === tableName) {
-                  table.values = mapToTreeItem([SKIPPING_INDEX], SKIPPING_INDEX);
+                  table.values = loadTreeItem([SKIPPING_INDEX_NAME], SKIPPING_INDEX_NAME);
                 }
               });
             }
           });
         }
-        callCoverQuery(tableName);
+        loadCoveringIndex(tableName);
       });
     });
   };
-
-  const treeDataOpenSearch = tableNames.map((database, index) => ({
-    label: (
-      <div>
-        <EuiToolTip position="right" content={database} delay="long">
-          <EuiText>{_.truncate(database, { length: 50 })}</EuiText>
+  const labelCreation = (name: string) => {
+    return (
+      <div key={name}>
+        <EuiToolTip position="right" content={name} delay="long">
+          <EuiText>{_.truncate(name, { length: 50 })}</EuiText>
         </EuiToolTip>{' '}
-        {tableLoadingStates[database] && <EuiLoadingSpinner size="m" />}
       </div>
-    ),
+    );
+  };
+
+  const OpenSearchIndicesTree = tableNames.map((database, index) => ({
+    label: labelCreation(database),
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
   }));
 
   const treeDataDatabases = treeData.map((database, index) => ({
-    label: (
-      <div key={database.name}>
-        <EuiToolTip position="right" content={database.name} delay="long">
-          <EuiText>{_.truncate(database.name, { length: 50 })}</EuiText>
-        </EuiToolTip>{' '}
-      </div>
-    ),
+    label: labelCreation(database.name),
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
       if (database.values.length === 0 && selectedItems[0].label !== 'OpenSearch') {
         handleDatabaseClick(database.name);
-        setIsLoading(true);
       }
     },
     isSelectable: true,
     isExpanded: true,
     children: database.values.map((table) => ({
-      label: (
-        <div key={table.name}>
-          <EuiToolTip position="right" content={table.name} delay="long">
-            <EuiText>{_.truncate(table.name, { length: 50 })}</EuiText>
-          </EuiToolTip>{' '}
-        </div>
-      ),
+      label: labelCreation(table.name),
       id: `${database.name}_${table.name}`,
       icon: <EuiIcon type="tableDensityCompact" size="s" />,
       callback: () => {
         if (table.values.length === 0) {
           handleTableClick(table.name);
-          setIsLoading(true);
         }
       },
       isSelectable: true,
       isExpanded: true,
       children: table.values.map((indexChild) => ({
-        label: (
-          <div key={indexChild.name}>
-            <EuiToolTip position="right" content={indexChild.name} delay="long">
-              <EuiText>{_.truncate(indexChild.name, { length: 50 })}</EuiText>
-            </EuiToolTip>
-          </div>
-        ),
-        id: `${table.name}_${indexChild.name}`,
+        label: labelCreation(indexChild.name),
+        id: `${database.name}_${table.name}_${indexChild.name}`,
         icon: <EuiIcon type="bolt" size="s" />,
         callback: () =>
           handleAccelerationIndexClick(
@@ -290,16 +266,16 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
             </EuiFlexItem>
             <EuiFlexItem grow={false}>Loading databases</EuiFlexItem>
             <EuiFlexItem grow={false}>
-              <EuiText textAlign='center' color='subdued'>
+              <EuiText textAlign="center" color="subdued">
                 Loading can take more than 30s. Queries can be made after the data has loaded. Any
                 queries run before the data is loaded will be queued
               </EuiText>
             </EuiFlexItem>
           </EuiFlexGroup>
-        ) : treeDataOpenSearch.length > 0 || treeDataDatabases.length > 0 ? (
+        ) : OpenSearchIndicesTree.length > 0 || treeDataDatabases.length > 0 ? (
           <EuiFlexItem grow={false}>
             {selectedItems[0].label === 'OpenSearch' ? (
-              <EuiTreeView aria-label="Sample Folder Tree" items={treeDataOpenSearch} />
+              <EuiTreeView aria-label="Sample Folder Tree" items={OpenSearchIndicesTree} />
             ) : (
               <EuiTreeView aria-label="Sample Folder Tree" items={treeDataDatabases} />
             )}
