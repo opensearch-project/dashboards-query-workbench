@@ -27,7 +27,7 @@ export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) 
   );
 
   // Add auto refresh option
-  indexOptions.push(`auto_refresh = ${refreshType === 'auto'}`);
+  indexOptions.push(`auto_refresh = ${['auto', 'interval'].includes(refreshType)}`);
 
   // Add refresh interval option
   if (refreshType === 'interval') {
@@ -63,7 +63,7 @@ const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[
  *    field2 PARTITION,
  *    field3 MIN_MAX,
  * ) WITH (
- * auto_refresh = false,
+ * auto_refresh = true,
  * refresh_interval = '1 minute',
  * checkpoint_location = 's3://test/',
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
@@ -95,7 +95,7 @@ const buildCoveringIndexColumns = (coveringIndexQueryData: string[]) => {
  *    field2,
  *    field3,
  * ) WITH (
- * auto_refresh = false,
+ * auto_refresh = true,
  * refresh_interval = '1 minute',
  * checkpoint_location = 's3://test/',
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
@@ -146,7 +146,7 @@ const buildTumbleValue = (GroupByTumbleValue: GroupByTumbleType) => {
  * sum(field2),
  * avg(field3) as average
  *  WITH (
- * auto_refresh = false,
+ * auto_refresh = true,
  * refresh_interval = '1 minute',
  * checkpoint_location = 's3://test/',
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
