@@ -187,7 +187,6 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
               this.props.selectedDatasource[0].label !== 'OpenSearch' && (
                 <EuiFlexItem grow={false}>
                   <EuiButton
-                    fill={true}
                     className="sql-accelerate-button"
                     onClick={this.setAccelerationFlyout}
                     isDisabled={this.props.asyncLoading}

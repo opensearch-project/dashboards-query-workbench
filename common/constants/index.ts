@@ -37,7 +37,7 @@ OPTIONS (
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
   { label: 'Covering Index', value: 'covering' },
-  // { label: 'Materialized View', value: 'materialized' }, Hidden Option -> Until opensearch-spark feature is ready
+  { label: 'Materialized View', value: 'materialized' },
 ];
 
 export const ACCELERATION_AGGREGRATION_FUNCTIONS = [
