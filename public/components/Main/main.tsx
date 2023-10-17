@@ -513,7 +513,7 @@ export class Main extends React.Component<MainProps, MainState> {
         this.setState({
           queries: queries,
           queryResults: [result],
-          queryResultsTable: resultTable,
+          queryResultsTable: result.data['schema'].length > 0 ? resultTable : [],
           selectedTabId: getDefaultTabId([result]),
           selectedTabName: getDefaultTabLabel([result], queries[0]),
           messages: this.getMessage(resultTable),
