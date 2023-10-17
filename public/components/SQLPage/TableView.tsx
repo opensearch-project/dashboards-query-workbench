@@ -12,19 +12,19 @@ import {
   EuiLoadingSpinner,
   EuiText,
   EuiToolTip,
-  EuiTreeView,
+  EuiTreeView
 } from '@elastic/eui';
-import { Tree, TreeItem } from 'common/types';
+import { TreeItem, TreeItemType } from 'common/types';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import {
-  COVERING_INDEX_NAME,
-  DATABASE_NAME,
   FETCH_OPENSEARCH_INDICES_PATH,
   LOAD_OPENSEARCH_INDICES_QUERY,
-  SKIPPING_INDEX_NAME,
-  TABLE_NAME,
+  TREE_ITEM_COVERING_INDEX_DEFAULT_NAME,
+  TREE_ITEM_DATABASE_NAME_DEFAULT_NAME,
+  TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME,
+  TREE_ITEM_TABLE_NAME_DEFAULT_NAME
 } from '../../../common/constants';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
 import { getJobId, pollQueryStatus } from './utils';
@@ -33,9 +33,10 @@ interface CustomView {
   http: CoreStart['http'];
   selectedItems: EuiComboBoxOptionOption[];
   updateSQLQueries: (query: string) => void;
+  refreshTree: boolean
 }
 
-export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView) => {
+export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }: CustomView) => {
   const [tableNames, setTableNames] = useState<string[]>([]);
   const [selectedDatabase, setSelectedDatabase] = useState<string>('');
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
@@ -65,7 +66,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     );
   };
 
-  function loadTreeItem(elements: string[], type: Tree): TreeItem[] {
+  function loadTreeItem(elements: string[], type: TreeItemType): TreeItem[] {
     return elements.map((element) => {
       let treeItem: TreeItem = {
         name: element,
@@ -73,15 +74,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
         isExpanded: true,
       };
 
-      if (type === DATABASE_NAME || type === TABLE_NAME) {
+      if (type === TREE_ITEM_DATABASE_NAME_DEFAULT_NAME || type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME) {
         treeItem.values = [];
         treeItem.isExpanded = true;
-      } else if (type === SKIPPING_INDEX_NAME) {
-        treeItem.type = SKIPPING_INDEX_NAME;
-      } else {
-        treeItem.type = COVERING_INDEX_NAME;
       }
-
       return treeItem;
     });
   }
@@ -120,7 +116,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       getJobId(query, http, (id) => {
         get_async_query_results(id, http, (data) => {
           data = [].concat(...data);
-          setTreeData(loadTreeItem(data, DATABASE_NAME));
+          setTreeData(loadTreeItem(data, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
           setIsLoading(false);
         });
       });
@@ -130,7 +126,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   useEffect(() => {
     setIsLoading(false);
     getSidebarContent();
-  }, [selectedItems]);
+  }, [selectedItems, refreshTree]);
 
   const handleDatabaseClick = (databaseName: string) => {
     setSelectedDatabase(databaseName);
@@ -143,11 +139,14 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     getJobId(query, http, (id) => {
       get_async_query_results(id, http, (data) => {
         data = data.map((subArray) => subArray[1]);
-        const values = loadTreeItem(data, TABLE_NAME);
-        treeData.map((database) => {
-          if (database.name === databaseName) {
-            database.values = values;
-          }
+        const values = loadTreeItem(data, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
+        setTreeData((prevTreeData) => {
+          return prevTreeData.map((database) => {
+            if (database.name === databaseName) {
+              return { ...database, values: values };
+            }
+            return database;
+          });
         });
         setIsLoading(false);
       });
@@ -163,15 +162,25 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     getJobId(coverQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
         const res = [].concat(data);
-        let coverIndexObj = loadTreeItem(res, COVERING_INDEX_NAME);
-        treeData.map((database) => {
-          if (database.name === selectedDatabase) {
-            database.values.map((table) => {
-              if (table.name === tableName) {
-                table.values = table.values.concat(...coverIndexObj);
-              }
-            });
-          }
+        let coverIndexObj = loadTreeItem(res, TREE_ITEM_COVERING_INDEX_DEFAULT_NAME);
+        setTreeData((prevTreeData) => {
+          return prevTreeData.map((database) => {
+            if (database.name === selectedDatabase) {
+              return {
+                ...database,
+                values: database.values.map((table) => {
+                  if (table.name === tableName) {
+                    return {
+                      ...table,
+                      values: table.values.concat(...coverIndexObj),
+                    };
+                  }
+                  return table;
+                }),
+              };
+            }
+            return database;
+          });
         });
         setIsLoading(false);
       });
@@ -189,21 +198,32 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
     getJobId(skipQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
         if (data.length > 0) {
-          treeData.map((database) => {
-            if (database.name === selectedDatabase) {
-              database.values.map((table) => {
-                if (table.name === tableName) {
-                  table.values = loadTreeItem([SKIPPING_INDEX_NAME], SKIPPING_INDEX_NAME);
-                }
-              });
-            }
+          setTreeData((prevTreeData) => {
+            return prevTreeData.map((database) => {
+              if (database.name === selectedDatabase) {
+                return {
+                  ...database,
+                  values: database.values.map((table) => {
+                    if (table.name === tableName) {
+                      return {
+                        ...table,
+                        values: loadTreeItem([TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME], TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME),
+                      };
+                    }
+                    return table;
+                  }),
+                };
+              }
+              return database;
+            });
           });
         }
         loadCoveringIndex(tableName);
       });
     });
   };
-  const labelCreation = (name: string) => {
+
+  const createLabel = (name: string) => {
     return (
       <div key={name}>
         <EuiToolTip position="right" content={name} delay="long">
@@ -214,13 +234,14 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
   };
 
   const OpenSearchIndicesTree = tableNames.map((database, index) => ({
-    label: labelCreation(database),
+    label: createLabel(database),
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
+    isSelectable: false,
   }));
 
   const treeDataDatabases = treeData.map((database, index) => ({
-    label: labelCreation(database.name),
+    label: createLabel(database.name),
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
@@ -229,9 +250,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
       }
     },
     isSelectable: true,
-    isExpanded: true,
+    isExpanded: database.isExpanded,
     children: database.values.map((table) => ({
-      label: labelCreation(table.name),
+      label: createLabel(table.name),
       id: `${database.name}_${table.name}`,
       icon: <EuiIcon type="tableDensityCompact" size="s" />,
       callback: () => {
@@ -240,9 +261,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries }: CustomView)
         }
       },
       isSelectable: true,
-      isExpanded: true,
+      isExpanded: table.isExpanded,
       children: table.values.map((indexChild) => ({
-        label: labelCreation(indexChild.name),
+        label: createLabel(indexChild.name),
         id: `${database.name}_${table.name}_${indexChild.name}`,
         icon: <EuiIcon type="bolt" size="s" />,
         callback: () =>

@@ -109,6 +109,7 @@ interface MainState {
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
   asyncJobId: string;
+  refreshTree: boolean;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -246,6 +247,7 @@ export class Main extends React.Component<MainProps, MainState> {
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
       asyncJobId: '',
+      refreshTree: false,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -798,6 +800,12 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   };
 
+  handleReloadTree = () => {
+    this.setState({
+      refreshTree: !this.state.refreshTree,
+    });
+  };
+
   render() {
     let page;
     let link;
@@ -920,16 +928,27 @@ export class Main extends React.Component<MainProps, MainState> {
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
-                      <CreateButton
-                        updateSQLQueries={this.updateSQLQueries}
-                        selectedDatasource={this.state.selectedDatasource}
-                      />
+                      <EuiFlexGroup direction="row">
+                        <EuiFlexItem grow={false}>
+                          <EuiButton
+                            iconType="refresh"
+                            onClick={this.handleReloadTree}
+                          />
+                        </EuiFlexItem>
+                        <EuiFlexItem grow={false}>
+                          <CreateButton
+                            updateSQLQueries={this.updateSQLQueries}
+                            selectedDatasource={this.state.selectedDatasource}
+                          />
+                        </EuiFlexItem>
+                      </EuiFlexGroup>
                     </EuiFlexItem>
                     <EuiSpacer />
                     <TableView
                       http={this.httpClient}
                       selectedItems={this.state.selectedDatasource}
                       updateSQLQueries={this.updateSQLQueries}
+                      refreshTree={this.state.refreshTree}
                     />
                     <EuiSpacer />
                   </EuiFlexItem>
