@@ -16,7 +16,7 @@ import producer from 'immer';
 import React, { ChangeEvent, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
 import { ACCELERATION_TIME_INTERVAL } from '../../../../common/constants';
-import { CreateAccelerationForm } from '../../../../common/types';
+import { AccelerationRefreshType, CreateAccelerationForm } from '../../../../common/types';
 import {
   hasError,
   validateCheckpointLocation,
@@ -39,14 +39,19 @@ export const IndexSettingOptions = ({
 }: IndexSettingOptionsProps) => {
   const autoRefreshId = 'refresh-option-1';
   const intervalRefreshId = 'refresh-option-2';
+  const manualRefreshId = 'refresh-option-3';
   const refreshOptions = [
     {
       id: autoRefreshId,
-      label: 'Auto Refresh',
+      label: 'Auto refresh',
     },
     {
       id: intervalRefreshId,
-      label: 'Refresh by interval',
+      label: 'Auto refresh by interval',
+    },
+    {
+      id: manualRefreshId,
+      label: 'Manual refresh',
     },
   ];
 
@@ -70,9 +75,21 @@ export const IndexSettingOptions = ({
   };
 
   const onChangeRefreshType = (optionId: React.SetStateAction<string>) => {
+    let refreshOption: AccelerationRefreshType = 'auto';
+    switch (optionId) {
+      case autoRefreshId:
+        refreshOption = 'auto';
+        break;
+      case intervalRefreshId:
+        refreshOption = 'interval';
+        break;
+      case manualRefreshId:
+        refreshOption = 'manual';
+        break;
+    }
     setAccelerationFormData({
       ...accelerationFormData,
-      refreshType: optionId === autoRefreshId ? 'auto' : 'interval',
+      refreshType: refreshOption,
     });
     setRefreshTypeSelected(optionId);
   };
@@ -166,7 +183,7 @@ export const IndexSettingOptions = ({
       </EuiFormRow>
       <EuiFormRow
         label="Refresh type"
-        helpText="Specify how often the index should refresh, which publishes the most recent changes and make them available for search. Default is set to auto refresh when data at the source changes."
+        helpText="Specify how often the index should refresh, which publishes the most recent changes and make them available for search."
       >
         <EuiRadioGroup
           options={refreshOptions}
@@ -209,34 +226,36 @@ export const IndexSettingOptions = ({
           />
         </EuiFormRow>
       )}
-      <EuiFormRow
-        label={
-          accelerationFormData.accelerationIndexType === 'materialized'
-            ? 'Checkpoint location'
-            : 'Checkpoint location - optional'
-        }
-        helpText="The HDFS compatible file system location path for incremental refresh job checkpoint."
-        isInvalid={hasError(accelerationFormData.formErrors, 'checkpointLocationError')}
-        error={accelerationFormData.formErrors.checkpointLocationError}
-      >
-        <EuiFieldText
-          placeholder="s3://checkpoint/location"
-          value={checkpoint}
-          onChange={onChangeCheckpoint}
-          aria-label="Use aria labels when no actual label is in use"
+      {refreshTypeSelected !== manualRefreshId && (
+        <EuiFormRow
+          label={
+            accelerationFormData.accelerationIndexType === 'materialized'
+              ? 'Checkpoint location'
+              : 'Checkpoint location - optional'
+          }
+          helpText="The HDFS compatible file system location path for incremental refresh job checkpoint."
           isInvalid={hasError(accelerationFormData.formErrors, 'checkpointLocationError')}
-          onBlur={(e) => {
-            setAccelerationFormData(
-              producer((accData) => {
-                accData.formErrors.checkpointLocationError = validateCheckpointLocation(
-                  accData.accelerationIndexType,
-                  e.target.value
-                );
-              })
-            );
-          }}
-        />
-      </EuiFormRow>
+          error={accelerationFormData.formErrors.checkpointLocationError}
+        >
+          <EuiFieldText
+            placeholder="s3://checkpoint/location"
+            value={checkpoint}
+            onChange={onChangeCheckpoint}
+            aria-label="Use aria labels when no actual label is in use"
+            isInvalid={hasError(accelerationFormData.formErrors, 'checkpointLocationError')}
+            onBlur={(e) => {
+              setAccelerationFormData(
+                producer((accData) => {
+                  accData.formErrors.checkpointLocationError = validateCheckpointLocation(
+                    accData.accelerationIndexType,
+                    e.target.value
+                  );
+                })
+              );
+            }}
+          />
+        </EuiFormRow>
+      )}
     </>
   );
 };

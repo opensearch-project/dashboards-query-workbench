@@ -19,7 +19,7 @@ Array [
     <div
       className="euiTextColor euiTextColor--subdued"
     >
-      Select data connection where the data you want to accelerate resides.
+      Select the data source to accelerate data from. External data sources may take time to load.
     </div>
   </div>,
   <div
@@ -398,7 +398,7 @@ Array [
     <div
       className="euiTextColor euiTextColor--subdued"
     >
-      Select data connection where the data you want to accelerate resides.
+      Select the data source to accelerate data from. External data sources may take time to load.
     </div>
   </div>,
   <div

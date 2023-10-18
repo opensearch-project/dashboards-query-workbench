@@ -37,6 +37,8 @@ interface SQLPageProps {
   sqlTranslations: ResponseDetail<TranslateResult>[];
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
+  openAccelerationFlyout: boolean;
+  setIsAccelerationFlyoutOpened: (value: boolean) => void;
 }
 
 interface SQLPageState {
@@ -79,6 +81,21 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
       ),
     });
   };
+
+  componentDidUpdate(prevProps: SQLPageProps) {
+    const { selectedDatasource, openAccelerationFlyout } = this.props;
+    const prevDataSource = prevProps.selectedDatasource[0].label;
+    const currentDataSource = selectedDatasource[0].label;
+
+    if (
+      currentDataSource !== prevDataSource &&
+      currentDataSource !== 'OpenSearch' &&
+      openAccelerationFlyout
+    ) {
+      this.setAccelerationFlyout();
+      this.props.setIsAccelerationFlyoutOpened(true);
+    }
+  }
 
   render() {
     const closeModal = () => this.setIsModalVisible(false);
@@ -187,7 +204,6 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
               this.props.selectedDatasource[0].label !== 'OpenSearch' && (
                 <EuiFlexItem grow={false}>
                   <EuiButton
-                    fill={true}
                     className="sql-accelerate-button"
                     onClick={this.setAccelerationFlyout}
                     isDisabled={this.props.asyncLoading}
