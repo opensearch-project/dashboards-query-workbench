@@ -114,7 +114,7 @@ export const AccelerationDataSourceSelector = ({
       </EuiText>
       <EuiSpacer size="s" />
       <EuiText size="s" color="subdued">
-        Select data connection where the data you want to accelerate resides.
+        Select the data source to accelerate data from. External data sources may take time to load.
       </EuiText>
       <EuiSpacer size="s" />
       <EuiFormRow

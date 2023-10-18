@@ -20,7 +20,7 @@ exports[`Index type selector components renders type selector with default optio
     >
       <a
         className="euiLink euiLink--primary"
-        href="https://opensearch.org/docs/latest"
+        href="https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -170,7 +170,7 @@ exports[`Index type selector components renders type selector with different opt
     >
       <a
         className="euiLink euiLink--primary"
-        href="https://opensearch.org/docs/latest"
+        href="https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md"
         rel="noopener noreferrer"
         target="_blank"
       >
