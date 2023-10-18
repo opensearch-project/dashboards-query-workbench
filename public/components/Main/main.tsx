@@ -513,7 +513,19 @@ export class Main extends React.Component<MainProps, MainState> {
         this.setState({
           queries: queries,
           queryResults: [result],
-          queryResultsTable: result.data['schema'].length > 0 ? resultTable : [],
+          queryResultsTable:
+            result.data['schema'].length > 0
+              ? resultTable
+              : [
+                  {
+                    fulfilled: true,
+                    data: {
+                      fields: [''],
+                      records: [],
+                      message: SUCCESS_MESSAGE,
+                    },
+                  },
+                ],
           selectedTabId: getDefaultTabId([result]),
           selectedTabName: getDefaultTabLabel([result], queries[0]),
           messages: this.getMessage(resultTable),
