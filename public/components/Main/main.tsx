@@ -109,6 +109,7 @@ interface MainState {
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
   asyncJobId: string;
+  isAccelerationFlyoutOpened: boolean;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -246,6 +247,7 @@ export class Main extends React.Component<MainProps, MainState> {
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
       asyncJobId: '',
+      isAccelerationFlyoutOpened: false,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -789,12 +791,18 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
-  handleDataSelect = (selectedItems: []) => {
+  handleDataSelect = (selectedItems: EuiComboBoxOptionOption[]) => {
     if (selectedItems[0].label !== 'OpenSearch' && this.state.language === 'SQL') {
       this.updateSQLQueries('');
     }
     this.setState({
       selectedDatasource: selectedItems,
+    });
+  };
+
+  setIsAccelerationFlyoutOpened = (value: boolean) => {
+    this.setState({
+      isAccelerationFlyoutOpened: value,
     });
   };
 
@@ -819,6 +827,10 @@ export class Main extends React.Component<MainProps, MainState> {
           updateSQLQueries={this.updateSQLQueries}
           selectedDatasource={this.state.selectedDatasource}
           asyncLoading={this.state.asyncLoading}
+          openAccelerationFlyout={
+            this.props.isAccelerationFlyoutOpen && !this.state.isAccelerationFlyoutOpened
+          }
+          setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
       link = 'https://opensearch.org/docs/latest/search-plugins/sql/index/';
