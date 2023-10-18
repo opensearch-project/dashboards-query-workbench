@@ -5,6 +5,7 @@
 
 import {
   EuiButton,
+  EuiButtonIcon,
   EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
@@ -924,14 +925,17 @@ export class Main extends React.Component<MainProps, MainState> {
         <EuiPage paddingSize="none">
           {this.state.language === 'SQL' && (
             <EuiPanel>
-              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px' }}>
+              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px' , overflow: 'auto' }}>
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
-                      <EuiFlexGroup direction="row">
-                        <EuiFlexItem grow={false}>
-                          <EuiButton
+                      <EuiFlexGroup direction="row" gutterSize="s">
+                      <EuiFlexItem grow={false}>
+                          <EuiButtonIcon
+                            display="base"
                             iconType="refresh"
+                            size='m'
+                            aria-label='refresh'
                             onClick={this.handleReloadTree}
                           />
                         </EuiFlexItem>

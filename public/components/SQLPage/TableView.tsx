@@ -4,6 +4,7 @@
  */
 
 import {
+  EuiBadge,
   EuiComboBoxOptionOption,
   EuiEmptyPrompt,
   EuiFlexGroup,
@@ -21,8 +22,11 @@ import { CoreStart } from '../../../../../src/core/public';
 import {
   FETCH_OPENSEARCH_INDICES_PATH,
   LOAD_OPENSEARCH_INDICES_QUERY,
+  TREE_ITEM_BADGE_NAME,
   TREE_ITEM_COVERING_INDEX_DEFAULT_NAME,
   TREE_ITEM_DATABASE_NAME_DEFAULT_NAME,
+  TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME,
+  TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME,
   TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME,
   TREE_ITEM_TABLE_NAME_DEFAULT_NAME
 } from '../../../common/constants';
@@ -33,7 +37,7 @@ interface CustomView {
   http: CoreStart['http'];
   selectedItems: EuiComboBoxOptionOption[];
   updateSQLQueries: (query: string) => void;
-  refreshTree: boolean
+  refreshTree: boolean;
 }
 
 export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }: CustomView) => {
@@ -74,9 +78,11 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         isExpanded: true,
       };
 
-      if (type === TREE_ITEM_DATABASE_NAME_DEFAULT_NAME || type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME) {
+      if (
+        type != TREE_ITEM_COVERING_INDEX_DEFAULT_NAME &&
+        type != TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME 
+      ) {
         treeItem.values = [];
-        treeItem.isExpanded = true;
       }
       return treeItem;
     });
@@ -139,7 +145,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     getJobId(query, http, (id) => {
       get_async_query_results(id, http, (data) => {
         data = data.map((subArray) => subArray[1]);
-        const values = loadTreeItem(data, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
+        let values = loadTreeItem(data, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
+        let mvObj = loadTreeItem([TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME], TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME);
+        values = [...values, ...mvObj];
         setTreeData((prevTreeData) => {
           return prevTreeData.map((database) => {
             if (database.name === databaseName) {
@@ -168,11 +176,11 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             if (database.name === selectedDatabase) {
               return {
                 ...database,
-                values: database.values.map((table) => {
+                values: database.values?.map((table) => {
                   if (table.name === tableName) {
                     return {
                       ...table,
-                      values: table.values.concat(...coverIndexObj),
+                      values: table.values?.concat(...coverIndexObj),
                     };
                   }
                   return table;
@@ -185,6 +193,41 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         setIsLoading(false);
       });
     });
+  };
+
+  const handleButtonClick = (e: MouseEvent, tableName: string) => {
+    e.stopPropagation();
+    setSelectedTable(tableName);
+    setIsLoading(true);
+    const materializedViewQuery = {
+      lang: 'sql',
+      query: `SHOW MATERIALIZED VIEW IN ${selectedItems[0]['label']}.${selectedDatabase}`,
+      datasource: selectedItems[0]['label'],
+    };
+    getJobId(materializedViewQuery, http, (id) => {
+      get_async_query_results(id, http, (data) => {
+        console.log(data)
+        data = data.map((subArray) => subArray[1]);
+        let values = loadTreeItem(data, TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME);
+        if(values.length === 0){
+          values = [{ name: 'No Materialized View', type: TREE_ITEM_BADGE_NAME, isExpanded: false }]
+        }
+        setTreeData((prevTreeData) => {
+          return prevTreeData.map((database) => {
+            if (database.name === selectedDatabase) {
+              const updatedValues = database.values?.filter(
+                (item) => item.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
+              );
+              return { ...database, values: updatedValues?.concat(...values) };
+            }
+            return database;
+          });
+        });
+        setIsLoading(false);
+      });
+    });
+
+    
   };
 
   const handleTableClick = (tableName: string) => {
@@ -203,11 +246,14 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               if (database.name === selectedDatabase) {
                 return {
                   ...database,
-                  values: database.values.map((table) => {
+                  values: database.values?.map((table) => {
                     if (table.name === tableName) {
                       return {
                         ...table,
-                        values: loadTreeItem([TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME], TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME),
+                        values: loadTreeItem(
+                          [TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME],
+                          TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
+                        ),
                       };
                     }
                     return table;
@@ -223,56 +269,93 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     });
   };
 
-  const createLabel = (name: string) => {
-    return (
-      <div key={name}>
-        <EuiToolTip position="right" content={name} delay="long">
-          <EuiText>{_.truncate(name, { length: 50 })}</EuiText>
-        </EuiToolTip>{' '}
-      </div>
-    );
+  const createLabel = (node: TreeItem, parentName: string, index: number) => {
+    if (node.type === TREE_ITEM_BADGE_NAME) {
+      return (
+        <div key={`${parentName}.${node.name}.index`}>
+          <EuiToolTip position="right" content={node.name} delay="long">
+            <EuiBadge>{_.truncate(node.name, { length: 50 })}</EuiBadge>
+          </EuiToolTip>{' '}
+        </div>
+      );
+    }else if(node.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME) {
+      return (
+        <div key={node.name}>
+          <EuiBadge color='hollow' onClick={handleButtonClick}>Load Materialized View</EuiBadge>
+        </div>
+      );
+      }
+    else {
+      return (
+        <div key={node.name}>
+          <EuiToolTip position="right" content={node.name} delay="long">
+            <EuiText>{_.truncate(node.name, { length: 50 })}</EuiText>
+          </EuiToolTip>{' '}
+        </div>
+      );
+    }
   };
 
   const OpenSearchIndicesTree = tableNames.map((database, index) => ({
-    label: createLabel(database),
+    label: (
+      <div key={database}>
+        <EuiToolTip position="right" content={database} delay="long">
+          <EuiText>{_.truncate(database, { length: 50 })}</EuiText>
+        </EuiToolTip>{' '}
+      </div>
+    ),
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     isSelectable: false,
   }));
 
   const treeDataDatabases = treeData.map((database, index) => ({
-    label: createLabel(database.name),
+    label: createLabel(database,selectedItems[0].label,index),
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
-      if (database.values.length === 0 && selectedItems[0].label !== 'OpenSearch') {
+      if (database.values?.length === 0 && selectedItems[0].label !== 'OpenSearch') {
         handleDatabaseClick(database.name);
       }
     },
     isSelectable: true,
     isExpanded: database.isExpanded,
-    children: database.values.map((table) => ({
-      label: createLabel(table.name),
+    children: database.values?.map((table, index) => ({
+      label: createLabel(table,database.name,index),
       id: `${database.name}_${table.name}`,
-      icon: <EuiIcon type="tableDensityCompact" size="s" />,
+      icon:
+        table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME ? (
+          <EuiBadge color ='hollow'>MV</EuiBadge>
+        ) : table.type === TREE_ITEM_BADGE_NAME ? null : (
+          <EuiIcon type="tableDensityCompact" size="s" />
+        ),
       callback: () => {
-        if (table.values.length === 0) {
+        if (
+          table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME &&
+          table.values?.length === 0
+        ) {
           handleTableClick(table.name);
+        }
+        if (table.values?.length === 0) {
+          table.values = [{ name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false }];
         }
       },
       isSelectable: true,
       isExpanded: table.isExpanded,
-      children: table.values.map((indexChild) => ({
-        label: createLabel(indexChild.name),
+      children: table.values?.map((indexChild,index) => ({
+        label: createLabel(indexChild,table.name,index),
         id: `${database.name}_${table.name}_${indexChild.name}`,
-        icon: <EuiIcon type="bolt" size="s" />,
-        callback: () =>
-          handleAccelerationIndexClick(
-            selectedItems[0].label,
-            database.name,
-            table.name,
-            indexChild.name
-          ),
+        icon: indexChild.type === TREE_ITEM_BADGE_NAME ? null : <EuiIcon type="bolt" size="s" />,
+        callback: () => {
+          if (indexChild.type !== TREE_ITEM_BADGE_NAME) {
+            handleAccelerationIndexClick(
+              selectedItems[0].label,
+              database.name,
+              table.name,
+              indexChild.name
+            );
+          }
+        },
       })),
     })),
   }));

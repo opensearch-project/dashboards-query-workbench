@@ -10,8 +10,11 @@ export const ACC_INDEX_TYPE_DOCUMENTATION_URL = 'https://opensearch.org/docs/lat
 
 export const TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME = `skipping_index`;
 export const TREE_ITEM_COVERING_INDEX_DEFAULT_NAME = `covering_index`;
+export const TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME = `materialized_view`;
 export const TREE_ITEM_DATABASE_NAME_DEFAULT_NAME = `database`;
 export const TREE_ITEM_TABLE_NAME_DEFAULT_NAME = `table`;
+export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
+export const TREE_ITEM_BADGE_NAME =`badge`
 export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
 (status VALUE_SET) 
