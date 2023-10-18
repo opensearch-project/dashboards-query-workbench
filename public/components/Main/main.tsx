@@ -109,6 +109,7 @@ interface MainState {
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
+  asyncQueryError: string;
   asyncJobId: string;
   isAccelerationFlyoutOpened: boolean;
   isCallOutVisible: boolean;
@@ -248,6 +249,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedDatasource: [{ label: 'OpenSearch' }],
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
+      asyncQueryError: '',
       asyncJobId: '',
       isAccelerationFlyoutOpened: false,
       isCallOutVisible: false,
@@ -407,6 +409,7 @@ export class Main extends React.Component<MainProps, MainState> {
             queryResultsTEXT: [],
             searchQuery: '',
             asyncLoading: false,
+            asyncLoadingStatus: 'SUCCESS',
             isCallOutVisible: false,
           },
           () => console.log('Successfully updated the states')
@@ -479,6 +482,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 asyncLoading: true,
                 asyncLoadingStatus: 'SCHEDULED',
                 asyncJobId: queryId,
+                isCallOutVisible: false,
               });
               this.callGetStartPolling(queries);
               const interval = setInterval(() => {
@@ -541,6 +545,7 @@ export class Main extends React.Component<MainProps, MainState> {
               className: 'error-message',
             },
           ],
+          asyncQueryError: result.data['error'],
         });
       } else {
         this.setState({
@@ -767,6 +772,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabName: MESSAGE_TAB_LABEL,
       itemIdToExpandedRowMap: {},
       asyncLoading: false,
+      asyncLoadingStatus: 'SUCCESS',
       isCallOutVisible: false,
     });
   };
@@ -898,8 +904,8 @@ export class Main extends React.Component<MainProps, MainState> {
             getText={this.getText}
             isResultFullScreen={this.state.isResultFullScreen}
             setIsResultFullScreen={this.setIsResultFullScreen}
-            asyncLoading={this.state.asyncLoading}
             asyncLoadingStatus={this.state.asyncLoadingStatus}
+            asyncQueryError={this.state.asyncQueryError}
             cancelAsyncQuery={this.cancelAsyncQuery}
             selectedDatasource={this.state.selectedDatasource}
           />
@@ -1017,8 +1023,8 @@ export class Main extends React.Component<MainProps, MainState> {
                   getText={this.getText}
                   isResultFullScreen={this.state.isResultFullScreen}
                   setIsResultFullScreen={this.setIsResultFullScreen}
-                  asyncLoading={this.state.asyncLoading}
                   asyncLoadingStatus={this.state.asyncLoadingStatus}
+                  asyncQueryError={this.state.asyncQueryError}
                   cancelAsyncQuery={this.cancelAsyncQuery}
                   selectedDatasource={this.state.selectedDatasource}
                 />
