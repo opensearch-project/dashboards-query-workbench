@@ -287,3 +287,79 @@ describe('<QueryResults with data/> spec', () => {
     await fireEvent.click(getAllByTestId('slide-down')[0]);
   });
 });
+
+describe('<AsyncQueryResults /> spec', () => {
+  it('renders async query loading component', async () => {
+    const asyncTest = () => {
+      render(
+        <QueryResults
+          language="SQL"
+          queries={mockQueries}
+          queryResults={mockQueryResults}
+          queryResultsJDBC={''}
+          queryResultsJSON={''}
+          queryResultsCSV={''}
+          queryResultsTEXT={''}
+          messages={[]}
+          selectedTabId={'0'}
+          selectedTabName={MESSAGE_TAB_LABEL}
+          onSelectedTabIdChange={() => {}}
+          itemIdToExpandedRowMap={{}}
+          onQueryChange={() => {}}
+          updateExpandedMap={() => {}}
+          searchQuery={''}
+          tabsOverflow={true}
+          getJson={() => {}}
+          getJdbc={() => {}}
+          getCsv={() => {}}
+          getText={() => {}}
+          isResultFullScreen={false}
+          setIsResultFullScreen={() => {}}
+          asyncLoadingStatus="RUNNING"
+          asyncQueryError=""
+          selectedDatasource={[{ label: 'mys3' }]}
+          cancelAsyncQuery={() => {}}
+        />
+      );
+    };
+    await asyncTest();
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
+
+  it('renders async query failure component', async () => {
+    const asyncTest = () => {
+      render(
+        <QueryResults
+          language="SQL"
+          queries={mockQueries}
+          queryResults={mockQueryResults}
+          queryResultsJDBC={''}
+          queryResultsJSON={''}
+          queryResultsCSV={''}
+          queryResultsTEXT={''}
+          messages={[]}
+          selectedTabId={'0'}
+          selectedTabName={MESSAGE_TAB_LABEL}
+          onSelectedTabIdChange={() => {}}
+          itemIdToExpandedRowMap={{}}
+          onQueryChange={() => {}}
+          updateExpandedMap={() => {}}
+          searchQuery={''}
+          tabsOverflow={true}
+          getJson={() => {}}
+          getJdbc={() => {}}
+          getCsv={() => {}}
+          getText={() => {}}
+          isResultFullScreen={false}
+          setIsResultFullScreen={() => {}}
+          asyncLoadingStatus="FAILED"
+          asyncQueryError="custom error"
+          selectedDatasource={[{ label: 'mys3' }]}
+          cancelAsyncQuery={() => {}}
+        />
+      );
+    };
+    await asyncTest();
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
+});
