@@ -5,8 +5,10 @@
 
 export const PLUGIN_ID = 'queryWorkbenchDashboards';
 export const PLUGIN_NAME = 'Query Workbench';
-export const OPENSEARCH_ACC_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
-export const ACC_INDEX_TYPE_DOCUMENTATION_URL = 'https://opensearch.org/docs/latest';
+export const OPENSEARCH_ACC_DOCUMENTATION_URL =
+  'https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/';
+export const ACC_INDEX_TYPE_DOCUMENTATION_URL =
+  'https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md';
 
 export const SKIPPING_INDEX = `skipping_index`;
 export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
@@ -37,7 +39,7 @@ OPTIONS (
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
   { label: 'Covering Index', value: 'covering' },
-  // { label: 'Materialized View', value: 'materialized' }, Hidden Option -> Until opensearch-spark feature is ready
+  { label: 'Materialized View', value: 'materialized' },
 ];
 
 export const ACCELERATION_AGGREGRATION_FUNCTIONS = [
