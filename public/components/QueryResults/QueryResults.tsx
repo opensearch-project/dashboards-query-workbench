@@ -45,7 +45,7 @@ import {
   ResponseDetail,
   Tab,
 } from '../Main/main';
-import { AsyncQueryBody } from './AsyncQueryBody';
+import { AsyncQueryBody } from './async_query_body';
 import QueryResultsBody from './QueryResultsBody';
 
 interface QueryResultsProps {
