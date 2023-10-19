@@ -5,7 +5,7 @@
 
 import _ from 'lodash';
 import { CoreStart } from '../../../../../src/core/public';
-import { SIDEBAR_POLL_INTERVAL_MS } from '../../../common/constants';
+import { ASYNC_QUERY_JOB_ENDPOINT, SIDEBAR_POLL_INTERVAL_MS } from '../../../common/constants';
 
 let previousJobTimer: NodeJS.Timeout | null = null;
 
@@ -14,7 +14,7 @@ export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) =
     clearTimeout(previousJobTimer);
   }
   http
-    .get(`/api/spark_sql_console/job/` + id)
+    .get(ASYNC_QUERY_JOB_ENDPOINT + id)
     .then((res) => {
       const status = res.data.resp.status;
       if (status === 'PENDING' || status === 'RUNNING' || status === 'SCHEDULED') {

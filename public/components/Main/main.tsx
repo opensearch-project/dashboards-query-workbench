@@ -22,6 +22,7 @@ import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
+import { ASYNC_QUERY_JOB_ENDPOINT } from '../../../common/constants';
 import { AsyncQueryLoadingStatus } from '../../../common/types';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
@@ -503,7 +504,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
   callGetStartPolling = async (queries: string[]) => {
     const nextP = this.httpClient
-      .get('/api/spark_sql_console/job/' + this.state.asyncJobId)
+      .get(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
       .catch((error: any) => {
         this.setState({
           messages: [
@@ -562,7 +563,7 @@ export class Main extends React.Component<MainProps, MainState> {
   cancelAsyncQuery = async () => {
     Promise.all([
       this.httpClient
-        .delete('/api/spark_sql_console/job/' + this.state.asyncJobId)
+        .delete(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
         .catch((error: any) => {
           this.setState({
             messages: [

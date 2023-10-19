@@ -142,13 +142,16 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
 
     return (
       <>
-        <EuiPanel className="sql-console-query-editor container-panel" paddingSize="m">
+        <EuiPanel
+          className="sql-console-query-editor container-panel coreSystemRootDomElement"
+          paddingSize="m"
+        >
           <EuiSpacer size="s" />
           <EuiCodeEditor
             mode="sql"
-            theme="sql_console"
+            theme="textmate"
             width="100%"
-            height="7rem"
+            height="10rem"
             value={this.props.sqlQuery}
             onChange={this.props.updateSQLQueries}
             showPrintMargin={false}
