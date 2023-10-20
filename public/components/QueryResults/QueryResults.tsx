@@ -343,7 +343,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
               <>
                 <EuiSpacer size="xxl" />
                 <EuiSpacer size="xl" />
-                <EuiText style={{ color: '#3f3f3f' }}>
+                <EuiText>
                   <EuiTextAlign textAlign="center">
                     <h4>No result</h4>
                   </EuiTextAlign>

@@ -296,7 +296,7 @@ exports[`<Main /> spec click clear button 1`] = `
         />
         <div>
           <div
-            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
           >
             <div
               class="euiSpacer euiSpacer--s"
@@ -304,7 +304,7 @@ exports[`<Main /> spec click clear button 1`] = `
             <div
               class="euiCodeEditorWrapper"
               data-test-subj="codeEditorContainer"
-              style="width: 100%; height: 7rem;"
+              style="width: 100%; height: 10rem;"
             >
               <button
                 class="euiCodeEditorKeyboardHint"
@@ -323,9 +323,9 @@ exports[`<Main /> spec click clear button 1`] = `
                 </p>
               </button>
               <div
-                class=" ace_editor ace-sql-console"
+                class=" ace_editor ace-tm"
                 id="some_html_id"
-                style="width: 100%; height: 7rem; font-size: 14px;"
+                style="width: 100%; height: 10rem; font-size: 14px;"
               >
                 <textarea
                   aria-label="Code Editor"
@@ -523,7 +523,6 @@ exports[`<Main /> spec click clear button 1`] = `
             />
             <div
               class="euiText euiText--medium"
-              style="color: rgb(63, 63, 63);"
             >
               <div
                 class="euiTextAlign euiTextAlign--center"
@@ -850,7 +849,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
         />
         <div>
           <div
-            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
           >
             <div
               class="euiSpacer euiSpacer--s"
@@ -858,7 +857,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
             <div
               class="euiCodeEditorWrapper"
               data-test-subj="codeEditorContainer"
-              style="width: 100%; height: 7rem;"
+              style="width: 100%; height: 10rem;"
             >
               <button
                 class="euiCodeEditorKeyboardHint"
@@ -877,9 +876,9 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                 </p>
               </button>
               <div
-                class=" ace_editor ace-sql-console"
+                class=" ace_editor ace-tm"
                 id="some_html_id"
-                style="width: 100%; height: 7rem; font-size: 14px;"
+                style="width: 100%; height: 10rem; font-size: 14px;"
               >
                 <textarea
                   aria-label="Code Editor"
@@ -1077,7 +1076,6 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
             />
             <div
               class="euiText euiText--medium"
-              style="color: rgb(63, 63, 63);"
             >
               <div
                 class="euiTextAlign euiTextAlign--center"
@@ -1404,7 +1402,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
         />
         <div>
           <div
-            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
           >
             <div
               class="euiSpacer euiSpacer--s"
@@ -1412,7 +1410,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
             <div
               class="euiCodeEditorWrapper"
               data-test-subj="codeEditorContainer"
-              style="width: 100%; height: 7rem;"
+              style="width: 100%; height: 10rem;"
             >
               <button
                 class="euiCodeEditorKeyboardHint"
@@ -1431,9 +1429,9 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                 </p>
               </button>
               <div
-                class=" ace_editor ace-sql-console"
+                class=" ace_editor ace-tm"
                 id="some_html_id"
-                style="width: 100%; height: 7rem; font-size: 14px;"
+                style="width: 100%; height: 10rem; font-size: 14px;"
               >
                 <textarea
                   aria-label="Code Editor"
@@ -1631,7 +1629,6 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
             />
             <div
               class="euiText euiText--medium"
-              style="color: rgb(63, 63, 63);"
             >
               <div
                 class="euiTextAlign euiTextAlign--center"
@@ -2046,7 +2043,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
         />
         <div>
           <div
-            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
           >
             <div
               class="euiSpacer euiSpacer--s"
@@ -2054,7 +2051,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
             <div
               class="euiCodeEditorWrapper"
               data-test-subj="codeEditorContainer"
-              style="width: 100%; height: 7rem;"
+              style="width: 100%; height: 10rem;"
             >
               <button
                 class="euiCodeEditorKeyboardHint"
@@ -2073,9 +2070,9 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                 </p>
               </button>
               <div
-                class=" ace_editor ace-sql-console"
+                class=" ace_editor ace-tm"
                 id="some_html_id"
-                style="width: 100%; height: 7rem; font-size: 14px;"
+                style="width: 100%; height: 10rem; font-size: 14px;"
               >
                 <textarea
                   aria-label="Code Editor"
@@ -2273,7 +2270,6 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
             />
             <div
               class="euiText euiText--medium"
-              style="color: rgb(63, 63, 63);"
             >
               <div
                 class="euiTextAlign euiTextAlign--center"
@@ -2684,7 +2680,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
         />
         <div>
           <div
-            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
           >
             <div
               class="euiSpacer euiSpacer--s"
@@ -2692,7 +2688,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
             <div
               class="euiCodeEditorWrapper"
               data-test-subj="codeEditorContainer"
-              style="width: 100%; height: 7rem;"
+              style="width: 100%; height: 10rem;"
             >
               <button
                 class="euiCodeEditorKeyboardHint"
@@ -2711,9 +2707,9 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                 </p>
               </button>
               <div
-                class=" ace_editor ace-sql-console"
+                class=" ace_editor ace-tm"
                 id="some_html_id"
-                style="width: 100%; height: 7rem; font-size: 14px;"
+                style="width: 100%; height: 10rem; font-size: 14px;"
               >
                 <textarea
                   aria-label="Code Editor"
@@ -2911,7 +2907,6 @@ exports[`<Main /> spec click run button, response fills null and missing values 
             />
             <div
               class="euiText euiText--medium"
-              style="color: rgb(63, 63, 63);"
             >
               <div
                 class="euiTextAlign euiTextAlign--center"
@@ -3241,7 +3236,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
         />
         <div>
           <div
-            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
           >
             <div
               class="euiSpacer euiSpacer--s"
@@ -3249,7 +3244,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
             <div
               class="euiCodeEditorWrapper"
               data-test-subj="codeEditorContainer"
-              style="width: 100%; height: 7rem;"
+              style="width: 100%; height: 10rem;"
             >
               <button
                 class="euiCodeEditorKeyboardHint"
@@ -3268,9 +3263,9 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                 </p>
               </button>
               <div
-                class=" ace_editor ace-sql-console"
+                class=" ace_editor ace-tm"
                 id="some_html_id"
-                style="width: 100%; height: 7rem; font-size: 14px;"
+                style="width: 100%; height: 10rem; font-size: 14px;"
               >
                 <textarea
                   aria-label="Code Editor"
@@ -3468,7 +3463,6 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
             />
             <div
               class="euiText euiText--medium"
-              style="color: rgb(63, 63, 63);"
             >
               <div
                 class="euiTextAlign euiTextAlign--center"
@@ -3817,7 +3811,7 @@ exports[`<Main /> spec renders the component 1`] = `
         />
         <div>
           <div
-            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel"
+            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
           >
             <div
               class="euiSpacer euiSpacer--s"
@@ -3825,7 +3819,7 @@ exports[`<Main /> spec renders the component 1`] = `
             <div
               class="euiCodeEditorWrapper"
               data-test-subj="codeEditorContainer"
-              style="width: 100%; height: 7rem;"
+              style="width: 100%; height: 10rem;"
             >
               <button
                 class="euiCodeEditorKeyboardHint"
@@ -3844,9 +3838,9 @@ exports[`<Main /> spec renders the component 1`] = `
                 </p>
               </button>
               <div
-                class=" ace_editor ace-sql-console"
+                class=" ace_editor ace-tm"
                 id="some_html_id"
-                style="width: 100%; height: 7rem; font-size: 14px;"
+                style="width: 100%; height: 10rem; font-size: 14px;"
               >
                 <textarea
                   aria-label="Code Editor"
@@ -4044,7 +4038,6 @@ exports[`<Main /> spec renders the component 1`] = `
             />
             <div
               class="euiText euiText--medium"
-              style="color: rgb(63, 63, 63);"
             >
               <div
                 class="euiTextAlign euiTextAlign--center"
