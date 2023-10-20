@@ -91,5 +91,6 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
 
 export const FETCH_OPENSEARCH_INDICES_PATH = '/api/sql_console/sqlquery';
 export const POLL_INTERVAL_MS = 1000;
-export const ASYNC_QUERY_JOB_ENDPOINT = '/api/spark_sql_console/job/';
+export const ASYNC_QUERY_ENDPOINT = '/api/spark_sql_console';
+export const ASYNC_QUERY_JOB_ENDPOINT = ASYNC_QUERY_ENDPOINT + '/job';
 export const ASYNC_QUERY_SESSION_ID = 'async-query-session-id';

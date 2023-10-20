@@ -22,7 +22,11 @@ import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
-import { ASYNC_QUERY_JOB_ENDPOINT, POLL_INTERVAL_MS } from '../../../common/constants';
+import {
+  ASYNC_QUERY_ENDPOINT,
+  ASYNC_QUERY_JOB_ENDPOINT,
+  POLL_INTERVAL_MS,
+} from '../../../common/constants';
 import { AsyncQueryLoadingStatus } from '../../../common/types';
 import { getAsyncSessionId, setAsyncSessionId } from '../../../common/utils/async_query_helpers';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
@@ -430,11 +434,10 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '/api/spark_sql_console';
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, {
+            .post(ASYNC_QUERY_ENDPOINT, {
               body: JSON.stringify({
                 lang: language,
                 query: query,
