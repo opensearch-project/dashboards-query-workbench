@@ -89,7 +89,7 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
 - All user given index names must be in lowercase letters. Index name cannot begin with underscores. Spaces, commas, and characters -, :, ", *, +, /, \, |, ?, #, >, or < are not allowed.  
   `;
 
-export const SIDEBAR_POLL_INTERVAL_MS = 5000;
-
 export const FETCH_OPENSEARCH_INDICES_PATH = '/api/sql_console/sqlquery';
+export const POLL_INTERVAL_MS = 1000;
 export const ASYNC_QUERY_JOB_ENDPOINT = '/api/spark_sql_console/job/';
+export const ASYNC_QUERY_SESSION_ID = 'async-query-session-id';

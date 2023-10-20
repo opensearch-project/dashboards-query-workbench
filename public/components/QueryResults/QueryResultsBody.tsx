@@ -37,7 +37,6 @@ import {
   Pager,
 } from '@elastic/eui';
 import _ from 'lodash';
-import '../../ace-themes/sql_console';
 import { COLUMN_WIDTH, PAGE_OPTIONS, SMALL_COLUMN_WIDTH } from '../../utils/constants';
 import {
   Node,

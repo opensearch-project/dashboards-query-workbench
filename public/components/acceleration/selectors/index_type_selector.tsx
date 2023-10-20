@@ -23,7 +23,7 @@ import {
   CreateAccelerationForm,
   DataTableFieldsType,
 } from '../../../../common/types';
-import { getJobId, pollQueryStatus } from '../../SQLPage/utils';
+import { getJobId, pollQueryStatus } from '../../../../common/utils/async_query_helpers';
 
 interface IndexTypeSelectorProps {
   http: CoreStart['http'];

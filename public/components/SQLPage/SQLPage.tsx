@@ -23,7 +23,6 @@ import 'brace/ext/language_tools';
 import 'brace/mode/sql';
 import React from 'react';
 import { CoreStart } from '../../../../../src/core/public';
-import '../../ace-themes/sql_console';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 import { CreateAcceleration } from '../acceleration/create/create_acceleration';
 
