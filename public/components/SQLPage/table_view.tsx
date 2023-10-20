@@ -13,7 +13,7 @@ import {
   EuiLoadingSpinner,
   EuiText,
   EuiToolTip,
-  EuiTreeView
+  EuiTreeView,
 } from '@elastic/eui';
 import { TreeItem, TreeItemType } from 'common/types';
 import _ from 'lodash';
@@ -28,7 +28,7 @@ import {
   TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME,
   TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME,
   TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME,
-  TREE_ITEM_TABLE_NAME_DEFAULT_NAME
+  TREE_ITEM_TABLE_NAME_DEFAULT_NAME,
 } from '../../../common/constants';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
 import { getJobId, pollQueryStatus } from './utils';
@@ -80,7 +80,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
       if (
         type != TREE_ITEM_COVERING_INDEX_DEFAULT_NAME &&
-        type != TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME 
+        type != TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
       ) {
         treeItem.values = [];
       }
@@ -146,7 +146,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       get_async_query_results(id, http, (data) => {
         data = data.map((subArray) => subArray[1]);
         let values = loadTreeItem(data, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
-        let mvObj = loadTreeItem([TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME], TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME);
+        let mvObj = loadTreeItem(
+          [TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME],
+          TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
+        );
         values = [...values, ...mvObj];
         setTreeData((prevTreeData) => {
           return prevTreeData.map((database) => {
@@ -206,11 +209,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     };
     getJobId(materializedViewQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
-        console.log(data)
         data = data.map((subArray) => subArray[1]);
         let values = loadTreeItem(data, TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME);
-        if(values.length === 0){
-          values = [{ name: 'No Materialized View', type: TREE_ITEM_BADGE_NAME, isExpanded: false }]
+        if (values.length === 0) {
+          values = [
+            { name: 'No Materialized View', type: TREE_ITEM_BADGE_NAME, isExpanded: false },
+          ];
         }
         setTreeData((prevTreeData) => {
           return prevTreeData.map((database) => {
@@ -226,8 +230,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         setIsLoading(false);
       });
     });
-
-    
   };
 
   const handleTableClick = (tableName: string) => {
@@ -270,29 +272,33 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   };
 
   const createLabel = (node: TreeItem, parentName: string, index: number) => {
-    if (node.type === TREE_ITEM_BADGE_NAME) {
-      return (
-        <div key={`${parentName}.${node.name}.index`}>
-          <EuiToolTip position="right" content={node.name} delay="long">
-            <EuiBadge>{_.truncate(node.name, { length: 50 })}</EuiBadge>
-          </EuiToolTip>{' '}
-        </div>
-      );
-    }else if(node.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME) {
-      return (
-        <div key={node.name}>
-          <EuiBadge color='hollow' onClick={handleButtonClick}>Load Materialized View</EuiBadge>
-        </div>
-      );
-      }
-    else {
-      return (
-        <div key={node.name}>
-          <EuiToolTip position="right" content={node.name} delay="long">
-            <EuiText>{_.truncate(node.name, { length: 50 })}</EuiText>
-          </EuiToolTip>{' '}
-        </div>
-      );
+    switch (node.type) {
+      case TREE_ITEM_BADGE_NAME:
+        return (
+          <div key={`${parentName}.${node.name}.${index}`}>
+            <EuiToolTip position="right" content={node.name} delay="long">
+              <EuiBadge>{_.truncate(node.name, { length: 50 })}</EuiBadge>
+            </EuiToolTip>{' '}
+          </div>
+        );
+
+      case TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME:
+        return (
+          <div key={node.name}>
+            <EuiBadge color="hollow" onClick={handleButtonClick}>
+              Load Materialized View
+            </EuiBadge>
+          </div>
+        );
+
+      default:
+        return (
+          <div key={node.name}>
+            <EuiToolTip position="right" content={node.name} delay="long">
+              <EuiText>{_.truncate(node.name, { length: 50 })}</EuiText>
+            </EuiToolTip>{' '}
+          </div>
+        );
     }
   };
 
@@ -310,7 +316,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   }));
 
   const treeDataDatabases = treeData.map((database, index) => ({
-    label: createLabel(database,selectedItems[0].label,index),
+    label: createLabel(database, selectedItems[0].label, index),
     icon: <EuiIcon type="database" size="m" />,
     id: 'element_' + index,
     callback: () => {
@@ -321,19 +327,16 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     isSelectable: true,
     isExpanded: database.isExpanded,
     children: database.values?.map((table, index) => ({
-      label: createLabel(table,database.name,index),
+      label: createLabel(table, database.name, index),
       id: `${database.name}_${table.name}`,
       icon:
         table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME ? (
-          <EuiBadge color ='hollow'>MV</EuiBadge>
+          <EuiBadge color="hollow">MV</EuiBadge>
         ) : table.type === TREE_ITEM_BADGE_NAME ? null : (
           <EuiIcon type="tableDensityCompact" size="s" />
         ),
       callback: () => {
-        if (
-          table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME &&
-          table.values?.length === 0
-        ) {
+        if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.values?.length === 0) {
           handleTableClick(table.name);
         }
         if (table.values?.length === 0) {
@@ -342,8 +345,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       },
       isSelectable: true,
       isExpanded: table.isExpanded,
-      children: table.values?.map((indexChild,index) => ({
-        label: createLabel(indexChild,table.name,index),
+      children: table.values?.map((indexChild, index) => ({
+        label: createLabel(indexChild, table.name, index),
         id: `${database.name}_${table.name}_${indexChild.name}`,
         icon: indexChild.type === TREE_ITEM_BADGE_NAME ? null : <EuiIcon type="bolt" size="s" />,
         callback: () => {
@@ -368,7 +371,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             <EuiFlexItem>
               <EuiLoadingSpinner size="l" />
             </EuiFlexItem>
-            <EuiFlexItem grow={false}>Loading databases</EuiFlexItem>
+            <EuiFlexItem grow={false}>Loading data</EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiText textAlign="center" color="subdued">
                 Loading can take more than 30s. Queries can be made after the data has loaded. Any
@@ -389,7 +392,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             <EuiEmptyPrompt
               iconType="alert"
               iconColor="danger"
-              title={<h2>Error loading Datasources</h2>}
+              title={<h2>Error loading data</h2>}
             />
           </EuiFlexItem>
         )}

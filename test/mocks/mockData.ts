@@ -2349,4 +2349,20 @@ export const mockDatasourcesQuery =
   }
 }
 
+export const mockJobId = {
+  data: {
+    ok: true,
+    resp: '{ "queryId": "00fe3fjpnfnn400q" }',
+  },
+};
+
+export const mockOpenSearchIndicies = {
+  data: {
+    ok: true,
+    resp:
+      '{"schema":[{"name":"TABLE_CAT","type":"keyword"},{"name":"TABLE_SCHEM","type":"keyword"},{"name":"TABLE_NAME","type":"keyword"},{"name":"TABLE_TYPE","type":"keyword"},{"name":"REMARKS","type":"keyword"},{"name":"TYPE_CAT","type":"keyword"},{"name":"TYPE_SCHEM","type":"keyword"},{"name":"TYPE_NAME","type":"keyword"},{"name":"SELF_REFERENCING_COL_NAME","type":"keyword"},{"name":"REF_GENERATION","type":"keyword"}],"datarows":[["opensearch",null,".kibana_1","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".kibana_2","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".kibana_3","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".opendistro-reports-definitions","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".opendistro-reports-instances","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".opensearch-observability","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".plugins-ml-config","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".ql-datasources","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".ql-job-metadata","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".query_execution_result","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"flint_mys3_default_alb_logs_temp_10_test_index","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"flint_mys3_default_alb_logs_temp_5_mys3_default_alb_logs_temp_5_index","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"flint_mys3_default_elb_logs_regex_elb_logs_regex_index_index","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"flint_mys3_default_empty_table_empty_table_index_index","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"flint_mys3_default_http_logs_skipping_index","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"flint_mys3_default_parquet_elb_logs_simple_parquet_index_simple_index","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"opensearch_dashboards_sample_data_flights","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"opensearch_dashboards_sample_data_logs","BASE TABLE",null,null,null,null,null,null],["opensearch",null,"ss4o_traces-elb-test","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".flint-elv-mv","BASE TABLE",null,null,null,null,null,null],["opensearch",null,".kibana","BASE TABLE",null,null,null,null,null,null]],"total":21,"size":21,"status":200}',
+  },
+};
+
+
 

@@ -36,7 +36,7 @@ import QueryResults from '../QueryResults/QueryResults';
 import { CreateButton } from '../SQLPage/CreateButton';
 import { DataSelect } from '../SQLPage/DataSelect';
 import { SQLPage } from '../SQLPage/SQLPage';
-import { TableView } from '../SQLPage/TableView';
+import { TableView } from '../SQLPage/table_view';
 
 interface ResponseData {
   ok: boolean;
