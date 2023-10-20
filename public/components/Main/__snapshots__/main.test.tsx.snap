@@ -193,7 +193,7 @@ exports[`<Main /> spec click clear button 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -203,7 +203,39 @@ exports[`<Main /> spec click clear button 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrowZero"
-            />
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    aria-label="refresh"
+                    class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--medium"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.228 2.942a.5.5 0 1 1-.538.842A5 5 0 1 0 13 8a.5.5 0 1 1 1 0 6 6 0 1 1-2.772-5.058ZM14 1.5v3A1.5 1.5 0 0 1 12.5 6h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 1 1 1 0Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                />
+              </div>
+            </div>
             <div
               class="euiSpacer euiSpacer--l"
             />
@@ -234,11 +266,11 @@ exports[`<Main /> spec click clear button 1`] = `
                   <div
                     class="euiSpacer euiSpacer--m"
                   />
-                  <h2
+                  <h3
                     class="euiTitle euiTitle--medium"
                   >
-                    Error loading Datasources
-                  </h2>
+                    Error loading data
+                  </h3>
                 </div>
               </div>
             </div>
@@ -715,7 +747,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -725,7 +757,39 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrowZero"
-            />
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    aria-label="refresh"
+                    class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--medium"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.228 2.942a.5.5 0 1 1-.538.842A5 5 0 1 0 13 8a.5.5 0 1 1 1 0 6 6 0 1 1-2.772-5.058ZM14 1.5v3A1.5 1.5 0 0 1 12.5 6h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 1 1 1 0Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                />
+              </div>
+            </div>
             <div
               class="euiSpacer euiSpacer--l"
             />
@@ -756,11 +820,11 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                   <div
                     class="euiSpacer euiSpacer--m"
                   />
-                  <h2
+                  <h3
                     class="euiTitle euiTitle--medium"
                   >
-                    Error loading Datasources
-                  </h2>
+                    Error loading data
+                  </h3>
                 </div>
               </div>
             </div>
@@ -1237,7 +1301,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -1247,7 +1311,39 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrowZero"
-            />
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    aria-label="refresh"
+                    class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--medium"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.228 2.942a.5.5 0 1 1-.538.842A5 5 0 1 0 13 8a.5.5 0 1 1 1 0 6 6 0 1 1-2.772-5.058ZM14 1.5v3A1.5 1.5 0 0 1 12.5 6h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 1 1 1 0Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                />
+              </div>
+            </div>
             <div
               class="euiSpacer euiSpacer--l"
             />
@@ -1278,11 +1374,11 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                   <div
                     class="euiSpacer euiSpacer--m"
                   />
-                  <h2
+                  <h3
                     class="euiTitle euiTitle--medium"
                   >
-                    Error loading Datasources
-                  </h2>
+                    Error loading data
+                  </h3>
                 </div>
               </div>
             </div>
@@ -1759,7 +1855,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -1769,7 +1865,39 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrowZero"
-            />
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    aria-label="refresh"
+                    class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--medium"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.228 2.942a.5.5 0 1 1-.538.842A5 5 0 1 0 13 8a.5.5 0 1 1 1 0 6 6 0 1 1-2.772-5.058ZM14 1.5v3A1.5 1.5 0 0 1 12.5 6h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 1 1 1 0Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                />
+              </div>
+            </div>
             <div
               class="euiSpacer euiSpacer--l"
             />
@@ -2369,7 +2497,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -2379,7 +2507,39 @@ exports[`<Main /> spec click run button, response fills null and missing values 
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrowZero"
-            />
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    aria-label="refresh"
+                    class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--medium"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.228 2.942a.5.5 0 1 1-.538.842A5 5 0 1 0 13 8a.5.5 0 1 1 1 0 6 6 0 1 1-2.772-5.058ZM14 1.5v3A1.5 1.5 0 0 1 12.5 6h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 1 1 1 0Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                />
+              </div>
+            </div>
             <div
               class="euiSpacer euiSpacer--l"
             />
@@ -2978,7 +3138,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -2988,7 +3148,39 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrowZero"
-            />
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    aria-label="refresh"
+                    class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--medium"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.228 2.942a.5.5 0 1 1-.538.842A5 5 0 1 0 13 8a.5.5 0 1 1 1 0 6 6 0 1 1-2.772-5.058ZM14 1.5v3A1.5 1.5 0 0 1 12.5 6h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 1 1 1 0Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                />
+              </div>
+            </div>
             <div
               class="euiSpacer euiSpacer--l"
             />
@@ -3019,11 +3211,11 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                   <div
                     class="euiSpacer euiSpacer--m"
                   />
-                  <h2
+                  <h3
                     class="euiTitle euiTitle--medium"
                   >
-                    Error loading Datasources
-                  </h2>
+                    Error loading data
+                  </h3>
                 </div>
               </div>
             </div>
@@ -3491,7 +3683,7 @@ exports[`<Main /> spec renders the component 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -3501,7 +3693,35 @@ exports[`<Main /> spec renders the component 1`] = `
           >
             <div
               class="euiFlexItem euiFlexItem--flexGrowZero"
-            />
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    aria-label="refresh"
+                    class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--medium"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    />
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                />
+              </div>
+            </div>
             <div
               class="euiSpacer euiSpacer--l"
             />
