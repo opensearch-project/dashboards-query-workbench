@@ -59,6 +59,8 @@ export interface FormErrorsType {
   checkpointLocationError: string[];
 }
 
+export type AccelerationRefreshType = 'auto' | 'interval' | 'manual';
+
 export interface CreateAccelerationForm {
   dataSource: string;
   database: string;
@@ -71,13 +73,13 @@ export interface CreateAccelerationForm {
   accelerationIndexName: string;
   primaryShardsCount: number;
   replicaShardsCount: number;
-  refreshType: 'interval' | 'auto';
+  refreshType: AccelerationRefreshType;
   checkpointLocation: string | undefined;
   refreshIntervalOptions: RefreshIntervalType;
   formErrors: FormErrorsType;
 }
 
-export type AsyncQueryLoadingStatus = 'SUCCESS' | 'FAILED' | 'RUNNING' | 'SCHEDULED' | 'CANCELED';
+export type AsyncQueryLoadingStatus = 'SUCCESS' | 'FAILED' | 'RUNNING' | 'SCHEDULED' | 'CANCELLED';
 export type TreeItemType = 'covering_index' | 'skipping_index' | 'table' | 'database' | 'materialized_view' | 'Load Materialized View' | 'badge'
 
 export interface TreeItem {

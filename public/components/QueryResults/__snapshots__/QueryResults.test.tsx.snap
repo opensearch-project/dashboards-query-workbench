@@ -1,5 +1,233 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<AsyncQueryResults /> spec renders async query failure component 1`] = `
+<div>
+  <div
+    class="euiPanel euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow query-result-container"
+  >
+    <div
+      style="padding: 20px 20px 0px 20px;"
+    >
+      <div
+        class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+      >
+        <div
+          class="euiFlexItem"
+        >
+          <div
+            class="euiText euiText--medium query-result-panel-header"
+          >
+            <h3>
+              Results
+            </h3>
+          </div>
+        </div>
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+        >
+          <button
+            class="euiButton euiButton--primary euiButton--small"
+            type="button"
+          >
+            <span
+              class="euiButtonContent euiButton__content"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13 3v4h-1V4H9V3h4ZM3 3h4v1H4v3H3V3Zm10 10H9v-1h3V9h1v4ZM3 13V9h1v3h3v1H3ZM0 1.994C0 .893.895 0 1.994 0h12.012C15.107 0 16 .895 16 1.994v12.012A1.995 1.995 0 0 1 14.006 16H1.994A1.995 1.995 0 0 1 0 14.006V1.994Zm1 0v12.012c0 .548.446.994.994.994h12.012a.995.995 0 0 0 .994-.994V1.994A.995.995 0 0 0 14.006 1H1.994A.995.995 0 0 0 1 1.994Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+              <span
+                class="euiButton__text"
+              >
+                Full screen view
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr
+      class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+    />
+    <div
+      class="euiSpacer euiSpacer--xl"
+    />
+    <div
+      class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+    >
+      <div
+        class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+      >
+        <svg
+          aria-hidden="true"
+          class="euiIcon euiIcon--large euiIcon--danger euiIcon-isLoading"
+          focusable="false"
+          height="16"
+          role="img"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <div
+          class="euiText euiText--medium"
+        >
+          <h3>
+            Query failed
+          </h3>
+        </div>
+        <div
+          class="euiText euiText--medium"
+        >
+          The query failed to execute and the operation could not be complete.
+        </div>
+        <button
+          class="euiButton euiButton--primary"
+          type="button"
+        >
+          <span
+            class="euiButtonContent euiButton__content"
+          >
+            <span
+              class="euiButton__text"
+            >
+              View error details
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="euiSpacer euiSpacer--xxl"
+    />
+    <div
+      class="euiSpacer euiSpacer--m"
+    />
+  </div>
+</div>
+`;
+
+exports[`<AsyncQueryResults /> spec renders async query loading component 1`] = `
+<div>
+  <div
+    class="euiPanel euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow query-result-container"
+  >
+    <div
+      style="padding: 20px 20px 0px 20px;"
+    >
+      <div
+        class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+      >
+        <div
+          class="euiFlexItem"
+        >
+          <div
+            class="euiText euiText--medium query-result-panel-header"
+          >
+            <h3>
+              Results
+            </h3>
+          </div>
+        </div>
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+        >
+          <button
+            class="euiButton euiButton--primary euiButton--small"
+            type="button"
+          >
+            <span
+              class="euiButtonContent euiButton__content"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13 3v4h-1V4H9V3h4ZM3 3h4v1H4v3H3V3Zm10 10H9v-1h3V9h1v4ZM3 13V9h1v3h3v1H3ZM0 1.994C0 .893.895 0 1.994 0h12.012C15.107 0 16 .895 16 1.994v12.012A1.995 1.995 0 0 1 14.006 16H1.994A1.995 1.995 0 0 1 0 14.006V1.994Zm1 0v12.012c0 .548.446.994.994.994h12.012a.995.995 0 0 0 .994-.994V1.994A.995.995 0 0 0 14.006 1H1.994A.995.995 0 0 0 1 1.994Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+              <span
+                class="euiButton__text"
+              >
+                Full screen view
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr
+      class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+    />
+    <div
+      class="euiSpacer euiSpacer--xl"
+    />
+    <div
+      class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+    >
+      <div
+        class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+      >
+        <span
+          class="euiLoadingSpinner euiLoadingSpinner--large"
+        />
+        <div
+          class="euiText euiText--medium"
+        >
+          <h3>
+            Query running
+          </h3>
+        </div>
+        <div
+          class="euiText euiText--medium"
+        >
+          Status: 
+          RUNNING
+        </div>
+        <button
+          class="euiButton euiButton--primary"
+          type="button"
+        >
+          <span
+            class="euiButtonContent euiButton__content"
+          >
+            <span
+              class="euiButton__text"
+            >
+              Cancel
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="euiSpacer euiSpacer--xxl"
+    />
+    <div
+      class="euiSpacer euiSpacer--m"
+    />
+  </div>
+</div>
+`;
+
 exports[`<QueryResults /> spec renders the component with no data 1`] = `undefined`;
 
 exports[`<QueryResults /> spec renders the component with no data 2`] = `undefined`;
@@ -324,6 +552,52 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+        >
+          <div
+            class="download-container"
+          >
+            <div
+              class="euiPopover euiPopover--anchorDownLeft download-button-container"
+              id="singlePanel"
+            >
+              <div
+                class="euiPopover__anchor"
+              >
+                <button
+                  class="euiButton euiButton--primary euiButton--small"
+                  type="button"
+                >
+                  <span
+                    class="euiButtonContent euiButtonContent--iconRight euiButton__content"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.069 5.157 8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0Z"
+                        fill-rule="non-zero"
+                      />
+                    </svg>
+                    <span
+                      class="euiButton__text"
+                    >
+                      Download
+                    </span>
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -9732,6 +10006,47 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+        >
+          <div
+            class="download-container"
+          >
+            <div
+              class="euiPopover euiPopover--anchorDownLeft download-button-container"
+              id="singlePanel"
+            >
+              <div
+                class="euiPopover__anchor"
+              >
+                <button
+                  class="euiButton euiButton--primary euiButton--small"
+                  type="button"
+                >
+                  <span
+                    class="euiButtonContent euiButtonContent--iconRight euiButton__content"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    />
+                    <span
+                      class="euiButton__text"
+                    >
+                      Download
+                    </span>
+                  </span>
+                </button>
               </div>
             </div>
           </div>
