@@ -5,6 +5,7 @@
 
 import {
   EuiButton,
+  EuiButtonIcon,
   EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
@@ -36,7 +37,7 @@ import QueryResults from '../QueryResults/QueryResults';
 import { CreateButton } from '../SQLPage/CreateButton';
 import { DataSelect } from '../SQLPage/DataSelect';
 import { SQLPage } from '../SQLPage/SQLPage';
-import { TableView } from '../SQLPage/TableView';
+import { TableView } from '../SQLPage/table_view';
 
 interface ResponseData {
   ok: boolean;
@@ -111,6 +112,7 @@ interface MainState {
   asyncLoadingStatus: AsyncQueryLoadingStatus;
   asyncQueryError: string;
   asyncJobId: string;
+  refreshTree: boolean;
   isAccelerationFlyoutOpened: boolean;
   isCallOutVisible: boolean;
 }
@@ -251,6 +253,7 @@ export class Main extends React.Component<MainProps, MainState> {
       asyncLoadingStatus: 'SUCCESS',
       asyncQueryError: '',
       asyncJobId: '',
+      refreshTree: false,
       isAccelerationFlyoutOpened: false,
       isCallOutVisible: false,
     };
@@ -814,6 +817,12 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   };
 
+  handleReloadTree = () => {
+    this.setState({
+      refreshTree: !this.state.refreshTree,
+    });
+  };
+      
   setIsAccelerationFlyoutOpened = (value: boolean) => {
     this.setState({
       isAccelerationFlyoutOpened: value,
@@ -942,20 +951,34 @@ export class Main extends React.Component<MainProps, MainState> {
         <EuiPage paddingSize="none">
           {this.state.language === 'SQL' && (
             <EuiPanel>
-              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px' }}>
+              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px' , overflow: 'auto' }}>
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
-                      <CreateButton
-                        updateSQLQueries={this.updateSQLQueries}
-                        selectedDatasource={this.state.selectedDatasource}
-                      />
+                      <EuiFlexGroup direction="row" gutterSize="s">
+                      <EuiFlexItem grow={false}>
+                          <EuiButtonIcon
+                            display="base"
+                            iconType="refresh"
+                            size='m'
+                            aria-label='refresh'
+                            onClick={this.handleReloadTree}
+                          />
+                        </EuiFlexItem>
+                        <EuiFlexItem grow={false}>
+                          <CreateButton
+                            updateSQLQueries={this.updateSQLQueries}
+                            selectedDatasource={this.state.selectedDatasource}
+                          />
+                        </EuiFlexItem>
+                      </EuiFlexGroup>
                     </EuiFlexItem>
                     <EuiSpacer />
                     <TableView
                       http={this.httpClient}
                       selectedItems={this.state.selectedDatasource}
                       updateSQLQueries={this.updateSQLQueries}
+                      refreshTree={this.state.refreshTree}
                     />
                     <EuiSpacer />
                   </EuiFlexItem>
