@@ -98,15 +98,18 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
     }
 
     return (
-      <EuiPanel className="sql-console-query-editor container-panel" paddingSize="l">
+      <EuiPanel
+        className="sql-console-query-editor container-panel coreSystemRootDomElement"
+        paddingSize="l"
+      >
         <EuiText className="sql-query-panel-header">
           <h3>Query editor</h3>
         </EuiText>
         <EuiSpacer size="s" />
         <EuiCodeEditor
-          theme="sql_console"
+          theme="textmate"
           width="100%"
-          height="7rem"
+          height="10rem"
           value={this.props.pplQuery}
           onChange={this.props.updatePPLQueries}
           showPrintMargin={false}
