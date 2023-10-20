@@ -29,11 +29,11 @@ exports[`Render databases in tree fetches and displays database nodes when datas
         <div
           class="euiSpacer euiSpacer--m"
         />
-        <h2
+        <h3
           class="euiTitle euiTitle--medium"
         >
           Error loading data
-        </h2>
+        </h3>
       </div>
     </div>
   </div>

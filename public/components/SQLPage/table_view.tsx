@@ -373,10 +373,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             </EuiFlexItem>
             <EuiFlexItem grow={false}>Loading data</EuiFlexItem>
             <EuiFlexItem grow={false}>
+              <div style ={{ padding: '10px' }}>
               <EuiText textAlign="center" color="subdued">
                 Loading can take more than 30s. Queries can be made after the data has loaded. Any
                 queries run before the data is loaded will be queued
               </EuiText>
+              </div>
             </EuiFlexItem>
           </EuiFlexGroup>
         ) : OpenSearchIndicesTree.length > 0 || treeDataDatabases.length > 0 ? (
@@ -392,7 +394,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             <EuiEmptyPrompt
               iconType="alert"
               iconColor="danger"
-              title={<h2>Error loading data</h2>}
+              title={<h3>Error loading data</h3>}
             />
           </EuiFlexItem>
         )}

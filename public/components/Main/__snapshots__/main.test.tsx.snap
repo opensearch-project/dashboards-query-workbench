@@ -266,11 +266,11 @@ exports[`<Main /> spec click clear button 1`] = `
                   <div
                     class="euiSpacer euiSpacer--m"
                   />
-                  <h2
+                  <h3
                     class="euiTitle euiTitle--medium"
                   >
                     Error loading data
-                  </h2>
+                  </h3>
                 </div>
               </div>
             </div>
@@ -820,11 +820,11 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                   <div
                     class="euiSpacer euiSpacer--m"
                   />
-                  <h2
+                  <h3
                     class="euiTitle euiTitle--medium"
                   >
                     Error loading data
-                  </h2>
+                  </h3>
                 </div>
               </div>
             </div>
@@ -1374,11 +1374,11 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                   <div
                     class="euiSpacer euiSpacer--m"
                   />
-                  <h2
+                  <h3
                     class="euiTitle euiTitle--medium"
                   >
                     Error loading data
-                  </h2>
+                  </h3>
                 </div>
               </div>
             </div>
@@ -3211,11 +3211,11 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                   <div
                     class="euiSpacer euiSpacer--m"
                   />
-                  <h2
+                  <h3
                     class="euiTitle euiTitle--medium"
                   >
                     Error loading data
-                  </h2>
+                  </h3>
                 </div>
               </div>
             </div>
