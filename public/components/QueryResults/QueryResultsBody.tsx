@@ -37,7 +37,6 @@ import {
   Pager,
 } from '@elastic/eui';
 import _ from 'lodash';
-import '../../ace-themes/sql_console';
 import { COLUMN_WIDTH, PAGE_OPTIONS, SMALL_COLUMN_WIDTH } from '../../utils/constants';
 import {
   Node,
@@ -587,26 +586,28 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
   renderMessagesTab(): JSX.Element {
     return (
-      <EuiCodeEditor
-        className={
-          this.props.messages && this.props.messages.length > 0
-            ? this.props.messages[0].className
-            : 'successful-message'
-        }
-        mode="text"
-        theme="sql_console"
-        width="100%"
-        value={getMessageString(this.props.messages, this.props.tabNames)}
-        showPrintMargin={false}
-        readOnly={true}
-        setOptions={{
-          fontSize: '14px',
-          readOnly: true,
-          highlightActiveLine: false,
-          highlightGutterLine: false,
-        }}
-        aria-label="Code Editor"
-      />
+      <div className="coreSystemRootDomElement">
+        <EuiCodeEditor
+          className={
+            this.props.messages && this.props.messages.length > 0
+              ? this.props.messages[0].className
+              : 'successful-message'
+          }
+          mode="text"
+          theme="textmate"
+          width="100%"
+          value={getMessageString(this.props.messages, this.props.tabNames)}
+          showPrintMargin={false}
+          readOnly={true}
+          setOptions={{
+            fontSize: '14px',
+            readOnly: true,
+            highlightActiveLine: false,
+            highlightGutterLine: false,
+          }}
+          aria-label="Code Editor"
+        />
+      </div>
     );
   }
 
