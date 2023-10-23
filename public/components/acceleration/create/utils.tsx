@@ -9,6 +9,7 @@ import {
 } from '../../../../common/constants';
 import {
   AccelerationIndexType,
+  AccelerationRefreshType,
   CreateAccelerationForm,
   FormErrorsType,
   SkippingIndexRowType,
@@ -56,11 +57,11 @@ export const validateIndexName = (value: string) => {
 };
 
 export const validateCheckpointLocation = (
-  accelerationIndexType: AccelerationIndexType,
+  refreshType: AccelerationRefreshType,
   checkpointLocation: string | undefined
 ) => {
-  if (accelerationIndexType === 'materialized' && !checkpointLocation) {
-    return ['Checkpoint location is mandatory for materialized view creation'];
+  if (refreshType !== 'manual' && !checkpointLocation) {
+    return ['Checkpoint location is mandatory for auto refresh'];
   }
 
   if (checkpointLocation && !ACCELERATION_S3_URL_REGEX.test(checkpointLocation))
@@ -135,7 +136,7 @@ export const formValidator = (accelerationformData: CreateAccelerationForm) => {
       refreshType,
       refreshIntervalOptions.refreshWindow
     ),
-    checkpointLocationError: validateCheckpointLocation(accelerationIndexType, checkpointLocation),
+    checkpointLocationError: validateCheckpointLocation(refreshType, checkpointLocation),
     indexNameError: validateIndexName(accelerationIndexName),
     skippingIndexError: validateSkippingIndexData(accelerationIndexType, skippingIndexQueryData),
     coveringIndexError: validateCoveringIndexData(accelerationIndexType, coveringIndexQueryData),

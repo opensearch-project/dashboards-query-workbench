@@ -228,11 +228,7 @@ export const IndexSettingOptions = ({
       )}
       {refreshTypeSelected !== manualRefreshId && (
         <EuiFormRow
-          label={
-            accelerationFormData.accelerationIndexType === 'materialized'
-              ? 'Checkpoint location'
-              : 'Checkpoint location - optional'
-          }
+          label="Checkpoint location"
           helpText="The HDFS compatible file system location path for incremental refresh job checkpoint."
           isInvalid={hasError(accelerationFormData.formErrors, 'checkpointLocationError')}
           error={accelerationFormData.formErrors.checkpointLocationError}
@@ -247,7 +243,7 @@ export const IndexSettingOptions = ({
               setAccelerationFormData(
                 producer((accData) => {
                   accData.formErrors.checkpointLocationError = validateCheckpointLocation(
-                    accData.accelerationIndexType,
+                    accData.refreshType,
                     e.target.value
                   );
                 })
