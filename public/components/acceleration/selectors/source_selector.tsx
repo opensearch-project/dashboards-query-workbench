@@ -8,7 +8,7 @@ import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
 import { CreateAccelerationForm } from '../../../../common/types';
-import { getJobId, pollQueryStatus } from '../../SQLPage/utils';
+import { getJobId, pollQueryStatus } from '../../../../common/utils/async_query_helpers';
 import { hasError, validateDataSource } from '../create/utils';
 
 interface AccelerationDataSourceSelectorProps {

@@ -22,7 +22,13 @@ import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
+import {
+  ASYNC_QUERY_ENDPOINT,
+  ASYNC_QUERY_JOB_ENDPOINT,
+  POLL_INTERVAL_MS,
+} from '../../../common/constants';
 import { AsyncQueryLoadingStatus } from '../../../common/types';
+import { getAsyncSessionId, setAsyncSessionId } from '../../../common/utils/async_query_helpers';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -428,15 +434,15 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '/api/spark_sql_console';
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, {
+            .post(ASYNC_QUERY_ENDPOINT, {
               body: JSON.stringify({
                 lang: language,
                 query: query,
                 datasource: this.state.selectedDatasource[0].label,
+                sessionId: getAsyncSessionId() ?? undefined,
               }),
             })
             .catch((error: any) => {
@@ -469,6 +475,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 : '';
 
               const queryId: string = _.get(responseObj, 'queryId');
+              setAsyncSessionId(_.get(responseObj, 'sessionId', null));
 
               // clear state from previous results and start async loading
               this.setState({
@@ -493,7 +500,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   clearInterval(interval);
                 }
                 this.callGetStartPolling(queries);
-              }, 2 * 1000);
+              }, POLL_INTERVAL_MS);
             }
           }
         );
@@ -503,7 +510,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
   callGetStartPolling = async (queries: string[]) => {
     const nextP = this.httpClient
-      .get('/api/spark_sql_console/job/' + this.state.asyncJobId)
+      .get(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
       .catch((error: any) => {
         this.setState({
           messages: [
@@ -562,7 +569,7 @@ export class Main extends React.Component<MainProps, MainState> {
   cancelAsyncQuery = async () => {
     Promise.all([
       this.httpClient
-        .delete('/api/spark_sql_console/job/' + this.state.asyncJobId)
+        .delete(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
         .catch((error: any) => {
           this.setState({
             messages: [
