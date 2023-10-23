@@ -30,8 +30,8 @@ import {
   TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME,
   TREE_ITEM_TABLE_NAME_DEFAULT_NAME,
 } from '../../../common/constants';
+import { getJobId, pollQueryStatus } from '../../../common/utils/async_query_helpers';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
-import { getJobId, pollQueryStatus } from './utils';
 
 interface CustomView {
   http: CoreStart['http'];
@@ -373,11 +373,11 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             </EuiFlexItem>
             <EuiFlexItem grow={false}>Loading data</EuiFlexItem>
             <EuiFlexItem grow={false}>
-              <div style ={{ padding: '10px' }}>
-              <EuiText textAlign="center" color="subdued">
-                Loading can take more than 30s. Queries can be made after the data has loaded. Any
-                queries run before the data is loaded will be queued
-              </EuiText>
+              <div style={{ padding: '10px' }}>
+                <EuiText textAlign="center" color="subdued">
+                  Loading can take more than 30s. Queries can be made after the data has loaded. Any
+                  queries run before the data is loaded will be queued
+                </EuiText>
               </div>
             </EuiFlexItem>
           </EuiFlexGroup>
