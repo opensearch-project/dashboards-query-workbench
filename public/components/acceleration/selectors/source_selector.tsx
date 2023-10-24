@@ -129,7 +129,7 @@ export const AccelerationDataSourceSelector = ({
           options={dataConnections}
           selectedOptions={selectedDataConnection}
           onChange={(dataConnectionOptions) => {
-            if (dataConnectionOptions.length > 0)
+            if (dataConnectionOptions.length > 0) {
               setAccelerationFormData(
                 producer((accData) => {
                   accData.dataSource = dataConnectionOptions[0].label;
@@ -138,7 +138,8 @@ export const AccelerationDataSourceSelector = ({
                   );
                 })
               );
-            setSelectedDataConnection(dataConnectionOptions);
+              setSelectedDataConnection(dataConnectionOptions);
+            }
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
@@ -157,14 +158,15 @@ export const AccelerationDataSourceSelector = ({
           options={databases}
           selectedOptions={selectedDatabase}
           onChange={(databaseOptions) => {
-            if (databaseOptions.length > 0)
+            if (databaseOptions.length > 0) {
               setAccelerationFormData(
                 producer((accData) => {
                   accData.database = databaseOptions[0].label;
                   accData.formErrors.databaseError = validateDataSource(databaseOptions[0].label);
                 })
               );
-            setSelectedDatabase(databaseOptions);
+              setSelectedDatabase(databaseOptions);
+            }
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
@@ -183,14 +185,15 @@ export const AccelerationDataSourceSelector = ({
           options={tables}
           selectedOptions={selectedTable}
           onChange={(tableOptions) => {
-            if (tableOptions.length > 0)
+            if (tableOptions.length > 0) {
               setAccelerationFormData(
                 producer((accData) => {
                   accData.dataTable = tableOptions[0].label;
                   accData.formErrors.dataTableError = validateDataSource(tableOptions[0].label);
                 })
               );
-            setSelectedTable(tableOptions);
+              setSelectedTable(tableOptions);
+            }
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}
