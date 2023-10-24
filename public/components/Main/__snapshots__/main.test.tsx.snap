@@ -193,7 +193,7 @@ exports[`<Main /> spec click clear button 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -750,7 +750,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -1307,7 +1307,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -1864,7 +1864,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -2505,7 +2505,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -3145,7 +3145,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -3693,7 +3693,7 @@ exports[`<Main /> spec renders the component 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
