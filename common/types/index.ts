@@ -87,4 +87,10 @@ export interface TreeItem {
   type: TreeItemType;
   isExpanded: boolean;
   values?: TreeItem[];
+  isLoading?: boolean
+}
+
+export interface isLoading {
+  flag: boolean;
+  status: string;
 }
