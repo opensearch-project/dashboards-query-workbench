@@ -734,7 +734,7 @@ Array [
                           class="euiFormLabel euiFormRow__label"
                           for="some_html_id"
                         >
-                          Checkpoint location - optional
+                          Checkpoint location
                         </label>
                       </div>
                       <div
@@ -1986,7 +1986,7 @@ Array [
                             className="euiFormLabel euiFormRow__label"
                             htmlFor="some_html_id"
                           >
-                            Checkpoint location - optional
+                            Checkpoint location
                           </label>
                         </div>
                         <div

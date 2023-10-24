@@ -155,7 +155,7 @@ exports[`<Main /> spec click clear button 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -193,7 +193,7 @@ exports[`<Main /> spec click clear button 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -712,7 +712,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -750,7 +750,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -1269,7 +1269,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -1307,7 +1307,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -1826,7 +1826,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -1864,7 +1864,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -2467,7 +2467,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -2505,7 +2505,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -3107,7 +3107,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -3145,7 +3145,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -3659,7 +3659,7 @@ exports[`<Main /> spec renders the component 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -3693,7 +3693,7 @@ exports[`<Main /> spec renders the component 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto; overflow-x: hidden;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
