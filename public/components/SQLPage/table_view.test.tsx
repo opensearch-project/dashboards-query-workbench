@@ -4,7 +4,6 @@ import { httpClientMock } from '../../../test/mocks';
 
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import { isLoading } from 'common/types';
 import { HttpResponse } from '../../../../../src/core/public';
 import { mockDatabaseQuery, mockJobId, mockOpenSearchIndicies } from '../../../test/mocks/mockData';
 import { TableView } from './table_view';
@@ -31,10 +30,6 @@ describe('Render databases in tree', () => {
   });
   it('fetches and displays database nodes when datasource is s3', async () => {
     const client = httpClientMock;
-    const isLoading: isLoading = {
-      flag: false,
-      status: 'Not loading',
-    }
     client.post = jest.fn(() => {
       return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
     });
