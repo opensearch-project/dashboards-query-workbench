@@ -101,10 +101,10 @@ export interface TreeItem {
   type: TreeItemType;
   isExpanded: boolean;
   values?: TreeItem[];
-  isLoading?: boolean
+  isLoading?: boolean;
 }
 
-export interface isLoading {
+export interface DatasourceTreeLoading {
   flag: boolean;
   status: string;
 }
