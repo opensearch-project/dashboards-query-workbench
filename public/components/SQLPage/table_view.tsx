@@ -494,7 +494,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   return (
     <>
-      <EuiFlexGroup>
+      <>
         {isLoadingBanner.flag ? (
           <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
             <EuiSpacer />
@@ -539,7 +539,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           </EuiFlexGroup>
         )}
         {indexFlyout}
-      </EuiFlexGroup>
+      </>
     </>
   );
 };

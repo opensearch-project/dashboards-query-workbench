@@ -963,32 +963,38 @@ export class Main extends React.Component<MainProps, MainState> {
                 style={{
                   maxWidth: '400px',
                   width: '400px',
-                  maxHeight: '1200px',
-                  overflowY: 'auto',
+                  height: 'calc(100vh - 254px)',
                 }}
               >
-                <EuiFlexGroup direction="column">
-                  <EuiFlexItem>
+                <EuiFlexItem grow={false}>
+                  <EuiFlexGroup direction="row" gutterSize="s">
                     <EuiFlexItem grow={false}>
-                      <EuiFlexGroup direction="row" gutterSize="s">
-                        <EuiFlexItem grow={false}>
-                          <EuiButtonIcon
-                            display="base"
-                            iconType="refresh"
-                            size="m"
-                            aria-label="refresh"
-                            onClick={this.handleReloadTree}
-                          />
-                        </EuiFlexItem>
-                        <EuiFlexItem grow={false}>
-                          <CreateButton
-                            updateSQLQueries={this.updateSQLQueries}
-                            selectedDatasource={this.state.selectedDatasource}
-                          />
-                        </EuiFlexItem>
-                      </EuiFlexGroup>
+                      <EuiButtonIcon
+                        display="base"
+                        iconType="refresh"
+                        size="m"
+                        aria-label="refresh"
+                        onClick={this.handleReloadTree}
+                      />
                     </EuiFlexItem>
-                    <EuiSpacer />
+                    <EuiFlexItem grow={false}>
+                      <CreateButton
+                        updateSQLQueries={this.updateSQLQueries}
+                        selectedDatasource={this.state.selectedDatasource}
+                      />
+                    </EuiFlexItem>
+                  </EuiFlexGroup>
+                </EuiFlexItem>
+                <EuiSpacer size="l" />
+                <EuiFlexGroup
+                  direction="column"
+                  style={{
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    height: 'calc(100vh - 308px)',
+                  }}
+                >
+                  <EuiFlexItem grow={false}>
                     <TableView
                       http={this.httpClient}
                       selectedItems={this.state.selectedDatasource}
