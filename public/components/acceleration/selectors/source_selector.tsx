@@ -129,14 +129,15 @@ export const AccelerationDataSourceSelector = ({
           options={dataConnections}
           selectedOptions={selectedDataConnection}
           onChange={(dataConnectionOptions) => {
-            setAccelerationFormData(
-              producer((accData) => {
-                accData.dataSource = dataConnectionOptions[0].label;
-                accData.formErrors.dataSourceError = validateDataSource(
-                  dataConnectionOptions[0].label
-                );
-              })
-            );
+            if (dataConnectionOptions.length > 0)
+              setAccelerationFormData(
+                producer((accData) => {
+                  accData.dataSource = dataConnectionOptions[0].label;
+                  accData.formErrors.dataSourceError = validateDataSource(
+                    dataConnectionOptions[0].label
+                  );
+                })
+              );
             setSelectedDataConnection(dataConnectionOptions);
           }}
           isClearable={false}
@@ -156,12 +157,13 @@ export const AccelerationDataSourceSelector = ({
           options={databases}
           selectedOptions={selectedDatabase}
           onChange={(databaseOptions) => {
-            setAccelerationFormData(
-              producer((accData) => {
-                accData.database = databaseOptions[0].label;
-                accData.formErrors.databaseError = validateDataSource(databaseOptions[0].label);
-              })
-            );
+            if (databaseOptions.length > 0)
+              setAccelerationFormData(
+                producer((accData) => {
+                  accData.database = databaseOptions[0].label;
+                  accData.formErrors.databaseError = validateDataSource(databaseOptions[0].label);
+                })
+              );
             setSelectedDatabase(databaseOptions);
           }}
           isClearable={false}
@@ -181,12 +183,13 @@ export const AccelerationDataSourceSelector = ({
           options={tables}
           selectedOptions={selectedTable}
           onChange={(tableOptions) => {
-            setAccelerationFormData(
-              producer((accData) => {
-                accData.dataTable = tableOptions[0].label;
-                accData.formErrors.dataTableError = validateDataSource(tableOptions[0].label);
-              })
-            );
+            if (tableOptions.length > 0)
+              setAccelerationFormData(
+                producer((accData) => {
+                  accData.dataTable = tableOptions[0].label;
+                  accData.formErrors.dataTableError = validateDataSource(tableOptions[0].label);
+                })
+              );
             setSelectedTable(tableOptions);
           }}
           isClearable={false}

@@ -32,6 +32,11 @@ export interface RefreshIntervalType {
   refreshInterval: string;
 }
 
+export interface watermarkDelayType {
+  delayWindow: number;
+  delayInterval: string;
+}
+
 export type AccelerationIndexType = 'skipping' | 'covering' | 'materialized';
 
 export interface GroupByTumbleType {
@@ -57,6 +62,7 @@ export interface FormErrorsType {
   replicaShardsError: string[];
   refreshIntervalError: string[];
   checkpointLocationError: string[];
+  watermarkDelayError: string[];
 }
 
 export type AccelerationRefreshType = 'auto' | 'interval' | 'manual';
@@ -75,12 +81,20 @@ export interface CreateAccelerationForm {
   replicaShardsCount: number;
   refreshType: AccelerationRefreshType;
   checkpointLocation: string | undefined;
+  watermarkDelay: watermarkDelayType;
   refreshIntervalOptions: RefreshIntervalType;
   formErrors: FormErrorsType;
 }
 
 export type AsyncQueryLoadingStatus = 'SUCCESS' | 'FAILED' | 'RUNNING' | 'SCHEDULED' | 'CANCELLED';
-export type TreeItemType = 'covering_index' | 'skipping_index' | 'table' | 'database' | 'materialized_view' | 'Load Materialized View' | 'badge'
+export type TreeItemType =
+  | 'covering_index'
+  | 'skipping_index'
+  | 'table'
+  | 'database'
+  | 'materialized_view'
+  | 'Load Materialized View'
+  | 'badge';
 
 export interface TreeItem {
   name: string;

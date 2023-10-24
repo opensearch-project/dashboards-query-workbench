@@ -51,6 +51,15 @@ export const validateRefreshInterval = (refreshType: string, refreshWindow: numb
     : [];
 };
 
+export const validateWatermarkDelay = (
+  accelerationIndexType: AccelerationIndexType,
+  delayWindow: number
+) => {
+  return accelerationIndexType === 'materialized' && delayWindow < 1
+    ? ['delay window should be greater than 0']
+    : [];
+};
+
 export const validateIndexName = (value: string) => {
   // Check if the value does not begin with underscores or hyphens and all characters are lower case
   return !ACCELERATION_INDEX_NAME_REGEX.test(value) ? ['Enter a valid index name'] : [];
@@ -123,10 +132,11 @@ export const formValidator = (accelerationformData: CreateAccelerationForm) => {
     replicaShardsCount,
     refreshType,
     checkpointLocation,
+    watermarkDelay,
     refreshIntervalOptions,
   } = accelerationformData;
 
-  const accelerationFormErrors = {
+  const accelerationFormErrors: FormErrorsType = {
     dataSourceError: validateDataSource(dataSource),
     databaseError: validateDatabase(database),
     dataTableError: validateDataTable(dataTable),
@@ -137,6 +147,7 @@ export const formValidator = (accelerationformData: CreateAccelerationForm) => {
       refreshIntervalOptions.refreshWindow
     ),
     checkpointLocationError: validateCheckpointLocation(refreshType, checkpointLocation),
+    watermarkDelayError: validateWatermarkDelay(accelerationIndexType, watermarkDelay.delayWindow),
     indexNameError: validateIndexName(accelerationIndexName),
     skippingIndexError: validateSkippingIndexData(accelerationIndexType, skippingIndexQueryData),
     coveringIndexError: validateCoveringIndexData(accelerationIndexType, coveringIndexQueryData),

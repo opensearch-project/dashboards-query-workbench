@@ -23,6 +23,7 @@ import {
   validatePrimaryShardCount,
   validateRefreshInterval,
   validateReplicaCount,
+  validateWatermarkDelay,
 } from '../create/utils';
 import { IndexTypeSelector } from './index_type_selector';
 
@@ -60,6 +61,8 @@ export const IndexSettingOptions = ({
   const [refreshTypeSelected, setRefreshTypeSelected] = useState(autoRefreshId);
   const [refreshWindow, setRefreshWindow] = useState(1);
   const [refreshInterval, setRefreshInterval] = useState(ACCELERATION_TIME_INTERVAL[1].value);
+  const [delayWindow, setDelayWindow] = useState(1);
+  const [delayInterval, setDelayInterval] = useState(ACCELERATION_TIME_INTERVAL[1].value);
   const [checkpoint, setCheckpoint] = useState('');
 
   const onChangePrimaryShards = (e: ChangeEvent<HTMLInputElement>) => {
@@ -104,6 +107,16 @@ export const IndexSettingOptions = ({
     setRefreshWindow(windowCount);
   };
 
+  const onChangeDelayWindow = (e: ChangeEvent<HTMLInputElement>) => {
+    const windowCount = parseInt(e.target.value, 10);
+    setAccelerationFormData(
+      producer((accData) => {
+        accData.watermarkDelay.delayWindow = windowCount;
+      })
+    );
+    setDelayWindow(windowCount);
+  };
+
   const onChangeRefreshInterval = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const refreshIntervalValue = e.target.value;
     setAccelerationFormData(
@@ -112,6 +125,16 @@ export const IndexSettingOptions = ({
       })
     );
     setRefreshInterval(refreshIntervalValue);
+  };
+
+  const onChangeDelayInterval = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const delayIntervalValue = e.target.value;
+    setAccelerationFormData(
+      producer((accData) => {
+        accData.watermarkDelay.delayInterval = delayIntervalValue;
+      })
+    );
+    setRefreshInterval(delayIntervalValue);
   };
 
   const onChangeCheckpoint = (e: ChangeEvent<HTMLInputElement>) => {
@@ -249,6 +272,40 @@ export const IndexSettingOptions = ({
                 })
               );
             }}
+          />
+        </EuiFormRow>
+      )}
+      {accelerationFormData.accelerationIndexType === 'materialized' && (
+        <EuiFormRow
+          label="Watermark Delay"
+          helpText="Data arrival delay for incremental refresh on a materialized view with aggregations"
+          isInvalid={hasError(accelerationFormData.formErrors, 'watermarkDelayError')}
+          error={accelerationFormData.formErrors.watermarkDelayError}
+        >
+          <EuiFieldNumber
+            placeholder="Watermark delay interval"
+            value={delayWindow}
+            onChange={onChangeDelayWindow}
+            aria-label="Watermark delay interval"
+            min={1}
+            isInvalid={hasError(accelerationFormData.formErrors, 'watermarkDelayError')}
+            onBlur={(e) => {
+              setAccelerationFormData(
+                producer((accData) => {
+                  accData.formErrors.watermarkDelayError = validateWatermarkDelay(
+                    accelerationFormData.accelerationIndexType,
+                    parseInt(e.target.value, 10)
+                  );
+                })
+              );
+            }}
+            append={
+              <EuiSelect
+                value={delayInterval}
+                onChange={onChangeDelayInterval}
+                options={ACCELERATION_TIME_INTERVAL}
+              />
+            }
           />
         </EuiFormRow>
       )}
