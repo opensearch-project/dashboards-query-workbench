@@ -106,7 +106,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         flag: false,
         status: 'Query is run',
       });
-      const query = { query: LOAD_OPENSEARCH_INDICES_QUERY + 'pp' };
+      const query = { query: LOAD_OPENSEARCH_INDICES_QUERY  };
       http
         .post(FETCH_OPENSEARCH_INDICES_PATH, {
           body: JSON.stringify(query),

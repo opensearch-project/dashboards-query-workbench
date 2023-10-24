@@ -47,10 +47,11 @@ export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) =
         status === 'scheduled' ||
         status === 'waiting'
       ) {
-        callback({status: status})
+        callback({ status: status });
         setTimeout(() => pollQueryStatus(id, http, callback), POLL_INTERVAL_MS);
       } else if (status === 'failed') {
-        callback({ status: 'FAILED', results: [] });
+        const results = res.data.resp;
+        callback({ status: 'FAILED', error: results.error });
       } else if (status === 'success') {
         const results = _.get(res.data.resp, 'datarows');
         callback({ status: 'SUCCESS', results: results });
@@ -58,6 +59,6 @@ export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) =
     })
     .catch((err) => {
       console.error(err);
-      callback([]);
+      callback({ status: 'FAILED', error: 'Failed to fetch data' });
     });
 };
