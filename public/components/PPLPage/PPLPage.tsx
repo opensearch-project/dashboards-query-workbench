@@ -7,6 +7,7 @@ import {
   EuiButton,
   EuiCodeBlock,
   EuiCodeEditor,
+  EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
   EuiModal,
@@ -29,6 +30,7 @@ interface PPLPageProps {
   updatePPLQueries: (query: string) => void;
   pplQuery: string;
   pplTranslations: ResponseDetail<TranslateResult>[];
+  selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
 }
 
@@ -147,17 +149,31 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               Clear
             </EuiButton>
           </EuiFlexItem>
-          <EuiFlexItem grow={false} onClick={() => this.props.onTranslate(this.props.pplQuery)}>
-            <EuiButton
-              className="sql-editor-button"
-              onClick={showModal}
-              isDisabled={this.props.asyncLoading}
+          {this.props.selectedDatasource &&
+          this.props.selectedDatasource[0].label === 'OpenSearch' ? (
+            <EuiFlexItem grow={false} onClick={() => this.props.onTranslate(this.props.pplQuery)}>
+              <EuiButton
+                className="sql-editor-button"
+                onClick={showModal}
+                isDisabled={this.props.asyncLoading}
+              >
+                Explain
+              </EuiButton>
+            </EuiFlexItem>
+          ) : (
+            <EuiFlexItem
+              grow={false}
+              onClick={() =>
+                this.props.updatePPLQueries('source = <datasource>.<database>.<table> | head 10')
+              }
             >
-              Explain
-            </EuiButton>
-            {modal}
-          </EuiFlexItem>
+              <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                Sample Query
+              </EuiButton>
+            </EuiFlexItem>
+          )}
         </EuiFlexGroup>
+        {modal}
       </EuiPanel>
     );
   }
