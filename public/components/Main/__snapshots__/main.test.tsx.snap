@@ -155,7 +155,7 @@ exports[`<Main /> spec click clear button 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -712,7 +712,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -1269,7 +1269,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -1826,7 +1826,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -2467,7 +2467,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -3107,7 +3107,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -3659,7 +3659,7 @@ exports[`<Main /> spec renders the component 1`] = `
     >
       <a
         class="euiButton euiButton--primary"
-        href="https://opensearch.org/docs/latest/search-plugins/sql/index/"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
         rel="noopener noreferrer"
         target="_blank"
       >

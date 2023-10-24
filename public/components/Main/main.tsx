@@ -863,7 +863,7 @@ export class Main extends React.Component<MainProps, MainState> {
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
-      link = 'https://opensearch.org/docs/latest/search-plugins/sql/index/';
+      link = 'https://opensearch.org/docs/latest/search-plugins/sql/sql/index/';
       linkTitle = 'SQL documentation';
     } else {
       page = (
@@ -881,7 +881,7 @@ export class Main extends React.Component<MainProps, MainState> {
           asyncLoading={this.state.asyncLoading}
         />
       );
-      link = 'https://opensearch.org/docs/latest/observability-plugin/ppl/index/';
+      link = 'https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/';
       linkTitle = 'PPL documentation';
     }
 
