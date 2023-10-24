@@ -64,12 +64,17 @@ export const AccelerationDataSourceSelector = ({
       datasource: accelerationFormData.dataSource,
     };
     getJobId(query, http, (id: string) => {
-      pollQueryStatus(id, http, (data: any[][]) => {
-        let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
-        if (data.length > 0)
-          databaseOptions = data.map((subArray: any[]) => ({ label: subArray[0] }));
-        setDatabases(databaseOptions);
-        setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+      pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
+        if (data.status === 'SUCCESS') {
+          let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
+          if (data.results.length > 0)
+            databaseOptions = data.results.map((subArray: any[]) => ({ label: subArray[0] }));
+          setDatabases(databaseOptions);
+          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+        }
+        if (data.status === 'FAILED') {
+          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+        }
       });
     });
   };
@@ -82,11 +87,17 @@ export const AccelerationDataSourceSelector = ({
       datasource: accelerationFormData.dataSource,
     };
     getJobId(query, http, (id: string) => {
-      pollQueryStatus(id, http, (data: any[]) => {
-        let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
-        if (data.length > 0) dataTableOptions = data.map((subArray) => ({ label: subArray[1] }));
-        setTables(dataTableOptions);
-        setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+      pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
+        if (data.status === 'SUCCESS') {
+          let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
+          if (data.results.length > 0)
+            dataTableOptions = data.results.map((subArray) => ({ label: subArray[1] }));
+          setTables(dataTableOptions);
+          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+        }
+        if (data.status === 'FAILED') {
+          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+        }
       });
     });
   };
