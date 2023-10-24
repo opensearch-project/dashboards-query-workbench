@@ -33,6 +33,7 @@ import {
 } from '../../../common/constants';
 import { getJobId, pollQueryStatus } from '../../../common/utils/async_query_helpers';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
+import { useToast } from '../../../common/toast';
 
 interface CustomView {
   http: CoreStart['http'];
@@ -51,6 +52,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   });
   const [indexFlyout, setIndexFlyout] = useState(<></>);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
+  const { setToast } = useToast();
 
   const resetFlyout = () => {
     setIndexFlyout(<></>);
@@ -130,6 +132,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             const fetchedDatanases = [].concat(...data.results);
             setTreeData(loadTreeItem(fetchedDatanases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
             setIsLoading({ flag: false, status: data.status });
+          } else if (data.status === 'FAILED') {
+            setToast('ERROR', 'danger');
           }
         });
       });
@@ -172,7 +176,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           setTreeData((prevTreeData) => {
             return prevTreeData.map((database) => {
               if (database.name === databaseName) {
-                return { ...database, values: values, isExpanded: true, isLoading: false};
+                return { ...database, values: values, isExpanded: true, isLoading: false };
               }
               return database;
             });
@@ -267,7 +271,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                 const updatedValues = database.values?.filter(
                   (item) => item.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
                 );
-                return { ...database, values: updatedValues?.concat(...values), isLoading: false , isExpanded: true};
+                return {
+                  ...database,
+                  values: updatedValues?.concat(...values),
+                  isLoading: false,
+                  isExpanded: true,
+                };
               }
               return database;
             });
@@ -401,21 +410,18 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       label: createLabel(table, database.name, index),
       id: `${database.name}_${table.name}`,
       icon:
-        table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME ? (
-          null
-        ) : table.type === TREE_ITEM_BADGE_NAME ? null : (
+        table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME ? null : table.type ===
+          TREE_ITEM_BADGE_NAME ? null : (
           <EuiIcon type="tableDensityCompact" size="s" />
         ),
       callback: () => {
         if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.values?.length === 0) {
           handleTableClick(table.name);
-        }
-        else {
-          if(table.values?.length === 0) {
+        } else {
+          if (table.values?.length === 0) {
             table.values = [{ name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false }];
           }
         }
-          
       },
       isSelectable: true,
       isExpanded: table.isExpanded,
