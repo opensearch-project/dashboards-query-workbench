@@ -31,6 +31,7 @@ import {
   TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME,
   TREE_ITEM_TABLE_NAME_DEFAULT_NAME,
 } from '../../../common/constants';
+import { useToast } from '../../../common/toast';
 import { getJobId, pollQueryStatus } from '../../../common/utils/async_query_helpers';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
 
@@ -51,6 +52,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   });
   const [indexFlyout, setIndexFlyout] = useState(<></>);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
+  const { setToast } = useToast();
 
   const resetFlyout = () => {
     setIndexFlyout(<></>);
@@ -98,6 +100,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   const getSidebarContent = () => {
     if (selectedItems[0].label === 'OpenSearch') {
       setTableNames([]);
+      setIsLoading({
+        flag: false,
+        status: 'Query is run',
+      });
       const query = { query: LOAD_OPENSEARCH_INDICES_QUERY };
       http
         .post(FETCH_OPENSEARCH_INDICES_PATH, {
@@ -106,13 +112,26 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         .then((res) => {
           const responseObj = res.data.resp ? JSON.parse(res.data.resp) : {};
           const dataRows: any[][] = _.get(responseObj, 'datarows');
-          const fields = dataRows.map((data) => {
-            return data[2];
-          });
-          setTableNames(fields);
+          if (dataRows.length > 0) {
+            const fields = dataRows.map((data) => {
+              return data[2];
+            });
+            setTableNames(fields);
+          } else {
+            setIsLoading({
+              flag: false,
+              status: 'Error fetching data',
+            });
+            setToast(`ERROR: fetching data`, 'danger');
+          }
         })
         .catch((err) => {
           console.error(err);
+          setIsLoading({
+            flag: false,
+            status: err,
+          });
+          setToast(`ERROR: ${err}`,'danger');
         });
     } else {
       setTableNames([]);
@@ -128,6 +147,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             const fetchedDatanases = [].concat(...data.results);
             setTreeData(loadTreeItem(fetchedDatanases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
             setIsLoading({ flag: false, status: data.status });
+          } else if (data.status === 'FAILED') {
+            setIsLoading({
+              flag: false,
+              status: data.error,
+            });
+            setToast(`ERROR: ${data.error}`,'danger');
           }
         });
       });
@@ -136,8 +161,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   useEffect(() => {
     setIsLoading({
-      flag: false,
-      status: 'Not loading',
+      flag: true,
+      status: 'Query Not Run',
     });
     getSidebarContent();
   }, [selectedItems, refreshTree]);
@@ -175,6 +200,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               return database;
             });
           });
+        } else if (data.status === 'FAILED') {
+          setIsLoading({
+            flag: false,
+            status: data.error,
+          });
+          setToast(`ERROR: ${data.error}`,'danger');
         }
       });
     });
@@ -198,9 +229,15 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                   ...database,
                   values: database.values?.map((table) => {
                     if (table.name === tableName) {
+                      let newValues = table.values?.concat(...coverIndexObj);
+                      if (newValues?.length === 0) {
+                        newValues = [
+                          { name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false },
+                        ];
+                      }
                       return {
                         ...table,
-                        values: table.values?.concat(...coverIndexObj),
+                        values: newValues,
                         isLoading: false,
                         isExpanded: true,
                       };
@@ -212,6 +249,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               return database;
             });
           });
+        } else if (data.status === 'FAILED') {
+          setIsLoading({
+            flag: false,
+            status: data.error,
+          });
+          setToast(`ERROR: ${data.error}`, 'danger');
         }
       });
     });
@@ -275,6 +318,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               return database;
             });
           });
+        } else if (data.status === 'FAILED') {
+          setIsLoading({
+            flag: false,
+            status: data.error,
+          });
+          setToast(`ERROR: ${data.error}`,'danger');
         }
       });
     });
@@ -309,29 +358,37 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     getJobId(skipQuery, http, (id) => {
       pollQueryStatus(id, http, (data) => {
         if (data.status === 'SUCCESS') {
-          setTreeData((prevTreeData) => {
-            return prevTreeData.map((database) => {
-              if (database.name === selectedDatabase) {
-                return {
-                  ...database,
-                  values: database.values?.map((table) => {
-                    if (table.name === tableName) {
-                      return {
-                        ...table,
-                        values: loadTreeItem(
-                          [TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME],
-                          TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
-                        ),
-                      };
-                    }
-                    return table;
-                  }),
-                };
-              }
-              return database;
+          if (data.resp.values.length > 0) {
+            setTreeData((prevTreeData) => {
+              return prevTreeData.map((database) => {
+                if (database.name === selectedDatabase) {
+                  return {
+                    ...database,
+                    values: database.values?.map((table) => {
+                      if (table.name === tableName) {
+                        return {
+                          ...table,
+                          values: loadTreeItem(
+                            [TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME],
+                            TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
+                          ),
+                        };
+                      }
+                      return table;
+                    }),
+                  };
+                }
+                return database;
+              });
             });
-          });
+          }
           loadCoveringIndex(tableName);
+        } else if (data.status === 'FAILED') {
+          setIsLoading({
+            flag: false,
+            status: data.error,
+          });
+          setToast(`ERROR: ${data.error}`,'danger');
         }
       });
     });
@@ -419,10 +476,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             database.name,
             table.name
           );
-        } else {
-          if (table.values?.length === 0) {
-            table.values = [{ name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false }];
-          }
         }
       },
       isSelectable: true,
@@ -448,51 +501,50 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   return (
     <>
-      <EuiFlexGroup>
-        {isLoadingBanner.flag ? (
-          <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
-            <EuiSpacer />
-            <EuiFlexItem>
-              <EuiLoadingSpinner size="l" />
-            </EuiFlexItem>
-            <EuiFlexItem grow={false}>Loading data</EuiFlexItem>
-            <EuiFlexItem grow={false}>
-              <div style={{ padding: '10px' }}>
-                <EuiFlexItem>
-                  <EuiText textAlign="center" color="subdued">
-                    Loading may take over 30 seconds
-                  </EuiText>
-                </EuiFlexItem>
-                <EuiFlexItem>
-                  <EuiText textAlign="center" color="subdued">
-                    Status: {isLoadingBanner.status}
-                  </EuiText>
-                </EuiFlexItem>
-              </div>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        ) : OpenSearchIndicesTree.length > 0 || treeDataDatabases.length > 0 ? (
-          <EuiFlexItem grow={false}>
-            {selectedItems[0].label === 'OpenSearch' ? (
-              <EuiTreeView aria-label="Sample Folder Tree" items={OpenSearchIndicesTree} />
-            ) : (
-              <EuiTreeView aria-label="Sample Folder Tree" items={treeDataDatabases} />
-            )}
+      {isLoadingBanner.flag ? (
+        <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
+          <EuiSpacer />
+          <EuiFlexItem>
+            <EuiLoadingSpinner size="l" />
           </EuiFlexItem>
-        ) : (
-          <EuiFlexGroup alignItems="center" direction="column">
-            <EuiFlexItem grow={false}>
-              <EuiEmptyPrompt
-                iconType="alert"
-                iconColor="danger"
-                titleSize="xs"
-                title={<h4>Error loading data</h4>}
-              />
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        )}
-        {indexFlyout}
-      </EuiFlexGroup>
+          <EuiFlexItem grow={false}>Loading data</EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <div style={{ padding: '10px' }}>
+              <EuiFlexItem>
+                <EuiText textAlign="center" color="subdued">
+                  Loading may take over 30 seconds
+                </EuiText>
+              </EuiFlexItem>
+              <EuiFlexItem>
+                <EuiText textAlign="center" color="subdued">
+                  Status: {isLoadingBanner.status}
+                </EuiText>
+              </EuiFlexItem>
+            </div>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      ) : OpenSearchIndicesTree.length > 0 || treeDataDatabases.length > 0 ? (
+        <EuiFlexItem grow={false}>
+          {selectedItems[0].label === 'OpenSearch' ? (
+            <EuiTreeView aria-label="Sample Folder Tree" items={OpenSearchIndicesTree} />
+          ) : (
+            <EuiTreeView aria-label="Sample Folder Tree" items={treeDataDatabases} />
+          )}
+        </EuiFlexItem>
+      ) : (
+        <EuiFlexGroup alignItems="center" direction="column">
+          <EuiFlexItem grow={false}>
+            <EuiEmptyPrompt
+              icon={<EuiIcon type="database" size="m" />}
+              iconColor="subdued"
+              titleSize="xs"
+              title={<p>No Data available</p>}
+              body={<p>{isLoadingBanner.status}</p>}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      )}
+      {indexFlyout}
     </>
   );
 };
