@@ -5,6 +5,7 @@
 
 import { AppMountParameters, CoreSetup, CoreStart, Plugin } from '../../../src/core/public';
 import { PLUGIN_NAME } from '../common/constants';
+import { coreRefs } from './framework/core_refs';
 import { AppPluginStartDependencies, WorkbenchPluginSetup, WorkbenchPluginStart } from './types';
 
 export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPluginStart> {
@@ -34,6 +35,13 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
   }
 
   public start(core: CoreStart): WorkbenchPluginStart {
+
+    coreRefs.http = core.http;
+    coreRefs.savedObjectsClient = core.savedObjects.client;
+    coreRefs.toasts = core.notifications.toasts;
+    coreRefs.chrome = core.chrome;
+    coreRefs.application = core.application;
+    
     return {};
   }
 
