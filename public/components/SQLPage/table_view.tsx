@@ -507,6 +507,26 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     });
   };
 
+  const iconCreation = (node: TreeItem) => {
+    if (node.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME) {
+      return <EuiBadge>MV</EuiBadge>;
+    } else if (
+      node.type === TREE_ITEM_BADGE_NAME ||
+      node.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
+    ) {
+      return null;
+    } else if (node.type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME) {
+      return <EuiIcon type="tableDensityCompact" size="s" />;
+    } else if (node.type === TREE_ITEM_DATABASE_NAME_DEFAULT_NAME) {
+      return <EuiIcon type="database" size="m" />;
+    } else if (
+      node.type === TREE_ITEM_COVERING_INDEX_DEFAULT_NAME ||
+      TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
+    ) {
+      return <EuiIcon type="bolt" size="m" />;
+    }
+  };
+
   const createLabel = (node: TreeItem, parentName: string, index: number) => {
     switch (node.type) {
       case TREE_ITEM_BADGE_NAME:
@@ -528,7 +548,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                 </EuiBadge>
               </EuiFlexItem>
               <EuiFlexItem>
-              <EuiText>{node.isLoading && <EuiLoadingSpinner size="m" />}</EuiText>
+                <EuiText>{node.isLoading && <EuiLoadingSpinner size="m" />}</EuiText>
               </EuiFlexItem>
             </EuiFlexGroup>
           </div>
@@ -567,7 +587,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   const treeDataDatabases = treeData.map((database, index) => ({
     label: createLabel(database, selectedItems[0].label, index),
-    icon: <EuiIcon type="database" size="m" />,
+    icon: iconCreation(database),
     id: 'element_' + index,
     callback: () => {
       if (database.values?.length === 0 && selectedItems[0].label !== 'OpenSearch') {
@@ -579,11 +599,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     children: database.values?.map((table, index) => ({
       label: createLabel(table, database.name, index),
       id: `${database.name}_${table.name}`,
-      icon:
-        table.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME ? <EuiBadge>MV</EuiBadge> : table.type ===
-          TREE_ITEM_BADGE_NAME || table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME? null : (
-          <EuiIcon type="tableDensityCompact" size="s" />
-        ),
+      icon:iconCreation(table),
       callback: () => {
         if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.values?.length === 0) {
           handleTableClick(table.name);
@@ -602,7 +618,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       children: table.values?.map((indexChild, index) => ({
         label: createLabel(indexChild, table.name, index),
         id: `${database.name}_${table.name}_${indexChild.name}`,
-        icon: indexChild.type === TREE_ITEM_BADGE_NAME ? null : <EuiIcon type="bolt" size="s" />,
+        icon: iconCreation(indexChild),
         callback: () => {
           if (indexChild.type !== TREE_ITEM_BADGE_NAME) {
             handleAccelerationIndexClick(
