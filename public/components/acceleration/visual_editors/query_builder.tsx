@@ -46,7 +46,7 @@ export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) 
     );
   }
 
-  if (checkpointLocation) {
+  if (refreshType !== 'manual' && checkpointLocation) {
     // Add checkpoint location option
     indexOptions.push(`checkpoint_location = '${checkpointLocation}'`);
   }

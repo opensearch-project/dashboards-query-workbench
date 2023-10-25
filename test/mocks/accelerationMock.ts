@@ -236,6 +236,19 @@ export const skippingIndexBuilderMock1: CreateAccelerationForm = {
   checkpointLocation: 's3://test/',
 };
 
+export const indexOptionsMock6: CreateAccelerationForm = {
+  ...createAccelerationEmptyDataMock,
+  primaryShardsCount: 1,
+  replicaShardsCount: 1,
+  refreshType: 'manual',
+  checkpointLocation: 's3://dsfsad/dasda',
+};
+
+export const indexOptionsMockResult6 = `WITH (
+index_settings = '{"number_of_shards":1,"number_of_replicas":1}',
+auto_refresh = false
+)`;
+
 export const skippingIndexBuilderMockResult1 = `CREATE SKIPPING INDEX
 ON datasource.database.table (
    \`field1\` PARTITION, 
