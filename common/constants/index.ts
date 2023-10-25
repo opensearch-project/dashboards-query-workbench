@@ -21,12 +21,14 @@ export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
 (status VALUE_SET) 
 WITH (
-  auto_refresh = true
+  auto_refresh = true,
+  checkpoint_location = 's3://test/'
   )`;
 export const COVERING_INDEX_QUERY = `CREATE INDEX covering_idx ON myS3.logs_db.http_logs
  (status) 
  WITH (
-  auto_refresh = true
+  auto_refresh = true,
+  checkpoint_location = 's3://test/'
   )`;
 export const CREATE_DATABASE_QUERY = `CREATE DATABASE myS3.logs_db`;
 export const CREATE_TABLE_QUERY = `CREATE EXTERNAL TABLE myS3.logs_db.logs (
@@ -41,6 +43,18 @@ OPTIONS (
   path 's3://test/path',
   compression 'gzip'
 );`;
+
+export const CREATE_MATERIALIZED_VIEW = `CREATE MATERIALIZED VIEW datasource.database.index_name
+AS SELECT
+   count(field)
+FROM datasource.database.table
+GROUP BY TUMBLE (timestamp, '2 hours')
+ WITH (
+index_settings = '{"number_of_shards":5,"number_of_replicas":3}',
+auto_refresh = true,
+watermark_delay = '2 minutes',
+checkpoint_location = 's3://test/'
+)`;
 
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
