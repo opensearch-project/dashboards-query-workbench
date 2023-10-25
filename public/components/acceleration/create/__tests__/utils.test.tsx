@@ -186,6 +186,11 @@ describe('validateCheckpointLocation', () => {
     expect(validCheckpoint).toEqual([]);
   });
 
+  it('should return an empty array when the checkpoint location is a valid S3A URL with just bucket in checkpoint', () => {
+    const validCheckpoint = validateCheckpointLocation('auto', 's3a://valid-s3-bucket');
+    expect(validCheckpoint).toEqual([]);
+  });
+
   it('should return an empty array when using manual refresh with no checkpoint location', () => {
     const validMaterializedCheckpoint = validateCheckpointLocation('manual', '');
     expect(validMaterializedCheckpoint).toEqual([]);
