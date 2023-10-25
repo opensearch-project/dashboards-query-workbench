@@ -966,25 +966,23 @@ export class Main extends React.Component<MainProps, MainState> {
                   height: 'calc(100vh - 254px)',
                 }}
               >
-                <EuiFlexItem grow={false}>
-                  <EuiFlexGroup direction="row" gutterSize="s">
-                    <EuiFlexItem grow={false}>
-                      <EuiButtonIcon
-                        display="base"
-                        iconType="refresh"
-                        size="m"
-                        aria-label="refresh"
-                        onClick={this.handleReloadTree}
-                      />
-                    </EuiFlexItem>
-                    <EuiFlexItem grow={false}>
-                      <CreateButton
-                        updateSQLQueries={this.updateSQLQueries}
-                        selectedDatasource={this.state.selectedDatasource}
-                      />
-                    </EuiFlexItem>
-                  </EuiFlexGroup>
-                </EuiFlexItem>
+                <EuiFlexGroup direction="row" gutterSize="s">
+                  <EuiFlexItem grow={false}>
+                    <EuiButtonIcon
+                      display="base"
+                      iconType="refresh"
+                      size="m"
+                      aria-label="refresh"
+                      onClick={this.handleReloadTree}
+                    />
+                  </EuiFlexItem>
+                  <EuiFlexItem grow={false}>
+                    <CreateButton
+                      updateSQLQueries={this.updateSQLQueries}
+                      selectedDatasource={this.state.selectedDatasource}
+                    />
+                  </EuiFlexItem>
+                </EuiFlexGroup>
                 <EuiSpacer size="l" />
                 <EuiFlexGroup
                   direction="column"

@@ -501,52 +501,50 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   return (
     <>
-      <>
-        {isLoadingBanner.flag ? (
-          <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
-            <EuiSpacer />
-            <EuiFlexItem>
-              <EuiLoadingSpinner size="l" />
-            </EuiFlexItem>
-            <EuiFlexItem grow={false}>Loading data</EuiFlexItem>
-            <EuiFlexItem grow={false}>
-              <div style={{ padding: '10px' }}>
-                <EuiFlexItem>
-                  <EuiText textAlign="center" color="subdued">
-                    Loading may take over 30 seconds
-                  </EuiText>
-                </EuiFlexItem>
-                <EuiFlexItem>
-                  <EuiText textAlign="center" color="subdued">
-                    Status: {isLoadingBanner.status}
-                  </EuiText>
-                </EuiFlexItem>
-              </div>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        ) : OpenSearchIndicesTree.length > 0 || treeDataDatabases.length > 0 ? (
-          <EuiFlexItem grow={false}>
-            {selectedItems[0].label === 'OpenSearch' ? (
-              <EuiTreeView aria-label="Sample Folder Tree" items={OpenSearchIndicesTree} />
-            ) : (
-              <EuiTreeView aria-label="Sample Folder Tree" items={treeDataDatabases} />
-            )}
+      {isLoadingBanner.flag ? (
+        <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
+          <EuiSpacer />
+          <EuiFlexItem>
+            <EuiLoadingSpinner size="l" />
           </EuiFlexItem>
-        ) : (
-          <EuiFlexGroup alignItems="center" direction="column">
-            <EuiFlexItem grow={false}>
-              <EuiEmptyPrompt
-                icon={<EuiIcon type="database" size="m" />}
-                iconColor="subdued"
-                titleSize="xs"
-                title={<p>No Data available</p>}
-                body={<p>{isLoadingBanner.status}</p>}
-              />
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        )}
-        {indexFlyout}
-      </>
+          <EuiFlexItem grow={false}>Loading data</EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <div style={{ padding: '10px' }}>
+              <EuiFlexItem>
+                <EuiText textAlign="center" color="subdued">
+                  Loading may take over 30 seconds
+                </EuiText>
+              </EuiFlexItem>
+              <EuiFlexItem>
+                <EuiText textAlign="center" color="subdued">
+                  Status: {isLoadingBanner.status}
+                </EuiText>
+              </EuiFlexItem>
+            </div>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      ) : OpenSearchIndicesTree.length > 0 || treeDataDatabases.length > 0 ? (
+        <EuiFlexItem grow={false}>
+          {selectedItems[0].label === 'OpenSearch' ? (
+            <EuiTreeView aria-label="Sample Folder Tree" items={OpenSearchIndicesTree} />
+          ) : (
+            <EuiTreeView aria-label="Sample Folder Tree" items={treeDataDatabases} />
+          )}
+        </EuiFlexItem>
+      ) : (
+        <EuiFlexGroup alignItems="center" direction="column">
+          <EuiFlexItem grow={false}>
+            <EuiEmptyPrompt
+              icon={<EuiIcon type="database" size="m" />}
+              iconColor="subdued"
+              titleSize="xs"
+              title={<p>No Data available</p>}
+              body={<p>{isLoadingBanner.status}</p>}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      )}
+      {indexFlyout}
     </>
   );
 };

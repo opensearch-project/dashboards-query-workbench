@@ -22,6 +22,7 @@ import {
 } from '@elastic/eui';
 import React from 'react';
 import { ResponseDetail, TranslateResult } from '../Main/main';
+import { SAMPLE_PPL_QUERY } from '../../../common/constants';
 
 interface PPLPageProps {
   onRun: (query: string) => void;
@@ -161,12 +162,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               </EuiButton>
             </EuiFlexItem>
           ) : (
-            <EuiFlexItem
-              grow={false}
-              onClick={() =>
-                this.props.updatePPLQueries('source = <datasource>.<database>.<table> | head 10')
-              }
-            >
+            <EuiFlexItem grow={false} onClick={() => this.props.updatePPLQueries(SAMPLE_PPL_QUERY)}>
               <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
                 Sample Query
               </EuiButton>
