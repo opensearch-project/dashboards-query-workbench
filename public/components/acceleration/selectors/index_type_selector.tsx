@@ -52,7 +52,11 @@ export const IndexTypeSelector = ({
         query: `DESC ${accelerationFormData.dataSource}.${accelerationFormData.database}.${accelerationFormData.dataTable}`,
         datasource: accelerationFormData.dataSource,
       };
+      const errorMessage = 'ERROR: failed to load table columns';
       getJobId(query, http, (id: string) => {
+        if (id === undefined) {
+          setToast(errorMessage, 'danger');
+        }
         pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
           if (data.status === 'SUCCESS') {
             const dataTableFields: DataTableFieldsType[] = data.results
@@ -70,7 +74,7 @@ export const IndexTypeSelector = ({
           }
           if (data.status === 'FAILED') {
             setLoading(false);
-            setToast(`ERROR: failed to load table columns`, 'danger');
+            setToast(errorMessage, 'danger');
           }
         });
       });

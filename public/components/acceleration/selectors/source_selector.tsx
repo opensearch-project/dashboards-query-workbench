@@ -66,7 +66,11 @@ export const AccelerationDataSourceSelector = ({
       query: `SHOW SCHEMAS IN ${accelerationFormData.dataSource}`,
       datasource: accelerationFormData.dataSource,
     };
+    const errorMessage = `ERROR: failed to load databases`;
     getJobId(query, http, (id: string) => {
+      if (id === undefined) {
+        setToast(errorMessage, 'danger');
+      }
       pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
         if (data.status === 'SUCCESS') {
           let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
@@ -77,7 +81,7 @@ export const AccelerationDataSourceSelector = ({
         }
         if (data.status === 'FAILED') {
           setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-          setToast(`ERROR: failed to load databases`, 'danger');
+          setToast(errorMessage, 'danger');
         }
       });
     });
@@ -90,7 +94,11 @@ export const AccelerationDataSourceSelector = ({
       query: `SHOW TABLES IN ${accelerationFormData.dataSource}.${accelerationFormData.database}`,
       datasource: accelerationFormData.dataSource,
     };
+    const errorMessage = `ERROR: failed to load tables`;
     getJobId(query, http, (id: string) => {
+      if (id === undefined) {
+        setToast(errorMessage, 'danger');
+      }
       pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
         if (data.status === 'SUCCESS') {
           let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
@@ -101,7 +109,7 @@ export const AccelerationDataSourceSelector = ({
         }
         if (data.status === 'FAILED') {
           setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-          setToast(`ERROR: failed to load tables`, 'danger');
+          setToast(errorMessage, 'danger');
         }
       });
     });
