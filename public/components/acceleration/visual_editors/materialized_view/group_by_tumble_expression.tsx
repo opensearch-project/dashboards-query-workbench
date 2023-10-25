@@ -18,7 +18,7 @@ import producer from 'immer';
 import React, { useState } from 'react';
 import { ACCELERATION_TIME_INTERVAL, TIMESTAMP_DATATYPE } from '../../../../../common/constants';
 import { CreateAccelerationForm, GroupByTumbleType } from '../../../../../common/types';
-import { hasError, pluralizeTime, validateMaterializedViewData } from '../../create/utils';
+import { hasError, pluralizeTime } from '../../create/utils';
 
 interface GroupByTumbleExpressionProps {
   accelerationFormData: CreateAccelerationForm;
@@ -41,10 +41,6 @@ export const GroupByTumbleExpression = ({
     setAccelerationFormData(
       producer((accData) => {
         accData.materializedViewQueryData.groupByTumbleValue = newGroupByValue;
-        accData.formErrors.materializedViewError = validateMaterializedViewData(
-          accData.accelerationIndexType,
-          accData.materializedViewQueryData
-        );
       })
     );
   };
@@ -90,9 +86,10 @@ export const GroupByTumbleExpression = ({
         anchorPosition="downLeft"
       >
         <EuiFlexGroup>
-          <EuiFlexItem grow={false}>
+          <EuiFlexItem>
             <EuiFormRow label="Time Field">
               <EuiComboBox
+                style={{ minWidth: '200px' }}
                 placeholder="Select one or more options"
                 singleSelection={{ asPlainText: true }}
                 options={accelerationFormData.dataTableFields

@@ -7,6 +7,7 @@ import { EuiComboBox, EuiComboBoxOptionOption, EuiFormRow, EuiSpacer, EuiText } 
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
+import { useToast } from '../../../../common/toast';
 import { CreateAccelerationForm } from '../../../../common/types';
 import { getJobId, pollQueryStatus } from '../../../../common/utils/async_query_helpers';
 import { hasError, validateDataSource } from '../create/utils';
@@ -24,6 +25,7 @@ export const AccelerationDataSourceSelector = ({
   setAccelerationFormData,
   selectedDatasource,
 }: AccelerationDataSourceSelectorProps) => {
+  const { setToast } = useToast();
   const [dataConnections, setDataConnections] = useState<EuiComboBoxOptionOption<string>[]>([]);
   const [selectedDataConnection, setSelectedDataConnection] = useState<
     EuiComboBoxOptionOption<string>[]
@@ -52,6 +54,7 @@ export const AccelerationDataSourceSelector = ({
       })
       .catch((err) => {
         console.error(err);
+        setToast(`ERROR: failed to load datasources`, 'danger');
       });
     setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: false });
   };
@@ -63,7 +66,11 @@ export const AccelerationDataSourceSelector = ({
       query: `SHOW SCHEMAS IN ${accelerationFormData.dataSource}`,
       datasource: accelerationFormData.dataSource,
     };
+    const errorMessage = `ERROR: failed to load databases`;
     getJobId(query, http, (id: string) => {
+      if (id === undefined) {
+        setToast(errorMessage, 'danger');
+      }
       pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
         if (data.status === 'SUCCESS') {
           let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
@@ -74,6 +81,7 @@ export const AccelerationDataSourceSelector = ({
         }
         if (data.status === 'FAILED') {
           setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+          setToast(errorMessage, 'danger');
         }
       });
     });
@@ -86,7 +94,11 @@ export const AccelerationDataSourceSelector = ({
       query: `SHOW TABLES IN ${accelerationFormData.dataSource}.${accelerationFormData.database}`,
       datasource: accelerationFormData.dataSource,
     };
+    const errorMessage = `ERROR: failed to load tables`;
     getJobId(query, http, (id: string) => {
+      if (id === undefined) {
+        setToast(errorMessage, 'danger');
+      }
       pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
         if (data.status === 'SUCCESS') {
           let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
@@ -97,6 +109,7 @@ export const AccelerationDataSourceSelector = ({
         }
         if (data.status === 'FAILED') {
           setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+          setToast(errorMessage, 'danger');
         }
       });
     });
