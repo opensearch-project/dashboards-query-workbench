@@ -104,7 +104,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         flag: false,
         status: 'Query is run',
       });
-      const query = { query: LOAD_OPENSEARCH_INDICES_QUERY  };
+      const query = { query: LOAD_OPENSEARCH_INDICES_QUERY };
       http
         .post(FETCH_OPENSEARCH_INDICES_PATH, {
           body: JSON.stringify(query),
@@ -122,7 +122,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               flag: false,
               status: 'Error fetching data',
             });
-            setToast(`ERROR: fetching data`);
+            setToast(`ERROR: fetching data`, 'danger');
           }
         })
         .catch((err) => {
@@ -131,7 +131,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: err,
           });
-          setToast(`ERROR: ${err}`);
+          setToast(`ERROR: ${err}`, 'danger');
         });
     } else {
       setTableNames([]);
@@ -152,7 +152,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               flag: false,
               status: data.error,
             });
-            setToast(`ERROR: ${data.error}`);
+            setToast(`ERROR: ${data.error}`, 'danger');
           }
         });
       });
@@ -205,7 +205,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: data.error,
           });
-          setToast(`ERROR: ${data.error}`);
+          setToast(`ERROR: ${data.error}`, 'danger');
         }
       });
     });
@@ -254,7 +254,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: data.error,
           });
-          setToast(`ERROR: ${data.error}`);
+          setToast(`ERROR: ${data.error}`, 'danger');
         }
       });
     });
@@ -323,7 +323,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: data.error,
           });
-          setToast(`ERROR: ${data.error}`);
+          setToast(`ERROR: ${data.error}`, 'danger');
         }
       });
     });
@@ -388,7 +388,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: data.error,
           });
-          setToast(`ERROR: ${data.error}`);
+          setToast(`ERROR: ${data.error}`, 'danger');
         }
       });
     });
