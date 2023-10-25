@@ -72,7 +72,7 @@ export const SKIPPING_INDEX_ACCELERATION_METHODS = [
 
 export const ACCELERATION_ADD_FIELDS_TEXT = '(add fields here)';
 export const ACCELERATION_INDEX_NAME_REGEX = /^[a-z][a-z_]*$/;
-export const ACCELERATION_S3_URL_REGEX = /^(s3|s3a):\/\/[a-zA-Z0-9.\-]+\/.*/;
+export const ACCELERATION_S3_URL_REGEX = /^(s3|s3a):\/\/[a-zA-Z0-9.\-]+/;
 export const ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME = 'skipping';
 
 export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices have a naming format of pattern: \`prefix_<index name>_suffix\`. They share a common prefix structure, which is \`flint_<data source name>_<database name>_<table name>_\`. Additionally, they may have a suffix that varies based on the index type. 
