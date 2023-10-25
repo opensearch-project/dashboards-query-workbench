@@ -574,7 +574,7 @@ Array [
                               min="1"
                               placeholder="Number of primary shards"
                               type="number"
-                              value="1"
+                              value="5"
                             />
                           </div>
                         </div>
@@ -582,7 +582,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
+                          Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created.
                         </div>
                       </div>
                     </div>
@@ -627,7 +627,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Specify the number of replicas each primary shard should have. Default is 1.
+                          Specify the number of replicas each primary shard should have.
                         </div>
                       </div>
                     </div>
@@ -1819,7 +1819,7 @@ Array [
                                 onFocus={[Function]}
                                 placeholder="Number of primary shards"
                                 type="number"
-                                value={1}
+                                value={5}
                               />
                             </div>
                           </div>
@@ -1827,7 +1827,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
+                            Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created.
                           </div>
                         </div>
                       </div>,
@@ -1875,7 +1875,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Specify the number of replicas each primary shard should have. Default is 1.
+                            Specify the number of replicas each primary shard should have.
                           </div>
                         </div>
                       </div>,
