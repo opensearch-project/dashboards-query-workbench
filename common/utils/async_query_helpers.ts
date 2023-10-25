@@ -13,8 +13,9 @@ import {
 } from '../constants';
 
 export const setAsyncSessionId = (value: string | null) => {
-  if (value === null) sessionStorage.removeItem(ASYNC_QUERY_SESSION_ID);
-  else sessionStorage.setItem(ASYNC_QUERY_SESSION_ID, value);
+  if (value !== null) {
+    sessionStorage.setItem(ASYNC_QUERY_SESSION_ID, value);
+  }
 };
 
 export const getAsyncSessionId = () => {
