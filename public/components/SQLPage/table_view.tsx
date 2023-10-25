@@ -131,7 +131,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: err,
           });
-          setToast(`ERROR: ${err}`, 'danger');
+          setToast(`ERROR: ${err}`,'danger');
         });
     } else {
       setTableNames([]);
@@ -152,7 +152,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               flag: false,
               status: data.error,
             });
-            setToast(`ERROR: ${data.error}`, 'danger');
+            setToast(`ERROR: ${data.error}`,'danger');
           }
         });
       });
@@ -205,7 +205,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: data.error,
           });
-          setToast(`ERROR: ${data.error}`, 'danger');
+          setToast(`ERROR: ${data.error}`,'danger');
         }
       });
     });
@@ -323,7 +323,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: data.error,
           });
-          setToast(`ERROR: ${data.error}`, 'danger');
+          setToast(`ERROR: ${data.error}`,'danger');
         }
       });
     });
@@ -388,7 +388,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: data.error,
           });
-          setToast(`ERROR: ${data.error}`, 'danger');
+          setToast(`ERROR: ${data.error}`,'danger');
         }
       });
     });
