@@ -11,6 +11,7 @@ import {
   EuiFlexItem,
   EuiIcon,
   EuiLoadingSpinner,
+  EuiNotificationBadge,
   EuiSpacer,
   EuiText,
   EuiToolTip,
@@ -509,7 +510,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   const iconCreation = (node: TreeItem) => {
     if (node.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME) {
-      return <EuiBadge>MV</EuiBadge>;
+      return <EuiNotificationBadge color = 'subdued'>MV</EuiNotificationBadge>;
     } else if (
       node.type === TREE_ITEM_BADGE_NAME ||
       node.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
