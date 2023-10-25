@@ -14,7 +14,7 @@ import {
   EuiSpacer,
   EuiText,
   EuiToolTip,
-  EuiTreeView,
+  EuiTreeView
 } from '@elastic/eui';
 import { AccelerationIndexType, DatasourceTreeLoading, TreeItem, TreeItemType } from 'common/types';
 import _ from 'lodash';
@@ -599,12 +599,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     children: database.values?.map((table, index) => ({
       label: createLabel(table, database.name, index),
       id: `${database.name}_${table.name}`,
-      icon:iconCreation(table),
+      icon: iconCreation(table),
       callback: () => {
-        if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.values?.length === 0) {
+        if (table.type !== TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME && table.values?.length === 0) {
           handleTableClick(table.name);
         }
-        if (table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME) {
+        if (table.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME) {
           handleAccelerationIndexClick(
             'materialized',
             selectedItems[0].label,
