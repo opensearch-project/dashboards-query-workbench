@@ -18,6 +18,7 @@ import {
   ACCELERATION_INDEX_TYPES,
   ACC_INDEX_TYPE_DOCUMENTATION_URL,
 } from '../../../../common/constants';
+import { useToast } from '../../../../common/toast';
 import {
   AccelerationIndexType,
   CreateAccelerationForm,
@@ -36,6 +37,7 @@ export const IndexTypeSelector = ({
   accelerationFormData,
   setAccelerationFormData,
 }: IndexTypeSelectorProps) => {
+  const { setToast } = useToast();
   const [selectedIndexType, setSelectedIndexType] = useState<EuiComboBoxOptionOption<string>[]>([
     ACCELERATION_INDEX_TYPES[0],
   ]);
@@ -68,6 +70,7 @@ export const IndexTypeSelector = ({
           }
           if (data.status === 'FAILED') {
             setLoading(false);
+            setToast(`ERROR: failed to load table columns`, 'danger');
           }
         });
       });
