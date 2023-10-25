@@ -22,7 +22,6 @@ import {
   CreateAccelerationForm,
   MaterializedViewColumn,
 } from '../../../../../common/types';
-import { validateMaterializedViewData } from '../../create/utils';
 
 interface ColumnExpressionProps {
   index: number;
@@ -57,10 +56,6 @@ export const ColumnExpression = ({
     setAccelerationFormData(
       producer((accData) => {
         accData.materializedViewQueryData.columnsValues = newColumnExpresionValue;
-        accData.formErrors.materializedViewError = validateMaterializedViewData(
-          accData.accelerationIndexType,
-          accData.materializedViewQueryData
-        );
       })
     );
     setColumnExpressionValues(newColumnExpresionValue);

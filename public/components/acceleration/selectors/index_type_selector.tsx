@@ -18,6 +18,7 @@ import {
   ACCELERATION_INDEX_TYPES,
   ACC_INDEX_TYPE_DOCUMENTATION_URL,
 } from '../../../../common/constants';
+import { useToast } from '../../../../common/toast';
 import {
   AccelerationIndexType,
   CreateAccelerationForm,
@@ -36,6 +37,7 @@ export const IndexTypeSelector = ({
   accelerationFormData,
   setAccelerationFormData,
 }: IndexTypeSelectorProps) => {
+  const { setToast } = useToast();
   const [selectedIndexType, setSelectedIndexType] = useState<EuiComboBoxOptionOption<string>[]>([
     ACCELERATION_INDEX_TYPES[0],
   ]);
@@ -50,7 +52,11 @@ export const IndexTypeSelector = ({
         query: `DESC ${accelerationFormData.dataSource}.${accelerationFormData.database}.${accelerationFormData.dataTable}`,
         datasource: accelerationFormData.dataSource,
       };
+      const errorMessage = 'ERROR: failed to load table columns';
       getJobId(query, http, (id: string) => {
+        if (id === undefined) {
+          setToast(errorMessage, 'danger');
+        }
         pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
           if (data.status === 'SUCCESS') {
             const dataTableFields: DataTableFieldsType[] = data.results
@@ -68,6 +74,7 @@ export const IndexTypeSelector = ({
           }
           if (data.status === 'FAILED') {
             setLoading(false);
+            setToast(errorMessage, 'danger');
           }
         });
       });
