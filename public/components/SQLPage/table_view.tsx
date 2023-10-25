@@ -510,7 +510,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   const iconCreation = (node: TreeItem) => {
     if (node.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME) {
-      return <EuiNotificationBadge color = 'subdued'>MV</EuiNotificationBadge>;
+      return <EuiNotificationBadge aria-label='Materialized view' color = 'subdued'>MV</EuiNotificationBadge>;
     } else if (
       node.type === TREE_ITEM_BADGE_NAME ||
       node.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
@@ -602,7 +602,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       id: `${database.name}_${table.name}`,
       icon: iconCreation(table),
       callback: () => {
-        if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.values?.length === 0) {
+        if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.type !== TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME && table.values?.length === 0) {
           handleTableClick(table.name);
         }
         if (table.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME) {
