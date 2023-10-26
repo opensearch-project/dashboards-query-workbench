@@ -8,8 +8,9 @@ import React, { useState } from 'react';
 import {
   COVERING_INDEX_QUERY,
   CREATE_DATABASE_QUERY,
+  CREATE_MATERIALIZED_VIEW,
   CREATE_TABLE_QUERY,
-  SKIPPING_INDEX_QUERY,
+  SKIPPING_INDEX_QUERY
 } from '../../../common/constants';
 
 interface CreateButtonProps {
@@ -57,6 +58,13 @@ export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateBut
     },
   ];
 
+  const materializedViewItems = [
+    {
+      name: 'Materialized View',
+      onClick: () => handleSubMenuClick(CREATE_MATERIALIZED_VIEW),
+    },
+  ];
+
   const button = (
     <EuiButton iconType="arrowDown" iconSide="right" onClick={() => togglePopover(null)}>
       Create
@@ -88,6 +96,10 @@ export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateBut
                     name: 'Acceleration Index',
                     panel: 2,
                   },
+                  {
+                    name: 'Materialized View',
+                    panel: 3,
+                  }
                 ],
               },
               {
@@ -99,6 +111,11 @@ export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateBut
                 id: 2,
                 title: 'Acceleration Index Options',
                 items: acceleratedIndexItems,
+              },
+              {
+                id: 3,
+                title: 'Create Materialized View',
+                items: materializedViewItems,
               },
             ]}
           />
