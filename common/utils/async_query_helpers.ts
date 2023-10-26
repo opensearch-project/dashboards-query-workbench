@@ -30,6 +30,9 @@ export const getJobId = (query: {}, http: CoreStart['http'], callback) => {
     .then((res) => {
       const id = res.data.resp.queryId;
       setAsyncSessionId(_.get(res.data.resp, 'sessionId', null));
+      if (id === undefined) {
+        console.error(JSON.parse(res.data.body));
+      }
       callback(id);
     })
     .catch((err) => {
