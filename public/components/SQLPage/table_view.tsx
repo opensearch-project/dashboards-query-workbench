@@ -15,7 +15,7 @@ import {
   EuiSpacer,
   EuiText,
   EuiToolTip,
-  EuiTreeView
+  EuiTreeView,
 } from '@elastic/eui';
 import { AccelerationIndexType, DatasourceTreeLoading, TreeItem, TreeItemType } from 'common/types';
 import _ from 'lodash';
@@ -35,6 +35,7 @@ import {
 import { useToast } from '../../../common/toast';
 import { getJobId, pollQueryStatus } from '../../../common/utils/async_query_helpers';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
+import './table_view.scss';
 
 interface CustomView {
   http: CoreStart['http'];
@@ -149,8 +150,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             status: errorMessage,
           });
           setToast(errorMessage, 'danger');
-        }
-        else{
+        } else {
           pollQueryStatus(id, http, (data) => {
             setIsLoading({ flag: true, status: data.status });
             if (data.status === 'SUCCESS') {
@@ -171,7 +171,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   };
 
   useEffect(() => {
-    setTreeData([])
+    setTreeData([]);
     setIsLoading({
       flag: true,
       status: 'Query Not Run',
@@ -188,7 +188,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         return database;
       });
     });
-  }
+  };
 
   const handleDatabaseClick = (databaseName: string) => {
     setTreeData((prevTreeData) => {
@@ -212,7 +212,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           flag: false,
           status: errorMessage,
         });
-        setTreeDataDatabaseError(databaseName)
+        setTreeDataDatabaseError(databaseName);
         setToast(errorMessage, 'danger');
       } else {
         pollQueryStatus(id, http, (data) => {
@@ -237,7 +237,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               flag: false,
               status: data.error,
             });
-            setTreeDataDatabaseError(databaseName)
+            setTreeDataDatabaseError(databaseName);
             setToast(`ERROR ${data.error}`, 'danger');
           }
         });
@@ -265,9 +265,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         return database;
       });
     });
-  }
+  };
 
-  const loadCoveringIndex = (tableName: string,databaseName:string) => {
+  const loadCoveringIndex = (tableName: string, databaseName: string) => {
     const coverQuery = {
       lang: 'sql',
       query: `SHOW INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
@@ -280,7 +280,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           flag: false,
           status: errorMessage,
         });
-        setTreeDataTableError(databaseName,tableName)
+        setTreeDataTableError(databaseName, tableName);
         setToast(errorMessage, 'danger');
       }
       pollQueryStatus(id, http, (data) => {
@@ -319,14 +319,14 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: data.error,
           });
-          setTreeDataTableError(databaseName,tableName)
+          setTreeDataTableError(databaseName, tableName);
           setToast(`ERROR ${data.error}`, 'danger');
         }
       });
     });
   };
 
-  const setLoadingForTableElements = (databaseName: string,tableName: string) =>{
+  const setLoadingForTableElements = (databaseName: string, tableName: string) => {
     setTreeData((prevTreeData) => {
       return prevTreeData.map((database) => {
         if (database.name === databaseName) {
@@ -346,12 +346,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         return database;
       });
     });
-  }
+  };
 
   const handleButtonClick = (tableName: string, databaseName: string) => {
     tableName = TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME;
     setSelectedTable(tableName);
-    setLoadingForTableElements(databaseName,tableName)
+    setLoadingForTableElements(databaseName, tableName);
     const materializedViewQuery = {
       lang: 'sql',
       query: `SHOW MATERIALIZED VIEW IN ${selectedItems[0]['label']}.${databaseName}`,
@@ -364,7 +364,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           flag: false,
           status: errorMessage,
         });
-        setTreeDataTableError(tableName,databaseName)
+        setTreeDataTableError(tableName, databaseName);
         setToast(errorMessage, 'danger');
       } else {
         pollQueryStatus(id, http, (data) => {
@@ -405,7 +405,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               flag: false,
               status: data.error,
             });
-            setTreeDataTableError(databaseName,tableName)
+            setTreeDataTableError(databaseName, tableName);
             setToast(`ERROR ${data.error}`, 'danger');
           }
         });
@@ -413,9 +413,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     });
   };
 
-  const handleTableClick = (tableName: string, databaseName:string) => {
+  const handleTableClick = (tableName: string, databaseName: string) => {
     setSelectedTable(tableName);
-    setLoadingForTableElements(databaseName,tableName)
+    setLoadingForTableElements(databaseName, tableName);
     const skipQuery = {
       lang: 'sql',
       query: `DESC SKIPPING INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
@@ -428,7 +428,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           flag: false,
           status: 'error',
         });
-        setTreeDataTableError(databaseName,tableName)
+        setTreeDataTableError(databaseName, tableName);
         setToast(errorMessage, 'danger');
       } else {
         pollQueryStatus(id, http, (data) => {
@@ -457,13 +457,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                 });
               });
             }
-            loadCoveringIndex(tableName,databaseName);
+            loadCoveringIndex(tableName, databaseName);
           } else if (data.status === 'FAILED') {
             setIsLoading({
               flag: false,
               status: data.error,
             });
-            setTreeDataTableError(databaseName,tableName)
+            setTreeDataTableError(databaseName, tableName);
             setToast(`ERROR ${data.error}`, 'danger');
           }
         });
@@ -473,7 +473,11 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   const iconCreation = (node: TreeItem) => {
     if (node.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME) {
-      return <EuiNotificationBadge aria-label='Materialized view' color = 'subdued'>MV</EuiNotificationBadge>;
+      return (
+        <EuiNotificationBadge aria-label="Materialized view" color="subdued">
+          MV
+        </EuiNotificationBadge>
+      );
     } else if (
       node.type === TREE_ITEM_BADGE_NAME ||
       node.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
@@ -507,9 +511,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           <div key={node.name}>
             <EuiFlexGroup direction="row">
               <EuiFlexItem>
-                <EuiBadge color="hollow">
-                  Load Materialized View
-                </EuiBadge>
+                <EuiBadge color="hollow">Load Materialized View</EuiBadge>
               </EuiFlexItem>
               <EuiFlexItem>
                 <EuiText>{node.isLoading && <EuiLoadingSpinner size="m" />}</EuiText>
@@ -565,11 +567,15 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       id: `${database.name}_${table.name}`,
       icon: iconCreation(table),
       callback: () => {
-        if(table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME){
-          handleButtonClick(table.name,database.name)
+        if (table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME) {
+          handleButtonClick(table.name, database.name);
         }
-        if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.type !== TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME && table.values?.length === 0) {
-          handleTableClick(table.name,database.name);
+        if (
+          table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME &&
+          table.type !== TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME &&
+          table.values?.length === 0
+        ) {
+          handleTableClick(table.name, database.name);
         }
         if (table.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME) {
           handleAccelerationIndexClick(
@@ -626,7 +632,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           </EuiFlexItem>
         </EuiFlexGroup>
       ) : OpenSearchIndicesTree.length > 0 || treeDataDatabases.length > 0 ? (
-        <EuiFlexItem grow={false}>
+        <EuiFlexItem grow={false} className="workbench-tree">
           {selectedItems[0].label === 'OpenSearch' ? (
             <EuiTreeView aria-label="Sample Folder Tree" items={OpenSearchIndicesTree} />
           ) : (
