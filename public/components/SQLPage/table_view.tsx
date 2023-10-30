@@ -535,7 +535,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                     {node.isLoading && <EuiLoadingSpinner size="m" />}
                     {node.type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME && !node.isLoading && (
                       <EuiIcon
-                        type="play"
+                        type="editorCodeBlock"
                         onClick={(e) => handleQuery(e,parentName,node.name)}
                       ></EuiIcon>
                     )}

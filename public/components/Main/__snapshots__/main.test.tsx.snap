@@ -193,7 +193,7 @@ exports[`<Main /> spec click clear button 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; height: auto;"
+        style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
@@ -2297,7 +2297,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; height: auto;"
+        style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
@@ -2860,7 +2860,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; height: auto;"
+        style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
@@ -4964,7 +4964,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; height: auto;"
+        style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
@@ -5598,7 +5598,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; height: auto;"
+        style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
@@ -6231,7 +6231,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; height: auto;"
+        style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
@@ -8326,7 +8326,7 @@ exports[`<Main /> spec renders the component 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; height: auto;"
+        style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
