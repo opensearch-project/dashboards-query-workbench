@@ -70,7 +70,7 @@ exports[`Render databases in tree fetches and displays database nodes when datas
 exports[`Render databases in tree fetches and displays indicies when datasource is OpenSearch 1`] = `
 <div>
   <div
-    class="euiFlexItem euiFlexItem--flexGrowZero"
+    class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
   >
     <div
       class="euiText euiText--medium euiTreeView__wrapper"

@@ -1,0 +1,10 @@
+/*
+ * Copyright OpenSearch Contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+.workbench-tree {
+  .euiTreeView__node--expanded {
+    max-height: none !important; // Fixes OUI issue: https://github.com/opensearch-project/oui/issues/1118
+  }
+}
