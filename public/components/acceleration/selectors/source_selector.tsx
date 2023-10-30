@@ -70,20 +70,21 @@ export const AccelerationDataSourceSelector = ({
     getJobId(query, http, (id: string) => {
       if (id === undefined) {
         setToast(errorMessage, 'danger');
+      } else {
+        pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
+          if (data.status === 'SUCCESS') {
+            let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
+            if (data.results.length > 0)
+              databaseOptions = data.results.map((subArray: any[]) => ({ label: subArray[0] }));
+            setDatabases(databaseOptions);
+            setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+          }
+          if (data.status === 'FAILED') {
+            setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+            setToast(errorMessage, 'danger');
+          }
+        });
       }
-      pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-        if (data.status === 'SUCCESS') {
-          let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
-          if (data.results.length > 0)
-            databaseOptions = data.results.map((subArray: any[]) => ({ label: subArray[0] }));
-          setDatabases(databaseOptions);
-          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-        }
-        if (data.status === 'FAILED') {
-          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-          setToast(errorMessage, 'danger');
-        }
-      });
     });
   };
 
@@ -98,20 +99,21 @@ export const AccelerationDataSourceSelector = ({
     getJobId(query, http, (id: string) => {
       if (id === undefined) {
         setToast(errorMessage, 'danger');
+      } else {
+        pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
+          if (data.status === 'SUCCESS') {
+            let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
+            if (data.results.length > 0)
+              dataTableOptions = data.results.map((subArray) => ({ label: subArray[1] }));
+            setTables(dataTableOptions);
+            setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+          }
+          if (data.status === 'FAILED') {
+            setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+            setToast(errorMessage, 'danger');
+          }
+        });
       }
-      pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-        if (data.status === 'SUCCESS') {
-          let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
-          if (data.results.length > 0)
-            dataTableOptions = data.results.map((subArray) => ({ label: subArray[1] }));
-          setTables(dataTableOptions);
-          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-        }
-        if (data.status === 'FAILED') {
-          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-          setToast(errorMessage, 'danger');
-        }
-      });
     });
   };
 
