@@ -470,6 +470,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       }
     });
   };
+  const handleQuery = (e: MouseEvent, parentName: string, tableName: string) => {
+    e.stopPropagation();
+    updateSQLQueries(`select * from ${selectedItems[0].label}.${parentName}.${tableName} limit 10`);
+  };
 
   const iconCreation = (node: TreeItem) => {
     if (node.type === TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME) {
@@ -510,10 +514,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         return (
           <div key={node.name}>
             <EuiFlexGroup direction="row">
-              <EuiFlexItem>
+              <EuiFlexItem grow={false}>
                 <EuiBadge color="hollow">Load Materialized View</EuiBadge>
               </EuiFlexItem>
-              <EuiFlexItem>
+              <EuiFlexItem grow={false}>
                 <EuiText>{node.isLoading && <EuiLoadingSpinner size="m" />}</EuiText>
               </EuiFlexItem>
             </EuiFlexGroup>
@@ -525,10 +529,16 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           <div key={node.name}>
             <EuiToolTip position="right" content={node.name} delay="long">
               <EuiFlexGroup direction="row">
-                <EuiFlexItem>
+                <EuiFlexItem grow={false}>
                   <EuiText>
                     {_.truncate(node.name, { length: 50 })}{' '}
                     {node.isLoading && <EuiLoadingSpinner size="m" />}
+                    {node.type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME && !node.isLoading && (
+                      <EuiIcon
+                        type="play"
+                        onClick={(e) => handleQuery(e,parentName,node.name)}
+                      ></EuiIcon>
+                    )}
                   </EuiText>
                 </EuiFlexItem>
               </EuiFlexGroup>
