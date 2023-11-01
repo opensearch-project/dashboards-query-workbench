@@ -51,9 +51,11 @@ jobs:
       - name: Build Artifact
         if: always()
         run: |
-          cd OpenSearch-Dashboards/plugins/dashboards-query-workbench
-          yarn build
-          mv ./build/*.zip ./build/dashboards-query-workbench.zip
+          chown -R 1000:1000 `pwd`
+          cd ./OpenSearch-Dashboards/
+          su `id -un 1000` -c "source $NVM_DIR/nvm.sh && nvm use && node -v && yarn -v &&
+                               cd ./plugins/dashboards-query-workbench &&
+                               whoami && yarn build && mv ./build/*.zip ./build/dashboards-query-workbench.zip"
       - name: Upload Artifact
         if: always()
         uses: actions/upload-artifact@v3
