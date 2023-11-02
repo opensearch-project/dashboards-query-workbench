@@ -22,6 +22,9 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 | Max Ksyunz        | [MaxKsyunz](https://github.com/MaxKsyunz)           | BitQuill    |
 | Yury Fridlyand    | [Yury-Fridlyand](https://github.com/Yury-Fridlyand) | BitQuill    |
 | Anirudha Jadhav   | [anirudha](https://github.com/anirudha)             | Amazon      |
+| Paul Sebastian          | [paulstn](https://github.com/paulstn)             | Amazon      |
+| Sumukh Hanumantha Swamy | [sumukhswamy](https://github.com/sumukhswamy)     | Amazon      |
+
 
 ## Emeritus Maintainers
 
