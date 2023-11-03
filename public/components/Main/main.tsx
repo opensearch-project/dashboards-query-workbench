@@ -527,7 +527,7 @@ export class Main extends React.Component<MainProps, MainState> {
       const result: ResponseDetail<string> = this.processQueryResponse(
         response as IHttpResponse<ResponseData>
       );
-      const status = result.data['status'];
+      const status = result.data.status.toLowerCase();
       if (_.isEqual(status, 'success')) {
         const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable([result], false);
         this.setState({

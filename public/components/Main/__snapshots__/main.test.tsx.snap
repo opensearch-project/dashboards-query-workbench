@@ -2066,55 +2066,35 @@ exports[`<Main /> spec click clear button 1`] = `
                 />
               </div>
             </div>
-            <hr
-              class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+            <div
+              class="euiSpacer euiSpacer--xxl"
             />
             <div
               class="euiSpacer euiSpacer--xl"
             />
             <div
-              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+              class="euiText euiText--medium"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiTextAlign euiTextAlign--center"
               >
-                <span
-                  class="euiLoadingSpinner euiLoadingSpinner--large"
-                />
-                <div
-                  class="euiText euiText--medium"
-                >
-                  <h3>
-                    Query running
-                  </h3>
-                </div>
-                <div
-                  class="euiText euiText--medium"
-                >
-                  Status: 
-                  success
-                </div>
-                <button
-                  class="euiButton euiButton--primary"
-                  type="button"
-                >
-                  <span
-                    class="euiButtonContent euiButton__content"
-                  >
-                    <span
-                      class="euiButton__text"
-                    >
-                      Cancel
-                    </span>
-                  </span>
-                </button>
+                <h4>
+                  No result
+                </h4>
+              </div>
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <p>
+                  Enter a query in the query editor above to see results.
+                </p>
               </div>
             </div>
             <div
               class="euiSpacer euiSpacer--xxl"
             />
             <div
-              class="euiSpacer euiSpacer--m"
+              class="euiSpacer euiSpacer--xl"
             />
           </div>
         </div>
@@ -2649,55 +2629,35 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                 />
               </div>
             </div>
-            <hr
-              class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+            <div
+              class="euiSpacer euiSpacer--xxl"
             />
             <div
               class="euiSpacer euiSpacer--xl"
             />
             <div
-              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+              class="euiText euiText--medium"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiTextAlign euiTextAlign--center"
               >
-                <span
-                  class="euiLoadingSpinner euiLoadingSpinner--large"
-                />
-                <div
-                  class="euiText euiText--medium"
-                >
-                  <h3>
-                    Query running
-                  </h3>
-                </div>
-                <div
-                  class="euiText euiText--medium"
-                >
-                  Status: 
-                  success
-                </div>
-                <button
-                  class="euiButton euiButton--primary"
-                  type="button"
-                >
-                  <span
-                    class="euiButtonContent euiButton__content"
-                  >
-                    <span
-                      class="euiButton__text"
-                    >
-                      Cancel
-                    </span>
-                  </span>
-                </button>
+                <h4>
+                  No result
+                </h4>
+              </div>
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <p>
+                  Enter a query in the query editor above to see results.
+                </p>
               </div>
             </div>
             <div
               class="euiSpacer euiSpacer--xxl"
             />
             <div
-              class="euiSpacer euiSpacer--m"
+              class="euiSpacer euiSpacer--xl"
             />
           </div>
         </div>
@@ -4773,55 +4733,35 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                 />
               </div>
             </div>
-            <hr
-              class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+            <div
+              class="euiSpacer euiSpacer--xxl"
             />
             <div
               class="euiSpacer euiSpacer--xl"
             />
             <div
-              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+              class="euiText euiText--medium"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiTextAlign euiTextAlign--center"
               >
-                <span
-                  class="euiLoadingSpinner euiLoadingSpinner--large"
-                />
-                <div
-                  class="euiText euiText--medium"
-                >
-                  <h3>
-                    Query running
-                  </h3>
-                </div>
-                <div
-                  class="euiText euiText--medium"
-                >
-                  Status: 
-                  success
-                </div>
-                <button
-                  class="euiButton euiButton--primary"
-                  type="button"
-                >
-                  <span
-                    class="euiButtonContent euiButton__content"
-                  >
-                    <span
-                      class="euiButton__text"
-                    >
-                      Cancel
-                    </span>
-                  </span>
-                </button>
+                <h4>
+                  No result
+                </h4>
+              </div>
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <p>
+                  Enter a query in the query editor above to see results.
+                </p>
               </div>
             </div>
             <div
               class="euiSpacer euiSpacer--xxl"
             />
             <div
-              class="euiSpacer euiSpacer--m"
+              class="euiSpacer euiSpacer--xl"
             />
           </div>
         </div>
@@ -5427,55 +5367,35 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                 />
               </div>
             </div>
-            <hr
-              class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+            <div
+              class="euiSpacer euiSpacer--xxl"
             />
             <div
               class="euiSpacer euiSpacer--xl"
             />
             <div
-              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+              class="euiText euiText--medium"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiTextAlign euiTextAlign--center"
               >
-                <span
-                  class="euiLoadingSpinner euiLoadingSpinner--large"
-                />
-                <div
-                  class="euiText euiText--medium"
-                >
-                  <h3>
-                    Query running
-                  </h3>
-                </div>
-                <div
-                  class="euiText euiText--medium"
-                >
-                  Status: 
-                  success
-                </div>
-                <button
-                  class="euiButton euiButton--primary"
-                  type="button"
-                >
-                  <span
-                    class="euiButtonContent euiButton__content"
-                  >
-                    <span
-                      class="euiButton__text"
-                    >
-                      Cancel
-                    </span>
-                  </span>
-                </button>
+                <h4>
+                  No result
+                </h4>
+              </div>
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <p>
+                  Enter a query in the query editor above to see results.
+                </p>
               </div>
             </div>
             <div
               class="euiSpacer euiSpacer--xxl"
             />
             <div
-              class="euiSpacer euiSpacer--m"
+              class="euiSpacer euiSpacer--xl"
             />
           </div>
         </div>
@@ -6077,55 +5997,35 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                 />
               </div>
             </div>
-            <hr
-              class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+            <div
+              class="euiSpacer euiSpacer--xxl"
             />
             <div
               class="euiSpacer euiSpacer--xl"
             />
             <div
-              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+              class="euiText euiText--medium"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiTextAlign euiTextAlign--center"
               >
-                <span
-                  class="euiLoadingSpinner euiLoadingSpinner--large"
-                />
-                <div
-                  class="euiText euiText--medium"
-                >
-                  <h3>
-                    Query running
-                  </h3>
-                </div>
-                <div
-                  class="euiText euiText--medium"
-                >
-                  Status: 
-                  success
-                </div>
-                <button
-                  class="euiButton euiButton--primary"
-                  type="button"
-                >
-                  <span
-                    class="euiButtonContent euiButton__content"
-                  >
-                    <span
-                      class="euiButton__text"
-                    >
-                      Cancel
-                    </span>
-                  </span>
-                </button>
+                <h4>
+                  No result
+                </h4>
+              </div>
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <p>
+                  Enter a query in the query editor above to see results.
+                </p>
               </div>
             </div>
             <div
               class="euiSpacer euiSpacer--xxl"
             />
             <div
-              class="euiSpacer euiSpacer--m"
+              class="euiSpacer euiSpacer--xl"
             />
           </div>
         </div>
@@ -8204,55 +8104,35 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                 />
               </div>
             </div>
-            <hr
-              class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+            <div
+              class="euiSpacer euiSpacer--xxl"
             />
             <div
               class="euiSpacer euiSpacer--xl"
             />
             <div
-              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+              class="euiText euiText--medium"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiTextAlign euiTextAlign--center"
               >
-                <span
-                  class="euiLoadingSpinner euiLoadingSpinner--large"
-                />
-                <div
-                  class="euiText euiText--medium"
-                >
-                  <h3>
-                    Query running
-                  </h3>
-                </div>
-                <div
-                  class="euiText euiText--medium"
-                >
-                  Status: 
-                  success
-                </div>
-                <button
-                  class="euiButton euiButton--primary"
-                  type="button"
-                >
-                  <span
-                    class="euiButtonContent euiButton__content"
-                  >
-                    <span
-                      class="euiButton__text"
-                    >
-                      Cancel
-                    </span>
-                  </span>
-                </button>
+                <h4>
+                  No result
+                </h4>
+              </div>
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <p>
+                  Enter a query in the query editor above to see results.
+                </p>
               </div>
             </div>
             <div
               class="euiSpacer euiSpacer--xxl"
             />
             <div
-              class="euiSpacer euiSpacer--m"
+              class="euiSpacer euiSpacer--xl"
             />
           </div>
         </div>
@@ -8792,55 +8672,35 @@ exports[`<Main /> spec renders the component 1`] = `
                 />
               </div>
             </div>
-            <hr
-              class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginLarge"
+            <div
+              class="euiSpacer euiSpacer--xxl"
             />
             <div
               class="euiSpacer euiSpacer--xl"
             />
             <div
-              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+              class="euiText euiText--medium"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiTextAlign euiTextAlign--center"
               >
-                <span
-                  class="euiLoadingSpinner euiLoadingSpinner--large"
-                />
-                <div
-                  class="euiText euiText--medium"
-                >
-                  <h3>
-                    Query running
-                  </h3>
-                </div>
-                <div
-                  class="euiText euiText--medium"
-                >
-                  Status: 
-                  success
-                </div>
-                <button
-                  class="euiButton euiButton--primary"
-                  type="button"
-                >
-                  <span
-                    class="euiButtonContent euiButton__content"
-                  >
-                    <span
-                      class="euiButton__text"
-                    >
-                      Cancel
-                    </span>
-                  </span>
-                </button>
+                <h4>
+                  No result
+                </h4>
+              </div>
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <p>
+                  Enter a query in the query editor above to see results.
+                </p>
               </div>
             </div>
             <div
               class="euiSpacer euiSpacer--xxl"
             />
             <div
-              class="euiSpacer euiSpacer--m"
+              class="euiSpacer euiSpacer--xl"
             />
           </div>
         </div>

@@ -200,7 +200,7 @@ exports[`<AsyncQueryResults /> spec renders async query loading component 1`] = 
           class="euiText euiText--medium"
         >
           Status: 
-          RUNNING
+          running
         </div>
         <button
           class="euiButton euiButton--primary"
