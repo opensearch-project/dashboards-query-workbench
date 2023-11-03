@@ -257,7 +257,7 @@ export class Main extends React.Component<MainProps, MainState> {
       isResultFullScreen: false,
       selectedDatasource: [{ label: 'OpenSearch' }],
       asyncLoading: false,
-      asyncLoadingStatus: 'SUCCESS',
+      asyncLoadingStatus: 'success',
       asyncQueryError: '',
       asyncJobId: '',
       refreshTree: false,
@@ -419,7 +419,7 @@ export class Main extends React.Component<MainProps, MainState> {
             queryResultsTEXT: [],
             searchQuery: '',
             asyncLoading: false,
-            asyncLoadingStatus: 'SUCCESS',
+            asyncLoadingStatus: 'success',
             isCallOutVisible: false,
           },
           () => console.log('Successfully updated the states')
@@ -491,7 +491,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 selectedTabName: MESSAGE_TAB_LABEL,
                 itemIdToExpandedRowMap: {},
                 asyncLoading: true,
-                asyncLoadingStatus: 'SCHEDULED',
+                asyncLoadingStatus: 'scheduled',
                 asyncJobId: queryId,
                 isCallOutVisible: false,
               });
@@ -528,7 +528,7 @@ export class Main extends React.Component<MainProps, MainState> {
         response as IHttpResponse<ResponseData>
       );
       const status = result.data['status'];
-      if (_.isEqual(status, 'SUCCESS')) {
+      if (_.isEqual(status, 'success')) {
         const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable([result], false);
         this.setState({
           queries: queries,
@@ -546,7 +546,7 @@ export class Main extends React.Component<MainProps, MainState> {
           asyncLoadingStatus: status,
           isCallOutVisible: !(result.data['schema'].length > 0),
         });
-      } else if (_.isEqual(status, 'FAILED') || _.isEqual(status, 'CANCELLED')) {
+      } else if (_.isEqual(status, 'failed') || _.isEqual(status, 'cancelled')) {
         this.setState({
           asyncLoading: false,
           asyncLoadingStatus: status,
@@ -783,7 +783,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabName: MESSAGE_TAB_LABEL,
       itemIdToExpandedRowMap: {},
       asyncLoading: false,
-      asyncLoadingStatus: 'SUCCESS',
+      asyncLoadingStatus: 'success',
       isCallOutVisible: false,
     });
   };
