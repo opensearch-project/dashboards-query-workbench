@@ -56,28 +56,27 @@ export const IndexTypeSelector = ({
       getJobId(query, http, (id: string) => {
         if (id === undefined) {
           setToast(errorMessage, 'danger');
-        } else {
-          pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-            if (data.status === 'SUCCESS') {
-              const dataTableFields: DataTableFieldsType[] = data.results
-                .filter((row) => !row[0].startsWith('#'))
-                .map((row, index) => ({
-                  id: `${idPrefix}${index + 1}`,
-                  fieldName: row[0],
-                  dataType: row[1],
-                }));
-              setAccelerationFormData({
-                ...accelerationFormData,
-                dataTableFields: dataTableFields,
-              });
-              setLoading(false);
-            }
-            if (data.status === 'FAILED') {
-              setLoading(false);
-              setToast(errorMessage, 'danger');
-            }
-          });
         }
+        pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
+          if (data.status === 'SUCCESS') {
+            const dataTableFields: DataTableFieldsType[] = data.results
+              .filter((row) => !row[0].startsWith('#'))
+              .map((row, index) => ({
+                id: `${idPrefix}${index + 1}`,
+                fieldName: row[0],
+                dataType: row[1],
+              }));
+            setAccelerationFormData({
+              ...accelerationFormData,
+              dataTableFields: dataTableFields,
+            });
+            setLoading(false);
+          }
+          if (data.status === 'FAILED') {
+            setLoading(false);
+            setToast(errorMessage, 'danger');
+          }
+        });
       });
     }
   }, [accelerationFormData.dataTable]);

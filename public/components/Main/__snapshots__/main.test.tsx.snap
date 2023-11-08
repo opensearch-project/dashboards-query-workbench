@@ -237,7 +237,7 @@ exports[`<Main /> spec click clear button 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <div
-              class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+              class="euiFlexItem euiFlexItem--flexGrowZero"
             >
               <div
                 class="euiText euiText--medium euiTreeView__wrapper"
@@ -2904,7 +2904,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <div
-              class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+              class="euiFlexItem euiFlexItem--flexGrowZero"
             >
               <div
                 class="euiText euiText--medium euiTreeView__wrapper"
@@ -5008,7 +5008,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <div
-              class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+              class="euiFlexItem euiFlexItem--flexGrowZero"
             >
               <div
                 class="euiText euiText--medium euiTreeView__wrapper"
@@ -5642,7 +5642,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <div
-              class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+              class="euiFlexItem euiFlexItem--flexGrowZero"
             >
               <div
                 class="euiText euiText--medium euiTreeView__wrapper"
@@ -6275,7 +6275,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <div
-              class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+              class="euiFlexItem euiFlexItem--flexGrowZero"
             >
               <div
                 class="euiText euiText--medium euiTreeView__wrapper"
@@ -8366,7 +8366,7 @@ exports[`<Main /> spec renders the component 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <div
-              class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+              class="euiFlexItem euiFlexItem--flexGrowZero"
             >
               <div
                 class="euiText euiText--medium euiTreeView__wrapper"
