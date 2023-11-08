@@ -15,7 +15,6 @@ import {
   EuiPanel,
   EuiSpacer,
   EuiText,
-  EuiCallOut,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
@@ -109,10 +108,8 @@ interface MainState {
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
-  asyncQueryError: string;
   asyncJobId: string;
   isAccelerationFlyoutOpened: boolean;
-  isCallOutVisible: boolean;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -249,10 +246,8 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedDatasource: [{ label: 'OpenSearch' }],
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
-      asyncQueryError: '',
       asyncJobId: '',
       isAccelerationFlyoutOpened: false,
-      isCallOutVisible: false,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -408,9 +403,6 @@ export class Main extends React.Component<MainProps, MainState> {
             queryResultsCSV: [],
             queryResultsTEXT: [],
             searchQuery: '',
-            asyncLoading: false,
-            asyncLoadingStatus: 'SUCCESS',
-            isCallOutVisible: false,
           },
           () => console.log('Successfully updated the states')
         ); // added callback function to handle async issues
@@ -482,7 +474,6 @@ export class Main extends React.Component<MainProps, MainState> {
                 asyncLoading: true,
                 asyncLoadingStatus: 'SCHEDULED',
                 asyncJobId: queryId,
-                isCallOutVisible: false,
               });
               this.callGetStartPolling(queries);
               const interval = setInterval(() => {
@@ -522,7 +513,7 @@ export class Main extends React.Component<MainProps, MainState> {
         this.setState({
           queries: queries,
           queryResults: [result],
-          queryResultsTable: result.data['schema'].length > 0 ? resultTable : [],
+          queryResultsTable: resultTable,
           selectedTabId: getDefaultTabId([result]),
           selectedTabName: getDefaultTabLabel([result], queries[0]),
           messages: this.getMessage(resultTable),
@@ -533,7 +524,6 @@ export class Main extends React.Component<MainProps, MainState> {
           searchQuery: '',
           asyncLoading: false,
           asyncLoadingStatus: status,
-          isCallOutVisible: !(result.data['schema'].length > 0),
         });
       } else if (_.isEqual(status, 'FAILED') || _.isEqual(status, 'CANCELLED')) {
         this.setState({
@@ -545,7 +535,6 @@ export class Main extends React.Component<MainProps, MainState> {
               className: 'error-message',
             },
           ],
-          asyncQueryError: result.data['error'],
         });
       } else {
         this.setState({
@@ -771,9 +760,6 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabId: MESSAGE_TAB_LABEL,
       selectedTabName: MESSAGE_TAB_LABEL,
       itemIdToExpandedRowMap: {},
-      asyncLoading: false,
-      asyncLoadingStatus: 'SUCCESS',
-      isCallOutVisible: false,
     });
   };
 
@@ -904,8 +890,8 @@ export class Main extends React.Component<MainProps, MainState> {
             getText={this.getText}
             isResultFullScreen={this.state.isResultFullScreen}
             setIsResultFullScreen={this.setIsResultFullScreen}
+            asyncLoading={this.state.asyncLoading}
             asyncLoadingStatus={this.state.asyncLoadingStatus}
-            asyncQueryError={this.state.asyncQueryError}
             cancelAsyncQuery={this.cancelAsyncQuery}
             selectedDatasource={this.state.selectedDatasource}
           />
@@ -970,23 +956,6 @@ export class Main extends React.Component<MainProps, MainState> {
               <EuiSpacer size="l" />
               <div>{page}</div>
               <EuiSpacer size="l" />
-              {this.state.isCallOutVisible && (
-                <>
-                  <EuiCallOut
-                    size="s"
-                    title="Query Submitted Successfully"
-                    color="success"
-                    iconType="check"
-                    dismissible
-                    onDismiss={() =>
-                      this.setState({
-                        isCallOutVisible: false,
-                      })
-                    }
-                  />
-                  <EuiSpacer size="l" />
-                </>
-              )}
               <div className="sql-console-query-result">
                 <QueryResults
                   language={this.state.language}
@@ -1023,8 +992,8 @@ export class Main extends React.Component<MainProps, MainState> {
                   getText={this.getText}
                   isResultFullScreen={this.state.isResultFullScreen}
                   setIsResultFullScreen={this.setIsResultFullScreen}
+                  asyncLoading={this.state.asyncLoading}
                   asyncLoadingStatus={this.state.asyncLoadingStatus}
-                  asyncQueryError={this.state.asyncQueryError}
                   cancelAsyncQuery={this.cancelAsyncQuery}
                   selectedDatasource={this.state.selectedDatasource}
                 />

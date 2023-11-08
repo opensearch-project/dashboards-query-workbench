@@ -45,7 +45,7 @@ import {
   ResponseDetail,
   Tab,
 } from '../Main/main';
-import { AsyncQueryBody } from './async_query_body';
+import { AsyncQueryBody } from './AsyncQueryBody';
 import QueryResultsBody from './QueryResultsBody';
 
 interface QueryResultsProps {
@@ -71,8 +71,8 @@ interface QueryResultsProps {
   getText: (queries: string[]) => void;
   isResultFullScreen: boolean;
   setIsResultFullScreen: (isFullScreen: boolean) => void;
+  asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
-  asyncQueryError: string;
   cancelAsyncQuery: () => void;
   selectedDatasource: EuiComboBoxOptionOption[];
 }
@@ -335,8 +335,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
             </EuiFlexItem>
           </EuiFlexGroup>
         </div>
-        {this.props.asyncLoadingStatus === 'SUCCESS' ||
-        this.props.asyncLoadingStatus === 'CANCELLED' ? (
+        {!this.props.asyncLoading ? (
           <>
             {this.props.queryResults.length === 0 ? (
               // show no results message instead of the results table when there are no results
@@ -444,9 +443,9 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
             <EuiSpacer size="xl" />
             <EuiFlexGroup alignItems="center">
               <AsyncQueryBody
+                asyncLoading={this.props.asyncLoading}
                 asyncLoadingStatus={this.props.asyncLoadingStatus}
                 cancelAsyncQuery={this.props.cancelAsyncQuery}
-                asyncQueryError={this.props.asyncQueryError}
               />
             </EuiFlexGroup>
             <EuiSpacer size="xxl" />
