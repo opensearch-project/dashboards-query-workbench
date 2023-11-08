@@ -183,7 +183,7 @@ exports[`<PPLPage /> spec renders the component 1`] = `
             <span
               class="euiButton__text"
             >
-              Sample Query
+              Explain
             </span>
           </span>
         </button>
@@ -376,7 +376,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
             <span
               class="euiButton__text"
             >
-              Sample Query
+              Explain
             </span>
           </span>
         </button>

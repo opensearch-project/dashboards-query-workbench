@@ -95,6 +95,3 @@ export const POLL_INTERVAL_MS = 2000;
 export const ASYNC_QUERY_ENDPOINT = '/api/spark_sql_console';
 export const ASYNC_QUERY_JOB_ENDPOINT = ASYNC_QUERY_ENDPOINT + '/job/';
 export const ASYNC_QUERY_SESSION_ID = 'async-query-session-id';
-
-export const SAMPLE_PPL_QUERY = 'source = <datasource>.<database>.<table> | head 10';
-export const SAMPLE_SQL_QUERY = 'select * from <datasource>.<database>.<table> limit 10';

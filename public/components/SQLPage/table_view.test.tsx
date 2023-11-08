@@ -1,20 +1,12 @@
-/*
- * Copyright OpenSearch Contributors
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import '@testing-library/jest-dom';
+import React from 'react';
+import { httpClientMock } from '../../../test/mocks';
+
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import React from 'react';
-import { HttpResponse } from '../../../../../../src/core/public';
-import { httpClientMock } from '../../../../test/mocks';
-import {
-  mockDatabaseQuery,
-  mockJobId,
-  mockOpenSearchIndicies,
-} from '../../../../test/mocks/mockData';
-import { TableView } from '../table_view';
+import { HttpResponse } from '../../../../../src/core/public';
+import { mockDatabaseQuery, mockJobId, mockOpenSearchIndicies } from '../../../test/mocks/mockData';
+import { TableView } from './table_view';
 
 describe('Render databases in tree', () => {
   it('fetches and displays indicies when datasource is OpenSearch', async () => {

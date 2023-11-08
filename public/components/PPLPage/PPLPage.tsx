@@ -7,7 +7,6 @@ import {
   EuiButton,
   EuiCodeBlock,
   EuiCodeEditor,
-  EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
   EuiModal,
@@ -22,7 +21,6 @@ import {
 } from '@elastic/eui';
 import React from 'react';
 import { ResponseDetail, TranslateResult } from '../Main/main';
-import { SAMPLE_PPL_QUERY } from '../../../common/constants';
 
 interface PPLPageProps {
   onRun: (query: string) => void;
@@ -31,7 +29,6 @@ interface PPLPageProps {
   updatePPLQueries: (query: string) => void;
   pplQuery: string;
   pplTranslations: ResponseDetail<TranslateResult>[];
-  selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
 }
 
@@ -150,26 +147,17 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               Clear
             </EuiButton>
           </EuiFlexItem>
-          {this.props.selectedDatasource &&
-          this.props.selectedDatasource[0].label === 'OpenSearch' ? (
-            <EuiFlexItem grow={false} onClick={() => this.props.onTranslate(this.props.pplQuery)}>
-              <EuiButton
-                className="sql-editor-button"
-                onClick={showModal}
-                isDisabled={this.props.asyncLoading}
-              >
-                Explain
-              </EuiButton>
-            </EuiFlexItem>
-          ) : (
-            <EuiFlexItem grow={false} onClick={() => this.props.updatePPLQueries(SAMPLE_PPL_QUERY)}>
-              <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
-                Sample Query
-              </EuiButton>
-            </EuiFlexItem>
-          )}
+          <EuiFlexItem grow={false} onClick={() => this.props.onTranslate(this.props.pplQuery)}>
+            <EuiButton
+              className="sql-editor-button"
+              onClick={showModal}
+              isDisabled={this.props.asyncLoading}
+            >
+              Explain
+            </EuiButton>
+            {modal}
+          </EuiFlexItem>
         </EuiFlexGroup>
-        {modal}
       </EuiPanel>
     );
   }

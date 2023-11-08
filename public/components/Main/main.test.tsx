@@ -6,13 +6,11 @@
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import { HttpResponse } from '../../../../../src/core/public';
 import { httpClientMock } from '../../../test/mocks';
 import {
   mockDatasourcesQuery,
   mockHttpQuery,
   mockNotOkQueryResultResponse,
-  mockOpenSearchTreeQuery,
   mockQueryResultJDBCResponse,
   mockQueryTranslationResponse,
   mockResultWithNull,
@@ -35,7 +33,6 @@ describe('<Main /> spec', () => {
 
   it('click run button, and response is ok', async () => {
     const client = httpClientMock;
-    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     client.post = jest.fn().mockResolvedValue(mockQueryResultJDBCResponse);
 
     const { getByText } = await render(
@@ -82,16 +79,8 @@ describe('<Main /> spec', () => {
   });
 
   it('click run button, and response is not ok', async () => {
-    let postRequestFlag = 0;
     const client = httpClientMock;
-    client.post = jest.fn(() => {
-      if (postRequestFlag > 0)
-        return Promise.resolve((mockNotOkQueryResultResponse as unknown) as HttpResponse);
-      else {
-        postRequestFlag = 1;
-        return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
-      }
-    });
+    client.post = jest.fn().mockResolvedValue(mockNotOkQueryResultResponse);
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
     const { getByText } = await render(
@@ -106,16 +95,9 @@ describe('<Main /> spec', () => {
   });
 
   it('click translation button, and response is ok', async () => {
-    let postRequestFlag = 0;
     const client = httpClientMock;
-    client.post = jest.fn(() => {
-      if (postRequestFlag > 0)
-        return Promise.resolve((mockQueryTranslationResponse as unknown) as HttpResponse);
-      else {
-        postRequestFlag = 1;
-        return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
-      }
-    });
+    client.post = jest.fn().mockResolvedValue(mockQueryTranslationResponse);
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
@@ -129,12 +111,8 @@ describe('<Main /> spec', () => {
   });
 
   it('click clear button', async () => {
-    let postRequestFlag = 0;
     const client = httpClientMock;
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
-    client.post = jest.fn(() => {
-      return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
-    });
 
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
