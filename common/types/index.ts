@@ -80,11 +80,3 @@ export interface CreateAccelerationForm {
 }
 
 export type AsyncQueryLoadingStatus = 'SUCCESS' | 'FAILED' | 'RUNNING' | 'SCHEDULED' | 'CANCELLED';
-export type TreeItemType = 'covering_index' | 'skipping_index' | 'table' | 'database' | 'materialized_view' | 'Load Materialized View' | 'badge'
-
-export interface TreeItem {
-  name: string;
-  type: TreeItemType;
-  isExpanded: boolean;
-  values?: TreeItem[];
-}
