@@ -11,12 +11,11 @@ import {
   EuiFlexItem,
   EuiIcon,
   EuiLoadingSpinner,
-  EuiSpacer,
   EuiText,
   EuiToolTip,
   EuiTreeView,
 } from '@elastic/eui';
-import { TreeItem, TreeItemType, isLoading } from 'common/types';
+import { TreeItem, TreeItemType } from 'common/types';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
@@ -45,10 +44,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   const [tableNames, setTableNames] = useState<string[]>([]);
   const [selectedDatabase, setSelectedDatabase] = useState<string>('');
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
-  const [isLoadingBanner, setIsLoading] = useState<isLoading>({
-    flag: false,
-    status: 'Not loading',
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const [indexFlyout, setIndexFlyout] = useState(<></>);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
 
@@ -79,7 +75,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       let treeItem: TreeItem = {
         name: element,
         type: type,
-        isExpanded: false,
+        isExpanded: true,
       };
 
       if (
@@ -87,7 +83,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         type != TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
       ) {
         treeItem.values = [];
-        treeItem.isLoading = false;
       }
       return treeItem;
     });
@@ -117,6 +112,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           console.error(err);
         });
     } else {
+      setIsLoading(true);
       setTableNames([]);
       const query = {
         lang: 'sql',
@@ -124,36 +120,23 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         datasource: selectedItems[0]['label'],
       };
       getJobId(query, http, (id) => {
-        pollQueryStatus(id, http, (data) => {
-          setIsLoading({ flag: true, status: data.status });
-          if (data.status === 'SUCCESS') {
-            const fetchedDatanases = [].concat(...data.results);
-            setTreeData(loadTreeItem(fetchedDatanases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
-            setIsLoading({ flag: false, status: data.status });
-          }
+        get_async_query_results(id, http, (data) => {
+          data = [].concat(...data);
+          setTreeData(loadTreeItem(data, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
+          setIsLoading(false);
         });
       });
     }
   };
 
   useEffect(() => {
-    setIsLoading({
-      flag: false,
-      status: 'Not loading',
-    });
+    setIsLoading(false);
     getSidebarContent();
   }, [selectedItems, refreshTree]);
 
   const handleDatabaseClick = (databaseName: string) => {
-    setTreeData((prevTreeData) => {
-      return prevTreeData.map((database) => {
-        if (database.name === databaseName) {
-          return { ...database, isExpanded: true, isLoading: true };
-        }
-        return database;
-      });
-    });
     setSelectedDatabase(databaseName);
+    setIsLoading(true);
     const query = {
       lang: 'sql',
       query: `SHOW TABLES IN ${selectedItems[0]['label']}.${databaseName}`,
@@ -161,23 +144,22 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     };
     getJobId(query, http, (id) => {
       get_async_query_results(id, http, (data) => {
-        if (data.status === 'SUCCESS') {
-          const fetchTables = data.results.map((subArray) => subArray[1]);
-          let values = loadTreeItem(fetchTables, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
-          let mvObj = loadTreeItem(
-            [TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME],
-            TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
-          );
-          values = [...values, ...mvObj];
-          setTreeData((prevTreeData) => {
-            return prevTreeData.map((database) => {
-              if (database.name === databaseName) {
-                return { ...database, values: values, isExpanded: true, isLoading: false};
-              }
-              return database;
-            });
+        data = data.map((subArray) => subArray[1]);
+        let values = loadTreeItem(data, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
+        let mvObj = loadTreeItem(
+          [TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME],
+          TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
+        );
+        values = [...values, ...mvObj];
+        setTreeData((prevTreeData) => {
+          return prevTreeData.map((database) => {
+            if (database.name === databaseName) {
+              return { ...database, values: values };
+            }
+            return database;
           });
-        }
+        });
+        setIsLoading(false);
       });
     });
   };
@@ -190,31 +172,28 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     };
     getJobId(coverQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
-        if (data.status === 'SUCCESS') {
-          const res = [].concat(data.results);
-          let coverIndexObj = loadTreeItem(res, TREE_ITEM_COVERING_INDEX_DEFAULT_NAME);
-          setTreeData((prevTreeData) => {
-            return prevTreeData.map((database) => {
-              if (database.name === selectedDatabase) {
-                return {
-                  ...database,
-                  values: database.values?.map((table) => {
-                    if (table.name === tableName) {
-                      return {
-                        ...table,
-                        values: table.values?.concat(...coverIndexObj),
-                        isLoading: false,
-                        isExpanded: true,
-                      };
-                    }
-                    return table;
-                  }),
-                };
-              }
-              return database;
-            });
+        const res = [].concat(data);
+        let coverIndexObj = loadTreeItem(res, TREE_ITEM_COVERING_INDEX_DEFAULT_NAME);
+        setTreeData((prevTreeData) => {
+          return prevTreeData.map((database) => {
+            if (database.name === selectedDatabase) {
+              return {
+                ...database,
+                values: database.values?.map((table) => {
+                  if (table.name === tableName) {
+                    return {
+                      ...table,
+                      values: table.values?.concat(...coverIndexObj),
+                    };
+                  }
+                  return table;
+                }),
+              };
+            }
+            return database;
           });
-        }
+        });
+        setIsLoading(false);
       });
     });
   };
@@ -222,25 +201,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   const handleButtonClick = (e: MouseEvent, tableName: string) => {
     e.stopPropagation();
     setSelectedTable(tableName);
-    setTreeData((prevTreeData) => {
-      return prevTreeData.map((database) => {
-        if (database.name === selectedDatabase) {
-          return {
-            ...database,
-            values: database.values?.map((table) => {
-              if (table.name === tableName) {
-                return {
-                  ...table,
-                  isLoading: true,
-                };
-              }
-              return table;
-            }),
-          };
-        }
-        return database;
-      });
-    });
+    setIsLoading(true);
     const materializedViewQuery = {
       lang: 'sql',
       query: `SHOW MATERIALIZED VIEW IN ${selectedItems[0]['label']}.${selectedDatabase}`,
@@ -248,56 +209,32 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     };
     getJobId(materializedViewQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
-        if (data.status === 'SUCCESS') {
-          const fetchMaterialzedView = data.results.map((subArray) => subArray[1]);
-          let values = loadTreeItem(fetchMaterialzedView, TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME);
-          if (values.length === 0) {
-            values = [
-              {
-                name: 'No Materialized View',
-                type: TREE_ITEM_BADGE_NAME,
-                isExpanded: false,
-                isLoading: false,
-              },
-            ];
-          }
-          setTreeData((prevTreeData) => {
-            return prevTreeData.map((database) => {
-              if (database.name === selectedDatabase) {
-                const updatedValues = database.values?.filter(
-                  (item) => item.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
-                );
-                return { ...database, values: updatedValues?.concat(...values), isLoading: false , isExpanded: true};
-              }
-              return database;
-            });
-          });
+        data = data.map((subArray) => subArray[1]);
+        let values = loadTreeItem(data, TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME);
+        if (values.length === 0) {
+          values = [
+            { name: 'No Materialized View', type: TREE_ITEM_BADGE_NAME, isExpanded: false },
+          ];
         }
+        setTreeData((prevTreeData) => {
+          return prevTreeData.map((database) => {
+            if (database.name === selectedDatabase) {
+              const updatedValues = database.values?.filter(
+                (item) => item.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
+              );
+              return { ...database, values: updatedValues?.concat(...values) };
+            }
+            return database;
+          });
+        });
+        setIsLoading(false);
       });
     });
   };
 
   const handleTableClick = (tableName: string) => {
     setSelectedTable(tableName);
-    setTreeData((prevTreeData) => {
-      return prevTreeData.map((database) => {
-        if (database.name === selectedDatabase) {
-          return {
-            ...database,
-            values: database.values?.map((table) => {
-              if (table.name === tableName) {
-                return {
-                  ...table,
-                  isLoading: true,
-                };
-              }
-              return table;
-            }),
-          };
-        }
-        return database;
-      });
-    });
+    setIsLoading(true);
     const skipQuery = {
       lang: 'sql',
       query: `DESC SKIPPING INDEX ON ${selectedItems[0]['label']}.${selectedDatabase}.${tableName}`,
@@ -305,7 +242,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     };
     getJobId(skipQuery, http, (id) => {
       get_async_query_results(id, http, (data) => {
-        if (data.status === 'SUCCESS') {
+        if (data.length > 0) {
           setTreeData((prevTreeData) => {
             return prevTreeData.map((database) => {
               if (database.name === selectedDatabase) {
@@ -328,8 +265,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               return database;
             });
           });
-          loadCoveringIndex(tableName);
         }
+        loadCoveringIndex(tableName);
       });
     });
   };
@@ -351,7 +288,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             <EuiBadge color="hollow" onClick={handleButtonClick}>
               Load Materialized View
             </EuiBadge>
-            <EuiText>{node.isLoading && <EuiLoadingSpinner size="m" />}</EuiText>
           </div>
         );
 
@@ -359,15 +295,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         return (
           <div key={node.name}>
             <EuiToolTip position="right" content={node.name} delay="long">
-              <EuiFlexGroup direction="row">
-                <EuiFlexItem>
-                  <EuiText>
-                    {_.truncate(node.name, { length: 50 })}{' '}
-                    {node.isLoading && <EuiLoadingSpinner size="m" />}
-                  </EuiText>
-                </EuiFlexItem>
-              </EuiFlexGroup>
-            </EuiToolTip>
+              <EuiText>{_.truncate(node.name, { length: 50 })}</EuiText>
+            </EuiToolTip>{' '}
           </div>
         );
     }
@@ -402,7 +331,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       id: `${database.name}_${table.name}`,
       icon:
         table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME ? (
-          null
+          <EuiBadge color="hollow">MV</EuiBadge>
         ) : table.type === TREE_ITEM_BADGE_NAME ? null : (
           <EuiIcon type="tableDensityCompact" size="s" />
         ),
@@ -410,12 +339,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.values?.length === 0) {
           handleTableClick(table.name);
         }
-        else {
-          if(table.values?.length === 0) {
-            table.values = [{ name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false }];
-          }
+        if (table.values?.length === 0) {
+          table.values = [{ name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false }];
         }
-          
       },
       isSelectable: true,
       isExpanded: table.isExpanded,
@@ -440,25 +366,18 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   return (
     <>
       <EuiFlexGroup>
-        {isLoadingBanner.flag ? (
+        {isLoading ? (
           <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
-            <EuiSpacer />
             <EuiFlexItem>
               <EuiLoadingSpinner size="l" />
             </EuiFlexItem>
             <EuiFlexItem grow={false}>Loading data</EuiFlexItem>
             <EuiFlexItem grow={false}>
               <div style={{ padding: '10px' }}>
-                <EuiFlexItem>
-                  <EuiText textAlign="center" color="subdued">
-                    Loading may take over 30 seconds
-                  </EuiText>
-                </EuiFlexItem>
-                <EuiFlexItem>
-                  <EuiText textAlign="center" color="subdued">
-                    Status: {isLoadingBanner.status}
-                  </EuiText>
-                </EuiFlexItem>
+                <EuiText textAlign="center" color="subdued">
+                  Loading can take more than 30s. Queries can be made after the data has loaded. Any
+                  queries run before the data is loaded will be queued
+                </EuiText>
               </div>
             </EuiFlexItem>
           </EuiFlexGroup>
@@ -471,16 +390,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             )}
           </EuiFlexItem>
         ) : (
-          <EuiFlexGroup alignItems="center" direction="column">
-            <EuiFlexItem grow={false}>
-              <EuiEmptyPrompt
-                iconType="alert"
-                iconColor="danger"
-                titleSize="xs"
-                title={<h4>Error loading data</h4>}
-              />
-            </EuiFlexItem>
-          </EuiFlexGroup>
+          <EuiFlexItem grow={false}>
+            <EuiEmptyPrompt
+              iconType="alert"
+              iconColor="danger"
+              title={<h3>Error loading data</h3>}
+            />
+          </EuiFlexItem>
         )}
         {indexFlyout}
       </EuiFlexGroup>

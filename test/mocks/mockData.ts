@@ -2364,11 +2364,5 @@ export const mockOpenSearchIndicies = {
   },
 };
 
-export const mockDatabaseQuery = {
-  data: {
-    ok: true,
-    resp: "{    \"schema\": [        {            \"name\": \"namespace\",            \"type\": \"string\"        }    ],    \"datarows\": [        [            \"default\"        ]    ],    \"total\": 1,    \"size\": 1}"
-  },
-};
 
 

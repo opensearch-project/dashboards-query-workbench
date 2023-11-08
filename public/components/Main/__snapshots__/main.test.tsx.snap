@@ -193,7 +193,7 @@ exports[`<Main /> spec click clear button 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -243,38 +243,34 @@ exports[`<Main /> spec click clear button 1`] = `
               class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <div
-                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                  class="euiEmptyPrompt"
                 >
-                  <div
-                    class="euiEmptyPrompt"
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--xxLarge euiIcon--danger"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--xxLarge euiIcon--danger"
-                      focusable="false"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7.59 10.059 7.35 5.18h1.3L8.4 10.06h-.81Zm.394 1.901a.61.61 0 0 1-.448-.186.606.606 0 0 1-.186-.444c0-.174.062-.323.186-.446a.614.614 0 0 1 .448-.184c.169 0 .315.06.44.182.124.122.186.27.186.448a.6.6 0 0 1-.189.446.607.607 0 0 1-.437.184ZM2 14a1 1 0 0 1-.878-1.479l6-11a1 1 0 0 1 1.756 0l6 11A1 1 0 0 1 14 14H2Zm0-1h12L8 2 2 13Z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                    <div
-                      class="euiSpacer euiSpacer--m"
+                    <path
+                      d="M7.59 10.059 7.35 5.18h1.3L8.4 10.06h-.81Zm.394 1.901a.61.61 0 0 1-.448-.186.606.606 0 0 1-.186-.444c0-.174.062-.323.186-.446a.614.614 0 0 1 .448-.184c.169 0 .315.06.44.182.124.122.186.27.186.448a.6.6 0 0 1-.189.446.607.607 0 0 1-.437.184ZM2 14a1 1 0 0 1-.878-1.479l6-11a1 1 0 0 1 1.756 0l6 11A1 1 0 0 1 14 14H2Zm0-1h12L8 2 2 13Z"
+                      fill-rule="evenodd"
                     />
-                    <h4
-                      class="euiTitle euiTitle--xsmall"
-                    >
-                      Error loading data
-                    </h4>
-                  </div>
+                  </svg>
+                  <div
+                    class="euiSpacer euiSpacer--m"
+                  />
+                  <h3
+                    class="euiTitle euiTitle--medium"
+                  >
+                    Error loading data
+                  </h3>
                 </div>
               </div>
             </div>
@@ -750,7 +746,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -800,38 +796,34 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
               class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <div
-                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                  class="euiEmptyPrompt"
                 >
-                  <div
-                    class="euiEmptyPrompt"
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--xxLarge euiIcon--danger"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--xxLarge euiIcon--danger"
-                      focusable="false"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7.59 10.059 7.35 5.18h1.3L8.4 10.06h-.81Zm.394 1.901a.61.61 0 0 1-.448-.186.606.606 0 0 1-.186-.444c0-.174.062-.323.186-.446a.614.614 0 0 1 .448-.184c.169 0 .315.06.44.182.124.122.186.27.186.448a.6.6 0 0 1-.189.446.607.607 0 0 1-.437.184ZM2 14a1 1 0 0 1-.878-1.479l6-11a1 1 0 0 1 1.756 0l6 11A1 1 0 0 1 14 14H2Zm0-1h12L8 2 2 13Z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                    <div
-                      class="euiSpacer euiSpacer--m"
+                    <path
+                      d="M7.59 10.059 7.35 5.18h1.3L8.4 10.06h-.81Zm.394 1.901a.61.61 0 0 1-.448-.186.606.606 0 0 1-.186-.444c0-.174.062-.323.186-.446a.614.614 0 0 1 .448-.184c.169 0 .315.06.44.182.124.122.186.27.186.448a.6.6 0 0 1-.189.446.607.607 0 0 1-.437.184ZM2 14a1 1 0 0 1-.878-1.479l6-11a1 1 0 0 1 1.756 0l6 11A1 1 0 0 1 14 14H2Zm0-1h12L8 2 2 13Z"
+                      fill-rule="evenodd"
                     />
-                    <h4
-                      class="euiTitle euiTitle--xsmall"
-                    >
-                      Error loading data
-                    </h4>
-                  </div>
+                  </svg>
+                  <div
+                    class="euiSpacer euiSpacer--m"
+                  />
+                  <h3
+                    class="euiTitle euiTitle--medium"
+                  >
+                    Error loading data
+                  </h3>
                 </div>
               </div>
             </div>
@@ -1307,7 +1299,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -1357,38 +1349,34 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
               class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <div
-                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                  class="euiEmptyPrompt"
                 >
-                  <div
-                    class="euiEmptyPrompt"
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--xxLarge euiIcon--danger"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--xxLarge euiIcon--danger"
-                      focusable="false"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7.59 10.059 7.35 5.18h1.3L8.4 10.06h-.81Zm.394 1.901a.61.61 0 0 1-.448-.186.606.606 0 0 1-.186-.444c0-.174.062-.323.186-.446a.614.614 0 0 1 .448-.184c.169 0 .315.06.44.182.124.122.186.27.186.448a.6.6 0 0 1-.189.446.607.607 0 0 1-.437.184ZM2 14a1 1 0 0 1-.878-1.479l6-11a1 1 0 0 1 1.756 0l6 11A1 1 0 0 1 14 14H2Zm0-1h12L8 2 2 13Z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                    <div
-                      class="euiSpacer euiSpacer--m"
+                    <path
+                      d="M7.59 10.059 7.35 5.18h1.3L8.4 10.06h-.81Zm.394 1.901a.61.61 0 0 1-.448-.186.606.606 0 0 1-.186-.444c0-.174.062-.323.186-.446a.614.614 0 0 1 .448-.184c.169 0 .315.06.44.182.124.122.186.27.186.448a.6.6 0 0 1-.189.446.607.607 0 0 1-.437.184ZM2 14a1 1 0 0 1-.878-1.479l6-11a1 1 0 0 1 1.756 0l6 11A1 1 0 0 1 14 14H2Zm0-1h12L8 2 2 13Z"
+                      fill-rule="evenodd"
                     />
-                    <h4
-                      class="euiTitle euiTitle--xsmall"
-                    >
-                      Error loading data
-                    </h4>
-                  </div>
+                  </svg>
+                  <div
+                    class="euiSpacer euiSpacer--m"
+                  />
+                  <h3
+                    class="euiTitle euiTitle--medium"
+                  >
+                    Error loading data
+                  </h3>
                 </div>
               </div>
             </div>
@@ -1864,7 +1852,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -2505,7 +2493,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -3145,7 +3133,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
@@ -3195,38 +3183,34 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
               class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+                class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <div
-                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                  class="euiEmptyPrompt"
                 >
-                  <div
-                    class="euiEmptyPrompt"
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--xxLarge euiIcon--danger"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--xxLarge euiIcon--danger"
-                      focusable="false"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7.59 10.059 7.35 5.18h1.3L8.4 10.06h-.81Zm.394 1.901a.61.61 0 0 1-.448-.186.606.606 0 0 1-.186-.444c0-.174.062-.323.186-.446a.614.614 0 0 1 .448-.184c.169 0 .315.06.44.182.124.122.186.27.186.448a.6.6 0 0 1-.189.446.607.607 0 0 1-.437.184ZM2 14a1 1 0 0 1-.878-1.479l6-11a1 1 0 0 1 1.756 0l6 11A1 1 0 0 1 14 14H2Zm0-1h12L8 2 2 13Z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                    <div
-                      class="euiSpacer euiSpacer--m"
+                    <path
+                      d="M7.59 10.059 7.35 5.18h1.3L8.4 10.06h-.81Zm.394 1.901a.61.61 0 0 1-.448-.186.606.606 0 0 1-.186-.444c0-.174.062-.323.186-.446a.614.614 0 0 1 .448-.184c.169 0 .315.06.44.182.124.122.186.27.186.448a.6.6 0 0 1-.189.446.607.607 0 0 1-.437.184ZM2 14a1 1 0 0 1-.878-1.479l6-11a1 1 0 0 1 1.756 0l6 11A1 1 0 0 1 14 14H2Zm0-1h12L8 2 2 13Z"
+                      fill-rule="evenodd"
                     />
-                    <h4
-                      class="euiTitle euiTitle--xsmall"
-                    >
-                      Error loading data
-                    </h4>
-                  </div>
+                  </svg>
+                  <div
+                    class="euiSpacer euiSpacer--m"
+                  />
+                  <h3
+                    class="euiTitle euiTitle--medium"
+                  >
+                    Error loading data
+                  </h3>
                 </div>
               </div>
             </div>
@@ -3693,7 +3677,7 @@ exports[`<Main /> spec renders the component 1`] = `
     >
       <div
         class="euiPageSideBar"
-        style="max-width: 400px; width: 400px; max-height: 1200px; overflow-y: auto;"
+        style="max-width: 400px; width: 400px; overflow: auto;"
       >
         <div
           class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"

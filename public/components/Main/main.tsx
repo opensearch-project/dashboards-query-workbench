@@ -6,7 +6,6 @@
 import {
   EuiButton,
   EuiButtonIcon,
-  EuiCallOut,
   EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
@@ -17,6 +16,7 @@ import {
   EuiPanel,
   EuiSpacer,
   EuiText,
+  EuiCallOut,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import _ from 'lodash';
@@ -957,8 +957,8 @@ export class Main extends React.Component<MainProps, MainState> {
         </EuiFlexGroup>
         <EuiPage paddingSize="none">
           {this.state.language === 'SQL' && (
-            <EuiPanel grow ={true}>
-              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px', maxHeight: '1200px' ,overflowY:'auto'}}>
+            <EuiPanel>
+              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px' , overflow: 'auto' }}>
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
