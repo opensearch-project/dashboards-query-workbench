@@ -18,20 +18,18 @@ export const TREE_ITEM_TABLE_NAME_DEFAULT_NAME = `table`;
 export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
 export const TREE_ITEM_BADGE_NAME = `badge`;
 export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
-export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON datasource.database.table 
+export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
 (status VALUE_SET) 
 WITH (
-  auto_refresh = true,
-  checkpoint_location = 's3://test/'
+  auto_refresh = true
   )`;
-export const COVERING_INDEX_QUERY = `CREATE INDEX covering_idx ON datasource.database.table
+export const COVERING_INDEX_QUERY = `CREATE INDEX covering_idx ON myS3.logs_db.http_logs
  (status) 
  WITH (
-  auto_refresh = true,
-  checkpoint_location = 's3://test/'
+  auto_refresh = true
   )`;
-export const CREATE_DATABASE_QUERY = `CREATE DATABASE datasource.database`;
-export const CREATE_TABLE_QUERY = `CREATE EXTERNAL TABLE datasource.database.table (
+export const CREATE_DATABASE_QUERY = `CREATE DATABASE myS3.logs_db`;
+export const CREATE_TABLE_QUERY = `CREATE EXTERNAL TABLE myS3.logs_db.logs (
   key BIGINT,
   status INTEGER,
   size FLOAT,
@@ -43,17 +41,6 @@ OPTIONS (
   path 's3://test/path',
   compression 'gzip'
 );`;
-
-export const CREATE_MATERIALIZED_VIEW = `CREATE MATERIALIZED VIEW datasource.database.materialized_view
-AS SELECT
-   count(field)
-FROM datasource.database.table
-GROUP BY TUMBLE (timestamp, '2 hours')
- WITH (
-auto_refresh = true,
-watermark_delay = '2 minutes',
-checkpoint_location = 's3://test/'
-)`;
 
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
