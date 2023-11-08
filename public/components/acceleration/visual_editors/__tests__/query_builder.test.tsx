@@ -11,15 +11,9 @@ import {
   indexOptionsMock1,
   indexOptionsMock2,
   indexOptionsMock3,
-  indexOptionsMock4,
-  indexOptionsMock5,
-  indexOptionsMock6,
   indexOptionsMockResult1,
   indexOptionsMockResult2,
   indexOptionsMockResult3,
-  indexOptionsMockResult4,
-  indexOptionsMockResult5,
-  indexOptionsMockResult6,
   materializedViewBuilderMock1,
   materializedViewBuilderMock2,
   materializedViewBuilderMockResult1,
@@ -50,21 +44,6 @@ describe('buildIndexOptions', () => {
   it('should build index options with checkpoint location', () => {
     const indexOptions = buildIndexOptions(indexOptionsMock3);
     expect(indexOptions).toEqual(indexOptionsMockResult3);
-  });
-
-  it('should build index options with manual refresh', () => {
-    const indexOptions = buildIndexOptions(indexOptionsMock4);
-    expect(indexOptions).toEqual(indexOptionsMockResult4);
-  });
-
-  it('should build index options with watermark delay', () => {
-    const indexOptions = buildIndexOptions(indexOptionsMock5);
-    expect(indexOptions).toEqual(indexOptionsMockResult5);
-  });
-
-  it('should build index options with manual refresh and checkpoint', () => {
-    const indexOptions = buildIndexOptions(indexOptionsMock6);
-    expect(indexOptions).toEqual(indexOptionsMockResult6);
   });
 
   describe('skippingIndexQueryBuilder', () => {

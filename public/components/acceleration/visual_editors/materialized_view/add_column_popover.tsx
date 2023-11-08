@@ -26,6 +26,7 @@ import {
   CreateAccelerationForm,
   MaterializedViewColumn,
 } from '../../../../../common/types';
+import { validateMaterializedViewData } from '../../create/utils';
 
 interface AddColumnPopOverProps {
   isColumnPopOverOpen: boolean;
@@ -81,6 +82,10 @@ export const AddColumnPopOver = ({
     setAccelerationFormData(
       producer((accData) => {
         accData.materializedViewQueryData.columnsValues = newColumnExpresionValue;
+        accData.formErrors.materializedViewError = validateMaterializedViewData(
+          accData.accelerationIndexType,
+          accData.materializedViewQueryData
+        );
       })
     );
 

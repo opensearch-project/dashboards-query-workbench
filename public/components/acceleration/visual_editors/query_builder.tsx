@@ -18,7 +18,6 @@ export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) 
     replicaShardsCount,
     refreshType,
     checkpointLocation,
-    accelerationIndexType,
   } = accelerationformData;
   const indexOptions: string[] = [];
 
@@ -28,7 +27,7 @@ export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) 
   );
 
   // Add auto refresh option
-  indexOptions.push(`auto_refresh = ${['auto', 'interval'].includes(refreshType)}`);
+  indexOptions.push(`auto_refresh = ${refreshType === 'auto'}`);
 
   // Add refresh interval option
   if (refreshType === 'interval') {
@@ -38,16 +37,8 @@ export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) 
     );
   }
 
-  // Add watermark delay option with materialized view
-  if (accelerationIndexType === 'materialized') {
-    const { delayWindow, delayInterval } = accelerationformData.watermarkDelay;
-    indexOptions.push(
-      `watermark_delay = '${delayWindow} ${delayInterval}${pluralizeTime(delayWindow)}'`
-    );
-  }
-
-  if (refreshType !== 'manual' && checkpointLocation) {
-    // Add checkpoint location option
+  // Add checkpoint location option
+  if (checkpointLocation) {
     indexOptions.push(`checkpoint_location = '${checkpointLocation}'`);
   }
 
@@ -58,7 +49,7 @@ export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) 
 /* Add skipping index columns to query */
 const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[]) => {
   return skippingIndexQueryData
-    .map((n) => `   \`${n.fieldName}\` ${n.accelerationMethod}`)
+    .map((n) => `   ${n.fieldName} ${n.accelerationMethod}`)
     .join(', \n');
 };
 
@@ -68,11 +59,11 @@ const buildSkippingIndexColumns = (skippingIndexQueryData: SkippingIndexRowType[
  *
  * CREATE SKIPPING INDEX
  * ON datasource.database.table (
- *    `field1` VALUE_SET,
- *    `field2` PARTITION,
- *    `field3` MIN_MAX,
+ *    field1 VALUE_SET,
+ *    field2 PARTITION,
+ *    field3 MIN_MAX,
  * ) WITH (
- * auto_refresh = true,
+ * auto_refresh = false,
  * refresh_interval = '1 minute',
  * checkpoint_location = 's3://test/',
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
@@ -91,7 +82,7 @@ ${buildSkippingIndexColumns(skippingIndexQueryData)}
 
 /* Add covering index columns to query */
 const buildCoveringIndexColumns = (coveringIndexQueryData: string[]) => {
-  return coveringIndexQueryData.map((field) => `   \`${field}\``).join(', \n');
+  return coveringIndexQueryData.map((field) => `   ${field}`).join(', \n');
 };
 
 /*
@@ -100,11 +91,11 @@ const buildCoveringIndexColumns = (coveringIndexQueryData: string[]) => {
  *
  * CREATE INDEX index_name
  * ON datasource.database.table (
- *    `field1`,
- *    `field2`,
- *    `field3`,
+ *    field1,
+ *    field2,
+ *    field3,
  * ) WITH (
- * auto_refresh = true,
+ * auto_refresh = false,
  * refresh_interval = '1 minute',
  * checkpoint_location = 's3://test/',
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'
@@ -127,16 +118,12 @@ ${buildCoveringIndexColumns(coveringIndexQueryData)}
   return codeQuery;
 };
 
-const buildMaterializedViewColumnName = (columnName: string) => {
-  return columnName === '*' ? columnName : `\`${columnName}\``;
-};
-
 const buildMaterializedViewColumns = (columnsValues: MaterializedViewColumn[]) => {
   return columnsValues
     .map(
       (column) =>
-        `   ${column.functionName}(${buildMaterializedViewColumnName(column.functionParam)})${
-          column.fieldAlias ? ` AS \`${column.fieldAlias}\`` : ``
+        `   ${column.functionName}(${column.functionParam})${
+          column.fieldAlias ? ` AS ${column.fieldAlias}` : ``
         }`
     )
     .join(', \n');
@@ -145,7 +132,7 @@ const buildMaterializedViewColumns = (columnsValues: MaterializedViewColumn[]) =
 /* Build group by tumble values */
 const buildTumbleValue = (GroupByTumbleValue: GroupByTumbleType) => {
   const { timeField, tumbleWindow, tumbleInterval } = GroupByTumbleValue;
-  return `(\`${timeField}\`, '${tumbleWindow} ${tumbleInterval}${pluralizeTime(tumbleWindow)}')`;
+  return `(${timeField}, '${tumbleWindow} ${tumbleInterval}${pluralizeTime(tumbleWindow)}')`;
 };
 
 /*
@@ -154,12 +141,12 @@ const buildTumbleValue = (GroupByTumbleValue: GroupByTumbleType) => {
  *
  * CREATE MATERIALIZED VIEW datasource.database.index_name
  * AS SELECT
- * count(`field`) as `counter`,
- * count(*) as `counter1`,
- * sum(`field2`),
- * avg(`field3`) as `average`
+ * count(field) as counter,
+ * count(*) as counter1,
+ * sum(field2),
+ * avg(field3) as average
  *  WITH (
- * auto_refresh = true,
+ * auto_refresh = false,
  * refresh_interval = '1 minute',
  * checkpoint_location = 's3://test/',
  * index_settings = '{"number_of_shards":9,"number_of_replicas":2}'

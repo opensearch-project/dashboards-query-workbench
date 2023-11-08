@@ -61,14 +61,10 @@ export const CreateAcceleration = ({
       },
     },
     accelerationIndexName: ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
-    primaryShardsCount: 5,
+    primaryShardsCount: 1,
     replicaShardsCount: 1,
     refreshType: 'auto',
     checkpointLocation: undefined,
-    watermarkDelay: {
-      delayWindow: 1,
-      delayInterval: ACCELERATION_TIME_INTERVAL[1].value,
-    },
     refreshIntervalOptions: {
       refreshWindow: 1,
       refreshInterval: ACCELERATION_TIME_INTERVAL[1].value,
@@ -85,7 +81,6 @@ export const CreateAcceleration = ({
       replicaShardsError: [],
       refreshIntervalError: [],
       checkpointLocationError: [],
-      watermarkDelayError: [],
     },
   });
 

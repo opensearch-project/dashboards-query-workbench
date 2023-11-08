@@ -9,7 +9,6 @@ import {
 } from '../../../../common/constants';
 import {
   AccelerationIndexType,
-  AccelerationRefreshType,
   CreateAccelerationForm,
   FormErrorsType,
   SkippingIndexRowType,
@@ -51,26 +50,17 @@ export const validateRefreshInterval = (refreshType: string, refreshWindow: numb
     : [];
 };
 
-export const validateWatermarkDelay = (
-  accelerationIndexType: AccelerationIndexType,
-  delayWindow: number
-) => {
-  return accelerationIndexType === 'materialized' && delayWindow < 1
-    ? ['delay window should be greater than 0']
-    : [];
-};
-
 export const validateIndexName = (value: string) => {
   // Check if the value does not begin with underscores or hyphens and all characters are lower case
   return !ACCELERATION_INDEX_NAME_REGEX.test(value) ? ['Enter a valid index name'] : [];
 };
 
 export const validateCheckpointLocation = (
-  refreshType: AccelerationRefreshType,
+  accelerationIndexType: AccelerationIndexType,
   checkpointLocation: string | undefined
 ) => {
-  if (refreshType !== 'manual' && !checkpointLocation) {
-    return ['Checkpoint location is mandatory for auto refresh'];
+  if (accelerationIndexType === 'materialized' && !checkpointLocation) {
+    return ['Checkpoint location is mandatory for materialized view creation'];
   }
 
   if (checkpointLocation && !ACCELERATION_S3_URL_REGEX.test(checkpointLocation))
@@ -132,11 +122,10 @@ export const formValidator = (accelerationformData: CreateAccelerationForm) => {
     replicaShardsCount,
     refreshType,
     checkpointLocation,
-    watermarkDelay,
     refreshIntervalOptions,
   } = accelerationformData;
 
-  const accelerationFormErrors: FormErrorsType = {
+  const accelerationFormErrors = {
     dataSourceError: validateDataSource(dataSource),
     databaseError: validateDatabase(database),
     dataTableError: validateDataTable(dataTable),
@@ -146,8 +135,7 @@ export const formValidator = (accelerationformData: CreateAccelerationForm) => {
       refreshType,
       refreshIntervalOptions.refreshWindow
     ),
-    checkpointLocationError: validateCheckpointLocation(refreshType, checkpointLocation),
-    watermarkDelayError: validateWatermarkDelay(accelerationIndexType, watermarkDelay.delayWindow),
+    checkpointLocationError: validateCheckpointLocation(accelerationIndexType, checkpointLocation),
     indexNameError: validateIndexName(accelerationIndexName),
     skippingIndexError: validateSkippingIndexData(accelerationIndexType, skippingIndexQueryData),
     coveringIndexError: validateCoveringIndexData(accelerationIndexType, coveringIndexQueryData),

@@ -7,9 +7,8 @@ import { EuiComboBox, EuiComboBoxOptionOption, EuiFormRow, EuiSpacer, EuiText } 
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
-import { useToast } from '../../../../common/toast';
 import { CreateAccelerationForm } from '../../../../common/types';
-import { getJobId, pollQueryStatus } from '../../../../common/utils/async_query_helpers';
+import { getJobId, pollQueryStatus } from '../../SQLPage/utils';
 import { hasError, validateDataSource } from '../create/utils';
 
 interface AccelerationDataSourceSelectorProps {
@@ -25,7 +24,6 @@ export const AccelerationDataSourceSelector = ({
   setAccelerationFormData,
   selectedDatasource,
 }: AccelerationDataSourceSelectorProps) => {
-  const { setToast } = useToast();
   const [dataConnections, setDataConnections] = useState<EuiComboBoxOptionOption<string>[]>([]);
   const [selectedDataConnection, setSelectedDataConnection] = useState<
     EuiComboBoxOptionOption<string>[]
@@ -54,7 +52,6 @@ export const AccelerationDataSourceSelector = ({
       })
       .catch((err) => {
         console.error(err);
-        setToast(`ERROR: failed to load datasources`, 'danger');
       });
     setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: false });
   };
@@ -66,25 +63,14 @@ export const AccelerationDataSourceSelector = ({
       query: `SHOW SCHEMAS IN ${accelerationFormData.dataSource}`,
       datasource: accelerationFormData.dataSource,
     };
-    const errorMessage = `ERROR: failed to load databases`;
     getJobId(query, http, (id: string) => {
-      if (id === undefined) {
-        setToast(errorMessage, 'danger');
-      } else {
-        pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-          if (data.status === 'SUCCESS') {
-            let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
-            if (data.results.length > 0)
-              databaseOptions = data.results.map((subArray: any[]) => ({ label: subArray[0] }));
-            setDatabases(databaseOptions);
-            setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-          }
-          if (data.status === 'FAILED') {
-            setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-            setToast(errorMessage, 'danger');
-          }
-        });
-      }
+      pollQueryStatus(id, http, (data: any[][]) => {
+        let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
+        if (data.length > 0)
+          databaseOptions = data.map((subArray: any[]) => ({ label: subArray[0] }));
+        setDatabases(databaseOptions);
+        setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+      });
     });
   };
 
@@ -95,25 +81,13 @@ export const AccelerationDataSourceSelector = ({
       query: `SHOW TABLES IN ${accelerationFormData.dataSource}.${accelerationFormData.database}`,
       datasource: accelerationFormData.dataSource,
     };
-    const errorMessage = `ERROR: failed to load tables`;
     getJobId(query, http, (id: string) => {
-      if (id === undefined) {
-        setToast(errorMessage, 'danger');
-      } else {
-        pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-          if (data.status === 'SUCCESS') {
-            let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
-            if (data.results.length > 0)
-              dataTableOptions = data.results.map((subArray) => ({ label: subArray[1] }));
-            setTables(dataTableOptions);
-            setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-          }
-          if (data.status === 'FAILED') {
-            setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-            setToast(errorMessage, 'danger');
-          }
-        });
-      }
+      pollQueryStatus(id, http, (data: any[]) => {
+        let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
+        if (data.length > 0) dataTableOptions = data.map((subArray) => ({ label: subArray[1] }));
+        setTables(dataTableOptions);
+        setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+      });
     });
   };
 
@@ -140,7 +114,7 @@ export const AccelerationDataSourceSelector = ({
       </EuiText>
       <EuiSpacer size="s" />
       <EuiText size="s" color="subdued">
-        Select the data source to accelerate data from. External data sources may take time to load.
+        Select data connection where the data you want to accelerate resides.
       </EuiText>
       <EuiSpacer size="s" />
       <EuiFormRow
@@ -155,17 +129,15 @@ export const AccelerationDataSourceSelector = ({
           options={dataConnections}
           selectedOptions={selectedDataConnection}
           onChange={(dataConnectionOptions) => {
-            if (dataConnectionOptions.length > 0) {
-              setAccelerationFormData(
-                producer((accData) => {
-                  accData.dataSource = dataConnectionOptions[0].label;
-                  accData.formErrors.dataSourceError = validateDataSource(
-                    dataConnectionOptions[0].label
-                  );
-                })
-              );
-              setSelectedDataConnection(dataConnectionOptions);
-            }
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.dataSource = dataConnectionOptions[0].label;
+                accData.formErrors.dataSourceError = validateDataSource(
+                  dataConnectionOptions[0].label
+                );
+              })
+            );
+            setSelectedDataConnection(dataConnectionOptions);
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
@@ -184,15 +156,13 @@ export const AccelerationDataSourceSelector = ({
           options={databases}
           selectedOptions={selectedDatabase}
           onChange={(databaseOptions) => {
-            if (databaseOptions.length > 0) {
-              setAccelerationFormData(
-                producer((accData) => {
-                  accData.database = databaseOptions[0].label;
-                  accData.formErrors.databaseError = validateDataSource(databaseOptions[0].label);
-                })
-              );
-              setSelectedDatabase(databaseOptions);
-            }
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.database = databaseOptions[0].label;
+                accData.formErrors.databaseError = validateDataSource(databaseOptions[0].label);
+              })
+            );
+            setSelectedDatabase(databaseOptions);
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
@@ -211,15 +181,13 @@ export const AccelerationDataSourceSelector = ({
           options={tables}
           selectedOptions={selectedTable}
           onChange={(tableOptions) => {
-            if (tableOptions.length > 0) {
-              setAccelerationFormData(
-                producer((accData) => {
-                  accData.dataTable = tableOptions[0].label;
-                  accData.formErrors.dataTableError = validateDataSource(tableOptions[0].label);
-                })
-              );
-              setSelectedTable(tableOptions);
-            }
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.dataTable = tableOptions[0].label;
+                accData.formErrors.dataTableError = validateDataSource(tableOptions[0].label);
+              })
+            );
+            setSelectedTable(tableOptions);
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}

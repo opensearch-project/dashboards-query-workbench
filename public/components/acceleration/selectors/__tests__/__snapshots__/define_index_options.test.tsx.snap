@@ -277,7 +277,7 @@ Array [
           className="euiFormLabel euiFormControlLayout__prepend"
           htmlFor="some_html_id"
         >
-          flint_{Datasource Name}_{Database Name}_
+          flint_{Datasource Name}_{Database Name}_{Table Name}_
         </label>
         <span
           className="euiToolTipAnchor"

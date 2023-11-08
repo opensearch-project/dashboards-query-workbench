@@ -72,7 +72,7 @@ Array [
                      
                     <a
                       class="euiLink euiLink--primary"
-                      href="https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/"
+                      href="https://opensearch.org/docs/latest"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
@@ -132,7 +132,7 @@ Array [
                       <div
                         class="euiTextColor euiTextColor--subdued"
                       >
-                        Select the data source to accelerate data from. External data sources may take time to load.
+                        Select data connection where the data you want to accelerate resides.
                       </div>
                     </div>
                     <div
@@ -441,7 +441,7 @@ Array [
                         >
                           <a
                             class="euiLink euiLink--primary"
-                            href="https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md"
+                            href="https://opensearch.org/docs/latest"
                             rel="noopener noreferrer"
                             target="_blank"
                           >
@@ -574,7 +574,7 @@ Array [
                               min="1"
                               placeholder="Number of primary shards"
                               type="number"
-                              value="5"
+                              value="1"
                             />
                           </div>
                         </div>
@@ -582,7 +582,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created.
+                          Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
                         </div>
                       </div>
                     </div>
@@ -627,7 +627,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Specify the number of replicas each primary shard should have.
+                          Specify the number of replicas each primary shard should have. Default is 1.
                         </div>
                       </div>
                     </div>
@@ -670,7 +670,7 @@ Array [
                               class="euiRadio__label"
                               for="refresh-option-1"
                             >
-                              Auto refresh
+                              Auto Refresh
                             </label>
                           </div>
                           <div
@@ -690,27 +690,7 @@ Array [
                               class="euiRadio__label"
                               for="refresh-option-2"
                             >
-                              Auto refresh by interval
-                            </label>
-                          </div>
-                          <div
-                            class="euiRadio euiRadioGroup__item"
-                          >
-                            <input
-                              class="euiRadio__input"
-                              id="refresh-option-3"
-                              name="refresh type radio group"
-                              type="radio"
-                              value=""
-                            />
-                            <div
-                              class="euiRadio__circle"
-                            />
-                            <label
-                              class="euiRadio__label"
-                              for="refresh-option-3"
-                            >
-                              Manual refresh
+                              Refresh by interval
                             </label>
                           </div>
                         </div>
@@ -718,7 +698,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Specify how often the index should refresh, which publishes the most recent changes and make them available for search.
+                          Specify how often the index should refresh, which publishes the most recent changes and make them available for search. Default is set to auto refresh when data at the source changes.
                         </div>
                       </div>
                     </div>
@@ -734,7 +714,7 @@ Array [
                           class="euiFormLabel euiFormRow__label"
                           for="some_html_id"
                         >
-                          Checkpoint location
+                          Checkpoint location - optional
                         </label>
                       </div>
                       <div
@@ -1201,7 +1181,7 @@ Array [
                      
                     <a
                       className="euiLink euiLink--primary"
-                      href="https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/"
+                      href="https://opensearch.org/docs/latest"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
@@ -1263,7 +1243,7 @@ Array [
                         <div
                           className="euiTextColor euiTextColor--subdued"
                         >
-                          Select the data source to accelerate data from. External data sources may take time to load.
+                          Select data connection where the data you want to accelerate resides.
                         </div>
                       </div>,
                       <div
@@ -1655,7 +1635,7 @@ Array [
                           >
                             <a
                               className="euiLink euiLink--primary"
-                              href="https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md"
+                              href="https://opensearch.org/docs/latest"
                               rel="noopener noreferrer"
                               target="_blank"
                             >
@@ -1819,7 +1799,7 @@ Array [
                                 onFocus={[Function]}
                                 placeholder="Number of primary shards"
                                 type="number"
-                                value={5}
+                                value={1}
                               />
                             </div>
                           </div>
@@ -1827,7 +1807,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created.
+                            Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
                           </div>
                         </div>
                       </div>,
@@ -1875,7 +1855,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Specify the number of replicas each primary shard should have.
+                            Specify the number of replicas each primary shard should have. Default is 1.
                           </div>
                         </div>
                       </div>,
@@ -1920,7 +1900,7 @@ Array [
                                 className="euiRadio__label"
                                 htmlFor="refresh-option-1"
                               >
-                                Auto refresh
+                                Auto Refresh
                               </label>
                             </div>
                             <div
@@ -1941,28 +1921,7 @@ Array [
                                 className="euiRadio__label"
                                 htmlFor="refresh-option-2"
                               >
-                                Auto refresh by interval
-                              </label>
-                            </div>
-                            <div
-                              className="euiRadio euiRadioGroup__item"
-                            >
-                              <input
-                                checked={false}
-                                className="euiRadio__input"
-                                id="refresh-option-3"
-                                name="refresh type radio group"
-                                onChange={[Function]}
-                                type="radio"
-                              />
-                              <div
-                                className="euiRadio__circle"
-                              />
-                              <label
-                                className="euiRadio__label"
-                                htmlFor="refresh-option-3"
-                              >
-                                Manual refresh
+                                Refresh by interval
                               </label>
                             </div>
                           </div>
@@ -1970,7 +1929,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Specify how often the index should refresh, which publishes the most recent changes and make them available for search.
+                            Specify how often the index should refresh, which publishes the most recent changes and make them available for search. Default is set to auto refresh when data at the source changes.
                           </div>
                         </div>
                       </div>,
@@ -1986,7 +1945,7 @@ Array [
                             className="euiFormLabel euiFormRow__label"
                             htmlFor="some_html_id"
                           >
-                            Checkpoint location
+                            Checkpoint location - optional
                           </label>
                         </div>
                         <div
