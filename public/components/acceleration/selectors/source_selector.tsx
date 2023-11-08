@@ -64,17 +64,12 @@ export const AccelerationDataSourceSelector = ({
       datasource: accelerationFormData.dataSource,
     };
     getJobId(query, http, (id: string) => {
-      pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-        if (data.status === 'SUCCESS') {
-          let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
-          if (data.results.length > 0)
-            databaseOptions = data.results.map((subArray: any[]) => ({ label: subArray[0] }));
-          setDatabases(databaseOptions);
-          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-        }
-        if (data.status === 'FAILED') {
-          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-        }
+      pollQueryStatus(id, http, (data: any[][]) => {
+        let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
+        if (data.length > 0)
+          databaseOptions = data.map((subArray: any[]) => ({ label: subArray[0] }));
+        setDatabases(databaseOptions);
+        setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
       });
     });
   };
@@ -87,17 +82,11 @@ export const AccelerationDataSourceSelector = ({
       datasource: accelerationFormData.dataSource,
     };
     getJobId(query, http, (id: string) => {
-      pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-        if (data.status === 'SUCCESS') {
-          let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
-          if (data.results.length > 0)
-            dataTableOptions = data.results.map((subArray) => ({ label: subArray[1] }));
-          setTables(dataTableOptions);
-          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-        }
-        if (data.status === 'FAILED') {
-          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-        }
+      pollQueryStatus(id, http, (data: any[]) => {
+        let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
+        if (data.length > 0) dataTableOptions = data.map((subArray) => ({ label: subArray[1] }));
+        setTables(dataTableOptions);
+        setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
       });
     });
   };
@@ -140,17 +129,15 @@ export const AccelerationDataSourceSelector = ({
           options={dataConnections}
           selectedOptions={selectedDataConnection}
           onChange={(dataConnectionOptions) => {
-            if (dataConnectionOptions.length > 0) {
-              setAccelerationFormData(
-                producer((accData) => {
-                  accData.dataSource = dataConnectionOptions[0].label;
-                  accData.formErrors.dataSourceError = validateDataSource(
-                    dataConnectionOptions[0].label
-                  );
-                })
-              );
-              setSelectedDataConnection(dataConnectionOptions);
-            }
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.dataSource = dataConnectionOptions[0].label;
+                accData.formErrors.dataSourceError = validateDataSource(
+                  dataConnectionOptions[0].label
+                );
+              })
+            );
+            setSelectedDataConnection(dataConnectionOptions);
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
@@ -169,15 +156,13 @@ export const AccelerationDataSourceSelector = ({
           options={databases}
           selectedOptions={selectedDatabase}
           onChange={(databaseOptions) => {
-            if (databaseOptions.length > 0) {
-              setAccelerationFormData(
-                producer((accData) => {
-                  accData.database = databaseOptions[0].label;
-                  accData.formErrors.databaseError = validateDataSource(databaseOptions[0].label);
-                })
-              );
-              setSelectedDatabase(databaseOptions);
-            }
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.database = databaseOptions[0].label;
+                accData.formErrors.databaseError = validateDataSource(databaseOptions[0].label);
+              })
+            );
+            setSelectedDatabase(databaseOptions);
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
@@ -196,15 +181,13 @@ export const AccelerationDataSourceSelector = ({
           options={tables}
           selectedOptions={selectedTable}
           onChange={(tableOptions) => {
-            if (tableOptions.length > 0) {
-              setAccelerationFormData(
-                producer((accData) => {
-                  accData.dataTable = tableOptions[0].label;
-                  accData.formErrors.dataTableError = validateDataSource(tableOptions[0].label);
-                })
-              );
-              setSelectedTable(tableOptions);
-            }
+            setAccelerationFormData(
+              producer((accData) => {
+                accData.dataTable = tableOptions[0].label;
+                accData.formErrors.dataTableError = validateDataSource(tableOptions[0].label);
+              })
+            );
+            setSelectedTable(tableOptions);
           }}
           isClearable={false}
           isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}

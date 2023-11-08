@@ -16,7 +16,7 @@ import {
   EuiToolTip,
   EuiTreeView,
 } from '@elastic/eui';
-import { AccelerationIndexType, DatasourceTreeLoading, TreeItem, TreeItemType } from 'common/types';
+import { TreeItem, TreeItemType, isLoading } from 'common/types';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
@@ -45,7 +45,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   const [tableNames, setTableNames] = useState<string[]>([]);
   const [selectedDatabase, setSelectedDatabase] = useState<string>('');
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
-  const [isLoadingBanner, setIsLoading] = useState<DatasourceTreeLoading>({
+  const [isLoadingBanner, setIsLoading] = useState<isLoading>({
     flag: false,
     status: 'Not loading',
   });
@@ -57,15 +57,13 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   };
 
   const handleAccelerationIndexClick = (
-    accelerationIndexType: AccelerationIndexType,
     dataSource: string,
     database: string,
     dataTable: string,
-    indexName?: string
+    indexName: string
   ) => {
     setIndexFlyout(
       <AccelerationIndexFlyout
-        accelerationIndexType={accelerationIndexType}
         dataSource={dataSource}
         database={database}
         dataTable={dataTable}
@@ -94,6 +92,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       return treeItem;
     });
   }
+
+  const get_async_query_results = (id, http, callback) => {
+    pollQueryStatus(id, http, callback);
+  };
 
   const getSidebarContent = () => {
     if (selectedItems[0].label === 'OpenSearch') {
@@ -158,7 +160,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       datasource: selectedItems[0]['label'],
     };
     getJobId(query, http, (id) => {
-      pollQueryStatus(id, http, (data) => {
+      get_async_query_results(id, http, (data) => {
         if (data.status === 'SUCCESS') {
           const fetchTables = data.results.map((subArray) => subArray[1]);
           let values = loadTreeItem(fetchTables, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
@@ -170,7 +172,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           setTreeData((prevTreeData) => {
             return prevTreeData.map((database) => {
               if (database.name === databaseName) {
-                return { ...database, values: values, isExpanded: true, isLoading: false };
+                return { ...database, values: values, isExpanded: true, isLoading: false};
               }
               return database;
             });
@@ -187,7 +189,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       datasource: selectedItems[0]['label'],
     };
     getJobId(coverQuery, http, (id) => {
-      pollQueryStatus(id, http, (data) => {
+      get_async_query_results(id, http, (data) => {
         if (data.status === 'SUCCESS') {
           const res = [].concat(data.results);
           let coverIndexObj = loadTreeItem(res, TREE_ITEM_COVERING_INDEX_DEFAULT_NAME);
@@ -245,7 +247,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       datasource: selectedItems[0]['label'],
     };
     getJobId(materializedViewQuery, http, (id) => {
-      pollQueryStatus(id, http, (data) => {
+      get_async_query_results(id, http, (data) => {
         if (data.status === 'SUCCESS') {
           const fetchMaterialzedView = data.results.map((subArray) => subArray[1]);
           let values = loadTreeItem(fetchMaterialzedView, TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME);
@@ -265,12 +267,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                 const updatedValues = database.values?.filter(
                   (item) => item.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
                 );
-                return {
-                  ...database,
-                  values: updatedValues?.concat(...values),
-                  isLoading: false,
-                  isExpanded: true,
-                };
+                return { ...database, values: updatedValues?.concat(...values), isLoading: false , isExpanded: true};
               }
               return database;
             });
@@ -307,7 +304,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       datasource: selectedItems[0]['label'],
     };
     getJobId(skipQuery, http, (id) => {
-      pollQueryStatus(id, http, (data) => {
+      get_async_query_results(id, http, (data) => {
         if (data.status === 'SUCCESS') {
           setTreeData((prevTreeData) => {
             return prevTreeData.map((database) => {
@@ -404,26 +401,21 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       label: createLabel(table, database.name, index),
       id: `${database.name}_${table.name}`,
       icon:
-        table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME ? null : table.type ===
-          TREE_ITEM_BADGE_NAME ? null : (
+        table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME ? (
+          null
+        ) : table.type === TREE_ITEM_BADGE_NAME ? null : (
           <EuiIcon type="tableDensityCompact" size="s" />
         ),
       callback: () => {
         if (table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME && table.values?.length === 0) {
           handleTableClick(table.name);
         }
-        if (table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME) {
-          handleAccelerationIndexClick(
-            'materialized',
-            selectedItems[0].label,
-            database.name,
-            table.name
-          );
-        } else {
-          if (table.values?.length === 0) {
+        else {
+          if(table.values?.length === 0) {
             table.values = [{ name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false }];
           }
         }
+          
       },
       isSelectable: true,
       isExpanded: table.isExpanded,
@@ -434,7 +426,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         callback: () => {
           if (indexChild.type !== TREE_ITEM_BADGE_NAME) {
             handleAccelerationIndexClick(
-              indexChild.type === 'skipping_index' ? 'skipping' : 'covering',
               selectedItems[0].label,
               database.name,
               table.name,

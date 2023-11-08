@@ -16,7 +16,7 @@ import {
 } from '@elastic/eui';
 import producer from 'immer';
 import React, { useState } from 'react';
-import { ACCELERATION_TIME_INTERVAL, TIMESTAMP_DATATYPE } from '../../../../../common/constants';
+import { ACCELERATION_TIME_INTERVAL } from '../../../../../common/constants';
 import { CreateAccelerationForm, GroupByTumbleType } from '../../../../../common/types';
 import { hasError, pluralizeTime, validateMaterializedViewData } from '../../create/utils';
 
@@ -96,7 +96,7 @@ export const GroupByTumbleExpression = ({
                 placeholder="Select one or more options"
                 singleSelection={{ asPlainText: true }}
                 options={accelerationFormData.dataTableFields
-                  .filter((value) => value.dataType.includes(TIMESTAMP_DATATYPE))
+                  .filter((value) => value.dataType.includes('TimestampType'))
                   .map((value) => ({ label: value.fieldName }))}
                 selectedOptions={[{ label: groupbyValues.timeField }]}
                 onChange={onChangeTimeField}

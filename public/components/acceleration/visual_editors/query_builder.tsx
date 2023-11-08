@@ -18,7 +18,6 @@ export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) 
     replicaShardsCount,
     refreshType,
     checkpointLocation,
-    accelerationIndexType,
   } = accelerationformData;
   const indexOptions: string[] = [];
 
@@ -38,16 +37,8 @@ export const buildIndexOptions = (accelerationformData: CreateAccelerationForm) 
     );
   }
 
-  // Add watermark delay option with materialized view
-  if (accelerationIndexType === 'materialized') {
-    const { delayWindow, delayInterval } = accelerationformData.watermarkDelay;
-    indexOptions.push(
-      `watermark_delay = '${delayWindow} ${delayInterval}${pluralizeTime(delayWindow)}'`
-    );
-  }
-
+  // Add checkpoint location option
   if (checkpointLocation) {
-    // Add checkpoint location option
     indexOptions.push(`checkpoint_location = '${checkpointLocation}'`);
   }
 

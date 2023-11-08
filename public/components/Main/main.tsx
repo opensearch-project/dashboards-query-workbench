@@ -829,7 +829,7 @@ export class Main extends React.Component<MainProps, MainState> {
       refreshTree: !this.state.refreshTree,
     });
   };
-
+      
   setIsAccelerationFlyoutOpened = (value: boolean) => {
     this.setState({
       isAccelerationFlyoutOpened: value,
@@ -863,7 +863,7 @@ export class Main extends React.Component<MainProps, MainState> {
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
-      link = 'https://opensearch.org/docs/latest/search-plugins/sql/sql/index/';
+      link = 'https://opensearch.org/docs/latest/search-plugins/sql/index/';
       linkTitle = 'SQL documentation';
     } else {
       page = (
@@ -881,7 +881,7 @@ export class Main extends React.Component<MainProps, MainState> {
           asyncLoading={this.state.asyncLoading}
         />
       );
-      link = 'https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/';
+      link = 'https://opensearch.org/docs/latest/observability-plugin/ppl/index/';
       linkTitle = 'PPL documentation';
     }
 
@@ -957,26 +957,18 @@ export class Main extends React.Component<MainProps, MainState> {
         </EuiFlexGroup>
         <EuiPage paddingSize="none">
           {this.state.language === 'SQL' && (
-            <EuiPanel grow={true}>
-              <EuiPageSideBar
-                style={{
-                  maxWidth: '400px',
-                  width: '400px',
-                  maxHeight: '1200px',
-                  overflowY: 'auto',
-                  overflowX: 'hidden',
-                }}
-              >
+            <EuiPanel grow ={true}>
+              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px', maxHeight: '1200px' ,overflowY:'auto'}}>
                 <EuiFlexGroup direction="column">
                   <EuiFlexItem>
                     <EuiFlexItem grow={false}>
                       <EuiFlexGroup direction="row" gutterSize="s">
-                        <EuiFlexItem grow={false}>
+                      <EuiFlexItem grow={false}>
                           <EuiButtonIcon
                             display="base"
                             iconType="refresh"
-                            size="m"
-                            aria-label="refresh"
+                            size='m'
+                            aria-label='refresh'
                             onClick={this.handleReloadTree}
                           />
                         </EuiFlexItem>

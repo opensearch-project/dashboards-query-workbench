@@ -22,21 +22,18 @@ import {
   EuiText,
   EuiTitle,
 } from '@elastic/eui';
-import React, { useEffect, useState } from 'react';
-import { AccelerationIndexType } from '../../../common/types';
+import React from 'react';
 
 interface AccelerationIndexFlyoutProps {
-  accelerationIndexType: AccelerationIndexType;
   dataSource: string;
   database: string;
   dataTable: string;
-  indexName?: string;
+  indexName: string;
   resetFlyout: () => void;
   updateSQLQueries: (query: string) => void;
 }
 
 export const AccelerationIndexFlyout = ({
-  accelerationIndexType,
   dataSource,
   database,
   dataTable,
@@ -44,53 +41,23 @@ export const AccelerationIndexFlyout = ({
   resetFlyout,
   updateSQLQueries,
 }: AccelerationIndexFlyoutProps) => {
-  const [indexMetaData, setindexMetaData] = useState({
-    describeQuery: '',
-    dropQuery: '',
-    indexName: '',
-    contextType: '',
-  });
-
-  const generateQueryAndIndexName = () => {
-    let accelerationQuery = '';
-    let generatedIndexName = '';
-
-    switch (accelerationIndexType) {
-      case 'skipping':
-        accelerationQuery = `SKIPPING INDEX ON ${dataSource}.${database}.${dataTable}`;
-        generatedIndexName = `flint_${dataSource}_${database}_${dataTable}_skipping_index`;
-        break;
-      case 'covering':
-        accelerationQuery = `INDEX ${indexName} ON ${dataSource}.${database}.${dataTable}`;
-        generatedIndexName = `flint_${dataSource}_${database}_${dataTable}_${indexName}_index`;
-        break;
-      case 'materialized':
-        accelerationQuery = `MATERIALIZED VIEW ${dataSource}.${database}.${dataTable}`;
-        generatedIndexName = `flint_${dataSource}_${database}_${dataTable}`;
-        break;
-    }
-
-    return {
-      describeQuery: accelerationQuery ? `DESC ${accelerationQuery}` : accelerationQuery,
-      dropQuery: accelerationQuery ? `DROP ${accelerationQuery}` : accelerationQuery,
-      indexName: generatedIndexName,
-      contextType: accelerationIndexType === 'materialized' ? 'view' : 'index',
-    };
-  };
-
   const updateDescribeQuery = () => {
-    updateSQLQueries(indexMetaData.describeQuery);
+    const describeQuery =
+      indexName === 'skipping_index'
+        ? `DESC SKIPPING INDEX ON ${dataSource}.${database}.${dataTable}`
+        : `DESC INDEX ${indexName} ON ${dataSource}.${database}.${dataTable}`;
+    updateSQLQueries(describeQuery);
     resetFlyout();
   };
 
   const updateDropQuery = () => {
-    updateSQLQueries(indexMetaData.dropQuery);
+    const describeQuery =
+      indexName === 'skipping_index'
+        ? `DROP SKIPPING INDEX ON ${dataSource}.${database}.${dataTable}`
+        : `DROP INDEX ${indexName} ON ${dataSource}.${database}.${dataTable}`;
+    updateSQLQueries(describeQuery);
     resetFlyout();
   };
-
-  useEffect(() => {
-    setindexMetaData(generateQueryAndIndexName());
-  }, []);
 
   return (
     <>
@@ -108,7 +75,7 @@ export const AccelerationIndexFlyout = ({
         </EuiFlyoutHeader>
         <EuiFlyoutBody>
           <EuiText>
-            <h3>{`Acceleration ${indexMetaData.contextType} source`}</h3>
+            <h3>Acceleration index source</h3>
           </EuiText>
           <EuiHorizontalRule margin="s" />
           <EuiDescriptionList>
@@ -116,23 +83,21 @@ export const AccelerationIndexFlyout = ({
             <EuiDescriptionListDescription>{dataSource}</EuiDescriptionListDescription>
             <EuiDescriptionListTitle>Database</EuiDescriptionListTitle>
             <EuiDescriptionListDescription>{database}</EuiDescriptionListDescription>
-            {accelerationIndexType !== 'materialized' && (
-              <>
-                <EuiDescriptionListTitle>Data Table</EuiDescriptionListTitle>
-                <EuiDescriptionListDescription>{dataTable}</EuiDescriptionListDescription>
-              </>
-            )}
-            <EuiDescriptionListTitle>Acceleration Type</EuiDescriptionListTitle>
-            <EuiDescriptionListDescription>{accelerationIndexType}</EuiDescriptionListDescription>
+            <EuiDescriptionListTitle>Data Table</EuiDescriptionListTitle>
+            <EuiDescriptionListDescription>{dataTable}</EuiDescriptionListDescription>
           </EuiDescriptionList>
           <EuiSpacer size="xl" />
           <EuiText>
-            <h3>{`Acceleration ${indexMetaData.contextType} destination`}</h3>
+            <h3>Acceleration index destination</h3>
           </EuiText>
           <EuiHorizontalRule margin="s" />
           <EuiDescriptionList>
             <EuiDescriptionListTitle>OpenSearch Index</EuiDescriptionListTitle>
-            <EuiDescriptionListDescription>{indexMetaData.indexName}</EuiDescriptionListDescription>
+            <EuiDescriptionListDescription>
+              {indexName === 'skipping_index'
+                ? `flint_${dataSource}_${database}_${dataTable}_skipping_index`
+                : `flint_${dataSource}_${database}_${dataTable}_${indexName}_index`}
+            </EuiDescriptionListDescription>
           </EuiDescriptionList>
           <EuiSpacer size="xl" />
         </EuiFlyoutBody>
@@ -153,7 +118,7 @@ export const AccelerationIndexFlyout = ({
                     onClick={updateDescribeQuery}
                     size="s"
                   >
-                    {`Describe ${indexMetaData.contextType}`}
+                    Describe Index
                   </EuiButton>
                 </EuiFlexItem>
                 <EuiFlexItem grow={false}>
@@ -164,7 +129,7 @@ export const AccelerationIndexFlyout = ({
                     color="danger"
                     size="s"
                   >
-                    {`Drop ${indexMetaData.contextType}`}
+                    Drop Index
                   </EuiButton>
                 </EuiFlexItem>
               </EuiFlexGroup>
