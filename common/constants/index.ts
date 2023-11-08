@@ -16,7 +16,7 @@ export const TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME = `materialized_view`;
 export const TREE_ITEM_DATABASE_NAME_DEFAULT_NAME = `database`;
 export const TREE_ITEM_TABLE_NAME_DEFAULT_NAME = `table`;
 export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
-export const TREE_ITEM_BADGE_NAME = `badge`;
+export const TREE_ITEM_BADGE_NAME =`badge`
 export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
 (status VALUE_SET) 
@@ -89,8 +89,6 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
 - All user given index names must be in lowercase letters. Index name cannot begin with underscores. Spaces, commas, and characters -, :, ", *, +, /, \, |, ?, #, >, or < are not allowed.  
   `;
 
-export const FETCH_OPENSEARCH_INDICES_PATH = '/api/sql_console/sqlquery';
-export const POLL_INTERVAL_MS = 2000;
-export const ASYNC_QUERY_ENDPOINT = '/api/spark_sql_console';
-export const ASYNC_QUERY_JOB_ENDPOINT = ASYNC_QUERY_ENDPOINT + '/job/';
-export const ASYNC_QUERY_SESSION_ID = 'async-query-session-id';
+export const SIDEBAR_POLL_INTERVAL_MS = 5000;
+
+export const FETCH_OPENSEARCH_INDICES_PATH = '/api/sql_console/sqlquery'

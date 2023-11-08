@@ -23,6 +23,7 @@ import 'brace/ext/language_tools';
 import 'brace/mode/sql';
 import React from 'react';
 import { CoreStart } from '../../../../../src/core/public';
+import '../../ace-themes/sql_console';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 import { CreateAcceleration } from '../acceleration/create/create_acceleration';
 
@@ -141,16 +142,13 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
 
     return (
       <>
-        <EuiPanel
-          className="sql-console-query-editor container-panel coreSystemRootDomElement"
-          paddingSize="m"
-        >
+        <EuiPanel className="sql-console-query-editor container-panel" paddingSize="m">
           <EuiSpacer size="s" />
           <EuiCodeEditor
             mode="sql"
-            theme="textmate"
+            theme="sql_console"
             width="100%"
-            height="10rem"
+            height="7rem"
             value={this.props.sqlQuery}
             onChange={this.props.updateSQLQueries}
             showPrintMargin={false}
