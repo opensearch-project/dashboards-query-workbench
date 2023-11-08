@@ -72,10 +72,7 @@ export const DefineIndexOptions = ({
       accelerationFormData.database !== '' ? accelerationFormData.database : '{Database Name}';
     const dataTable =
       accelerationFormData.dataTable !== '' ? accelerationFormData.dataTable : '{Table Name}';
-    const prependValue =
-      accelerationFormData.accelerationIndexType === 'materialized'
-        ? `flint_${dataSource}_${database}_`
-        : `flint_${dataSource}_${database}_${dataTable}_`;
+    const prependValue = `flint_${dataSource}_${database}_${dataTable}_`;
     return [
       prependValue,
       <EuiIconTip type="iInCircle" color="subdued" content={prependValue} position="top" />,

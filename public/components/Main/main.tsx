@@ -25,7 +25,6 @@ import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
 import {
   ASYNC_QUERY_ENDPOINT,
   ASYNC_QUERY_JOB_ENDPOINT,
-  OPENSEARCH_SQL_INIT_QUERY,
   POLL_INTERVAL_MS,
 } from '../../../common/constants';
 import { AsyncQueryLoadingStatus } from '../../../common/types';
@@ -240,7 +239,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.onChange = this.onChange.bind(this);
     this.state = {
       language: 'SQL',
-      sqlQueriesString: OPENSEARCH_SQL_INIT_QUERY,
+      sqlQueriesString: "SHOW tables LIKE '%';",
       pplQueriesString: '',
       queries: [],
       queryTranslations: [],
@@ -817,11 +816,8 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   handleDataSelect = (selectedItems: EuiComboBoxOptionOption[]) => {
-    this.updateSQLQueries('');
-    this.updatePPLQueries('');
-    this.onClear();
-    if (selectedItems[0].label === 'OpenSearch' && this.state.language === 'SQL') {
-      this.updateSQLQueries(OPENSEARCH_SQL_INIT_QUERY);
+    if (selectedItems[0].label !== 'OpenSearch' && this.state.language === 'SQL') {
+      this.updateSQLQueries('');
     }
     this.setState({
       selectedDatasource: selectedItems,

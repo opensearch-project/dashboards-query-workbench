@@ -19,7 +19,7 @@ import {
   CreateAccelerationForm,
   MaterializedViewColumn,
 } from '../../../../../common/types';
-import { hasError } from '../../create/utils';
+import { hasError, validateMaterializedViewData } from '../../create/utils';
 import { AddColumnPopOver } from './add_column_popover';
 import { ColumnExpression } from './column_expression';
 import { GroupByTumbleExpression } from './group_by_tumble_expression';
@@ -53,6 +53,10 @@ export const MaterializedViewBuilder = ({
       setAccelerationFormData(
         producer((accData) => {
           accData.materializedViewQueryData.columnsValues = newColumnExpresionValue;
+          accData.formErrors.materializedViewError = validateMaterializedViewData(
+            accData.accelerationIndexType,
+            accData.materializedViewQueryData
+          );
         })
       );
       setColumnExpressionValues(newColumnExpresionValue);

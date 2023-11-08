@@ -61,7 +61,7 @@ export const CreateAcceleration = ({
       },
     },
     accelerationIndexName: ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
-    primaryShardsCount: 5,
+    primaryShardsCount: 1,
     replicaShardsCount: 1,
     refreshType: 'auto',
     checkpointLocation: undefined,
