@@ -2381,7 +2381,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                       class="euiText euiText--medium"
                     >
                       <p>
-                        Error in loading OpenSearch indices
+                        err
                       </p>
                     </div>
                   </span>

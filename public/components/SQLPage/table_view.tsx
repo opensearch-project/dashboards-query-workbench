@@ -112,7 +112,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           body: JSON.stringify(query),
         })
         .then((res) => {
-          const responseObj = JSON.parse(res.data.resp);
+          const responseObj = res.data.resp ? JSON.parse(res.data.resp) : {};
           const dataRows: any[][] = _.get(responseObj, 'datarows');
           if (dataRows.length > 0) {
             const fields = dataRows.map((data) => {
@@ -131,9 +131,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           console.error(err);
           setIsLoading({
             flag: false,
-            status: 'Error in loading OpenSearch indices',
+            status: err,
           });
-          setToast(`Error in loading OpenSearch indices, please check user permissions`, 'danger');
+          setToast(`ERROR ${err}`, 'danger');
         });
     } else {
       setTableNames([]);
@@ -536,7 +536,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                     {node.type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME && !node.isLoading && (
                       <EuiIcon
                         type="editorCodeBlock"
-                        onClick={(e) => handleQuery(e, parentName, node.name)}
+                        onClick={(e) => handleQuery(e,parentName,node.name)}
                       ></EuiIcon>
                     )}
                   </EuiText>
