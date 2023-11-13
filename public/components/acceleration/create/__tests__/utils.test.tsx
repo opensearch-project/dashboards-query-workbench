@@ -155,24 +155,28 @@ describe('validateIndexName', () => {
 });
 
 describe('validateCheckpointLocation', () => {
-  it('should return an array with an error message when using auto refresh without a checkpoint location', () => {
-    const materializedError = validateCheckpointLocation('auto', undefined);
-    expect(materializedError).toEqual(['Checkpoint location is mandatory for auto refresh']);
+  it('should return an array with an error message when creating a materialized view without a checkpoint location', () => {
+    const materializedError = validateCheckpointLocation('materialized', undefined);
+    expect(materializedError).toEqual([
+      'Checkpoint location is mandatory for materialized view creation',
+    ]);
   });
 
-  it('should return an array with an error message when using auto refresh without a checkpoint location', () => {
-    const materializedError = validateCheckpointLocation('auto', '');
-    expect(materializedError).toEqual(['Checkpoint location is mandatory for auto refresh']);
+  it('should return an array with an error message when creating a materialized view without a checkpoint location', () => {
+    const materializedError = validateCheckpointLocation('materialized', '');
+    expect(materializedError).toEqual([
+      'Checkpoint location is mandatory for materialized view creation',
+    ]);
   });
 
   it('should return an array with an error message when the checkpoint location is not a valid S3 URL', () => {
-    const invalidCheckpoint = validateCheckpointLocation('auto', 'not_a_valid_s3_url');
+    const invalidCheckpoint = validateCheckpointLocation('skipping', 'not_a_valid_s3_url');
     expect(invalidCheckpoint).toEqual(['Enter a valid checkpoint location']);
   });
 
   it('should return an empty array when the checkpoint location is a valid S3 URL', () => {
     const validCheckpoint = validateCheckpointLocation(
-      'interval',
+      'covering',
       's3://valid-s3-bucket/path/to/checkpoint'
     );
     expect(validCheckpoint).toEqual([]);
@@ -180,19 +184,17 @@ describe('validateCheckpointLocation', () => {
 
   it('should return an empty array when the checkpoint location is a valid S3A URL', () => {
     const validCheckpoint = validateCheckpointLocation(
-      'auto',
+      'skipping',
       's3a://valid-s3-bucket/path/to/checkpoint'
     );
     expect(validCheckpoint).toEqual([]);
   });
 
-  it('should return an empty array when the checkpoint location is a valid S3A URL with just bucket in checkpoint', () => {
-    const validCheckpoint = validateCheckpointLocation('auto', 's3a://valid-s3-bucket');
-    expect(validCheckpoint).toEqual([]);
-  });
-
-  it('should return an empty array when using manual refresh with no checkpoint location', () => {
-    const validMaterializedCheckpoint = validateCheckpointLocation('manual', '');
+  it('should return an empty array when creating a materialized view with a valid checkpoint location', () => {
+    const validMaterializedCheckpoint = validateCheckpointLocation(
+      'materialized',
+      's3://valid-s3-bucket/path/to/checkpoint'
+    );
     expect(validMaterializedCheckpoint).toEqual([]);
   });
 

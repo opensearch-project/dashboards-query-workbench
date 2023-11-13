@@ -10,28 +10,20 @@ export const OPENSEARCH_ACC_DOCUMENTATION_URL =
 export const ACC_INDEX_TYPE_DOCUMENTATION_URL =
   'https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md';
 
-export const TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME = `skipping_index`;
-export const TREE_ITEM_COVERING_INDEX_DEFAULT_NAME = `covering_index`;
-export const TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME = `materialized_view`;
-export const TREE_ITEM_DATABASE_NAME_DEFAULT_NAME = `database`;
-export const TREE_ITEM_TABLE_NAME_DEFAULT_NAME = `table`;
-export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
-export const TREE_ITEM_BADGE_NAME = `badge`;
-export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
-export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON datasource.database.table 
+export const SKIPPING_INDEX = `skipping_index`;
+export const ON_LOAD_QUERY = `SHOW tables LIKE '%';`;
+export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON myS3.logs_db.http_logs 
 (status VALUE_SET) 
 WITH (
-  auto_refresh = true,
-  checkpoint_location = 's3://test/'
+  auto_refresh = true
   )`;
-export const COVERING_INDEX_QUERY = `CREATE INDEX covering_idx ON datasource.database.table
+export const COVERING_INDEX_QUERY = `CREATE INDEX covering_idx ON myS3.logs_db.http_logs
  (status) 
  WITH (
-  auto_refresh = true,
-  checkpoint_location = 's3://test/'
+  auto_refresh = true
   )`;
-export const CREATE_DATABASE_QUERY = `CREATE DATABASE datasource.database`;
-export const CREATE_TABLE_QUERY = `CREATE EXTERNAL TABLE datasource.database.table (
+export const CREATE_DATABASE_QUERY = `CREATE DATABASE myS3.logs_db`;
+export const CREATE_TABLE_QUERY = `CREATE EXTERNAL TABLE myS3.logs_db.logs (
   key BIGINT,
   status INTEGER,
   size FLOAT,
@@ -43,17 +35,6 @@ OPTIONS (
   path 's3://test/path',
   compression 'gzip'
 );`;
-
-export const CREATE_MATERIALIZED_VIEW = `CREATE MATERIALIZED VIEW datasource.database.materialized_view
-AS SELECT
-   count(field)
-FROM datasource.database.table
-GROUP BY TUMBLE (timestamp, '2 hours')
- WITH (
-auto_refresh = true,
-watermark_delay = '2 minutes',
-checkpoint_location = 's3://test/'
-)`;
 
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
@@ -85,7 +66,7 @@ export const SKIPPING_INDEX_ACCELERATION_METHODS = [
 
 export const ACCELERATION_ADD_FIELDS_TEXT = '(add fields here)';
 export const ACCELERATION_INDEX_NAME_REGEX = /^[a-z][a-z_]*$/;
-export const ACCELERATION_S3_URL_REGEX = /^(s3|s3a):\/\/[a-zA-Z0-9.\-]+/;
+export const ACCELERATION_S3_URL_REGEX = /^(s3|s3a):\/\/[a-zA-Z0-9.\-]+\/.*/;
 export const ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME = 'skipping';
 
 export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices have a naming format of pattern: \`prefix_<index name>_suffix\`. They share a common prefix structure, which is \`flint_<data source name>_<database name>_<table name>_\`. Additionally, they may have a suffix that varies based on the index type. 
@@ -102,13 +83,4 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
 - All user given index names must be in lowercase letters. Index name cannot begin with underscores. Spaces, commas, and characters -, :, ", *, +, /, \, |, ?, #, >, or < are not allowed.  
   `;
 
-export const OPENSEARCH_SQL_INIT_QUERY = `SHOW tables LIKE '%';`;
-export const TIMESTAMP_DATATYPE = 'timestamp';
-export const FETCH_OPENSEARCH_INDICES_PATH = '/api/sql_console/sqlquery';
-export const POLL_INTERVAL_MS = 2000;
-export const ASYNC_QUERY_ENDPOINT = '/api/spark_sql_console';
-export const ASYNC_QUERY_JOB_ENDPOINT = ASYNC_QUERY_ENDPOINT + '/job/';
-export const ASYNC_QUERY_SESSION_ID = 'async-query-session-id';
-
-export const SAMPLE_PPL_QUERY = 'source = <datasource>.<database>.<table> | head 10';
-export const SAMPLE_SQL_QUERY = 'select * from <datasource>.<database>.<table> limit 10';
+export const SIDEBAR_POLL_INTERVAL_MS = 5000;

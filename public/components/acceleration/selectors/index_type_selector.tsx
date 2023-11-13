@@ -18,13 +18,12 @@ import {
   ACCELERATION_INDEX_TYPES,
   ACC_INDEX_TYPE_DOCUMENTATION_URL,
 } from '../../../../common/constants';
-import { useToast } from '../../../../common/toast';
 import {
   AccelerationIndexType,
   CreateAccelerationForm,
   DataTableFieldsType,
 } from '../../../../common/types';
-import { getJobId, pollQueryStatus } from '../../../../common/utils/async_query_helpers';
+import { getJobId, pollQueryStatus } from '../../SQLPage/utils';
 
 interface IndexTypeSelectorProps {
   http: CoreStart['http'];
@@ -37,7 +36,6 @@ export const IndexTypeSelector = ({
   accelerationFormData,
   setAccelerationFormData,
 }: IndexTypeSelectorProps) => {
-  const { setToast } = useToast();
   const [selectedIndexType, setSelectedIndexType] = useState<EuiComboBoxOptionOption<string>[]>([
     ACCELERATION_INDEX_TYPES[0],
   ]);
@@ -52,32 +50,21 @@ export const IndexTypeSelector = ({
         query: `DESC ${accelerationFormData.dataSource}.${accelerationFormData.database}.${accelerationFormData.dataTable}`,
         datasource: accelerationFormData.dataSource,
       };
-      const errorMessage = 'ERROR: failed to load table columns';
       getJobId(query, http, (id: string) => {
-        if (id === undefined) {
-          setToast(errorMessage, 'danger');
-        } else {
-          pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-            if (data.status === 'SUCCESS') {
-              const dataTableFields: DataTableFieldsType[] = data.results
-                .filter((row) => !row[0].startsWith('#'))
-                .map((row, index) => ({
-                  id: `${idPrefix}${index + 1}`,
-                  fieldName: row[0],
-                  dataType: row[1],
-                }));
-              setAccelerationFormData({
-                ...accelerationFormData,
-                dataTableFields: dataTableFields,
-              });
-              setLoading(false);
-            }
-            if (data.status === 'FAILED') {
-              setLoading(false);
-              setToast(errorMessage, 'danger');
-            }
+        pollQueryStatus(id, http, (data: any[]) => {
+          const dataTableFields: DataTableFieldsType[] = data
+            .filter((row) => !row[0].startsWith('#'))
+            .map((row, index) => ({
+              id: `${idPrefix}${index + 1}`,
+              fieldName: row[0],
+              dataType: row[1],
+            }));
+          setAccelerationFormData({
+            ...accelerationFormData,
+            dataTableFields: dataTableFields,
           });
-        }
+          setLoading(false);
+        });
       });
     }
   }, [accelerationFormData.dataTable]);

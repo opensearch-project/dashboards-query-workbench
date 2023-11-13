@@ -23,9 +23,9 @@ import 'brace/ext/language_tools';
 import 'brace/mode/sql';
 import React from 'react';
 import { CoreStart } from '../../../../../src/core/public';
+import '../../ace-themes/sql_console';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 import { CreateAcceleration } from '../acceleration/create/create_acceleration';
-import { SAMPLE_SQL_QUERY } from '../../../common/constants';
 
 interface SQLPageProps {
   http: CoreStart['http'];
@@ -142,16 +142,13 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
 
     return (
       <>
-        <EuiPanel
-          className="sql-console-query-editor container-panel coreSystemRootDomElement"
-          paddingSize="m"
-        >
+        <EuiPanel className="sql-console-query-editor container-panel" paddingSize="m">
           <EuiSpacer size="s" />
           <EuiCodeEditor
             mode="sql"
-            theme="textmate"
+            theme="sql_console"
             width="100%"
-            height="10rem"
+            height="7rem"
             value={this.props.sqlQuery}
             onChange={this.props.updateSQLQueries}
             showPrintMargin={false}
@@ -187,29 +184,20 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                   </EuiButton>
                 </EuiFlexItem>
                 {this.props.selectedDatasource &&
-                this.props.selectedDatasource[0].label === 'OpenSearch' ? (
-                  <EuiFlexItem
-                    grow={false}
-                    onClick={() => this.props.onTranslate(this.props.sqlQuery)}
-                  >
-                    <EuiButton
-                      className="sql-editor-button"
-                      onClick={showModal}
-                      isDisabled={this.props.asyncLoading}
+                  this.props.selectedDatasource[0].label === 'OpenSearch' && (
+                    <EuiFlexItem
+                      grow={false}
+                      onClick={() => this.props.onTranslate(this.props.sqlQuery)}
                     >
-                      Explain
-                    </EuiButton>
-                  </EuiFlexItem>
-                ) : (
-                  <EuiFlexItem
-                    grow={false}
-                    onClick={() => this.props.updateSQLQueries(SAMPLE_SQL_QUERY)}
-                  >
-                    <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
-                      Sample Query
-                    </EuiButton>
-                  </EuiFlexItem>
-                )}
+                      <EuiButton
+                        className="sql-editor-button"
+                        onClick={showModal}
+                        isDisabled={this.props.asyncLoading}
+                      >
+                        Explain
+                      </EuiButton>
+                    </EuiFlexItem>
+                  )}
               </EuiFlexGroup>
             </EuiFlexItem>
             {this.props.selectedDatasource &&

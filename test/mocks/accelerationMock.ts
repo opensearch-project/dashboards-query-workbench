@@ -108,10 +108,6 @@ export const createAccelerationEmptyDataMock: CreateAccelerationForm = {
     refreshWindow: 1,
     refreshInterval: ACCELERATION_TIME_INTERVAL[1].value,
   },
-  watermarkDelay: {
-    delayWindow: 1,
-    delayInterval: ACCELERATION_TIME_INTERVAL[1].value,
-  },
   formErrors: {
     dataSourceError: [],
     databaseError: [],
@@ -124,7 +120,6 @@ export const createAccelerationEmptyDataMock: CreateAccelerationForm = {
     replicaShardsError: [],
     refreshIntervalError: [],
     checkpointLocationError: [],
-    watermarkDelayError: [],
   },
 };
 
@@ -183,24 +178,6 @@ index_settings = '{"number_of_shards":3,"number_of_replicas":2}',
 auto_refresh = false
 )`;
 
-export const indexOptionsMock5: CreateAccelerationForm = {
-  ...createAccelerationEmptyDataMock,
-  accelerationIndexType: 'materialized',
-  primaryShardsCount: 3,
-  replicaShardsCount: 2,
-  refreshType: 'manual',
-  watermarkDelay: {
-    delayWindow: 10,
-    delayInterval: 'minute',
-  },
-};
-
-export const indexOptionsMockResult5 = `WITH (
-index_settings = '{"number_of_shards":3,"number_of_replicas":2}',
-auto_refresh = false,
-watermark_delay = '10 minutes'
-)`;
-
 export const skippingIndexBuilderMock1: CreateAccelerationForm = {
   ...createAccelerationEmptyDataMock,
   dataSource: 'datasource',
@@ -236,24 +213,11 @@ export const skippingIndexBuilderMock1: CreateAccelerationForm = {
   checkpointLocation: 's3://test/',
 };
 
-export const indexOptionsMock6: CreateAccelerationForm = {
-  ...createAccelerationEmptyDataMock,
-  primaryShardsCount: 1,
-  replicaShardsCount: 1,
-  refreshType: 'manual',
-  checkpointLocation: 's3://dsfsad/dasda',
-};
-
-export const indexOptionsMockResult6 = `WITH (
-index_settings = '{"number_of_shards":1,"number_of_replicas":1}',
-auto_refresh = false
-)`;
-
 export const skippingIndexBuilderMockResult1 = `CREATE SKIPPING INDEX
 ON datasource.database.table (
-   \`field1\` PARTITION, 
-   \`field2\` VALUE_SET, 
-   \`field3\` MIN_MAX
+   field1 PARTITION, 
+   field2 VALUE_SET, 
+   field3 MIN_MAX
   ) WITH (
 index_settings = '{"number_of_shards":9,"number_of_replicas":2}',
 auto_refresh = true,
@@ -282,7 +246,7 @@ export const skippingIndexBuilderMock2: CreateAccelerationForm = {
 
 export const skippingIndexBuilderMockResult2 = `CREATE SKIPPING INDEX
 ON datasource.database.table (
-   \`field1\` PARTITION
+   field1 PARTITION
   ) WITH (
 index_settings = '{"number_of_shards":5,"number_of_replicas":3}',
 auto_refresh = true,
@@ -308,9 +272,9 @@ export const coveringIndexBuilderMock1: CreateAccelerationForm = {
 
 export const coveringIndexBuilderMockResult1 = `CREATE INDEX index_name
 ON datasource.database.table (
-   \`field1\`, 
-   \`field2\`, 
-   \`field3\`
+   field1, 
+   field2, 
+   field3
   ) WITH (
 index_settings = '{"number_of_shards":9,"number_of_replicas":2}',
 auto_refresh = true,
@@ -333,7 +297,7 @@ export const coveringIndexBuilderMock2: CreateAccelerationForm = {
 
 export const coveringIndexBuilderMockResult2 = `CREATE INDEX index_name
 ON datasource.database.table (
-   \`field1\`
+   field1
   ) WITH (
 index_settings = '{"number_of_shards":5,"number_of_replicas":3}',
 auto_refresh = true,
@@ -345,7 +309,6 @@ export const materializedViewBuilderMock1: CreateAccelerationForm = {
   dataSource: 'datasource',
   database: 'database',
   dataTable: 'table',
-  accelerationIndexType: 'materialized',
   accelerationIndexName: 'index_name',
   materializedViewQueryData: {
     columnsValues: [
@@ -367,26 +330,21 @@ export const materializedViewBuilderMock1: CreateAccelerationForm = {
     refreshWindow: 1,
     refreshInterval: 'minute',
   },
-  watermarkDelay: {
-    delayWindow: 1,
-    delayInterval: 'minute',
-  },
   checkpointLocation: 's3://test/',
 };
 
 export const materializedViewBuilderMockResult1 = `CREATE MATERIALIZED VIEW datasource.database.index_name
 AS SELECT
-   count(\`field\`) AS \`counter\`, 
-   count(*) AS \`counter1\`, 
-   sum(\`field2\`), 
-   avg(\`field3\`) AS \`average\`
+   count(field) AS counter, 
+   count(*) AS counter1, 
+   sum(field2), 
+   avg(field3) AS average
 FROM datasource.database.table
-GROUP BY TUMBLE (\`timestamp\`, '1 minute')
+GROUP BY TUMBLE (timestamp, '1 minute')
  WITH (
 index_settings = '{"number_of_shards":9,"number_of_replicas":2}',
 auto_refresh = true,
 refresh_interval = '1 minute',
-watermark_delay = '1 minute',
 checkpoint_location = 's3://test/'
 )`;
 
@@ -395,7 +353,6 @@ export const materializedViewBuilderMock2: CreateAccelerationForm = {
   dataSource: 'datasource',
   database: 'database',
   dataTable: 'table',
-  accelerationIndexType: 'materialized',
   accelerationIndexName: 'index_name',
   materializedViewQueryData: {
     columnsValues: [{ id: '1', functionName: 'count', functionParam: 'field' }],
@@ -409,20 +366,15 @@ export const materializedViewBuilderMock2: CreateAccelerationForm = {
   replicaShardsCount: 3,
   refreshType: 'auto',
   checkpointLocation: 's3://test/',
-  watermarkDelay: {
-    delayWindow: 2,
-    delayInterval: 'minute',
-  },
 };
 
 export const materializedViewBuilderMockResult2 = `CREATE MATERIALIZED VIEW datasource.database.index_name
 AS SELECT
-   count(\`field\`)
+   count(field)
 FROM datasource.database.table
-GROUP BY TUMBLE (\`timestamp\`, '2 hours')
+GROUP BY TUMBLE (timestamp, '2 hours')
  WITH (
 index_settings = '{"number_of_shards":5,"number_of_replicas":3}',
 auto_refresh = true,
-watermark_delay = '2 minutes',
 checkpoint_location = 's3://test/'
 )`;

@@ -74,10 +74,8 @@ export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading }: Cust
   }, []);
 
   const handleSelectionChange = (selectedItems: any[]) => {
-    if (selectedItems.length > 0) {
-      setSelectedOptions(selectedItems);
-      onSelect(selectedItems);
-    }
+    setSelectedOptions(selectedItems);
+    onSelect(selectedItems);
   };
 
   return (

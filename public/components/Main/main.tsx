@@ -5,8 +5,6 @@
 
 import {
   EuiButton,
-  EuiButtonIcon,
-  EuiCallOut,
   EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
@@ -22,14 +20,7 @@ import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
-import {
-  ASYNC_QUERY_ENDPOINT,
-  ASYNC_QUERY_JOB_ENDPOINT,
-  OPENSEARCH_SQL_INIT_QUERY,
-  POLL_INTERVAL_MS,
-} from '../../../common/constants';
 import { AsyncQueryLoadingStatus } from '../../../common/types';
-import { getAsyncSessionId, setAsyncSessionId } from '../../../common/utils/async_query_helpers';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -44,7 +35,7 @@ import QueryResults from '../QueryResults/QueryResults';
 import { CreateButton } from '../SQLPage/CreateButton';
 import { DataSelect } from '../SQLPage/DataSelect';
 import { SQLPage } from '../SQLPage/SQLPage';
-import { TableView } from '../SQLPage/table_view';
+import { TableView } from '../SQLPage/TableView';
 
 interface ResponseData {
   ok: boolean;
@@ -117,11 +108,8 @@ interface MainState {
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
   asyncLoadingStatus: AsyncQueryLoadingStatus;
-  asyncQueryError: string;
   asyncJobId: string;
-  refreshTree: boolean;
   isAccelerationFlyoutOpened: boolean;
-  isCallOutVisible: boolean;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -240,7 +228,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.onChange = this.onChange.bind(this);
     this.state = {
       language: 'SQL',
-      sqlQueriesString: OPENSEARCH_SQL_INIT_QUERY,
+      sqlQueriesString: "SHOW tables LIKE '%';",
       pplQueriesString: '',
       queries: [],
       queryTranslations: [],
@@ -258,11 +246,8 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedDatasource: [{ label: 'OpenSearch' }],
       asyncLoading: false,
       asyncLoadingStatus: 'SUCCESS',
-      asyncQueryError: '',
       asyncJobId: '',
-      refreshTree: false,
       isAccelerationFlyoutOpened: false,
-      isCallOutVisible: false,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -418,9 +403,6 @@ export class Main extends React.Component<MainProps, MainState> {
             queryResultsCSV: [],
             queryResultsTEXT: [],
             searchQuery: '',
-            asyncLoading: false,
-            asyncLoadingStatus: 'SUCCESS',
-            isCallOutVisible: false,
           },
           () => console.log('Successfully updated the states')
         ); // added callback function to handle async issues
@@ -435,15 +417,15 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
+      let endpoint = '/api/spark_sql_console';
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(ASYNC_QUERY_ENDPOINT, {
+            .post(endpoint, {
               body: JSON.stringify({
                 lang: language,
                 query: query,
                 datasource: this.state.selectedDatasource[0].label,
-                sessionId: getAsyncSessionId() ?? undefined,
               }),
             })
             .catch((error: any) => {
@@ -476,7 +458,6 @@ export class Main extends React.Component<MainProps, MainState> {
                 : '';
 
               const queryId: string = _.get(responseObj, 'queryId');
-              setAsyncSessionId(_.get(responseObj, 'sessionId', null));
 
               // clear state from previous results and start async loading
               this.setState({
@@ -493,7 +474,6 @@ export class Main extends React.Component<MainProps, MainState> {
                 asyncLoading: true,
                 asyncLoadingStatus: 'SCHEDULED',
                 asyncJobId: queryId,
-                isCallOutVisible: false,
               });
               this.callGetStartPolling(queries);
               const interval = setInterval(() => {
@@ -501,7 +481,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   clearInterval(interval);
                 }
                 this.callGetStartPolling(queries);
-              }, POLL_INTERVAL_MS);
+              }, 2 * 1000);
             }
           }
         );
@@ -511,7 +491,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
   callGetStartPolling = async (queries: string[]) => {
     const nextP = this.httpClient
-      .get(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
+      .get('/api/spark_sql_console/job/' + this.state.asyncJobId)
       .catch((error: any) => {
         this.setState({
           messages: [
@@ -533,7 +513,7 @@ export class Main extends React.Component<MainProps, MainState> {
         this.setState({
           queries: queries,
           queryResults: [result],
-          queryResultsTable: result.data['schema'].length > 0 ? resultTable : [],
+          queryResultsTable: resultTable,
           selectedTabId: getDefaultTabId([result]),
           selectedTabName: getDefaultTabLabel([result], queries[0]),
           messages: this.getMessage(resultTable),
@@ -544,7 +524,6 @@ export class Main extends React.Component<MainProps, MainState> {
           searchQuery: '',
           asyncLoading: false,
           asyncLoadingStatus: status,
-          isCallOutVisible: !(result.data['schema'].length > 0),
         });
       } else if (_.isEqual(status, 'FAILED') || _.isEqual(status, 'CANCELLED')) {
         this.setState({
@@ -556,7 +535,6 @@ export class Main extends React.Component<MainProps, MainState> {
               className: 'error-message',
             },
           ],
-          asyncQueryError: result.data['error'],
         });
       } else {
         this.setState({
@@ -570,7 +548,7 @@ export class Main extends React.Component<MainProps, MainState> {
   cancelAsyncQuery = async () => {
     Promise.all([
       this.httpClient
-        .delete(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
+        .delete('/api/spark_sql_console/job/' + this.state.asyncJobId)
         .catch((error: any) => {
           this.setState({
             messages: [
@@ -782,9 +760,6 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabId: MESSAGE_TAB_LABEL,
       selectedTabName: MESSAGE_TAB_LABEL,
       itemIdToExpandedRowMap: {},
-      asyncLoading: false,
-      asyncLoadingStatus: 'SUCCESS',
-      isCallOutVisible: false,
     });
   };
 
@@ -817,20 +792,11 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   handleDataSelect = (selectedItems: EuiComboBoxOptionOption[]) => {
-    this.updateSQLQueries('');
-    this.updatePPLQueries('');
-    this.onClear();
-    if (selectedItems[0].label === 'OpenSearch' && this.state.language === 'SQL') {
-      this.updateSQLQueries(OPENSEARCH_SQL_INIT_QUERY);
+    if (selectedItems[0].label !== 'OpenSearch' && this.state.language === 'SQL') {
+      this.updateSQLQueries('');
     }
     this.setState({
       selectedDatasource: selectedItems,
-    });
-  };
-
-  handleReloadTree = () => {
-    this.setState({
-      refreshTree: !this.state.refreshTree,
     });
   };
 
@@ -867,7 +833,7 @@ export class Main extends React.Component<MainProps, MainState> {
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
-      link = 'https://opensearch.org/docs/latest/search-plugins/sql/sql/index/';
+      link = 'https://opensearch.org/docs/latest/search-plugins/sql/index/';
       linkTitle = 'SQL documentation';
     } else {
       page = (
@@ -882,11 +848,10 @@ export class Main extends React.Component<MainProps, MainState> {
           pplQuery={this.state.pplQueriesString}
           pplTranslations={this.state.queryTranslations}
           updatePPLQueries={this.updatePPLQueries}
-          selectedDatasource={this.state.selectedDatasource}
           asyncLoading={this.state.asyncLoading}
         />
       );
-      link = 'https://opensearch.org/docs/latest/search-plugins/sql/ppl/index/';
+      link = 'https://opensearch.org/docs/latest/observability-plugin/ppl/index/';
       linkTitle = 'PPL documentation';
     }
 
@@ -925,8 +890,8 @@ export class Main extends React.Component<MainProps, MainState> {
             getText={this.getText}
             isResultFullScreen={this.state.isResultFullScreen}
             setIsResultFullScreen={this.setIsResultFullScreen}
+            asyncLoading={this.state.asyncLoading}
             asyncLoadingStatus={this.state.asyncLoadingStatus}
-            asyncQueryError={this.state.asyncQueryError}
             cancelAsyncQuery={this.cancelAsyncQuery}
             selectedDatasource={this.state.selectedDatasource}
           />
@@ -962,46 +927,21 @@ export class Main extends React.Component<MainProps, MainState> {
         </EuiFlexGroup>
         <EuiPage paddingSize="none">
           {this.state.language === 'SQL' && (
-            <EuiPanel grow={true}>
-              <EuiPageSideBar
-                style={{
-                  maxWidth: '400px',
-                  width: '400px',
-                  height: 'calc(100vh - 254px)',
-                }}
-              >
-                <EuiFlexGroup direction="row" gutterSize="s">
-                  <EuiFlexItem grow={false}>
-                    <EuiButtonIcon
-                      display="base"
-                      iconType="refresh"
-                      size="m"
-                      aria-label="refresh"
-                      onClick={this.handleReloadTree}
-                    />
-                  </EuiFlexItem>
-                  <EuiFlexItem grow={false}>
-                    <CreateButton
-                      updateSQLQueries={this.updateSQLQueries}
-                      selectedDatasource={this.state.selectedDatasource}
-                    />
-                  </EuiFlexItem>
-                </EuiFlexGroup>
-                <EuiSpacer size="l" />
-                <EuiFlexGroup
-                  direction="column"
-                  style={{
-                    overflowY: 'auto',
-                    overflowX: 'hidden',
-                    height: 'calc(100vh - 308px)',
-                  }}
-                >
-                  <EuiFlexItem grow={false}>
+            <EuiPanel>
+              <EuiPageSideBar style={{ maxWidth: '400px', width: '400px' }}>
+                <EuiFlexGroup direction="column">
+                  <EuiFlexItem>
+                    <EuiFlexItem grow={false}>
+                      <CreateButton
+                        updateSQLQueries={this.updateSQLQueries}
+                        selectedDatasource={this.state.selectedDatasource}
+                      />
+                    </EuiFlexItem>
+                    <EuiSpacer />
                     <TableView
                       http={this.httpClient}
                       selectedItems={this.state.selectedDatasource}
                       updateSQLQueries={this.updateSQLQueries}
-                      refreshTree={this.state.refreshTree}
                     />
                     <EuiSpacer />
                   </EuiFlexItem>
@@ -1016,23 +956,6 @@ export class Main extends React.Component<MainProps, MainState> {
               <EuiSpacer size="l" />
               <div>{page}</div>
               <EuiSpacer size="l" />
-              {this.state.isCallOutVisible && (
-                <>
-                  <EuiCallOut
-                    size="s"
-                    title="Query Submitted Successfully"
-                    color="success"
-                    iconType="check"
-                    dismissible
-                    onDismiss={() =>
-                      this.setState({
-                        isCallOutVisible: false,
-                      })
-                    }
-                  />
-                  <EuiSpacer size="l" />
-                </>
-              )}
               <div className="sql-console-query-result">
                 <QueryResults
                   language={this.state.language}
@@ -1069,8 +992,8 @@ export class Main extends React.Component<MainProps, MainState> {
                   getText={this.getText}
                   isResultFullScreen={this.state.isResultFullScreen}
                   setIsResultFullScreen={this.setIsResultFullScreen}
+                  asyncLoading={this.state.asyncLoading}
                   asyncLoadingStatus={this.state.asyncLoadingStatus}
-                  asyncQueryError={this.state.asyncQueryError}
                   cancelAsyncQuery={this.cancelAsyncQuery}
                   selectedDatasource={this.state.selectedDatasource}
                 />

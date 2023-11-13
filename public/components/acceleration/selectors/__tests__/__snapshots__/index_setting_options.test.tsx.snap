@@ -196,7 +196,7 @@ Array [
             onFocus={[Function]}
             placeholder="Number of primary shards"
             type="number"
-            value={5}
+            value={1}
           />
         </div>
       </div>
@@ -204,7 +204,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created.
+        Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
       </div>
     </div>
   </div>,
@@ -252,7 +252,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of replicas each primary shard should have.
+        Specify the number of replicas each primary shard should have. Default is 1.
       </div>
     </div>
   </div>,
@@ -363,7 +363,7 @@ Array [
         className="euiFormLabel euiFormRow__label"
         htmlFor="some_html_id"
       >
-        Checkpoint location
+        Checkpoint location - optional
       </label>
     </div>
     <div
@@ -604,7 +604,7 @@ Array [
             onFocus={[Function]}
             placeholder="Number of primary shards"
             type="number"
-            value={5}
+            value={1}
           />
         </div>
       </div>
@@ -612,7 +612,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created.
+        Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
       </div>
     </div>
   </div>,
@@ -660,7 +660,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of replicas each primary shard should have.
+        Specify the number of replicas each primary shard should have. Default is 1.
       </div>
     </div>
   </div>,
@@ -771,7 +771,7 @@ Array [
         className="euiFormLabel euiFormRow__label"
         htmlFor="some_html_id"
       >
-        Checkpoint location
+        Checkpoint location - optional
       </label>
     </div>
     <div
@@ -1012,7 +1012,7 @@ Array [
             onFocus={[Function]}
             placeholder="Number of primary shards"
             type="number"
-            value={5}
+            value={1}
           />
         </div>
       </div>
@@ -1020,7 +1020,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created.
+        Specify the number of primary shards for the index. Default is 1. The number of primary shards cannot be changed after the index is created.
       </div>
     </div>
   </div>,
@@ -1068,7 +1068,7 @@ Array [
         className="euiFormHelpText euiFormRow__text"
         id="some_html_id-help-0"
       >
-        Specify the number of replicas each primary shard should have.
+        Specify the number of replicas each primary shard should have. Default is 1.
       </div>
     </div>
   </div>,
@@ -1179,7 +1179,7 @@ Array [
         className="euiFormLabel euiFormRow__label"
         htmlFor="some_html_id"
       >
-        Checkpoint location
+        Checkpoint location - optional
       </label>
     </div>
     <div

@@ -3,22 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '@testing-library/jest-dom/extend-expect';
-import { configure } from '@testing-library/react';
-import { coreRefs } from '../public/framework/core_refs';
-import { coreStartMock } from '../test/mocks/coreMocks';
-configure({ testIdAttribute: 'data-test-subj' });
 
-jest.mock('@elastic/eui/lib/components/form/form_row/make_id', () => () => 'some_make_id');
+import "@testing-library/jest-dom/extend-expect";
+import 'mutationobserver-shim';
+import { configure } from "@testing-library/react";
 
-jest.mock('@elastic/eui/lib/services/accessibility/html_id_generator', () => ({
+configure({ testIdAttribute: "data-test-subj" });
+
+jest.mock("@elastic/eui/lib/components/form/form_row/make_id", () => () => "some_make_id");
+
+jest.mock("@elastic/eui/lib/services/accessibility/html_id_generator", () => ({
   htmlIdGenerator: () => {
-    return () => 'some_html_id';
+    return () => "some_html_id";
   },
 }));
 
 // @ts-ignore
-window.Worker = function () {
+window.Worker = function() {
   this.postMessage = () => {};
   // @ts-ignore
   this.terminate = () => {};
@@ -27,19 +28,15 @@ window.Worker = function () {
 // @ts-ignore
 window.URL = {
   createObjectURL: () => {
-    return '';
+    return "";
   },
 };
 
-jest.mock('@elastic/eui/lib/components/icon', () => ({
-  EuiIcon: () => 'EuiIconMock',
+jest.mock("@elastic/eui/lib/components/icon", () => ({
+  EuiIcon: () => "EuiIconMock",
   __esModule: true,
-  IconPropType: require('@elastic/eui/lib/components/icon/icon').IconPropType,
-  ICON_TYPES: require('@elastic/eui/lib/components/icon/icon').TYPES,
-  ICON_SIZES: require('@elastic/eui/lib/components/icon/icon').SIZES,
-  ICON_COLORS: require('@elastic/eui/lib/components/icon/icon').COLORS,
+  IconPropType: require("@elastic/eui/lib/components/icon/icon").IconPropType,
+  ICON_TYPES: require("@elastic/eui/lib/components/icon/icon").TYPES,
+  ICON_SIZES: require("@elastic/eui/lib/components/icon/icon").SIZES,
+  ICON_COLORS: require("@elastic/eui/lib/components/icon/icon").COLORS,
 }));
-
-coreRefs.http = coreStartMock.http;
-coreRefs.savedObjectsClient = coreStartMock.savedObjects.client;
-coreRefs.toasts = coreStartMock.notifications.toasts;
