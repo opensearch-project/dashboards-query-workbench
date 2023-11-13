@@ -72,7 +72,7 @@ Array [
                      
                     <a
                       class="euiLink euiLink--primary"
-                      href="https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/"
+                      href="https://opensearch.org/docs/latest"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
@@ -132,7 +132,7 @@ Array [
                       <div
                         class="euiTextColor euiTextColor--subdued"
                       >
-                        Select the data source to accelerate data from. External data sources may take time to load.
+                        Select data connection where the data you want to accelerate resides.
                       </div>
                     </div>
                     <div
@@ -441,7 +441,7 @@ Array [
                         >
                           <a
                             class="euiLink euiLink--primary"
-                            href="https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md"
+                            href="https://opensearch.org/docs/latest"
                             rel="noopener noreferrer"
                             target="_blank"
                           >
@@ -670,7 +670,7 @@ Array [
                               class="euiRadio__label"
                               for="refresh-option-1"
                             >
-                              Auto refresh
+                              Auto Refresh
                             </label>
                           </div>
                           <div
@@ -690,27 +690,7 @@ Array [
                               class="euiRadio__label"
                               for="refresh-option-2"
                             >
-                              Auto refresh by interval
-                            </label>
-                          </div>
-                          <div
-                            class="euiRadio euiRadioGroup__item"
-                          >
-                            <input
-                              class="euiRadio__input"
-                              id="refresh-option-3"
-                              name="refresh type radio group"
-                              type="radio"
-                              value=""
-                            />
-                            <div
-                              class="euiRadio__circle"
-                            />
-                            <label
-                              class="euiRadio__label"
-                              for="refresh-option-3"
-                            >
-                              Manual refresh
+                              Refresh by interval
                             </label>
                           </div>
                         </div>
@@ -718,7 +698,7 @@ Array [
                           class="euiFormHelpText euiFormRow__text"
                           id="some_html_id-help-0"
                         >
-                          Specify how often the index should refresh, which publishes the most recent changes and make them available for search.
+                          Specify how often the index should refresh, which publishes the most recent changes and make them available for search. Default is set to auto refresh when data at the source changes.
                         </div>
                       </div>
                     </div>
@@ -1201,7 +1181,7 @@ Array [
                      
                     <a
                       className="euiLink euiLink--primary"
-                      href="https://opensearch.org/docs/latest/dashboards/management/accelerate-external-data/"
+                      href="https://opensearch.org/docs/latest"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
@@ -1263,7 +1243,7 @@ Array [
                         <div
                           className="euiTextColor euiTextColor--subdued"
                         >
-                          Select the data source to accelerate data from. External data sources may take time to load.
+                          Select data connection where the data you want to accelerate resides.
                         </div>
                       </div>,
                       <div
@@ -1655,7 +1635,7 @@ Array [
                           >
                             <a
                               className="euiLink euiLink--primary"
-                              href="https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md"
+                              href="https://opensearch.org/docs/latest"
                               rel="noopener noreferrer"
                               target="_blank"
                             >
@@ -1920,7 +1900,7 @@ Array [
                                 className="euiRadio__label"
                                 htmlFor="refresh-option-1"
                               >
-                                Auto refresh
+                                Auto Refresh
                               </label>
                             </div>
                             <div
@@ -1941,28 +1921,7 @@ Array [
                                 className="euiRadio__label"
                                 htmlFor="refresh-option-2"
                               >
-                                Auto refresh by interval
-                              </label>
-                            </div>
-                            <div
-                              className="euiRadio euiRadioGroup__item"
-                            >
-                              <input
-                                checked={false}
-                                className="euiRadio__input"
-                                id="refresh-option-3"
-                                name="refresh type radio group"
-                                onChange={[Function]}
-                                type="radio"
-                              />
-                              <div
-                                className="euiRadio__circle"
-                              />
-                              <label
-                                className="euiRadio__label"
-                                htmlFor="refresh-option-3"
-                              >
-                                Manual refresh
+                                Refresh by interval
                               </label>
                             </div>
                           </div>
@@ -1970,7 +1929,7 @@ Array [
                             className="euiFormHelpText euiFormRow__text"
                             id="some_html_id-help-0"
                           >
-                            Specify how often the index should refresh, which publishes the most recent changes and make them available for search.
+                            Specify how often the index should refresh, which publishes the most recent changes and make them available for search. Default is set to auto refresh when data at the source changes.
                           </div>
                         </div>
                       </div>,
