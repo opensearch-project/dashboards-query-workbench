@@ -59,8 +59,6 @@ export interface FormErrorsType {
   checkpointLocationError: string[];
 }
 
-export type AccelerationRefreshType = 'auto' | 'interval' | 'manual';
-
 export interface CreateAccelerationForm {
   dataSource: string;
   database: string;
@@ -73,10 +71,10 @@ export interface CreateAccelerationForm {
   accelerationIndexName: string;
   primaryShardsCount: number;
   replicaShardsCount: number;
-  refreshType: AccelerationRefreshType;
+  refreshType: 'interval' | 'auto';
   checkpointLocation: string | undefined;
   refreshIntervalOptions: RefreshIntervalType;
   formErrors: FormErrorsType;
 }
 
-export type AsyncQueryLoadingStatus = 'SUCCESS' | 'FAILED' | 'RUNNING' | 'SCHEDULED' | 'CANCELED';
+export type AsyncQueryLoadingStatus = "SUCCESS" | "FAILED" | "RUNNING" | "SCHEDULED" | "CANCELED"

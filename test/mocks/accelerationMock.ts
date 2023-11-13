@@ -148,7 +148,7 @@ export const indexOptionsMock2: CreateAccelerationForm = {
 
 export const indexOptionsMockResult2 = `WITH (
 index_settings = '{"number_of_shards":3,"number_of_replicas":2}',
-auto_refresh = true,
+auto_refresh = false,
 refresh_interval = '10 minutes'
 )`;
 
@@ -164,18 +164,6 @@ export const indexOptionsMockResult3 = `WITH (
 index_settings = '{"number_of_shards":3,"number_of_replicas":2}',
 auto_refresh = true,
 checkpoint_location = 's3://path/to/checkpoint'
-)`;
-
-export const indexOptionsMock4: CreateAccelerationForm = {
-  ...createAccelerationEmptyDataMock,
-  primaryShardsCount: 3,
-  replicaShardsCount: 2,
-  refreshType: 'manual',
-};
-
-export const indexOptionsMockResult4 = `WITH (
-index_settings = '{"number_of_shards":3,"number_of_replicas":2}',
-auto_refresh = false
 )`;
 
 export const skippingIndexBuilderMock1: CreateAccelerationForm = {
@@ -220,7 +208,7 @@ ON datasource.database.table (
    field3 MIN_MAX
   ) WITH (
 index_settings = '{"number_of_shards":9,"number_of_replicas":2}',
-auto_refresh = true,
+auto_refresh = false,
 refresh_interval = '1 minute',
 checkpoint_location = 's3://test/'
 )`;
@@ -277,7 +265,7 @@ ON datasource.database.table (
    field3
   ) WITH (
 index_settings = '{"number_of_shards":9,"number_of_replicas":2}',
-auto_refresh = true,
+auto_refresh = false,
 refresh_interval = '1 minute',
 checkpoint_location = 's3://test/'
 )`;
@@ -343,7 +331,7 @@ FROM datasource.database.table
 GROUP BY TUMBLE (timestamp, '1 minute')
  WITH (
 index_settings = '{"number_of_shards":9,"number_of_replicas":2}',
-auto_refresh = true,
+auto_refresh = false,
 refresh_interval = '1 minute',
 checkpoint_location = 's3://test/'
 )`;
