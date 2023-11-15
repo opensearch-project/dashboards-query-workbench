@@ -29,12 +29,13 @@ export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading }: Cust
         const data = res.data.resp;
 
         const connectorGroups = {};
+        console.log(data)
 
         data.forEach((item) => {
           const connector = item.connector;
           const name = item.name;
 
-          if (connector === 'S3GLUE') {
+          if (connector === 'S3GLUE' || connector === 'cloudwatchlog') {
             if (!connectorGroups[connector]) {
               connectorGroups[connector] = [];
             }

@@ -19,11 +19,7 @@ export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
 export const TREE_ITEM_BADGE_NAME = `badge`;
 export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON datasource.database.table 
-(status VALUE_SET) 
-WITH (
-  auto_refresh = true,
-  checkpoint_location = 's3://test/'
-  )`;
+(status VALUE_SET) `;
 export const COVERING_INDEX_QUERY = `CREATE INDEX covering_idx ON datasource.database.table
  (status) 
  WITH (
@@ -57,8 +53,8 @@ checkpoint_location = 's3://test/'
 
 export const ACCELERATION_INDEX_TYPES = [
   { label: 'Skipping Index', value: 'skipping' },
-  { label: 'Covering Index', value: 'covering' },
-  { label: 'Materialized View', value: 'materialized' },
+  // { label: 'Covering Index', value: 'covering' },
+  // { label: 'Materialized View', value: 'materialized' },
 ];
 
 export const ACCELERATION_AGGREGRATION_FUNCTIONS = [
@@ -92,12 +88,6 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
 ##### Skipping Index
 - For 'Skipping' indices, a fixed index name 'skipping' is used, and this name cannot be modified by the user. The suffix added to this type is \`_index\`.
   - An example of a 'Skipping' index name would be: \`flint_mydatasource_mydb_mytable_skipping_index\`.
-##### Covering Index
-- 'Covering' indices allow users to specify their index name. The suffix added to this type is \`_index\`.
-  - For instance, a 'Covering' index name could be: \`flint_mydatasource_mydb_mytable_myindexname_index\`.
-##### Materialized View Index
-- 'Materialized View' indices also enable users to define their index name, but they do not have a suffix.
-  - An example of a 'Materialized View' index name might look like: \`flint_mydatasource_mydb_mytable_myindexname\`.
 ##### Note:
 - All user given index names must be in lowercase letters. Index name cannot begin with underscores. Spaces, commas, and characters -, :, ", *, +, /, \, |, ?, #, >, or < are not allowed.  
   `;

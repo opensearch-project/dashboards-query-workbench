@@ -42,14 +42,14 @@ export const IndexSettingOptions = ({
   const intervalRefreshId = 'refresh-option-2';
   const manualRefreshId = 'refresh-option-3';
   const refreshOptions = [
-    {
-      id: autoRefreshId,
-      label: 'Auto refresh',
-    },
-    {
-      id: intervalRefreshId,
-      label: 'Auto refresh by interval',
-    },
+    // {
+    //   id: autoRefreshId,
+    //   label: 'Auto refresh',
+    // },
+    // {
+    //   id: intervalRefreshId,
+    //   label: 'Auto refresh by interval',
+    // },
     {
       id: manualRefreshId,
       label: 'Manual refresh',

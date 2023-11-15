@@ -139,7 +139,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       setTableNames([]);
       const query = {
         lang: 'sql',
-        query: `SHOW SCHEMAS IN ${selectedItems[0]['label']}`,
+        query: `SHOW SCHEMAS IN \`${selectedItems[0]['label']}\``,
         datasource: selectedItems[0]['label'],
       };
       getJobId(query, http, (id) => {
@@ -202,7 +202,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setSelectedDatabase(databaseName);
     const query = {
       lang: 'sql',
-      query: `SHOW TABLES IN ${selectedItems[0]['label']}.${databaseName}`,
+      query: `SHOW TABLES IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
       datasource: selectedItems[0]['label'],
     };
     getJobId(query, http, (id) => {
@@ -219,10 +219,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           if (data.status === 'SUCCESS') {
             const fetchTables = data.results.map((subArray) => subArray[1]);
             let values = loadTreeItem(fetchTables, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
-            let mvObj = loadTreeItem(
-              [TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME],
-              TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
-            );
+            // let mvObj = loadTreeItem(
+            //   [TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME],
+            //   TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
+            // );
             values = [...values, ...mvObj];
             setTreeData((prevTreeData) => {
               return prevTreeData.map((database) => {
@@ -418,7 +418,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const skipQuery = {
       lang: 'sql',
-      query: `DESC SKIPPING INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
+      query: `DESC SKIPPING INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
       datasource: selectedItems[0]['label'],
     };
     getJobId(skipQuery, http, (id) => {
@@ -443,6 +443,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                         if (table.name === tableName) {
                           return {
                             ...table,
+                            isLoading: false,
                             values: loadTreeItem(
                               [TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME],
                               TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
@@ -457,7 +458,33 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                 });
               });
             }
-            loadCoveringIndex(tableName, databaseName);
+            // loadCoveringIndex(tableName, databaseName)
+            else{
+              setTreeData((prevTreeData) => {
+                return prevTreeData.map((database) => {
+                  if (database.name === databaseName) {
+                    return {
+                      ...database,
+                      values: database.values?.map((table) => {
+                        if (table.name === tableName) {
+                          let newValues = [
+                            { name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false },
+                          ];
+                          return {
+                            ...table,
+                            values: newValues,
+                            isLoading: false,
+                            isExpanded: true
+                          };
+                        }
+                        return table;
+                      }),
+                    };
+                  }
+                  return database;
+                });
+              });
+            }
           } else if (data.status === 'FAILED') {
             setIsLoading({
               flag: false,
@@ -577,9 +604,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       id: `${database.name}_${table.name}`,
       icon: iconCreation(table),
       callback: () => {
-        if (table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME) {
-          handleButtonClick(table.name, database.name);
-        }
+        // if (table.type === TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME) {
+        //   handleButtonClick(table.name, database.name);
+        // }
         if (
           table.type !== TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME &&
           table.type !== TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME &&

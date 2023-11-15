@@ -6,10 +6,6 @@
 import { EuiButton, EuiComboBoxOptionOption, EuiContextMenu, EuiPopover } from '@elastic/eui';
 import React, { useState } from 'react';
 import {
-  COVERING_INDEX_QUERY,
-  CREATE_DATABASE_QUERY,
-  CREATE_MATERIALIZED_VIEW,
-  CREATE_TABLE_QUERY,
   SKIPPING_INDEX_QUERY
 } from '../../../common/constants';
 
@@ -36,34 +32,34 @@ export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateBut
     closePopover();
   };
 
-  const fromSqlItems = [
-    {
-      name: 'Create Database',
-      onClick: () => handleSubMenuClick(CREATE_DATABASE_QUERY),
-    },
-    {
-      name: 'Create Table',
-      onClick: () => handleSubMenuClick(CREATE_TABLE_QUERY),
-    },
-  ];
+  // const fromSqlItems = [
+  //   {
+  //     name: 'Create Database',
+  //     onClick: () => handleSubMenuClick(CREATE_DATABASE_QUERY),
+  //   },
+  //   {
+  //     name: 'Create Table',
+  //     onClick: () => handleSubMenuClick(CREATE_TABLE_QUERY),
+  //   },
+  // ];
 
   const acceleratedIndexItems = [
     {
       name: 'Skipping Index',
       onClick: () => handleSubMenuClick(SKIPPING_INDEX_QUERY),
     },
-    {
-      name: 'Covering Index',
-      onClick: () => handleSubMenuClick(COVERING_INDEX_QUERY),
-    },
+    // {
+    //   name: 'Covering Index',
+    //   onClick: () => handleSubMenuClick(COVERING_INDEX_QUERY),
+    // },
   ];
 
-  const materializedViewItems = [
-    {
-      name: 'Materialized View',
-      onClick: () => handleSubMenuClick(CREATE_MATERIALIZED_VIEW),
-    },
-  ];
+  // const materializedViewItems = [
+  //   {
+  //     name: 'Materialized View',
+  //     onClick: () => handleSubMenuClick(CREATE_MATERIALIZED_VIEW),
+  //   },
+  // ];
 
   const button = (
     <EuiButton iconType="arrowDown" iconSide="right" onClick={() => togglePopover(null)}>
@@ -88,35 +84,35 @@ export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateBut
                 id: 0,
                 title: 'Create options',
                 items: [
-                  {
-                    name: 'Spark SQL',
-                    panel: 1,
-                  },
+                  // {
+                  //   name: 'Spark SQL',
+                  //   panel: 1,
+                  // },
                   {
                     name: 'Acceleration Index',
                     panel: 2,
                   },
-                  {
-                    name: 'Materialized View',
-                    panel: 3,
-                  }
+                  // {
+                  //   name: 'Materialized View',
+                  //   panel: 3,
+                  // }
                 ],
               },
-              {
-                id: 1,
-                title: 'SPARK SQL Options',
-                items: fromSqlItems,
-              },
+              // {
+              //   id: 1,
+              //   title: 'SPARK SQL Options',
+              //   items: fromSqlItems,
+              // },
               {
                 id: 2,
                 title: 'Acceleration Index Options',
                 items: acceleratedIndexItems,
               },
-              {
-                id: 3,
-                title: 'Create Materialized View',
-                items: materializedViewItems,
-              },
+              // {
+              //   id: 3,
+              //   title: 'Create Materialized View',
+              //   items: materializedViewItems,
+              // },
             ]}
           />
         </EuiPopover>

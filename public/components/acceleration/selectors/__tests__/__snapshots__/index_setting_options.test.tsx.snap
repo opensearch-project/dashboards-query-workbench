@@ -283,48 +283,6 @@ Array [
           className="euiRadio euiRadioGroup__item"
         >
           <input
-            checked={true}
-            className="euiRadio__input"
-            id="refresh-option-1"
-            name="refresh type radio group"
-            onChange={[Function]}
-            type="radio"
-          />
-          <div
-            className="euiRadio__circle"
-          />
-          <label
-            className="euiRadio__label"
-            htmlFor="refresh-option-1"
-          >
-            Auto refresh
-          </label>
-        </div>
-        <div
-          className="euiRadio euiRadioGroup__item"
-        >
-          <input
-            checked={false}
-            className="euiRadio__input"
-            id="refresh-option-2"
-            name="refresh type radio group"
-            onChange={[Function]}
-            type="radio"
-          />
-          <div
-            className="euiRadio__circle"
-          />
-          <label
-            className="euiRadio__label"
-            htmlFor="refresh-option-2"
-          >
-            Auto refresh by interval
-          </label>
-        </div>
-        <div
-          className="euiRadio euiRadioGroup__item"
-        >
-          <input
             checked={false}
             className="euiRadio__input"
             id="refresh-option-3"
@@ -691,48 +649,6 @@ Array [
           className="euiRadio euiRadioGroup__item"
         >
           <input
-            checked={true}
-            className="euiRadio__input"
-            id="refresh-option-1"
-            name="refresh type radio group"
-            onChange={[Function]}
-            type="radio"
-          />
-          <div
-            className="euiRadio__circle"
-          />
-          <label
-            className="euiRadio__label"
-            htmlFor="refresh-option-1"
-          >
-            Auto refresh
-          </label>
-        </div>
-        <div
-          className="euiRadio euiRadioGroup__item"
-        >
-          <input
-            checked={false}
-            className="euiRadio__input"
-            id="refresh-option-2"
-            name="refresh type radio group"
-            onChange={[Function]}
-            type="radio"
-          />
-          <div
-            className="euiRadio__circle"
-          />
-          <label
-            className="euiRadio__label"
-            htmlFor="refresh-option-2"
-          >
-            Auto refresh by interval
-          </label>
-        </div>
-        <div
-          className="euiRadio euiRadioGroup__item"
-        >
-          <input
             checked={false}
             className="euiRadio__input"
             id="refresh-option-3"
@@ -1095,48 +1011,6 @@ Array [
         onBlur={[Function]}
         onFocus={[Function]}
       >
-        <div
-          className="euiRadio euiRadioGroup__item"
-        >
-          <input
-            checked={true}
-            className="euiRadio__input"
-            id="refresh-option-1"
-            name="refresh type radio group"
-            onChange={[Function]}
-            type="radio"
-          />
-          <div
-            className="euiRadio__circle"
-          />
-          <label
-            className="euiRadio__label"
-            htmlFor="refresh-option-1"
-          >
-            Auto refresh
-          </label>
-        </div>
-        <div
-          className="euiRadio euiRadioGroup__item"
-        >
-          <input
-            checked={false}
-            className="euiRadio__input"
-            id="refresh-option-2"
-            name="refresh type radio group"
-            onChange={[Function]}
-            type="radio"
-          />
-          <div
-            className="euiRadio__circle"
-          />
-          <label
-            className="euiRadio__label"
-            htmlFor="refresh-option-2"
-          >
-            Auto refresh by interval
-          </label>
-        </div>
         <div
           className="euiRadio euiRadioGroup__item"
         >
