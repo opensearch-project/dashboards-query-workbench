@@ -443,7 +443,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                         if (table.name === tableName) {
                           return {
                             ...table,
-                            isLoading: false,
                             values: loadTreeItem(
                               [TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME],
                               TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME

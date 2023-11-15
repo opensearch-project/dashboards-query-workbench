@@ -84,7 +84,7 @@ export const skippingIndexQueryBuilder = (accelerationformData: CreateAccelerati
   const codeQuery = `CREATE SKIPPING INDEX
 ON ${dataSource}.${database}.${dataTable} (
 ${buildSkippingIndexColumns(skippingIndexQueryData)}
-  ) ${buildIndexOptions(accelerationformData)}`;
+  ) )`;
 
   return codeQuery;
 };
