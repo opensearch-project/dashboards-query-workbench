@@ -18,20 +18,20 @@ export const TREE_ITEM_TABLE_NAME_DEFAULT_NAME = `table`;
 export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
 export const TREE_ITEM_BADGE_NAME = `badge`;
 export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
-export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON datasource.database.table 
+export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON \`datasource\`.\`database\`.\`table\` 
 (status VALUE_SET) 
 WITH (
   auto_refresh = true,
   checkpoint_location = 's3://test/'
   )`;
-export const COVERING_INDEX_QUERY = `CREATE INDEX covering_idx ON datasource.database.table
+export const COVERING_INDEX_QUERY = `CREATE INDEX covering_idx ON \`datasource\`.\`database\`.\`table\`
  (status) 
  WITH (
   auto_refresh = true,
   checkpoint_location = 's3://test/'
   )`;
 export const CREATE_DATABASE_QUERY = `CREATE DATABASE datasource.database`;
-export const CREATE_TABLE_QUERY = `CREATE EXTERNAL TABLE datasource.database.table (
+export const CREATE_TABLE_QUERY = `CREATE EXTERNAL TABLE \`datasource\`.\`database\`.\`table\` (
   key BIGINT,
   status INTEGER,
   size FLOAT,
@@ -44,7 +44,7 @@ OPTIONS (
   compression 'gzip'
 );`;
 
-export const CREATE_MATERIALIZED_VIEW = `CREATE MATERIALIZED VIEW datasource.database.materialized_view
+export const CREATE_MATERIALIZED_VIEW = `CREATE MATERIALIZED VIEW \`datasource\`.\`database\`.\`materialized_view\`
 AS SELECT
    count(field)
 FROM datasource.database.table

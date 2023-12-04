@@ -49,7 +49,7 @@ export const IndexTypeSelector = ({
       const idPrefix = htmlIdGenerator()();
       const query = {
         lang: 'sql',
-        query: `DESC ${accelerationFormData.dataSource}.${accelerationFormData.database}.${accelerationFormData.dataTable}`,
+        query: `DESC \`${accelerationFormData.dataSource}\`.\`${accelerationFormData.database}\`.\`${accelerationFormData.dataTable}\``,
         datasource: accelerationFormData.dataSource,
       };
       const errorMessage = 'ERROR: failed to load table columns';
