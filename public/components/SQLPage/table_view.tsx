@@ -22,7 +22,6 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import {
-  CANCEL_PREVIOUS_QUERY,
   FETCH_OPENSEARCH_INDICES_PATH,
   LOAD_OPENSEARCH_INDICES_QUERY,
   TREE_ITEM_BADGE_NAME,
@@ -31,7 +30,7 @@ import {
   TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME,
   TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME,
   TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME,
-  TREE_ITEM_TABLE_NAME_DEFAULT_NAME
+  TREE_ITEM_TABLE_NAME_DEFAULT_NAME,
 } from '../../../common/constants';
 import { useToast } from '../../../common/toast';
 import { getJobId, pollQueryStatus } from '../../../common/utils/async_query_helpers';
@@ -101,7 +100,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   }
 
   const getSidebarContent = () => {
-    pollQueryStatus(CANCEL_PREVIOUS_QUERY,http,()=>{})
     if (selectedItems[0].label === 'OpenSearch') {
       setTableNames([]);
       setIsLoading({
@@ -141,7 +139,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       setTableNames([]);
       const query = {
         lang: 'sql',
-        query: `SHOW SCHEMAS IN \`${selectedItems[0]['label']}\``,
+        query: `SHOW SCHEMAS IN ${selectedItems[0]['label']}`,
         datasource: selectedItems[0]['label'],
       };
       getJobId(query, http, (id) => {
@@ -151,7 +149,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             flag: false,
             status: errorMessage,
           });
-          setToast(errorMessage, 'danger', );
+          setToast(errorMessage, 'danger');
         } else {
           pollQueryStatus(id, http, (data) => {
             setIsLoading({ flag: true, status: data.status });
@@ -204,7 +202,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setSelectedDatabase(databaseName);
     const query = {
       lang: 'sql',
-      query: `SHOW TABLES IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
+      query: `SHOW TABLES IN ${selectedItems[0]['label']}.${databaseName}`,
       datasource: selectedItems[0]['label'],
     };
     getJobId(query, http, (id) => {
@@ -272,7 +270,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   const loadCoveringIndex = (tableName: string, databaseName: string) => {
     const coverQuery = {
       lang: 'sql',
-      query: `SHOW INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
+      query: `SHOW INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
       datasource: selectedItems[0]['label'],
     };
     getJobId(coverQuery, http, (id) => {
@@ -356,7 +354,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const materializedViewQuery = {
       lang: 'sql',
-      query: `SHOW MATERIALIZED VIEW IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
+      query: `SHOW MATERIALIZED VIEW IN ${selectedItems[0]['label']}.${databaseName}`,
       datasource: selectedItems[0]['label'],
     };
     getJobId(materializedViewQuery, http, (id) => {
@@ -420,7 +418,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const skipQuery = {
       lang: 'sql',
-      query: `DESC SKIPPING INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
+      query: `DESC SKIPPING INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
       datasource: selectedItems[0]['label'],
     };
     getJobId(skipQuery, http, (id) => {
@@ -474,7 +472,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   };
   const handleQuery = (e: MouseEvent, parentName: string, tableName: string) => {
     e.stopPropagation();
-    updateSQLQueries(`select * from \`${selectedItems[0].label}\`.\`${parentName}\`.\`${tableName}\` limit 10`);
+    updateSQLQueries(`select * from ${selectedItems[0].label}.${parentName}.${tableName} limit 10`);
   };
 
   const iconCreation = (node: TreeItem) => {
