@@ -45,8 +45,8 @@ import {
   ResponseDetail,
   Tab,
 } from '../Main/main';
-import { AsyncQueryBody } from './async_query_body';
 import QueryResultsBody from './QueryResultsBody';
+import { AsyncQueryBody } from './async_query_body';
 
 interface QueryResultsProps {
   language: string;
@@ -335,8 +335,8 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
             </EuiFlexItem>
           </EuiFlexGroup>
         </div>
-        {this.props.asyncLoadingStatus === 'SUCCESS' ||
-        this.props.asyncLoadingStatus === 'CANCELLED' ? (
+        {this.props.asyncLoadingStatus === 'success' ||
+        this.props.asyncLoadingStatus === 'cancelled' ? (
           <>
             {this.props.queryResults.length === 0 ? (
               // show no results message instead of the results table when there are no results
