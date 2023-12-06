@@ -92,7 +92,7 @@ export const AccelerationDataSourceSelector = ({
     setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: true });
     const query = {
       lang: 'sql',
-      query: `SHOW TABLES IN \`${accelerationFormData.dataSource}.${accelerationFormData.database}\``,
+      query: `SHOW TABLES IN \`${accelerationFormData.dataSource}.\`${accelerationFormData.database}\``,
       datasource: accelerationFormData.dataSource,
     };
     const errorMessage = `ERROR: failed to load tables`;
