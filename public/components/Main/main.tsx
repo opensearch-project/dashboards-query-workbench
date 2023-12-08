@@ -23,13 +23,11 @@ import _ from 'lodash';
 import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
 import {
-  ASYNC_QUERY_ENDPOINT,
   ASYNC_QUERY_JOB_ENDPOINT,
-  OPENSEARCH_SQL_INIT_QUERY,
-  POLL_INTERVAL_MS,
+  OPENSEARCH_SQL_INIT_QUERY
 } from '../../../common/constants';
 import { AsyncQueryLoadingStatus } from '../../../common/types';
-import { getAsyncSessionId, setAsyncSessionId } from '../../../common/utils/async_query_helpers';
+import { getJobId, pollQueryStatus } from '../../../common/utils/async_query_helpers';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -429,143 +427,96 @@ export class Main extends React.Component<MainProps, MainState> {
   };
 
   onRunAsync = (queriesString: string): void => {
-    // switch to an async query here if using any datasource != Opensearch
-
-    // finding regular query here
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
-      const responsePromise = Promise.all(
-        queries.map((query: string) =>
-          this.httpClient
-            .post(ASYNC_QUERY_ENDPOINT, {
-              body: JSON.stringify({
-                lang: language,
-                query: query,
-                datasource: this.state.selectedDatasource[0].label,
-                sessionId: getAsyncSessionId() ?? undefined,
-              }),
-            })
-            .catch((error: any) => {
-              this.setState({
-                messages: [
-                  {
-                    text: error.message,
-                    className: 'error-message',
-                  },
-                ],
-              });
-            })
-        )
-      );
-
-      Promise.all([responsePromise]).then(([response]) => {
-        const results: ResponseDetail<string>[] = response.map((response) =>
-          this.processQueryResponse(response as IHttpResponse<ResponseData>)
-        );
-        results.map(
-          (queryResultResponseDetail: ResponseDetail<string>): ResponseDetail<QueryResult> => {
-            if (!queryResultResponseDetail.fulfilled) {
-              return {
-                fulfilled: queryResultResponseDetail.fulfilled,
-                errorMessage: errorQueryResponse(queryResultResponseDetail),
-              };
-            } else {
-              const responseObj = queryResultResponseDetail.data
-                ? queryResultResponseDetail.data
-                : '';
-
-              const queryId: string = _.get(responseObj, 'queryId');
-              setAsyncSessionId(_.get(responseObj, 'sessionId', null));
-
-              // clear state from previous results and start async loading
-              this.setState({
-                queryTranslations: [],
-                queryResultsTable: [],
-                queryResults: [],
-                queryResultsCSV: [],
-                queryResultsJSON: [],
-                queryResultsTEXT: [],
-                messages: [],
-                selectedTabId: MESSAGE_TAB_LABEL,
-                selectedTabName: MESSAGE_TAB_LABEL,
-                itemIdToExpandedRowMap: {},
-                asyncLoading: true,
-                asyncLoadingStatus: 'SCHEDULED',
-                asyncJobId: queryId,
-                isCallOutVisible: false,
-              });
-              this.callGetStartPolling(queries);
-              const interval = setInterval(() => {
-                if (!this.state.asyncLoading) {
-                  clearInterval(interval);
-                }
-                this.callGetStartPolling(queries);
-              }, POLL_INTERVAL_MS);
-            }
+      this.setState({
+        queryTranslations: [],
+        queryResultsTable: [],
+        queryResults: [],
+        queryResultsCSV: [],
+        queryResultsJSON: [],
+        queryResultsTEXT: [],
+        messages: [],
+        selectedTabId: MESSAGE_TAB_LABEL,
+        selectedTabName: MESSAGE_TAB_LABEL,
+        itemIdToExpandedRowMap: {},
+        asyncLoading: true,
+        asyncLoadingStatus: 'SCHEDULED',
+        asyncJobId: '',
+        isCallOutVisible: false,
+      });
+      queries.map((query: string) =>
+      {
+        const asyncQuery ={
+          lang: language,
+          query: query,
+          datasource: this.state.selectedDatasource[0].label,
+        }
+        console.log(query)
+        getJobId(asyncQuery,this.httpClient,(id:string)=>{
+          const queryId: string = id
+          if(id === undefined){
+            this.setState({
+              messages: [
+                {
+                  text: "Error fetching data",
+                  className: 'error-message',
+                },
+              ],
+            });
           }
-        );
-      });
-    }
-  };
-
-  callGetStartPolling = async (queries: string[]) => {
-    const nextP = this.httpClient
-      .get(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
-      .catch((error: any) => {
-        this.setState({
-          messages: [
-            {
-              text: error.message,
-              className: 'error-message',
-            },
-          ],
-        });
-      });
-
-    return await nextP.then((response) => {
-      const result: ResponseDetail<string> = this.processQueryResponse(
-        response as IHttpResponse<ResponseData>
-      );
-      const status = result.data['status'];
-      if (_.isEqual(status, 'SUCCESS')) {
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable([result], false);
-        this.setState({
-          queries: queries,
-          queryResults: [result],
-          queryResultsTable: result.data['schema'].length > 0 ? resultTable : [],
-          selectedTabId: getDefaultTabId([result]),
-          selectedTabName: getDefaultTabLabel([result], queries[0]),
-          messages: this.getMessage(resultTable),
-          itemIdToExpandedRowMap: {},
-          queryResultsJSON: [],
-          queryResultsCSV: [],
-          queryResultsTEXT: [],
-          searchQuery: '',
-          asyncLoading: false,
-          asyncLoadingStatus: status,
-          isCallOutVisible: !(result.data['schema'].length > 0),
-        });
-      } else if (_.isEqual(status, 'FAILED') || _.isEqual(status, 'CANCELLED')) {
-        this.setState({
-          asyncLoading: false,
-          asyncLoadingStatus: status,
-          messages: [
-            {
-              text: status,
-              className: 'error-message',
-            },
-          ],
-          asyncQueryError: result.data['error'],
-        });
-      } else {
-        this.setState({
-          asyncLoading: true,
-          asyncLoadingStatus: status,
-        });
+          else {
+            this.setState({
+              asyncJobId: queryId
+            });
+            pollQueryStatus(id, this.httpClient, (data) => {
+              const result: ResponseDetail<string> = this.processQueryResponse(
+                data.response as IHttpResponse<ResponseData>
+              );
+              const status = data.status
+              if (status === 'SUCCESS') {
+                const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable([result], false);
+                this.setState({
+                  queries: queries,
+                  queryResults: [result],
+                  queryResultsTable: result.data['schema'].length > 0 ? resultTable : [],
+                  selectedTabId: getDefaultTabId([result]),
+                  selectedTabName: getDefaultTabLabel([result], queries[0]),
+                  messages: this.getMessage(resultTable),
+                  itemIdToExpandedRowMap: {},
+                  queryResultsJSON: [],
+                  queryResultsCSV: [],
+                  queryResultsTEXT: [],
+                  searchQuery: '',
+                  asyncLoading: false,
+                  asyncLoadingStatus: status,
+                  isCallOutVisible: !(result.data['schema'].length > 0),
+                });
+              } else if ((status === 'FAILED') || (status === 'CANCELLED') ){
+                this.setState({
+                  asyncLoading: false,
+                  asyncLoadingStatus: status,
+                  messages: [
+                    {
+                      text: status,
+                      className: 'error-message',
+                    },
+                  ],
+                  asyncQueryError: result.data['error'],
+                });
+              } else {
+                this.setState({
+                  asyncLoading: true,
+                  asyncLoadingStatus: status,
+                });
+              }
+            });
+          }
+        })
       }
-    });
-  };
+    )}
+  }
 
   cancelAsyncQuery = async () => {
     Promise.all([
