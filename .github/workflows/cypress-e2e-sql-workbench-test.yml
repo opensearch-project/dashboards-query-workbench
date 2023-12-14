@@ -81,6 +81,17 @@ jobs:
         with:
             path: OpenSearch-Dashboards/plugins
 
+      - name: DEBUGGING 1
+        run: |
+          pwd
+          ls
+
+      - name: DEBUGGING 1
+        run: |
+          cd ./OpenSearch-Dashboards/plugins
+          pwd
+          ls
+
       - id: tool-versions
         run: |
           echo "node_version=$(cat .node-version)" >> $GITHUB_OUTPUT
