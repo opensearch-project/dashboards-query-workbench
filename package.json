@@ -19,7 +19,9 @@
     "test:jest": "../../node_modules/.bin/jest --config test/jest.config.js",
     "test": "yarn test:jest",
     "build": "yarn plugin-helpers build",
-    "plugin-helpers": "node ../../scripts/plugin_helpers"
+    "plugin-helpers": "node ../../scripts/plugin_helpers",
+    "cypress:run": "TZ=America/Los_Angeles cypress run",
+    "cypress:open": "TZ=America/Los_Angeles cypress open"
   },
   "dependencies": {
     "brace": "0.11.1",
@@ -29,13 +31,13 @@
     "@testing-library/user-event": "^13.1.9",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/react-test-renderer": "^16.9.1",
-    "cypress": "^5.0.0",
+    "cypress": "12.8.1",
     "eslint": "^6.8.0",
     "husky": "^4.2.5",
+    "jest-dom": "^4.0.0",
     "jest-raw-loader": "^1.0.1",
     "lint-staged": "^10.2.0",
     "mutationobserver-shim": "^0.3.3",
-    "jest-dom": "^4.0.0",
     "ts-jest": "^29.1.0"
   },
   "resolutions": {
