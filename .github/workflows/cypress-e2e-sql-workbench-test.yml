@@ -79,18 +79,7 @@ jobs:
       - name: Checkout Query Workbench in OpenSearch Dashboards Plugins Dir
         uses: actions/checkout@v2
         with:
-            path: OpenSearch-Dashboards/plugins
-
-      - name: DEBUGGING 1
-        run: |
-          pwd
-          ls
-
-      - name: DEBUGGING 1
-        run: |
-          cd ./OpenSearch-Dashboards/plugins
-          pwd
-          ls
+            path: OpenSearch-Dashboards/plugins/dashboards-query-workbench
 
       - id: tool-versions
         run: |
