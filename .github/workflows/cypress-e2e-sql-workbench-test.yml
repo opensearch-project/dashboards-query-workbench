@@ -108,7 +108,7 @@ jobs:
           yarn osd bootstrap
         working-directory: OpenSearch-Dashboards
       
-      - name: Run Opensearch Dashboards with Gantt Chart Installed
+      - name: Run Opensearch Dashboards with Query Workbench Installed
         run: |
           nohup yarn start --no-base-path --no-watch | tee dashboard.log &
         working-directory: OpenSearch-Dashboards
