@@ -2154,8 +2154,9 @@ export const mockDatasourcesQuery = {
 export const mockJobId = {
   data: {
     ok: true,
-    resp: '{ "queryId": "00fe3fjpnfnn400q" }',
-  },
+    resp: 
+    {"queryId": "00fe3fjpnfnn400q","sessionId": "czVtMWZoZm9xMWdsdWVfMg=="}
+  }
 };
 
 export const mockOpenSearchIndicies = {
@@ -2169,10 +2170,84 @@ export const mockOpenSearchIndicies = {
 export const mockDatabaseQuery = {
   data: {
     ok: true,
-    resp:
-      '{    "schema": [        {            "name": "namespace",            "type": "string"        }    ],    "datarows": [        [            "default"        ]    ],    "total": 1,    "size": 1}',
+    "resp": {
+      "status": "SUCCESS",
+      "schema": [
+          {
+              "name": "namespace",
+              "type": "string"
+          }
+      ],
+      "datarows": [
+          [
+              "default"
+          ]
+      ],
+      "total": 1,
+      "size": 1
+  },
   },
 };
+
+export const mockMVquery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "materialized_view_name",
+                  "type": "string"
+              }
+          ],
+          "datarows": [
+              [
+                  "http_count_view"
+              ]
+          ],
+          "total": 1,
+          "size": 1
+      }
+  }
+}
+
+
+export const mockTableQuery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "namespace",
+                  "type": "string"
+              },
+              {
+                  "name": "tableName",
+                  "type": "string"
+              },
+              {
+                  "name": "isTemporary",
+                  "type": "boolean"
+              }
+          ],
+          "datarows": [
+              [
+                  "default",
+                  "http_logs",
+                  false
+              ],
+              [
+                  "default",
+                  "http_logs2",
+                  false
+              ]
+          ],
+          "total": 2,
+          "size": 2
+      }
+  }
+}
 
 export const mockOpenSearchTreeQuery = {
   data: {
@@ -2181,3 +2256,145 @@ export const mockOpenSearchTreeQuery = {
       '{"schema":[{"name":"TABLE_CAT","type":"keyword"},{"name":"TABLE_SCHEM","type":"keyword"},{"name":"TABLE_NAME","type":"keyword"},{"name":"TABLE_TYPE","type":"keyword"},{"name":"REMARKS","type":"keyword"},{"name":"TYPE_CAT","type":"keyword"},{"name":"TYPE_SCHEM","type":"keyword"},{"name":"TYPE_NAME","type":"keyword"},{"name":"SELF_REFERENCING_COL_NAME","type":"keyword"},{"name":"REF_GENERATION","type":"keyword"}],"datarows":[["opensearch-cluster",null,".kibana_1","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,".opendistro-job-scheduler-lock","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,".opendistro-reports-definitions","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,".opendistro-reports-instances","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,".opendistro_security","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,".opensearch-observability","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,".plugins-ml-config","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,".ql-datasources","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"jaeger-service-2023-01-24","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"jaeger-span-2023-01-24","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"opensearch_dashboards_sample_data_ecommerce","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"opensearch_dashboards_sample_data_flights","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"opensearch_dashboards_sample_data_logs","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"otel-v1-apm-service-map","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"otel-v1-apm-span-000001","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"otel-v1-apm-span-000002","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"sample-ecommerce","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"sample-host-health","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"sample-http-responses","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.16","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.17","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.18","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.19","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.20","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.21","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.22","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.23","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.24","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"security-auditlog-2023.10.25","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"windows","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,".kibana","BASE TABLE",null,null,null,null,null,null],["opensearch-cluster",null,"s3--pWlOosB5t9LzIj0oUsS","BASE TABLE",null,null,null,null,null,null]],"total":32,"size":32,"status":200}',
   },
 };
+
+export const mockCoveringIndexQuery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "index_name",
+                  "type": "string"
+              }
+          ],
+          "datarows": [
+              [
+                  "sample_index"
+              ],
+              [
+                  "status_clientip_and_day"
+              ]
+          ],
+          "total": 2,
+          "size": 2
+      }
+  }
+}
+export const mockMVEmptyQuery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "materialized_view_name",
+                  "type": "string"
+              }
+          ],
+          "datarows": [],
+          "total": 0,
+          "size": 0
+      }
+  }
+}
+export const mockSkippingIndexQuery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "indexed_col_name",
+                  "type": "string"
+              },
+              {
+                  "name": "data_type",
+                  "type": "string"
+              },
+              {
+                  "name": "skip_type",
+                  "type": "string"
+              }
+          ],
+          "datarows": [
+              [
+                  "skipping_index"
+              ]
+          ],
+          "total": 1,
+          "size": 1
+      }
+  }
+}
+
+export const mockEmptySkippingIndexQuery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "index_name",
+                  "type": "string"
+              }
+          ],
+          "datarows": [],
+          "total": 0,
+          "size": 0
+      }
+  }
+}
+export const mockEmptyCoveringIndexQuery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "index_name",
+                  "type": "string"
+              }
+          ],
+          "datarows": [],
+          "total": 0,
+          "size": 0
+      }
+  }
+}
+
+export const mockDataSelectQuery = {
+  "data": {
+      "ok": true,
+      "resp": [
+          {
+              "name": "glue_2",
+              "description": "",
+              "connector": "S3GLUE",
+              "allowedRoles": [],
+              "properties": {
+                  "glue.indexstore.opensearch.auth": "awssigv4",
+                  "glue.indexstore.opensearch.uri": "https://search-flint-test-lchvlhaowzh4vhwyeutf52fteq.us-east-1.es.amazonaws.com",
+                  "glue.auth.role_arn": "arn:aws:iam::294600734191:role/pratik-flint-role",
+                  "glue.auth.type": "iam_role",
+                  "glue.indexstore.opensearch.region": "us-east-1"
+              },
+              "resultIndex": "query_execution_result_glue_2"
+          },
+          {
+              "name": "glue_1",
+              "description": "",
+              "connector": "S3GLUE",
+              "allowedRoles": [],
+              "properties": {
+                  "glue.indexstore.opensearch.auth": "awssigv4",
+                  "glue.indexstore.opensearch.uri": "https://search-flint-test-lchvlhaowzh4vhwyeutf52fteq.us-east-1.es.amazonaws.com",
+                  "glue.auth.role_arn": "arn:aws:iam::294600734191:role/pratik-flint-role",
+                  "glue.auth.type": "iam_role",
+                  "glue.indexstore.opensearch.region": "us-east-1"
+              },
+              "resultIndex": "query_execution_result_glue_1"
+          }
+      ]
+  }
+}

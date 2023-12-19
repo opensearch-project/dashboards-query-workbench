@@ -1,67 +1,754 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render databases in tree fetches and displays database nodes when datasource is s3 1`] = `
+exports[`Render databases in tree fetches Materialized view in the Side tree 1`] = `
 <div>
   <div
-    class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+    class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
   >
     <div
-      class="euiSpacer euiSpacer--l"
-    />
-    <div
-      class="euiFlexItem"
+      class="euiText euiText--medium euiTreeView__wrapper"
     >
-      <span
-        class="euiLoadingSpinner euiLoadingSpinner--large"
-      />
-    </div>
-    <div
-      class="euiFlexItem euiFlexItem--flexGrowZero"
-    >
-      Loading data
-    </div>
-    <div
-      class="euiFlexItem euiFlexItem--flexGrowZero"
-    >
-      <div
-        style="padding: 10px;"
+      <p
+        class="euiScreenReaderOnly"
+        id="some_html_id--instruction"
       >
-        <div
-          class="euiFlexItem"
+        You can quickly navigate this list using arrow keys.
+      </p>
+      <ul
+        aria-describedby="some_html_id--instruction"
+        aria-label="Sample Folder Tree"
+        class="euiTreeView"
+        id="some_html_id"
+      >
+        <li
+          class="euiTreeView__node euiTreeView__node--expanded"
         >
+          <button
+            aria-controls="some_html_id"
+            aria-expanded="true"
+            class="euiTreeView__nodeInner euiTreeView__node--active"
+            data-test-subj="euiTreeViewButton-some_html_id"
+            id="element_0"
+          >
+            <span
+              class="euiTreeView__iconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="euiTreeView__nodeLabel"
+            >
+              <div>
+                <span
+                  class="euiToolTipAnchor"
+                >
+                  <div
+                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                  >
+                    <div
+                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                    >
+                      <div
+                        class="euiText euiText--medium"
+                      >
+                        default
+                         
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </span>
+          </button>
           <div
-            class="euiText euiText--medium"
+            id="some_html_id"
           >
             <div
-              class="euiTextAlign euiTextAlign--center"
+              class="euiText euiText--medium euiTreeView__wrapper"
             >
-              <div
-                class="euiTextColor euiTextColor--subdued"
+              <ul
+                aria-label="default  child of Sample Folder Tree"
+                class="euiTreeView"
               >
-                Loading may take over 30 seconds
-              </div>
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_undefined"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--small euiIcon-isLoaded"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 3v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1Zm-1 0V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v1h14Zm0 1H1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4ZM4.496 7a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 8 6 7.776 6 7.5s.128-.5.286-.5h3.428ZM4.496 5a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 6 6 5.776 6 5.5s.128-.5.286-.5h3.428ZM4.496 9a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 10 6 9.776 6 9.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 12 6 11.776 6 11.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm9-6a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0-2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 4a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm-3.782 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 14 6 13.776 6 13.5s.128-.5.286-.5h3.428Z"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                
+                                 
+                                <svg
+                                  aria-hidden="true"
+                                  class="euiIcon euiIcon--medium euiIcon-isLoaded"
+                                  focusable="false"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.414 8.036 4.89 10.51a.5.5 0 0 1-.707.708L1.354 8.389a.5.5 0 0 1 0-.707l2.828-2.828a.5.5 0 1 1 .707.707L2.414 8.036Zm8.768 2.474 2.475-2.474-2.475-2.475a.5.5 0 0 1 .707-.707l2.829 2.828a.5.5 0 0 1 0 .707l-2.829 2.829a.5.5 0 1 1-.707-.708ZM8.559 2.506a.5.5 0 0 1 .981.19L7.441 13.494a.5.5 0 0 1-.981-.19L8.559 2.506Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_http_count_view"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <span
+                        aria-label="Materialized view"
+                        class="euiNotificationBadge euiNotificationBadge--subdued"
+                      >
+                        MV
+                      </span>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                http_count_view
+                                 
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+              </ul>
             </div>
           </div>
-        </div>
-        <div
-          class="euiFlexItem"
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render databases in tree fetches No materilaized views badge in side tree 1`] = `
+<div>
+  <div
+    class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+  >
+    <div
+      class="euiText euiText--medium euiTreeView__wrapper"
+    >
+      <p
+        class="euiScreenReaderOnly"
+        id="some_html_id--instruction"
+      >
+        You can quickly navigate this list using arrow keys.
+      </p>
+      <ul
+        aria-describedby="some_html_id--instruction"
+        aria-label="Sample Folder Tree"
+        class="euiTreeView"
+        id="some_html_id"
+      >
+        <li
+          class="euiTreeView__node euiTreeView__node--expanded"
         >
+          <button
+            aria-controls="some_html_id"
+            aria-expanded="true"
+            class="euiTreeView__nodeInner euiTreeView__node--active"
+            data-test-subj="euiTreeViewButton-some_html_id"
+            id="element_0"
+          >
+            <span
+              class="euiTreeView__iconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="euiTreeView__nodeLabel"
+            >
+              <div>
+                <span
+                  class="euiToolTipAnchor"
+                >
+                  <div
+                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                  >
+                    <div
+                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                    >
+                      <div
+                        class="euiText euiText--medium"
+                      >
+                        default
+                         
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </span>
+          </button>
           <div
-            class="euiText euiText--medium"
+            id="some_html_id"
           >
             <div
-              class="euiTextAlign euiTextAlign--center"
+              class="euiText euiText--medium euiTreeView__wrapper"
             >
-              <div
-                class="euiTextColor euiTextColor--subdued"
+              <ul
+                aria-label="default  child of Sample Folder Tree"
+                class="euiTreeView"
               >
-                Status: 
-                Query Not Run
-              </div>
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_undefined"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--small"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 3v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1Zm-1 0V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v1h14Zm0 1H1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4ZM4.496 7a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 8 6 7.776 6 7.5s.128-.5.286-.5h3.428ZM4.496 5a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 6 6 5.776 6 5.5s.128-.5.286-.5h3.428ZM4.496 9a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 10 6 9.776 6 9.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 12 6 11.776 6 11.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm9-6a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0-2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 4a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm-3.782 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 14 6 13.776 6 13.5s.128-.5.286-.5h3.428Z"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                
+                                 
+                                <svg
+                                  aria-hidden="true"
+                                  class="euiIcon euiIcon--medium"
+                                  focusable="false"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.414 8.036 4.89 10.51a.5.5 0 0 1-.707.708L1.354 8.389a.5.5 0 0 1 0-.707l2.828-2.828a.5.5 0 1 1 .707.707L2.414 8.036Zm8.768 2.474 2.475-2.474-2.475-2.475a.5.5 0 0 1 .707-.707l2.829 2.828a.5.5 0 0 1 0 .707l-2.829 2.829a.5.5 0 1 1-.707-.708ZM8.559 2.506a.5.5 0 0 1 .981.19L7.441 13.494a.5.5 0 0 1-.981-.19L8.559 2.506Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_No Materialized View"
+                  >
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <span
+                            class="euiBadge euiBadge--iconLeft"
+                            style="background-color: rgb(211, 218, 230); color: rgb(0, 0, 0);"
+                            title="No Materialized View"
+                          >
+                            <span
+                              class="euiBadge__content"
+                            >
+                              <span
+                                class="euiBadge__text"
+                              >
+                                No Materialized View
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                         
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+              </ul>
             </div>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render databases in tree fetches and displays No indicies in the side tree 1`] = `
+<div>
+  <div
+    class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+  >
+    <div
+      class="euiText euiText--medium euiTreeView__wrapper"
+    >
+      <p
+        class="euiScreenReaderOnly"
+        id="some_html_id--instruction"
+      >
+        You can quickly navigate this list using arrow keys.
+      </p>
+      <ul
+        aria-describedby="some_html_id--instruction"
+        aria-label="Sample Folder Tree"
+        class="euiTreeView"
+        id="some_html_id"
+      >
+        <li
+          class="euiTreeView__node euiTreeView__node--expanded"
+        >
+          <button
+            aria-controls="some_html_id"
+            aria-expanded="true"
+            class="euiTreeView__nodeInner euiTreeView__node--active"
+            data-test-subj="euiTreeViewButton-some_html_id"
+            id="element_0"
+          >
+            <span
+              class="euiTreeView__iconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="euiTreeView__nodeLabel"
+            >
+              <div>
+                <span
+                  class="euiToolTipAnchor"
+                >
+                  <div
+                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                  >
+                    <div
+                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                    >
+                      <div
+                        class="euiText euiText--medium"
+                      >
+                        default
+                         
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </span>
+          </button>
+          <div
+            id="some_html_id"
+          >
+            <div
+              class="euiText euiText--medium euiTreeView__wrapper"
+            >
+              <ul
+                aria-label="default  child of Sample Folder Tree"
+                class="euiTreeView"
+              >
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_http_logs"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--small"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 3v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1Zm-1 0V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v1h14Zm0 1H1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4ZM4.496 7a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 8 6 7.776 6 7.5s.128-.5.286-.5h3.428ZM4.496 5a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 6 6 5.776 6 5.5s.128-.5.286-.5h3.428ZM4.496 9a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 10 6 9.776 6 9.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 12 6 11.776 6 11.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm9-6a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0-2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 4a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm-3.782 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 14 6 13.776 6 13.5s.128-.5.286-.5h3.428Z"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                http_logs
+                                 
+                                <svg
+                                  aria-hidden="true"
+                                  class="euiIcon euiIcon--medium"
+                                  focusable="false"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.414 8.036 4.89 10.51a.5.5 0 0 1-.707.708L1.354 8.389a.5.5 0 0 1 0-.707l2.828-2.828a.5.5 0 1 1 .707.707L2.414 8.036Zm8.768 2.474 2.475-2.474-2.475-2.475a.5.5 0 0 1 .707-.707l2.829 2.828a.5.5 0 0 1 0 .707l-2.829 2.829a.5.5 0 1 1-.707-.708ZM8.559 2.506a.5.5 0 0 1 .981.19L7.441 13.494a.5.5 0 0 1-.981-.19L8.559 2.506Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+                <li
+                  class="euiTreeView__node euiTreeView__node--expanded"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="true"
+                    class="euiTreeView__nodeInner euiTreeView__node--active"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_http_logs2"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--small"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 3v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1Zm-1 0V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v1h14Zm0 1H1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4ZM4.496 7a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 8 6 7.776 6 7.5s.128-.5.286-.5h3.428ZM4.496 5a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 6 6 5.776 6 5.5s.128-.5.286-.5h3.428ZM4.496 9a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 10 6 9.776 6 9.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 12 6 11.776 6 11.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm9-6a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0-2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 4a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm-3.782 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 14 6 13.776 6 13.5s.128-.5.286-.5h3.428Z"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                http_logs2
+                                 
+                                <svg
+                                  aria-hidden="true"
+                                  class="euiIcon euiIcon--medium"
+                                  focusable="false"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.414 8.036 4.89 10.51a.5.5 0 0 1-.707.708L1.354 8.389a.5.5 0 0 1 0-.707l2.828-2.828a.5.5 0 1 1 .707.707L2.414 8.036Zm8.768 2.474 2.475-2.474-2.475-2.475a.5.5 0 0 1 .707-.707l2.829 2.828a.5.5 0 0 1 0 .707l-2.829 2.829a.5.5 0 1 1-.707-.708ZM8.559 2.506a.5.5 0 0 1 .981.19L7.441 13.494a.5.5 0 0 1-.981-.19L8.559 2.506Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  >
+                    <div
+                      class="euiText euiText--medium euiTreeView__wrapper"
+                    >
+                      <ul
+                        aria-label="http_logs2  child of default  child of Sample Folder Tree"
+                        class="euiTreeView"
+                      >
+                        <li
+                          class="euiTreeView__node"
+                        >
+                          <button
+                            aria-controls="some_html_id"
+                            aria-expanded="false"
+                            class="euiTreeView__nodeInner"
+                            data-test-subj="euiTreeViewButton-some_html_id"
+                            id="default_http_logs2_No Indicies"
+                          >
+                            <span
+                              class="euiTreeView__nodeLabel"
+                            >
+                              <div>
+                                <span
+                                  class="euiToolTipAnchor"
+                                >
+                                  <span
+                                    class="euiBadge euiBadge--iconLeft"
+                                    style="background-color: rgb(211, 218, 230); color: rgb(0, 0, 0);"
+                                    title="No Indicies"
+                                  >
+                                    <span
+                                      class="euiBadge__content"
+                                    >
+                                      <span
+                                        class="euiBadge__text"
+                                      >
+                                        No Indicies
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                                 
+                              </div>
+                            </span>
+                          </button>
+                          <div
+                            id="some_html_id"
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_Load Materialized View"
+                  >
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <div
+                          class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                        >
+                          <div
+                            class="euiFlexItem euiFlexItem--flexGrowZero"
+                          >
+                            <span
+                              class="euiBadge euiBadge--hollow euiBadge--iconLeft"
+                              title="Load Materialized View"
+                            >
+                              <span
+                                class="euiBadge__content"
+                              >
+                                <span
+                                  class="euiBadge__text"
+                                >
+                                  Load Materialized View
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="euiFlexItem euiFlexItem--flexGrowZero"
+                          >
+                            <div
+                              class="euiText euiText--medium"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
@@ -102,14 +789,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -147,14 +838,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -192,14 +887,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -237,14 +936,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -282,14 +985,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -327,14 +1034,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -372,14 +1083,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -417,14 +1132,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -462,14 +1181,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -507,14 +1230,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -552,14 +1279,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -597,14 +1328,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -642,14 +1377,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -687,14 +1426,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -732,14 +1475,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -777,14 +1524,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -822,14 +1573,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -867,14 +1622,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -912,14 +1671,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -957,14 +1720,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -1002,14 +1769,18 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon-isLoading"
+                class="euiIcon euiIcon--medium"
                 focusable="false"
                 height="16"
                 role="img"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
-              />
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
             </span>
             <span
               class="euiTreeView__nodeLabel"
@@ -1025,6 +1796,923 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
                   </div>
                 </span>
                  
+              </div>
+            </span>
+          </button>
+          <div
+            id="some_html_id"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render databases in tree fetches and displays skipping index in the side tree 1`] = `
+<div>
+  <div
+    class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+  >
+    <div
+      class="euiText euiText--medium euiTreeView__wrapper"
+    >
+      <p
+        class="euiScreenReaderOnly"
+        id="some_html_id--instruction"
+      >
+        You can quickly navigate this list using arrow keys.
+      </p>
+      <ul
+        aria-describedby="some_html_id--instruction"
+        aria-label="Sample Folder Tree"
+        class="euiTreeView"
+        id="some_html_id"
+      >
+        <li
+          class="euiTreeView__node euiTreeView__node--expanded"
+        >
+          <button
+            aria-controls="some_html_id"
+            aria-expanded="true"
+            class="euiTreeView__nodeInner euiTreeView__node--active"
+            data-test-subj="euiTreeViewButton-some_html_id"
+            id="element_0"
+          >
+            <span
+              class="euiTreeView__iconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="euiTreeView__nodeLabel"
+            >
+              <div>
+                <span
+                  class="euiToolTipAnchor"
+                >
+                  <div
+                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                  >
+                    <div
+                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                    >
+                      <div
+                        class="euiText euiText--medium"
+                      >
+                        default
+                         
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </span>
+          </button>
+          <div
+            id="some_html_id"
+          >
+            <div
+              class="euiText euiText--medium euiTreeView__wrapper"
+            >
+              <ul
+                aria-label="default  child of Sample Folder Tree"
+                class="euiTreeView"
+              >
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_http_logs"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--small"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 3v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1Zm-1 0V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v1h14Zm0 1H1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4ZM4.496 7a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 8 6 7.776 6 7.5s.128-.5.286-.5h3.428ZM4.496 5a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 6 6 5.776 6 5.5s.128-.5.286-.5h3.428ZM4.496 9a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 10 6 9.776 6 9.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 12 6 11.776 6 11.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm9-6a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0-2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 4a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm-3.782 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 14 6 13.776 6 13.5s.128-.5.286-.5h3.428Z"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                http_logs
+                                 
+                                <svg
+                                  aria-hidden="true"
+                                  class="euiIcon euiIcon--medium"
+                                  focusable="false"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.414 8.036 4.89 10.51a.5.5 0 0 1-.707.708L1.354 8.389a.5.5 0 0 1 0-.707l2.828-2.828a.5.5 0 1 1 .707.707L2.414 8.036Zm8.768 2.474 2.475-2.474-2.475-2.475a.5.5 0 0 1 .707-.707l2.829 2.828a.5.5 0 0 1 0 .707l-2.829 2.829a.5.5 0 1 1-.707-.708ZM8.559 2.506a.5.5 0 0 1 .981.19L7.441 13.494a.5.5 0 0 1-.981-.19L8.559 2.506Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+                <li
+                  class="euiTreeView__node euiTreeView__node--expanded"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="true"
+                    class="euiTreeView__nodeInner euiTreeView__node--active"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_http_logs2"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--small"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 3v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1Zm-1 0V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v1h14Zm0 1H1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4ZM4.496 7a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 8 6 7.776 6 7.5s.128-.5.286-.5h3.428ZM4.496 5a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 6 6 5.776 6 5.5s.128-.5.286-.5h3.428ZM4.496 9a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 10 6 9.776 6 9.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 12 6 11.776 6 11.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm9-6a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0-2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 4a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm-3.782 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 14 6 13.776 6 13.5s.128-.5.286-.5h3.428Z"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                http_logs2
+                                 
+                                <svg
+                                  aria-hidden="true"
+                                  class="euiIcon euiIcon--medium"
+                                  focusable="false"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.414 8.036 4.89 10.51a.5.5 0 0 1-.707.708L1.354 8.389a.5.5 0 0 1 0-.707l2.828-2.828a.5.5 0 1 1 .707.707L2.414 8.036Zm8.768 2.474 2.475-2.474-2.475-2.475a.5.5 0 0 1 .707-.707l2.829 2.828a.5.5 0 0 1 0 .707l-2.829 2.829a.5.5 0 1 1-.707-.708ZM8.559 2.506a.5.5 0 0 1 .981.19L7.441 13.494a.5.5 0 0 1-.981-.19L8.559 2.506Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  >
+                    <div
+                      class="euiText euiText--medium euiTreeView__wrapper"
+                    >
+                      <ul
+                        aria-label="http_logs2  child of default  child of Sample Folder Tree"
+                        class="euiTreeView"
+                      >
+                        <li
+                          class="euiTreeView__node"
+                        >
+                          <button
+                            aria-controls="some_html_id"
+                            aria-expanded="false"
+                            class="euiTreeView__nodeInner"
+                            data-test-subj="euiTreeViewButton-some_html_id"
+                            id="default_http_logs2_skipping_index"
+                          >
+                            <span
+                              class="euiTreeView__iconWrapper"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="euiIcon euiIcon--medium euiIcon-isLoaded"
+                                focusable="false"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M7.04 13.274a.5.5 0 1 0 .892.453l3.014-5.931a.5.5 0 0 0-.445-.727H5.316L8.03 1.727a.5.5 0 1 0-.892-.453L4.055 7.343a.5.5 0 0 0 .446.726h5.185L7.04 13.274Z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="euiTreeView__nodeLabel"
+                            >
+                              <div>
+                                <span
+                                  class="euiToolTipAnchor"
+                                >
+                                  <div
+                                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                                  >
+                                    <div
+                                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                                    >
+                                      <div
+                                        class="euiText euiText--medium"
+                                      >
+                                        skipping_index
+                                         
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              </div>
+                            </span>
+                          </button>
+                          <div
+                            id="some_html_id"
+                          />
+                        </li>
+                        <li
+                          class="euiTreeView__node"
+                        >
+                          <button
+                            aria-controls="some_html_id"
+                            aria-expanded="false"
+                            class="euiTreeView__nodeInner"
+                            data-test-subj="euiTreeViewButton-some_html_id"
+                            id="default_http_logs2_sample_index"
+                          >
+                            <span
+                              class="euiTreeView__iconWrapper"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="euiIcon euiIcon--medium"
+                                focusable="false"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M7.04 13.274a.5.5 0 1 0 .892.453l3.014-5.931a.5.5 0 0 0-.445-.727H5.316L8.03 1.727a.5.5 0 1 0-.892-.453L4.055 7.343a.5.5 0 0 0 .446.726h5.185L7.04 13.274Z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="euiTreeView__nodeLabel"
+                            >
+                              <div>
+                                <span
+                                  class="euiToolTipAnchor"
+                                >
+                                  <div
+                                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                                  >
+                                    <div
+                                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                                    >
+                                      <div
+                                        class="euiText euiText--medium"
+                                      >
+                                        sample_index
+                                         
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              </div>
+                            </span>
+                          </button>
+                          <div
+                            id="some_html_id"
+                          />
+                        </li>
+                        <li
+                          class="euiTreeView__node"
+                        >
+                          <button
+                            aria-controls="some_html_id"
+                            aria-expanded="false"
+                            class="euiTreeView__nodeInner"
+                            data-test-subj="euiTreeViewButton-some_html_id"
+                            id="default_http_logs2_status_clientip_and_day"
+                          >
+                            <span
+                              class="euiTreeView__iconWrapper"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="euiIcon euiIcon--medium"
+                                focusable="false"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M7.04 13.274a.5.5 0 1 0 .892.453l3.014-5.931a.5.5 0 0 0-.445-.727H5.316L8.03 1.727a.5.5 0 1 0-.892-.453L4.055 7.343a.5.5 0 0 0 .446.726h5.185L7.04 13.274Z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="euiTreeView__nodeLabel"
+                            >
+                              <div>
+                                <span
+                                  class="euiToolTipAnchor"
+                                >
+                                  <div
+                                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                                  >
+                                    <div
+                                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                                    >
+                                      <div
+                                        class="euiText euiText--medium"
+                                      >
+                                        status_clientip_and_day
+                                         
+                                      </div>
+                                    </div>
+                                  </div>
+                                </span>
+                              </div>
+                            </span>
+                          </button>
+                          <div
+                            id="some_html_id"
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_Load Materialized View"
+                  >
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <div
+                          class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                        >
+                          <div
+                            class="euiFlexItem euiFlexItem--flexGrowZero"
+                          >
+                            <span
+                              class="euiBadge euiBadge--hollow euiBadge--iconLeft"
+                              title="Load Materialized View"
+                            >
+                              <span
+                                class="euiBadge__content"
+                              >
+                                <span
+                                  class="euiBadge__text"
+                                >
+                                  Load Materialized View
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="euiFlexItem euiFlexItem--flexGrowZero"
+                          >
+                            <div
+                              class="euiText euiText--medium"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render databases in tree fetches and displays tables in the side tree 1`] = `
+<div>
+  <div
+    class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+  >
+    <div
+      class="euiText euiText--medium euiTreeView__wrapper"
+    >
+      <p
+        class="euiScreenReaderOnly"
+        id="some_html_id--instruction"
+      >
+        You can quickly navigate this list using arrow keys.
+      </p>
+      <ul
+        aria-describedby="some_html_id--instruction"
+        aria-label="Sample Folder Tree"
+        class="euiTreeView"
+        id="some_html_id"
+      >
+        <li
+          class="euiTreeView__node euiTreeView__node--expanded"
+        >
+          <button
+            aria-controls="some_html_id"
+            aria-expanded="true"
+            class="euiTreeView__nodeInner euiTreeView__node--active"
+            data-test-subj="euiTreeViewButton-some_html_id"
+            id="element_0"
+          >
+            <span
+              class="euiTreeView__iconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="euiTreeView__nodeLabel"
+            >
+              <div>
+                <span
+                  class="euiToolTipAnchor"
+                >
+                  <div
+                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                  >
+                    <div
+                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                    >
+                      <div
+                        class="euiText euiText--medium"
+                      >
+                        default
+                         
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </span>
+          </button>
+          <div
+            id="some_html_id"
+          >
+            <div
+              class="euiText euiText--medium euiTreeView__wrapper"
+            >
+              <ul
+                aria-label="default  child of Sample Folder Tree"
+                class="euiTreeView"
+              >
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_http_logs"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--small"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 3v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1Zm-1 0V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v1h14Zm0 1H1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4ZM4.496 7a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 8 6 7.776 6 7.5s.128-.5.286-.5h3.428ZM4.496 5a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 6 6 5.776 6 5.5s.128-.5.286-.5h3.428ZM4.496 9a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 10 6 9.776 6 9.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 12 6 11.776 6 11.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm9-6a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0-2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 4a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm-3.782 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 14 6 13.776 6 13.5s.128-.5.286-.5h3.428Z"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                http_logs
+                                 
+                                <svg
+                                  aria-hidden="true"
+                                  class="euiIcon euiIcon--medium"
+                                  focusable="false"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.414 8.036 4.89 10.51a.5.5 0 0 1-.707.708L1.354 8.389a.5.5 0 0 1 0-.707l2.828-2.828a.5.5 0 1 1 .707.707L2.414 8.036Zm8.768 2.474 2.475-2.474-2.475-2.475a.5.5 0 0 1 .707-.707l2.829 2.828a.5.5 0 0 1 0 .707l-2.829 2.829a.5.5 0 1 1-.707-.708ZM8.559 2.506a.5.5 0 0 1 .981.19L7.441 13.494a.5.5 0 0 1-.981-.19L8.559 2.506Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_http_logs2"
+                  >
+                    <span
+                      class="euiTreeView__iconWrapper"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--small"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 3v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1Zm-1 0V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v1h14Zm0 1H1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4ZM4.496 7a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 8 6 7.776 6 7.5s.128-.5.286-.5h3.428ZM4.496 5a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 6 6 5.776 6 5.5s.128-.5.286-.5h3.428ZM4.496 9a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 10 6 9.776 6 9.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm5.218 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 12 6 11.776 6 11.5s.128-.5.286-.5h3.428Zm-5.218 2a.5.5 0 0 1 0 1H2.495a.5.5 0 0 1 0-1h2.001Zm9-6a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0-2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 4a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm0 2a.5.5 0 0 1 0 1h-2.001a.5.5 0 0 1 0-1h2.001Zm-3.782 0c.158 0 .286.224.286.5s-.128.5-.286.5H6.286C6.128 14 6 13.776 6 13.5s.128-.5.286-.5h3.428Z"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <span
+                          class="euiToolTipAnchor"
+                        >
+                          <div
+                            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                          >
+                            <div
+                              class="euiFlexItem euiFlexItem--flexGrowZero"
+                            >
+                              <div
+                                class="euiText euiText--medium"
+                              >
+                                http_logs2
+                                 
+                                <svg
+                                  aria-hidden="true"
+                                  class="euiIcon euiIcon--medium"
+                                  focusable="false"
+                                  height="16"
+                                  role="img"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M2.414 8.036 4.89 10.51a.5.5 0 0 1-.707.708L1.354 8.389a.5.5 0 0 1 0-.707l2.828-2.828a.5.5 0 1 1 .707.707L2.414 8.036Zm8.768 2.474 2.475-2.474-2.475-2.475a.5.5 0 0 1 .707-.707l2.829 2.828a.5.5 0 0 1 0 .707l-2.829 2.829a.5.5 0 1 1-.707-.708ZM8.559 2.506a.5.5 0 0 1 .981.19L7.441 13.494a.5.5 0 0 1-.981-.19L8.559 2.506Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+                <li
+                  class="euiTreeView__node"
+                >
+                  <button
+                    aria-controls="some_html_id"
+                    aria-expanded="false"
+                    class="euiTreeView__nodeInner"
+                    data-test-subj="euiTreeViewButton-some_html_id"
+                    id="default_Load Materialized View"
+                  >
+                    <span
+                      class="euiTreeView__nodeLabel"
+                    >
+                      <div>
+                        <div
+                          class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                        >
+                          <div
+                            class="euiFlexItem euiFlexItem--flexGrowZero"
+                          >
+                            <span
+                              class="euiBadge euiBadge--hollow euiBadge--iconLeft"
+                              title="Load Materialized View"
+                            >
+                              <span
+                                class="euiBadge__content"
+                              >
+                                <span
+                                  class="euiBadge__text"
+                                >
+                                  Load Materialized View
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="euiFlexItem euiFlexItem--flexGrowZero"
+                          >
+                            <div
+                              class="euiText euiText--medium"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </button>
+                  <div
+                    id="some_html_id"
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render databases in tree fetches default databse in the side tree 1`] = `
+<div>
+  <div
+    class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+  >
+    <div
+      class="euiText euiText--medium euiTreeView__wrapper"
+    >
+      <p
+        class="euiScreenReaderOnly"
+        id="some_html_id--instruction"
+      >
+        You can quickly navigate this list using arrow keys.
+      </p>
+      <ul
+        aria-describedby="some_html_id--instruction"
+        aria-label="Sample Folder Tree"
+        class="euiTreeView"
+        id="some_html_id"
+      >
+        <li
+          class="euiTreeView__node"
+        >
+          <button
+            aria-controls="some_html_id"
+            aria-expanded="false"
+            class="euiTreeView__nodeInner"
+            data-test-subj="euiTreeViewButton-some_html_id"
+            id="element_0"
+          >
+            <span
+              class="euiTreeView__iconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="euiTreeView__nodeLabel"
+            >
+              <div>
+                <span
+                  class="euiToolTipAnchor"
+                >
+                  <div
+                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                  >
+                    <div
+                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                    >
+                      <div
+                        class="euiText euiText--medium"
+                      >
+                        default
+                         
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </span>
+          </button>
+          <div
+            id="some_html_id"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render databases in tree fetches the tree when datasource is S3 1`] = `
+<div>
+  <div
+    class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+  >
+    <div
+      class="euiText euiText--medium euiTreeView__wrapper"
+    >
+      <p
+        class="euiScreenReaderOnly"
+        id="some_html_id--instruction"
+      >
+        You can quickly navigate this list using arrow keys.
+      </p>
+      <ul
+        aria-describedby="some_html_id--instruction"
+        aria-label="Sample Folder Tree"
+        class="euiTreeView"
+        id="some_html_id"
+      >
+        <li
+          class="euiTreeView__node"
+        >
+          <button
+            aria-controls="some_html_id"
+            aria-expanded="false"
+            class="euiTreeView__nodeInner"
+            data-test-subj="euiTreeViewButton-some_html_id"
+            id="element_0"
+          >
+            <span
+              class="euiTreeView__iconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="euiTreeView__nodeLabel"
+            >
+              <div>
+                <span
+                  class="euiToolTipAnchor"
+                >
+                  <div
+                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+                  >
+                    <div
+                      class="euiFlexItem euiFlexItem--flexGrowZero"
+                    >
+                      <div
+                        class="euiText euiText--medium"
+                      >
+                        default
+                         
+                      </div>
+                    </div>
+                  </div>
+                </span>
               </div>
             </span>
           </button>
