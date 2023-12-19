@@ -18,7 +18,6 @@ describe('Renders the Datasource picker component', () => {
     });
     
     const mockOnSelect = jest.fn();
-    const mockDataSource = jest.fn()
     const asyncTest = () => {
       render(
         <DataSelect
@@ -43,7 +42,6 @@ describe('Renders the Datasource picker component', () => {
     });
     
     const mockOnSelect = jest.fn();
-    const mockDataSource = jest.fn()
     const asyncTest = () => {
       render(
         <DataSelect

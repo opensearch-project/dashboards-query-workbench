@@ -2189,66 +2189,6 @@ export const mockDatabaseQuery = {
   },
 };
 
-export const mockMVquery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "materialized_view_name",
-                  "type": "string"
-              }
-          ],
-          "datarows": [
-              [
-                  "http_count_view"
-              ]
-          ],
-          "total": 1,
-          "size": 1
-      }
-  }
-}
-
-
-export const mockTableQuery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "namespace",
-                  "type": "string"
-              },
-              {
-                  "name": "tableName",
-                  "type": "string"
-              },
-              {
-                  "name": "isTemporary",
-                  "type": "boolean"
-              }
-          ],
-          "datarows": [
-              [
-                  "default",
-                  "http_logs",
-                  false
-              ],
-              [
-                  "default",
-                  "http_logs2",
-                  false
-              ]
-          ],
-          "total": 2,
-          "size": 2
-      }
-  }
-}
-
 export const mockOpenSearchTreeQuery = {
   data: {
     ok: true,
@@ -2396,5 +2336,66 @@ export const mockDataSelectQuery = {
               "resultIndex": "query_execution_result_glue_1"
           }
       ]
+  }
+}
+
+
+export const mockMVquery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "materialized_view_name",
+                  "type": "string"
+              }
+          ],
+          "datarows": [
+              [
+                  "http_count_view"
+              ]
+          ],
+          "total": 1,
+          "size": 1
+      }
+  }
+}
+
+
+export const mockTableQuery = {
+  "data": {
+      "ok": true,
+      "resp": {
+          "status": "SUCCESS",
+          "schema": [
+              {
+                  "name": "namespace",
+                  "type": "string"
+              },
+              {
+                  "name": "tableName",
+                  "type": "string"
+              },
+              {
+                  "name": "isTemporary",
+                  "type": "boolean"
+              }
+          ],
+          "datarows": [
+              [
+                  "default",
+                  "http_logs",
+                  false
+              ],
+              [
+                  "default",
+                  "http_logs2",
+                  false
+              ]
+          ],
+          "total": 2,
+          "size": 2
+      }
   }
 }
