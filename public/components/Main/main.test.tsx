@@ -12,6 +12,7 @@ import {
   mockDatasourcesQuery,
   mockHttpQuery,
   mockNotOkQueryResultResponse,
+  mockOpenSearchIndicies,
   mockOpenSearchTreeQuery,
   mockQueryResultJDBCResponse,
   mockQueryTranslationResponse,
@@ -30,6 +31,31 @@ describe('<Main /> spec', () => {
       render(<Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />);
     };
     await asyncTest();
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
+  it('renders the component and checks if Opensearch is selected', async () => {
+    const client = httpClientMock;
+    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
+    const { getByText } = await render(
+      <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
+    );
+    expect(getByText('OpenSearch')).toBeInTheDocument();
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
+  it('renders the component and checks if side tree is loaded', async () => {
+    const client = httpClientMock;
+    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
+
+    client.post = jest.fn(() => {
+      return (Promise.resolve(mockOpenSearchIndicies) as unknown) as HttpResponse;
+    });
+    const { getByText } = await render(
+      <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
+    );
+    expect(getByText('.kibana_1')).toBeInTheDocument();
+
     expect(document.body.children[0]).toMatchSnapshot();
   });
 
