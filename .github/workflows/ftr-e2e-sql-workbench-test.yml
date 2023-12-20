@@ -12,7 +12,7 @@ env:
 
 jobs:
   tests:
-    name: Run FTR E2E SQL Workbench tests
+    name: Run FTR E2E SQL Workbench Tests
     strategy:
       fail-fast: false
       matrix:
