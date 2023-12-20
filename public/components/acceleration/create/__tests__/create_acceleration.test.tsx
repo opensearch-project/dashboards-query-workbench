@@ -4,7 +4,7 @@
  */
 
 import { EuiComboBoxOptionOption } from '@elastic/eui';
-import { waitFor } from '@testing-library/dom';
+import { fireEvent, screen, waitFor } from '@testing-library/dom';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import toJson from 'enzyme-to-json';
@@ -31,6 +31,9 @@ describe('Create acceleration flyout components', () => {
         updateQueries={updateQueries}
       />
     );
+
+    fireEvent.click(screen.getByText('Copy Query to Editor'));
+
     wrapper.update();
     await waitFor(() => {
       expect(
@@ -40,5 +43,7 @@ describe('Create acceleration flyout components', () => {
         })
       ).toMatchSnapshot();
     });
+
+    expect(document.body.children[0]).toMatchSnapshot();
   });
 });
