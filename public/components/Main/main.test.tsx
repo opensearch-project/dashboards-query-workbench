@@ -4,7 +4,7 @@
  */
 
 import '@testing-library/jest-dom/extend-expect';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { HttpResponse } from '../../../../../src/core/public';
 import { httpClientMock } from '../../../test/mocks';
@@ -31,6 +31,22 @@ describe('<Main /> spec', () => {
       render(<Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />);
     };
     await asyncTest();
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
+  it('renders the component and toggles ppl', async () => {
+    const client = httpClientMock;
+    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
+    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
+    const { getByText } = await render(
+      <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
+    );
+    const pplButton = getByText('PPL');
+    const asyncTest = () => {
+      fireEvent.click(pplButton);
+    };
+    waitFor(()=>{
+      asyncTest();
+    })
     expect(document.body.children[0]).toMatchSnapshot();
   });
   it('renders the component and checks if Opensearch is selected', async () => {

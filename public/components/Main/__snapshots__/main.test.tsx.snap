@@ -6036,10 +6036,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
 `;
 
 exports[`<Main /> spec click translation button, and response is ok 1`] = `
-<div
-  aria-hidden="true"
-  data-aria-hidden="true"
->
+<div>
   <div
     class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
   >
@@ -10568,6 +10565,591 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
                               class="euiText euiText--medium"
                             >
                               .kibana
+                            </div>
+                          </span>
+                           
+                        </div>
+                      </span>
+                    </button>
+                    <div
+                      id="some_html_id"
+                    />
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="euiSpacer euiSpacer--l"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow euiPageContent"
+      role="main"
+    >
+      <div
+        class="euiPageContentBody"
+      >
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+        />
+        <div
+          class="euiSpacer euiSpacer--l"
+        />
+        <div>
+          <div
+            class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
+          >
+            <div
+              class="euiSpacer euiSpacer--s"
+            />
+            <div
+              class="euiCodeEditorWrapper"
+              data-test-subj="codeEditorContainer"
+              style="width: 100%; height: 10rem;"
+            >
+              <button
+                class="euiCodeEditorKeyboardHint"
+                data-test-subj="codeEditorHint"
+                id="some_html_id"
+              >
+                <p
+                  class="euiText"
+                >
+                  Press Enter to start editing.
+                </p>
+                <p
+                  class="euiText"
+                >
+                  When you're done, press Escape to stop editing.
+                </p>
+              </button>
+              <div
+                class=" ace_editor ace-tm"
+                id="some_html_id"
+                style="width: 100%; height: 10rem; font-size: 14px;"
+              >
+                <textarea
+                  aria-label="Code Editor"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  class="ace_text-input"
+                  spellcheck="false"
+                  style="opacity: 0;"
+                  tabindex="-1"
+                  wrap="off"
+                />
+                <div
+                  aria-hidden="true"
+                  class="ace_gutter"
+                >
+                  <div
+                    class="ace_layer ace_gutter-layer ace_folding-enabled"
+                  />
+                  <div
+                    class="ace_gutter-active-line"
+                  />
+                </div>
+                <div
+                  class="ace_scroller"
+                >
+                  <div
+                    class="ace_content"
+                  >
+                    <div
+                      class="ace_layer ace_print-margin-layer"
+                    >
+                      <div
+                        class="ace_print-margin"
+                        style="left: 4px; visibility: hidden;"
+                      />
+                    </div>
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_text-layer"
+                      style="padding: 0px 4px;"
+                    />
+                    <div
+                      class="ace_layer ace_marker-layer"
+                    />
+                    <div
+                      class="ace_layer ace_cursor-layer ace_hidden-cursors"
+                    >
+                      <div
+                        class="ace_cursor"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-v"
+                  style="display: none; width: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="width: 20px;"
+                  />
+                </div>
+                <div
+                  class="ace_scrollbar ace_scrollbar-h"
+                  style="display: none; height: 20px;"
+                >
+                  <div
+                    class="ace_scrollbar-inner"
+                    style="height: 20px;"
+                  />
+                </div>
+                <div
+                  style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: hidden;"
+                >
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  />
+                  <div
+                    style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; overflow: visible;"
+                  >
+                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="euiSpacer euiSpacer--l"
+            />
+            <div
+              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
+            >
+              <div
+                class="euiFlexItem"
+              >
+                <div
+                  class="euiFlexGroup euiFlexGroup--gutterMedium euiFlexGroup--directionRow euiFlexGroup--responsive action-container"
+                >
+                  <div
+                    class="euiFlexItem euiFlexItem--flexGrowZero"
+                  >
+                    <button
+                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      type="button"
+                    >
+                      <span
+                        class="euiButtonContent euiButton__content"
+                      >
+                        <span
+                          class="euiButton__text"
+                        >
+                          Run
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div
+                    class="euiFlexItem euiFlexItem--flexGrowZero"
+                  >
+                    <button
+                      class="euiButton euiButton--primary sql-editor-button"
+                      type="button"
+                    >
+                      <span
+                        class="euiButtonContent euiButton__content"
+                      >
+                        <span
+                          class="euiButton__text"
+                        >
+                          Clear
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div
+                    class="euiFlexItem euiFlexItem--flexGrowZero"
+                  >
+                    <button
+                      class="euiButton euiButton--primary sql-editor-button"
+                      type="button"
+                    >
+                      <span
+                        class="euiButtonContent euiButton__content"
+                      >
+                        <span
+                          class="euiButton__text"
+                        >
+                          Explain
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="euiSpacer euiSpacer--l"
+        />
+        <div
+          class="sql-console-query-result"
+        >
+          <div
+            class="euiPanel euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow query-result-container"
+          >
+            <div
+              style="padding: 20px 20px 0px 20px;"
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem"
+                >
+                  <div
+                    class="euiText euiText--medium query-result-panel-header"
+                  >
+                    <h3>
+                      Results
+                    </h3>
+                  </div>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                />
+              </div>
+            </div>
+            <div
+              class="euiSpacer euiSpacer--xxl"
+            />
+            <div
+              class="euiSpacer euiSpacer--xl"
+            />
+            <div
+              class="euiText euiText--medium"
+            >
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <h4>
+                  No result
+                </h4>
+              </div>
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <p>
+                  Enter a query in the query editor above to see results.
+                </p>
+              </div>
+            </div>
+            <div
+              class="euiSpacer euiSpacer--xxl"
+            />
+            <div
+              class="euiSpacer euiSpacer--xl"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Main /> spec renders the component and toggles ppl 1`] = `
+<div>
+  <div
+    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+  >
+    <div
+      class="euiFlexItem"
+    >
+      <div
+        class="euiText euiText--medium"
+      >
+        Data Sources
+      </div>
+      <div
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        class="euiComboBox"
+        role="combobox"
+      >
+        <div
+          class="euiFormControlLayout"
+        >
+          <div
+            class="euiFormControlLayout__childrenWrapper"
+          >
+            <div
+              class="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+              data-test-subj="comboBoxInput"
+              tabindex="-1"
+            >
+              <span
+                class="euiComboBoxPill euiComboBoxPill--plainText"
+              >
+                OpenSearch
+              </span>
+              <div
+                class="euiComboBox__input"
+                style="font-size: 14px; display: inline-block;"
+              >
+                <input
+                  aria-controls=""
+                  data-test-subj="comboBoxSearchInput"
+                  role="textbox"
+                  style="box-sizing: content-box; width: 2px;"
+                  value=""
+                />
+                <div
+                  style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;"
+                />
+              </div>
+            </div>
+            <div
+              class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
+            >
+              <button
+                aria-label="Open list of options"
+                class="euiFormControlLayoutCustomIcon euiFormControlLayoutCustomIcon--clickable"
+                data-test-subj="comboBoxToggleListButton"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiFormControlLayoutCustomIcon__icon"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.069 5.157 8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0Z"
+                    fill-rule="non-zero"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="euiSpacer euiSpacer--l"
+      />
+    </div>
+    <div
+      class="euiFlexItem euiFlexItem--flexGrowZero"
+    >
+      <fieldset
+        class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+      >
+        <legend
+          class="euiScreenReaderOnly"
+        >
+          query-language-swtich
+        </legend>
+        <div
+          class="euiButtonGroup__buttons"
+        >
+          <label
+            class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+            for="some_html_id"
+          >
+            <span
+              class="euiButtonContent euiButton__content"
+            >
+              <span
+                class="euiButton__text euiButtonGroupButton__textShift"
+                data-text="SQL"
+                title="SQL"
+              >
+                <input
+                  checked=""
+                  class="euiScreenReaderOnly"
+                  data-test-subj="SQL"
+                  id="some_html_id"
+                  name="some_html_id"
+                  type="radio"
+                  value=""
+                />
+                SQL
+              </span>
+            </span>
+          </label>
+          <label
+            class="euiButtonGroupButton euiButtonGroupButton--text"
+            for="some_html_id"
+          >
+            <span
+              class="euiButtonContent euiButton__content"
+            >
+              <span
+                class="euiButton__text euiButtonGroupButton__textShift"
+                data-text="PPL"
+                title="PPL"
+              >
+                <input
+                  class="euiScreenReaderOnly"
+                  data-test-subj="PPL"
+                  id="some_html_id"
+                  name="some_html_id"
+                  type="radio"
+                  value=""
+                />
+                PPL
+              </span>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+    <div
+      class="euiFlexItem euiFlexItem--flexGrowZero"
+    >
+      <a
+        class="euiButton euiButton--primary"
+        href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <span
+          class="euiButtonContent euiButtonContent--iconRight euiButton__content"
+        >
+          <svg
+            aria-hidden="true"
+            class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+            focusable="false"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M13 8.5a.5.5 0 1 1 1 0V12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h3.5a.5.5 0 0 1 0 1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8.5Zm-5.12.339a.5.5 0 1 1-.706-.707L13.305 2H10.5a.5.5 0 1 1 0-1H14a1 1 0 0 1 1 1v3.5a.5.5 0 1 1-1 0V2.72L7.88 8.838Z"
+            />
+          </svg>
+          <span
+            class="euiButton__text"
+          >
+            SQL documentation
+          </span>
+        </span>
+      </a>
+    </div>
+  </div>
+  <div
+    class="euiPage euiPage--grow"
+  >
+    <div
+      class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+    >
+      <div
+        class="euiPageSideBar"
+        style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
+      >
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--directionRow euiFlexGroup--responsive"
+        >
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <button
+              aria-label="refresh"
+              class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--medium"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+                focusable="false"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.228 2.942a.5.5 0 1 1-.538.842A5 5 0 1 0 13 8a.5.5 0 1 1 1 0 6 6 0 1 1-2.772-5.058ZM14 1.5v3A1.5 1.5 0 0 1 12.5 6h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 1 1 1 0Z"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          />
+        </div>
+        <div
+          class="euiSpacer euiSpacer--l"
+        />
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionColumn euiFlexGroup--responsive"
+          style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 308px);"
+        >
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <div
+              class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
+            >
+              <div
+                class="euiText euiText--medium euiTreeView__wrapper"
+              >
+                <p
+                  class="euiScreenReaderOnly"
+                  id="some_html_id--instruction"
+                >
+                  You can quickly navigate this list using arrow keys.
+                </p>
+                <ul
+                  aria-describedby="some_html_id--instruction"
+                  aria-label="Sample Folder Tree"
+                  class="euiTreeView"
+                  id="some_html_id"
+                >
+                  <li
+                    class="euiTreeView__node"
+                  >
+                    <button
+                      aria-controls="some_html_id"
+                      aria-expanded="false"
+                      class="euiTreeView__nodeInner"
+                      data-test-subj="euiTreeViewButton-some_html_id"
+                      id="element_0"
+                    >
+                      <span
+                        class="euiTreeView__iconWrapper"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="euiIcon euiIcon--medium"
+                          focusable="false"
+                          height="16"
+                          role="img"
+                          viewBox="0 0 16 16"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        class="euiTreeView__nodeLabel"
+                      >
+                        <div>
+                          <span
+                            class="euiToolTipAnchor"
+                          >
+                            <div
+                              class="euiText euiText--medium"
+                            >
+                              .kibana_1
                             </div>
                           </span>
                            

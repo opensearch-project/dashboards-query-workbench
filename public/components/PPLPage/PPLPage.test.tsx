@@ -77,6 +77,53 @@ describe("<PPLPage /> spec", () => {
 
   });
 
+  it('tests the Sample query button', async () => {
+    const onRun = jest.fn();
+    const onTranslate = jest.fn();
+    const onClean = jest.fn();
+    const updateSQLQueries = jest.fn();
+    const onExplain = jest.fn()
+
+    const { getByText } = render(
+      <PPLPage
+        onRun={onRun}
+        onTranslate={onTranslate}
+        onClear={onClean}
+        updatePPLQueries={updateSQLQueries}
+        pplTranslations={[]}
+        selectedDatasource={[{ label: 'glue_1' }]}
+      />
+    );
+    expect(getByText('Sample Query')).toBeInTheDocument();
+    const sampleQueryButton = getByText('Sample Query');
+    const asyncTest = () => {
+      fireEvent.click(sampleQueryButton);
+    };
+    
+    await asyncTest();
+    expect(document.body.children[0]).toMatchSnapshot();
+
+  });
+  it('tests the Sample query button', async () => {
+    const onRun = jest.fn();
+    const onTranslate = jest.fn();
+    const onClean = jest.fn();
+    const updateSQLQueries = jest.fn();
+    const onExplain = jest.fn()
+
+    const { getByText } = render(
+      <PPLPage
+        onRun={onRun}
+        onTranslate={onTranslate}
+        onClear={onClean}
+        updatePPLQueries={updateSQLQueries}
+        pplTranslations={[]}
+        selectedDatasource={[{ label: 'glue_1' }]}
+      />
+    );
+    // expect(getByText('PPL documentation')).toBeInTheDocument();
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
 });
 
 
