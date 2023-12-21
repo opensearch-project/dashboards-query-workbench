@@ -9,6 +9,7 @@ import React from 'react';
 import { HttpResponse } from '../../../../../src/core/public';
 import { httpClientMock } from '../../../test/mocks';
 import {
+  mockDataSelectQuery,
   mockDatasourcesQuery,
   mockHttpQuery,
   mockNotOkQueryResultResponse,
@@ -57,6 +58,35 @@ describe('<Main /> spec', () => {
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
     expect(getByText('OpenSearch')).toBeInTheDocument();
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
+  it('renders the component and s3 glue component is present', async () => {
+    const client = httpClientMock;
+    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
+    client.get = jest.fn().mockResolvedValue(mockDataSelectQuery);
+    const { getByText } = await render(
+      <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
+    );
+    expect(getByText('OpenSearch')).toBeInTheDocument();
+    fireEvent.click(getByText('OpenSearch'))
+    await waitFor(() => {
+      expect(getByText('glue_1')).toBeInTheDocument();
+    });
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
+  it('renders the component for s3 glue and check sample query button ', async () => {
+    const client = httpClientMock;
+    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
+    client.get = jest.fn().mockResolvedValue(mockDataSelectQuery);
+    const { getByText } = await render(
+      <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
+    );
+    expect(getByText('OpenSearch')).toBeInTheDocument();
+    fireEvent.click(getByText('OpenSearch'))
+    fireEvent.click(getByText('glue_1'))
+    await waitFor(() => {
+      expect(getByText('Sample Query')).toBeInTheDocument();
+    });
     expect(document.body.children[0]).toMatchSnapshot();
   });
   it('renders the component and checks if side tree is loaded', async () => {
