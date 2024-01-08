@@ -31,7 +31,7 @@
     "@testing-library/user-event": "^13.1.9",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/react-test-renderer": "^16.9.1",
-    "cypress": "12.8.1",
+    "cypress": "^13.6.0",
     "eslint": "^6.8.0",
     "husky": "^4.2.5",
     "jest-dom": "^4.0.0",
