@@ -15,7 +15,7 @@ describe('Dump test data', () => {
       cy.request(url).then((response) => {
         cy.request({
           method: 'POST',
-          form: false,
+          form: true,
           url: 'api/console/proxy',
           headers: {
             'content-type': 'application/json;charset=UTF-8',
@@ -41,12 +41,6 @@ describe('Test PPL UI', () => {
     cy.wait(delay);
   });
 
-  // it('Confirm results are empty', () => {
-  //   cy.get('.euiTextAlign')
-  //     .contains('Enter a query in the query editor above to see results.')
-  //     .should('have.length', 1);
-  // });
-
   it('Test Run button', () => {
     cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
     cy.wait(delay);
@@ -59,8 +53,8 @@ describe('Test PPL UI', () => {
       .contains('Nanette')
       .should('exist') 
       .then(($element) => {
-      const text = $element.text(); 
-  });
+        const text = $element.text(); 
+    });
   });
 
   it('Test Clear button', () => {
@@ -221,12 +215,12 @@ describe('Test table display', () => {
       .type(`{selectall}{backspace}select * from employee_nested;`, {
         force: true,
       });
-    cy.wait(1000);
+    cy.wait(delay);
     cy.get('.euiButton__text').contains('Run').click({ force: true });
-    cy.wait(1000);
+    cy.wait(delay);
 
     cy.get('button.euiLink').eq(2).click({ force: true });
-    cy.wait(1000);
+    cy.wait(delay);
     cy.contains('message');
   });
 });

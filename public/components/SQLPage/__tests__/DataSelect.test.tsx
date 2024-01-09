@@ -65,6 +65,5 @@ describe('Renders the Datasource picker component', () => {
         })
       ).toMatchSnapshot();
     });
-    // expect(screen.getByText('OpenSearch')).toBeInTheDocument();
   });
 });

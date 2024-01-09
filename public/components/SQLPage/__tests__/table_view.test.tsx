@@ -70,7 +70,7 @@ describe('Render databases in tree', () => {
     expect(screen.getByLabelText('Sample Folder Tree')).toBeInTheDocument();
     expect(document.body.children[0]).toMatchSnapshot();
   });
-  it('fetches default databse in the side tree', async () => {
+  it('fetches default database in the side tree', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
       return (Promise.resolve(mockJobId) as unknown) as HttpResponse;

@@ -216,7 +216,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         setToast(errorMessage, 'danger');
       } else {
         pollQueryStatus(id, http, (data) => {
-          console.log(data,'here')
           if (data.status === 'SUCCESS') {
             const fetchTables = data.results.map((subArray) => subArray[1]);
             let values = loadTreeItem(fetchTables, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
@@ -234,7 +233,6 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               });
             });
           } else if (data.status === 'FAILED') {
-            console.log('hereee')
             setIsLoading({
               flag: false,
               status: data.error,
