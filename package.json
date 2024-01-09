@@ -28,16 +28,16 @@
     "react-double-scrollbar": "^0.0.15"
   },
   "devDependencies": {
-    "@testing-library/user-event": "^13.1.9",
+    "@testing-library/user-event": "^14.4.3",
     "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/react-test-renderer": "^16.9.1",
-    "cypress": "^12.8.1",
+    "@types/react-test-renderer": "^18.0.0",
+    "cypress": "^13.6.0",
     "eslint": "^6.8.0",
-    "husky": "^4.2.5",
-    "jest-raw-loader": "^1.0.1",
-    "lint-staged": "^10.2.0",
-    "mutationobserver-shim": "^0.3.3",
+    "husky": "^8.0.3",
     "jest-dom": "^4.0.0",
+    "jest-raw-loader": "^1.0.1",
+    "lint-staged": "^13.1.0",
+    "mutationobserver-shim": "^0.3.3",
     "ts-jest": "^29.1.0"
   },
   "resolutions": {
