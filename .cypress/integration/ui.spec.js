@@ -47,7 +47,6 @@ describe('Test PPL UI', () => {
     cy.get('.euiButton__text').contains('Run').click({ force: true });
     cy.wait(delay);
     cy.get('.euiTab__content').contains('Events').click({ force: true });
-    cy.scrollTo(0, 500) 
     
     cy.get('.euiTableRow') 
       .contains('Nanette')
