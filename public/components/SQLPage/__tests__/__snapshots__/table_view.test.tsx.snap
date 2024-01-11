@@ -2560,7 +2560,7 @@ exports[`Render databases in tree fetches and displays tables in the side tree 1
 </div>
 `;
 
-exports[`Render databases in tree fetches default databse in the side tree 1`] = `
+exports[`Render databases in tree fetches default database in the side tree 1`] = `
 <div>
   <div
     class="euiFlexItem euiFlexItem--flexGrowZero workbench-tree"
