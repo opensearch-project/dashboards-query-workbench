@@ -15,7 +15,7 @@ describe('Dump test data', () => {
       cy.request(url).then((response) => {
         cy.request({
           method: 'POST',
-          form: true,
+          form: false,
           url: 'api/console/proxy',
           headers: {
             'content-type': 'application/json;charset=UTF-8',
@@ -215,12 +215,10 @@ describe('Test table display', () => {
       .type(`{selectall}{backspace}select * from employee_nested;`, {
         force: true,
       });
-    cy.wait(delay);
+
     cy.get('.euiButton__text').contains('Run').click({ force: true });
-    cy.wait(delay);
 
     cy.get('button.euiLink').eq(2).click({ force: true });
-    cy.wait(delay);
-    cy.contains('message');
+    cy.contains('message').should('exist');
   });
 });
