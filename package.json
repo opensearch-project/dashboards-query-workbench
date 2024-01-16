@@ -12,7 +12,8 @@
   "scripts": {
     "osd": "node ../../scripts/osd",
     "opensearch": "node ../../scripts/opensearch",
-    "lint": "tslint workbench",
+    "lint:es": "node ../../scripts/eslint",
+    "lint": "yarn lint:es",
     "start": "plugin-helpers start",
     "test:server": "plugin-helpers test:server",
     "test:browser": "plugin-helpers test:browser",
