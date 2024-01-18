@@ -30,7 +30,7 @@ interface PPLPageProps {
   onClear: () => void;
   updatePPLQueries: (query: string) => void;
   pplQuery: string;
-  pplTranslations: ResponseDetail<TranslateResult>[];
+  pplTranslations: Array<ResponseDetail<TranslateResult>>;
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
 }
