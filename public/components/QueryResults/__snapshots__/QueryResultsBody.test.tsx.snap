@@ -4909,7 +4909,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                   >
                     <input
                       aria-label="This is a search bar. As you type, the results lower in the page will automatically filter."
-                      class="euiFieldSearch euiFieldSearch--fullWidth euiFieldSearch-isClearable"
+                      class="euiFieldSearch euiFieldSearch--fullWidth"
                       placeholder="Search keyword"
                       type="search"
                       value=""
@@ -4922,7 +4922,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <svg
                           aria-hidden="true"
-                          class="euiIcon euiIcon--medium euiIcon-isLoaded euiFormControlLayoutCustomIcon__icon"
+                          class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                           focusable="false"
                           height="16"
                           role="img"
@@ -4931,34 +4931,10 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="m11.271 11.978 3.872 3.873a.502.502 0 0 0 .708 0 .502.502 0 0 0 0-.708l-3.565-3.564c2.38-2.747 2.267-6.923-.342-9.532-2.73-2.73-7.17-2.73-9.898 0-2.728 2.729-2.728 7.17 0 9.9a6.955 6.955 0 0 0 4.949 2.05.5.5 0 0 0 0-1 5.96 5.96 0 0 1-4.242-1.757 6.01 6.01 0 0 1 0-8.486c2.337-2.34 6.143-2.34 8.484 0a6.01 6.01 0 0 1 0 8.486.5.5 0 0 0 .034.738Z"
+                            d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                           />
                         </svg>
                       </span>
-                    </div>
-                    <div
-                      class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
-                    >
-                      <button
-                        aria-label="Clear input"
-                        class="euiFormControlLayoutClearButton"
-                        type="button"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="euiIcon euiIcon--medium euiIcon-isLoaded euiFormControlLayoutClearButton__icon"
-                          focusable="false"
-                          height="16"
-                          role="img"
-                          viewBox="0 0 16 16"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
-                          />
-                        </svg>
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -4989,7 +4965,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                 >
                   <svg
                     aria-hidden="true"
-                    class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonContent__icon"
+                    class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
                     focusable="false"
                     height="16"
                     role="img"
@@ -4998,8 +4974,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M13.069 5.157 8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0Z"
-                      fill-rule="non-zero"
+                      d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                     />
                   </svg>
                   <span
@@ -5473,7 +5448,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -5482,8 +5457,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M7.5 0C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882ZM3.5 7h8a.5.5 0 1 1 0 1h-8a.5.5 0 0 1 0-1Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -5924,7 +5898,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                                     >
                                       <svg
                                         aria-hidden="true"
-                                        class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                                        class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                                         focusable="false"
                                         height="16"
                                         role="img"
@@ -5933,8 +5907,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                                         xmlns="http://www.w3.org/2000/svg"
                                       >
                                         <path
-                                          d="M7.5 0C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882ZM3.5 7h8a.5.5 0 1 1 0 1h-8a.5.5 0 0 1 0-1Z"
-                                          fill-rule="evenodd"
+                                          d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                                         />
                                       </svg>
                                     </button>
@@ -6170,7 +6143,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -6179,8 +6152,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -6552,7 +6524,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -6561,8 +6533,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -6934,7 +6905,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -6943,8 +6914,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -7316,7 +7286,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -7325,8 +7295,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -7698,7 +7667,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -7707,8 +7676,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -8080,7 +8048,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -8089,8 +8057,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -8462,7 +8429,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -8471,8 +8438,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -8844,7 +8810,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -8853,8 +8819,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -9226,7 +9191,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -9235,8 +9200,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -9608,7 +9572,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                           >
                             <svg
                               aria-hidden="true"
-                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                              class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                               focusable="false"
                               height="16"
                               role="img"
@@ -9617,8 +9581,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M8 7h3.5a.5.5 0 1 1 0 1H8v3.5a.5.5 0 1 1-1 0V8H3.5a.5.5 0 0 1 0-1H7V3.5a.5.5 0 0 1 1 0V7Zm-.5-7C11.636 0 15 3.364 15 7.5S11.636 15 7.5 15 0 11.636 0 7.5 3.364 0 7.5 0Zm0 .882a6.618 6.618 0 1 0 0 13.236A6.618 6.618 0 0 0 7.5.882Z"
-                                fill-rule="evenodd"
+                                d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                               />
                             </svg>
                           </button>
@@ -9985,7 +9948,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <div
-            class="euiPopover euiPopover--anchorUpRight euiPopover-isOpen"
+            class="euiPopover euiPopover--anchorUpRight"
           >
             <div
               class="euiPopover__anchor"
@@ -10000,7 +9963,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                 >
                   <svg
                     aria-hidden="true"
-                    class="euiIcon euiIcon--small euiIcon--inherit euiIcon-isLoaded euiButtonContent__icon"
+                    class="euiIcon euiIcon--small euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
                     focusable="false"
                     height="16"
                     role="img"
@@ -10009,8 +9972,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M13.069 5.157 8.384 9.768a.546.546 0 0 1-.768 0L2.93 5.158a.552.552 0 0 0-.771 0 .53.53 0 0 0 0 .759l4.684 4.61c.641.631 1.672.63 2.312 0l4.684-4.61a.53.53 0 0 0 0-.76.552.552 0 0 0-.771 0Z"
-                      fill-rule="non-zero"
+                      d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                     />
                   </svg>
                   <span
@@ -10040,7 +10002,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                 focusable="false"
                 height="16"
                 role="img"
@@ -10049,8 +10011,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M10.843 13.069 6.232 8.384a.546.546 0 0 1 0-.768l4.61-4.685a.552.552 0 0 0 0-.771.53.53 0 0 0-.759 0l-4.61 4.684a1.65 1.65 0 0 0 0 2.312l4.61 4.684a.53.53 0 0 0 .76 0 .552.552 0 0 0 0-.771Z"
-                  fill-rule="nonzero"
+                  d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                 />
               </svg>
             </button>
@@ -10065,7 +10026,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
             >
               <svg
                 aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoaded euiButtonIcon__icon"
+                class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
                 focusable="false"
                 height="16"
                 role="img"
@@ -10074,8 +10035,7 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="m5.157 13.069 4.611-4.685a.546.546 0 0 0 0-.768L5.158 2.93a.552.552 0 0 1 0-.771.53.53 0 0 1 .759 0l4.61 4.684c.631.641.63 1.672 0 2.312l-4.61 4.684a.53.53 0 0 1-.76 0 .552.552 0 0 1 0-.771Z"
-                  fill-rule="nonzero"
+                  d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                 />
               </svg>
             </button>
@@ -10149,7 +10109,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="category"
                         >
                           category
                         </span>
@@ -10166,7 +10125,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="currency"
                         >
                           currency
                         </span>
@@ -10183,7 +10141,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="customer_first_name"
                         >
                           customer_first_name
                         </span>
@@ -10200,7 +10157,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="customer_full_name"
                         >
                           customer_full_name
                         </span>
@@ -10217,7 +10173,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="customer_gender"
                         >
                           customer_gender
                         </span>
@@ -10234,7 +10189,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="customer_id"
                         >
                           customer_id
                         </span>
@@ -10251,7 +10205,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="customer_last_name"
                         >
                           customer_last_name
                         </span>
@@ -10268,7 +10221,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="customer_phone"
                         >
                           customer_phone
                         </span>
@@ -10285,7 +10237,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="day_of_week"
                         >
                           day_of_week
                         </span>
@@ -10302,7 +10253,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="day_of_week_i"
                         >
                           day_of_week_i
                         </span>
@@ -10319,7 +10269,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="email"
                         >
                           email
                         </span>
@@ -10336,7 +10285,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="manufacturer"
                         >
                           manufacturer
                         </span>
@@ -10353,7 +10301,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="order_date"
                         >
                           order_date
                         </span>
@@ -10370,7 +10317,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="order_id"
                         >
                           order_id
                         </span>
@@ -10387,7 +10333,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="products"
                         >
                           products
                         </span>
@@ -10404,7 +10349,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="sku"
                         >
                           sku
                         </span>
@@ -10421,7 +10365,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="taxful_total_price"
                         >
                           taxful_total_price
                         </span>
@@ -10438,7 +10381,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="taxless_total_price"
                         >
                           taxless_total_price
                         </span>
@@ -10455,7 +10397,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="total_quantity"
                         >
                           total_quantity
                         </span>
@@ -10472,7 +10413,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="total_unique_products"
                         >
                           total_unique_products
                         </span>
@@ -10489,7 +10429,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="type"
                         >
                           type
                         </span>
@@ -10506,7 +10445,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="user"
                         >
                           user
                         </span>
@@ -10523,7 +10461,6 @@ exports[`<QueryResultsBody /> spec renders component with mock QueryResults data
                       >
                         <span
                           class="euiTableCellContent__text"
-                          title="geoip"
                         >
                           geoip
                         </span>

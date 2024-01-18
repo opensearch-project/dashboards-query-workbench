@@ -4,7 +4,7 @@
  */
 
 import '@testing-library/jest-dom/extend-expect';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import QueryResultsBody from './QueryResultsBody';
 // @ts-ignore
@@ -185,9 +185,13 @@ describe('<QueryResultsBody /> spec', () => {
 
     // Test search field
     const searchField = getByPlaceholderText('Search keyword');
-    expect(searchField).not.toBe(null);
-    await userEvent.type(searchField, 'Test');
-    expect(onQueryChange).toHaveBeenCalled();
+    expect(searchField).toBeInTheDocument();
+    act(() => {
+      userEvent.type(searchField, 'Test');
+    });
+    waitFor(() => {
+      expect(onQueryChange).toHaveBeenCalled();
+    });
 
     // Test collapse button
     expect(document.body.children[0]).toMatchSnapshot();

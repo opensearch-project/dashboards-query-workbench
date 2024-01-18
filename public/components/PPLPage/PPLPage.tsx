@@ -21,8 +21,8 @@ import {
   EuiText,
 } from '@elastic/eui';
 import React from 'react';
-import { ResponseDetail, TranslateResult } from '../Main/main';
 import { SAMPLE_PPL_QUERY } from '../../../common/constants';
+import { ResponseDetail, TranslateResult } from '../Main/main';
 
 interface PPLPageProps {
   onRun: (query: string) => void;
@@ -122,7 +122,6 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
             showGutter: false,
           }}
           aria-label="Code Editor"
-          isReadOnly={this.props.asyncLoading}
         />
         <EuiSpacer />
         <EuiFlexGroup className="action-container" gutterSize="m">
