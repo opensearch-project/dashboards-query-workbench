@@ -22,6 +22,7 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import {
+  CANCEL_PREVIOUS_QUERY,
   FETCH_OPENSEARCH_INDICES_PATH,
   LOAD_OPENSEARCH_INDICES_QUERY,
   TREE_ITEM_BADGE_NAME,
@@ -100,6 +101,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   }
 
   const getSidebarContent = () => {
+    pollQueryStatus(CANCEL_PREVIOUS_QUERY,http,()=>{})
     if (selectedItems[0].label === 'OpenSearch') {
       setTableNames([]);
       setIsLoading({

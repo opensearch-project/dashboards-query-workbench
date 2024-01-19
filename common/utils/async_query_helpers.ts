@@ -9,8 +9,11 @@ import {
   ASYNC_QUERY_ENDPOINT,
   ASYNC_QUERY_JOB_ENDPOINT,
   ASYNC_QUERY_SESSION_ID,
-  POLL_INTERVAL_MS,
+  CANCEL_PREVIOUS_QUERY,
+  POLL_INTERVAL_MS
 } from '../constants';
+
+let queriesToCancel: string[] = [];
 
 export const setAsyncSessionId = (value: string | null) => {
   if (value !== null) {
@@ -34,6 +37,7 @@ export const getJobId = (query: {}, http: CoreStart['http'], callback) => {
         console.error(JSON.parse(res.data.body));
       }
       callback(id);
+      queriesToCancel.push(id);
     })
     .catch((err) => {
       console.error(err);
@@ -41,7 +45,14 @@ export const getJobId = (query: {}, http: CoreStart['http'], callback) => {
 };
 
 export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) => {
-  http
+  if(id === CANCEL_PREVIOUS_QUERY){
+    queriesToCancel.forEach((id) => {
+      cancelAsyncQuery(id, http);
+    });
+    queriesToCancel = [];        
+  }
+  else{
+    http
     .get(ASYNC_QUERY_JOB_ENDPOINT + id)
     .then((res) => {
       const status = res.data.resp.status.toLowerCase();
@@ -65,4 +76,15 @@ export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) =
       console.error(err);
       callback({ status: 'FAILED', error: 'Failed to fetch data' });
     });
+  }
 };
+
+export const cancelAsyncQuery = (id: string, http: CoreStart['http']) =>{
+  http
+    .delete(ASYNC_QUERY_JOB_ENDPOINT + id)
+    .then((res)=>{
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}

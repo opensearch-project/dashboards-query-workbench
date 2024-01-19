@@ -112,3 +112,5 @@ export const ASYNC_QUERY_SESSION_ID = 'async-query-session-id';
 
 export const SAMPLE_PPL_QUERY = 'source = <datasource>.<database>.<table> | head 10';
 export const SAMPLE_SQL_QUERY = 'select * from <datasource>.<database>.<table> limit 10';
+
+export const CANCEL_PREVIOUS_QUERY = 'STOP_RUNNING_QUERY';
