@@ -66,7 +66,7 @@ export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) =
         callback({ status: 'FAILED', error: results.error });
       } else if (status === 'success') {
         const results = _.get(res.data.resp, 'datarows');
-        callback({ status: 'SUCCESS', results: results });
+        callback({ status: 'SUCCESS', results });
       }
     })
     .catch((err) => {
