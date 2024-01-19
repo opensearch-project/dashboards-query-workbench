@@ -17,7 +17,7 @@ import {
   mockQueryTranslationResponse,
   mockResultWithNull,
 } from '../../../test/mocks/mockData';
-import Main from './main';
+import { Main } from './main';
 
 const setBreadcrumbsMock = jest.fn();
 

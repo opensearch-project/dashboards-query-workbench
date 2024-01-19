@@ -233,7 +233,7 @@ export function getQueryResultsForTable(
   );
 }
 
-export default class Main extends React.Component<MainProps, MainState> {
+export class Main extends React.Component<MainProps, MainState> {
   httpClient: CoreStart['http'];
 
   constructor(props: MainProps) {
