@@ -72,7 +72,7 @@ function renderSQLQueryResultsBody(
   };
 }
 
-describe('<QueryResultsBody /> spec', () => {
+describe('<QueryResultsBody with SQL language/> spec', () => {
   afterEach(cleanup);
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
@@ -87,7 +87,7 @@ describe('<QueryResultsBody /> spec', () => {
       [
         {
           name: '',
-          getValue: (item: any) => '',
+          getValue: () => '',
           isAscending: true,
         },
       ],
@@ -128,7 +128,6 @@ describe('<QueryResultsBody /> spec', () => {
 
     const {
       getAllByText,
-      getAllByTestId,
       getAllByLabelText,
       getByText,
       getByPlaceholderText,
@@ -154,10 +153,10 @@ describe('<QueryResultsBody /> spec', () => {
 
     // Test pagination
     await fireEvent.click(getAllByText('Rows per page', { exact: false })[0]);
-    expect(getByText('10 rows'));
-    expect(getByText('20 rows'));
-    expect(getByText('50 rows'));
-    expect(getByText('100 rows'));
+    expect(getByText('10 rows')).toBeInTheDocument();
+    expect(getByText('20 rows')).toBeInTheDocument();
+    expect(getByText('50 rows')).toBeInTheDocument();
+    expect(getByText('100 rows')).toBeInTheDocument();
     await fireEvent.click(getByText('20 rows'));
     expect(onChangeItemsPerPage).toHaveBeenCalled();
 
@@ -174,10 +173,10 @@ describe('<QueryResultsBody /> spec', () => {
     const downloadButton = getAllByText('Download')[0];
     expect(downloadButton).not.toBe(null);
     await fireEvent.click(downloadButton);
-    expect(getByText('Download JSON'));
-    expect(getByText('Download JDBC'));
-    expect(getByText('Download CSV'));
-    expect(getByText('Download Text'));
+    expect(getByText('Download JSON')).toBeInTheDocument();
+    expect(getByText('Download JDBC')).toBeInTheDocument();
+    expect(getByText('Download CSV')).toBeInTheDocument();
+    expect(getByText('Download Text')).toBeInTheDocument();
     await fireEvent.click(getByText('Download JSON'));
     await fireEvent.click(getByText('Download JDBC'));
     await fireEvent.click(getByText('Download CSV'));
@@ -250,7 +249,7 @@ function renderPPLQueryResultsBody(
   };
 }
 
-describe('<QueryResultsBody /> spec', () => {
+describe('<QueryResultsBody with PPL language/> spec', () => {
   afterEach(cleanup);
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
@@ -265,7 +264,7 @@ describe('<QueryResultsBody /> spec', () => {
       [
         {
           name: '',
-          getValue: (item: any) => '',
+          getValue: () => '',
           isAscending: true,
         },
       ],
@@ -304,13 +303,7 @@ describe('<QueryResultsBody /> spec', () => {
 
     (window as any).HTMLElement.prototype.scrollIntoView = function () {};
 
-    const {
-      getAllByText,
-      getAllByTestId,
-      getAllByLabelText,
-      getByText,
-      getByPlaceholderText,
-    } = renderPPLQueryResultsBody(
+    const { getAllByText, getAllByLabelText, getByText } = renderPPLQueryResultsBody(
       undefined,
       mockQueryResults[0].data,
       mockQueryResultJDBCResponse.data.resp,
@@ -332,10 +325,10 @@ describe('<QueryResultsBody /> spec', () => {
 
     // Test pagination
     await fireEvent.click(getAllByText('Rows per page', { exact: false })[0]);
-    expect(getByText('10 rows'));
-    expect(getByText('20 rows'));
-    expect(getByText('50 rows'));
-    expect(getByText('100 rows'));
+    expect(getByText('10 rows')).toBeInTheDocument();
+    expect(getByText('20 rows')).toBeInTheDocument();
+    expect(getByText('50 rows')).toBeInTheDocument();
+    expect(getByText('100 rows')).toBeInTheDocument();
     await fireEvent.click(getByText('20 rows'));
     expect(onChangeItemsPerPage).toHaveBeenCalled();
 
