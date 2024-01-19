@@ -434,6 +434,7 @@ export class Main extends React.Component<MainProps, MainState> {
     // finding regular query here
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
+    const currentDataSource = this.state.selectedDatasource[0].label;
     if (queries.length > 0) {
       const responsePromise = Promise.all(
         queries.map((query: string) =>
@@ -442,8 +443,8 @@ export class Main extends React.Component<MainProps, MainState> {
               body: JSON.stringify({
                 lang: language,
                 query: query,
-                datasource: this.state.selectedDatasource[0].label,
-                sessionId: getAsyncSessionId() ?? undefined,
+                datasource: currentDataSource,
+                sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
               }),
             })
             .catch((error: any) => {
@@ -476,7 +477,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 : '';
 
               const queryId: string = _.get(responseObj, 'queryId');
-              setAsyncSessionId(_.get(responseObj, 'sessionId', null));
+              setAsyncSessionId(currentDataSource, _.get(responseObj, 'sessionId', null));
 
               // clear state from previous results and start async loading
               this.setState({

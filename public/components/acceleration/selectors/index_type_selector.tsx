@@ -53,7 +53,7 @@ export const IndexTypeSelector = ({
         datasource: accelerationFormData.dataSource,
       };
       const errorMessage = 'ERROR: failed to load table columns';
-      getJobId(query, http, (id: string) => {
+      getJobId(accelerationFormData.dataSource, query, http, (id: string) => {
         if (id === undefined) {
           setToast(errorMessage, 'danger');
         } else {

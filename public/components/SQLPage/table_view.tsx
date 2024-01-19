@@ -142,7 +142,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         query: `SHOW SCHEMAS IN ${selectedItems[0]['label']}`,
         datasource: selectedItems[0]['label'],
       };
-      getJobId(query, http, (id) => {
+      getJobId(selectedItems[0].label, query, http, (id) => {
         if (id === undefined) {
           const errorMessage = 'ERROR fetching databases';
           setIsLoading({
@@ -205,7 +205,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       query: `SHOW TABLES IN ${selectedItems[0]['label']}.${databaseName}`,
       datasource: selectedItems[0]['label'],
     };
-    getJobId(query, http, (id) => {
+    getJobId(selectedItems[0].label, query, http, (id) => {
       if (id === undefined) {
         const errorMessage = 'ERROR fetching Tables';
         setIsLoading({
@@ -273,7 +273,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       query: `SHOW INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
       datasource: selectedItems[0]['label'],
     };
-    getJobId(coverQuery, http, (id) => {
+    getJobId(selectedItems[0].label, coverQuery, http, (id) => {
       if (id === undefined) {
         const errorMessage = 'ERROR fetching Covering Index';
         setIsLoading({
@@ -357,7 +357,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       query: `SHOW MATERIALIZED VIEW IN ${selectedItems[0]['label']}.${databaseName}`,
       datasource: selectedItems[0]['label'],
     };
-    getJobId(materializedViewQuery, http, (id) => {
+    getJobId(selectedItems[0].label, materializedViewQuery, http, (id) => {
       if (id === undefined) {
         const errorMessage = 'ERROR fetching Materialized View';
         setIsLoading({
@@ -421,7 +421,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       query: `DESC SKIPPING INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
       datasource: selectedItems[0]['label'],
     };
-    getJobId(skipQuery, http, (id) => {
+    getJobId(selectedItems[0].label, skipQuery, http, (id) => {
       if (id === undefined) {
         const errorMessage = 'ERROR fetching Skipping index';
         setIsLoading({

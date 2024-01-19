@@ -67,7 +67,7 @@ export const AccelerationDataSourceSelector = ({
       datasource: accelerationFormData.dataSource,
     };
     const errorMessage = `ERROR: failed to load databases`;
-    getJobId(query, http, (id: string) => {
+    getJobId(selectedDataConnection[0].label, query, http, (id: string) => {
       if (id === undefined) {
         setToast(errorMessage, 'danger');
       } else {
@@ -96,7 +96,7 @@ export const AccelerationDataSourceSelector = ({
       datasource: accelerationFormData.dataSource,
     };
     const errorMessage = `ERROR: failed to load tables`;
-    getJobId(query, http, (id: string) => {
+    getJobId(selectedDataConnection[0].label, query, http, (id: string) => {
       if (id === undefined) {
         setToast(errorMessage, 'danger');
       } else {

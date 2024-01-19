@@ -12,24 +12,32 @@ import {
   POLL_INTERVAL_MS,
 } from '../constants';
 
-export const setAsyncSessionId = (value: string | null) => {
+export const setAsyncSessionId = (dataSource: string, value: string | null) => {
   if (value !== null) {
-    sessionStorage.setItem(ASYNC_QUERY_SESSION_ID, value);
+    sessionStorage.setItem(`${ASYNC_QUERY_SESSION_ID}_${dataSource}`, value);
   }
 };
 
-export const getAsyncSessionId = () => {
-  return sessionStorage.getItem(ASYNC_QUERY_SESSION_ID);
+export const getAsyncSessionId = (dataSource: string) => {
+  return sessionStorage.getItem(`${ASYNC_QUERY_SESSION_ID}_${dataSource}`);
 };
 
-export const getJobId = (query: {}, http: CoreStart['http'], callback) => {
+export const getJobId = (
+  currentDataSource: string,
+  query: {},
+  http: CoreStart['http'],
+  callback
+) => {
   http
     .post(ASYNC_QUERY_ENDPOINT, {
-      body: JSON.stringify({ ...query, sessionId: getAsyncSessionId() ?? undefined }),
+      body: JSON.stringify({
+        ...query,
+        sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
+      }),
     })
     .then((res) => {
       const id = res.data.resp.queryId;
-      setAsyncSessionId(_.get(res.data.resp, 'sessionId', null));
+      setAsyncSessionId(currentDataSource, _.get(res.data.resp, 'sessionId', null));
       if (id === undefined) {
         console.error(JSON.parse(res.data.body));
       }
