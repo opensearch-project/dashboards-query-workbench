@@ -46,8 +46,8 @@ interface CustomView {
 
 export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }: CustomView) => {
   const [tableNames, setTableNames] = useState<string[]>([]);
-  const [selectedDatabase, setSelectedDatabase] = useState<string>('');
-  const [selectedTable, setSelectedTable] = useState<string | null>(null);
+  const [_selectedDatabase, setSelectedDatabase] = useState<string>('');
+  const [_selectedTable, setSelectedTable] = useState<string | null>(null);
   const [isLoadingBanner, setIsLoading] = useState<DatasourceTreeLoading>({
     flag: false,
     status: 'Not loading',
@@ -82,15 +82,15 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
 
   function loadTreeItem(elements: string[], type: TreeItemType): TreeItem[] {
     return elements.map((element) => {
-      let treeItem: TreeItem = {
+      const treeItem: TreeItem = {
         name: element,
-        type: type,
+        type,
         isExpanded: false,
       };
 
       if (
-        type != TREE_ITEM_COVERING_INDEX_DEFAULT_NAME &&
-        type != TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
+        type !== TREE_ITEM_COVERING_INDEX_DEFAULT_NAME &&
+        type !== TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
       ) {
         treeItem.values = [];
         treeItem.isLoading = false;
@@ -139,8 +139,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       setTableNames([]);
       const query = {
         lang: 'sql',
-        query: `SHOW SCHEMAS IN ${selectedItems[0]['label']}`,
-        datasource: selectedItems[0]['label'],
+        query: `SHOW SCHEMAS IN ${selectedItems[0].label}`,
+        datasource: selectedItems[0].label,
       };
       getJobId(selectedItems[0].label, query, http, (id) => {
         if (id === undefined) {
@@ -202,8 +202,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setSelectedDatabase(databaseName);
     const query = {
       lang: 'sql',
-      query: `SHOW TABLES IN ${selectedItems[0]['label']}.${databaseName}`,
-      datasource: selectedItems[0]['label'],
+      query: `SHOW TABLES IN ${selectedItems[0].label}.${databaseName}`,
+      datasource: selectedItems[0].label,
     };
     getJobId(selectedItems[0].label, query, http, (id) => {
       if (id === undefined) {
@@ -219,7 +219,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           if (data.status === 'SUCCESS') {
             const fetchTables = data.results.map((subArray) => subArray[1]);
             let values = loadTreeItem(fetchTables, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
-            let mvObj = loadTreeItem(
+            const mvObj = loadTreeItem(
               [TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME],
               TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME
             );
@@ -227,7 +227,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
             setTreeData((prevTreeData) => {
               return prevTreeData.map((database) => {
                 if (database.name === databaseName) {
-                  return { ...database, values: values, isExpanded: true, isLoading: false };
+                  return { ...database, values, isExpanded: true, isLoading: false };
                 }
                 return database;
               });
@@ -270,8 +270,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   const loadCoveringIndex = (tableName: string, databaseName: string) => {
     const coverQuery = {
       lang: 'sql',
-      query: `SHOW INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
-      datasource: selectedItems[0]['label'],
+      query: `SHOW INDEX ON ${selectedItems[0].label}.${databaseName}.${tableName}`,
+      datasource: selectedItems[0].label,
     };
     getJobId(selectedItems[0].label, coverQuery, http, (id) => {
       if (id === undefined) {
@@ -286,7 +286,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       pollQueryStatus(id, http, (data) => {
         if (data.status === 'SUCCESS') {
           const res = [].concat(data.results);
-          let coverIndexObj = loadTreeItem(res, TREE_ITEM_COVERING_INDEX_DEFAULT_NAME);
+          const coverIndexObj = loadTreeItem(res, TREE_ITEM_COVERING_INDEX_DEFAULT_NAME);
           setTreeData((prevTreeData) => {
             return prevTreeData.map((database) => {
               if (database.name === databaseName) {
@@ -354,8 +354,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const materializedViewQuery = {
       lang: 'sql',
-      query: `SHOW MATERIALIZED VIEW IN ${selectedItems[0]['label']}.${databaseName}`,
-      datasource: selectedItems[0]['label'],
+      query: `SHOW MATERIALIZED VIEW IN ${selectedItems[0].label}.${databaseName}`,
+      datasource: selectedItems[0].label,
     };
     getJobId(selectedItems[0].label, materializedViewQuery, http, (id) => {
       if (id === undefined) {
@@ -418,8 +418,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const skipQuery = {
       lang: 'sql',
-      query: `DESC SKIPPING INDEX ON ${selectedItems[0]['label']}.${databaseName}.${tableName}`,
-      datasource: selectedItems[0]['label'],
+      query: `DESC SKIPPING INDEX ON ${selectedItems[0].label}.${databaseName}.${tableName}`,
+      datasource: selectedItems[0].label,
     };
     getJobId(selectedItems[0].label, skipQuery, http, (id) => {
       if (id === undefined) {
@@ -537,7 +537,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                       <EuiIcon
                         type="editorCodeBlock"
                         onClick={(e) => handleQuery(e, parentName, node.name)}
-                      ></EuiIcon>
+                      />
                     )}
                   </EuiText>
                 </EuiFlexItem>
@@ -572,8 +572,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     },
     isSelectable: true,
     isExpanded: database.isExpanded,
-    children: database.values?.map((table, index) => ({
-      label: createLabel(table, database.name, index),
+    children: database.values?.map((table, idx) => ({
+      label: createLabel(table, database.name, idx),
       id: `${database.name}_${table.name}`,
       icon: iconCreation(table),
       callback: () => {
@@ -598,8 +598,8 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       },
       isSelectable: true,
       isExpanded: table.isExpanded,
-      children: table.values?.map((indexChild, index) => ({
-        label: createLabel(indexChild, table.name, index),
+      children: table.values?.map((indexChild, idxValue) => ({
+        label: createLabel(indexChild, table.name, idxValue),
         id: `${database.name}_${table.name}_${indexChild.name}`,
         icon: iconCreation(indexChild),
         callback: () => {

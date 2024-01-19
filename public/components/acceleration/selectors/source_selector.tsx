@@ -26,14 +26,18 @@ export const AccelerationDataSourceSelector = ({
   selectedDatasource,
 }: AccelerationDataSourceSelectorProps) => {
   const { setToast } = useToast();
-  const [dataConnections, setDataConnections] = useState<EuiComboBoxOptionOption<string>[]>([]);
+  const [dataConnections, setDataConnections] = useState<Array<EuiComboBoxOptionOption<string>>>(
+    []
+  );
   const [selectedDataConnection, setSelectedDataConnection] = useState<
-    EuiComboBoxOptionOption<string>[]
+    Array<EuiComboBoxOptionOption<string>>
   >(selectedDatasource.length > 0 ? [{ label: selectedDatasource[0].label }] : []);
-  const [databases, setDatabases] = useState<EuiComboBoxOptionOption<string>[]>([]);
-  const [selectedDatabase, setSelectedDatabase] = useState<EuiComboBoxOptionOption<string>[]>([]);
-  const [tables, setTables] = useState<EuiComboBoxOptionOption<string>[]>([]);
-  const [selectedTable, setSelectedTable] = useState<EuiComboBoxOptionOption<string>[]>([]);
+  const [databases, setDatabases] = useState<Array<EuiComboBoxOptionOption<string>>>([]);
+  const [selectedDatabase, setSelectedDatabase] = useState<Array<EuiComboBoxOptionOption<string>>>(
+    []
+  );
+  const [tables, setTables] = useState<Array<EuiComboBoxOptionOption<string>>>([]);
+  const [selectedTable, setSelectedTable] = useState<Array<EuiComboBoxOptionOption<string>>>([]);
   const [loadingComboBoxes, setLoadingComboBoxes] = useState({
     dataSource: false,
     database: false,
@@ -73,7 +77,7 @@ export const AccelerationDataSourceSelector = ({
       } else {
         pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
           if (data.status === 'SUCCESS') {
-            let databaseOptions: EuiComboBoxOptionOption<string>[] = [];
+            let databaseOptions: Array<EuiComboBoxOptionOption<string>> = [];
             if (data.results.length > 0)
               databaseOptions = data.results.map((subArray: any[]) => ({ label: subArray[0] }));
             setDatabases(databaseOptions);
@@ -102,7 +106,7 @@ export const AccelerationDataSourceSelector = ({
       } else {
         pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
           if (data.status === 'SUCCESS') {
-            let dataTableOptions: EuiComboBoxOptionOption<string>[] = [];
+            let dataTableOptions: Array<EuiComboBoxOptionOption<string>> = [];
             if (data.results.length > 0)
               dataTableOptions = data.results.map((subArray) => ({ label: subArray[1] }));
             setTables(dataTableOptions);

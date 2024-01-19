@@ -59,7 +59,7 @@ export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) =
         status === 'scheduled' ||
         status === 'waiting'
       ) {
-        callback({ status: status });
+        callback({ status });
         setTimeout(() => pollQueryStatus(id, http, callback), POLL_INTERVAL_MS);
       } else if (status === 'failed') {
         const results = res.data.resp;
