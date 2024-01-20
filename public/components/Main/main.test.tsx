@@ -129,7 +129,6 @@ describe('<Main /> spec', () => {
   });
 
   it('click clear button', async () => {
-    let postRequestFlag = 0;
     const client = httpClientMock;
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     client.post = jest.fn(() => {
