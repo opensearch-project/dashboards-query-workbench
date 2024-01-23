@@ -21,8 +21,8 @@ import {
   EuiText,
 } from '@elastic/eui';
 import React from 'react';
-import { ResponseDetail, TranslateResult } from '../Main/main';
 import { SAMPLE_PPL_QUERY } from '../../../common/constants';
+import { ResponseDetail, TranslateResult } from '../Main/main';
 
 interface PPLPageProps {
   onRun: (query: string) => void;
@@ -133,6 +133,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
           >
             <EuiButton
               fill={true}
+              data-test-subj='pplRunButton'
               className="sql-editor-button"
               isLoading={this.props.asyncLoading}
             >
@@ -146,7 +147,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               this.props.onClear();
             }}
           >
-            <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+            <EuiButton className="sql-editor-button"  data-test-subj='pplClearButton' isDisabled={this.props.asyncLoading}>
               Clear
             </EuiButton>
           </EuiFlexItem>

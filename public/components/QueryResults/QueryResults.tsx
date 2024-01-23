@@ -45,8 +45,8 @@ import {
   ResponseDetail,
   Tab,
 } from '../Main/main';
-import { AsyncQueryBody } from './async_query_body';
 import QueryResultsBody from './QueryResultsBody';
+import { AsyncQueryBody } from './async_query_body';
 
 interface QueryResultsProps {
   language: string;
@@ -327,6 +327,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
                   <EuiButton
                     size="s"
                     iconType="fullScreen"
+                    data-test-subj='fullScreenView'
                     onClick={() => this.props.setIsResultFullScreen(true)}
                   >
                     Full screen view
