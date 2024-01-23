@@ -27,6 +27,7 @@ exports[`<AsyncQueryResults /> spec renders async query failure component 1`] = 
         >
           <button
             class="euiButton euiButton--primary euiButton--small"
+            data-test-subj="fullScreenView"
             type="button"
           >
             <span
@@ -144,6 +145,7 @@ exports[`<AsyncQueryResults /> spec renders async query loading component 1`] = 
         >
           <button
             class="euiButton euiButton--primary euiButton--small"
+            data-test-subj="fullScreenView"
             type="button"
           >
             <span
@@ -259,6 +261,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
         >
           <button
             class="euiButton euiButton--primary euiButton--small"
+            data-test-subj="fullScreenView"
             type="button"
           >
             <span
@@ -5051,6 +5054,7 @@ exports[`<QueryResults with data/> spec renders the component to test tabs down 
         >
           <button
             class="euiButton euiButton--primary euiButton--small"
+            data-test-subj="fullScreenView"
             type="button"
           >
             <span
@@ -9727,6 +9731,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
         >
           <button
             class="euiButton euiButton--primary euiButton--small"
+            data-test-subj="fullScreenView"
             type="button"
           >
             <span
@@ -14435,6 +14440,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
         >
           <button
             class="euiButton euiButton--primary euiButton--small"
+            data-test-subj="fullScreenView"
             type="button"
           >
             <span
@@ -19111,6 +19117,7 @@ exports[`<QueryResults with data/> spec renders the component with mock query re
         >
           <button
             class="euiButton euiButton--primary euiButton--small"
+            data-test-subj="fullScreenView"
             type="button"
           >
             <span

@@ -1854,7 +1854,7 @@ exports[`<Main /> spec click clear button 1`] = `
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -1981,6 +1981,7 @@ exports[`<Main /> spec click clear button 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -1999,6 +2000,7 @@ exports[`<Main /> spec click clear button 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -2417,7 +2419,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -2544,6 +2546,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -2562,6 +2565,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -4521,7 +4525,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -4648,6 +4652,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -4666,6 +4671,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -5155,7 +5161,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -5282,6 +5288,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -5300,6 +5307,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -5785,7 +5793,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -5912,6 +5920,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -5930,6 +5939,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -7889,7 +7899,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -8016,6 +8026,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -8034,6 +8045,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -8457,7 +8469,7 @@ exports[`<Main /> spec renders the component 1`] = `
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -8584,6 +8596,7 @@ exports[`<Main /> spec renders the component 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -8602,6 +8615,7 @@ exports[`<Main /> spec renders the component 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -9042,7 +9056,7 @@ exports[`<Main /> spec renders the component and checks if Opensearch is selecte
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -9169,6 +9183,7 @@ exports[`<Main /> spec renders the component and checks if Opensearch is selecte
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -9187,6 +9202,7 @@ exports[`<Main /> spec renders the component and checks if Opensearch is selecte
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -10607,7 +10623,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -10734,6 +10750,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -10752,6 +10769,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -11200,7 +11218,7 @@ exports[`<Main /> spec renders the component and s3 glue component is present 1`
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -11327,6 +11345,7 @@ exports[`<Main /> spec renders the component and s3 glue component is present 1`
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -11345,6 +11364,7 @@ exports[`<Main /> spec renders the component and s3 glue component is present 1`
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -11785,7 +11805,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -11912,6 +11932,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -11930,6 +11951,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
@@ -12407,7 +12429,7 @@ exports[`<Main /> spec renders the component for s3 glue and check sample query 
             />
             <div
               class="euiCodeEditorWrapper"
-              data-test-subj="codeEditorContainer"
+              data-test-subj="sqlCodeEditor"
               style="width: 100%; height: 10rem;"
             >
               <button
@@ -12534,6 +12556,7 @@ exports[`<Main /> spec renders the component for s3 glue and check sample query 
                   >
                     <button
                       class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      data-test-subj="sqlRunButton"
                       type="button"
                     >
                       <span
@@ -12552,6 +12575,7 @@ exports[`<Main /> spec renders the component for s3 glue and check sample query 
                   >
                     <button
                       class="euiButton euiButton--primary sql-editor-button"
+                      data-test-subj="sqlClearButton"
                       type="button"
                     >
                       <span
