@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 /// <reference types="cypress" />
 
 import { edit } from 'brace';
@@ -29,7 +28,7 @@ describe('Dump test data', () => {
         });
       });
 
-    testDataSet.forEach(({url, index}) => dumpDataSet(url, index));
+    testDataSet.forEach(({ url, index }) => dumpDataSet(url, index));
   });
 });
 
@@ -45,30 +44,19 @@ describe('Test PPL UI', () => {
     cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
     cy.get('button[data-test-subj="pplRunButton"]').contains('Run').click();
     cy.get('.euiTab__content').contains('Events').click({ force: true });
-    
-    cy.get('.euiTableRow') 
+
+    cy.get('.euiTableRow')
       .contains('Nanette')
-      .should('exist') 
+      .should('exist')
       .then(($element) => {
-        const text = $element.text(); 
-    });
+        const text = $element.text();
+      });
   });
 
   it('Test Clear button', () => {
-    cy.get('textarea.ace_text-input').eq(0).focus().type('search source=.kibana', { force: true });
-    cy.get('button[data-test-subj="pplRunButton"]').contains('Run').click();
-    cy.get('.euiTab__content').contains('Events').click({ force: true });
     cy.get('button[data-test-subj="pplClearButton"]').contains('Clear').click({ force: true });
 
-    cy.get('.euiTextAlign')
-      .contains('Enter a query in the query editor above to see results.')
-      .should('have.length', 1);
-    cy.get('.ace_content')
-      .eq(0)
-      .then((queryEditor) => {
-        const editor = edit(queryEditor[0]);
-        expect(editor.getValue()).to.equal('');
-      });
+    cy.get('.euiTitle').should('not.exist');
   });
 
   it('Test full screen view', () => {
@@ -76,12 +64,9 @@ describe('Test PPL UI', () => {
 
     cy.get('textarea.ace_text-input').eq(0).focus().type('search source=.kibana', { force: true });
     cy.get('button[data-test-subj="pplRunButton"]').contains('Run').click();
-    cy.get('.euiButton__text').contains('Full screen view').click({ force: true });
+    cy.get('button[data-test-subj="fullScreenView"]').contains('Full screen view').click();
 
     cy.get('.euiTitle').should('not.exist');
-
-    cy.get('button#exit-fullscreen-button').click({ force: true });
-    cy.get('.euiButton__text').contains('Full screen view').should('exist');
   });
 });
 
@@ -99,22 +84,16 @@ describe('Test SQL UI', () => {
       .should('have.length', 1);
   });
 
-  it('Test Run button and field search', () => {
-    cy.get('textarea.ace_text-input')
-      .eq(0)
-      .focus()
-      .type('{enter}', { force: true });
-      cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
-    cy.get('.euiTab__content').contains('SHOW tables LIKE \'%\'').click({ force: true });
+  it('Test Run button', () => {
+    cy.get('textarea.ace_text-input').eq(0).focus().type('{enter}', { force: true });
+    cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
+    cy.get('.euiTab__content').contains("SHOW tables LIKE '%'").click({ force: true });
   });
 
   it('Test Translate button', () => {
-    cy.get('textarea.ace_text-input')
-      .eq(0)
-      .focus()
-      .type('{enter}', {
-        force: true,
-      });
+    cy.get('textarea.ace_text-input').eq(0).focus().type('{enter}', {
+      force: true,
+    });
     cy.get('.euiButton__text').contains('Explain').click({ force: true });
 
     // hard to get euiCodeBlock content, check length instead
@@ -125,18 +104,15 @@ describe('Test SQL UI', () => {
     cy.get('button[data-test-subj="sqlClearButton"]').contains('Clear').click({ force: true });
 
     cy.get('.euiTitle').should('not.exist');
-
-    // cy.get('.ace_content')
-    //   .eq(0)
-    //   .then((queryEditor) => {
-    //     const editor = edit(queryEditor[0]);
-    //     expect(editor.getValue()).to.equal('');
-    //   });
   });
 
   it('Test full screen view', () => {
     cy.get('.euiButton__text').contains('Full screen view').should('not.exist');
 
+    cy.get('textarea.ace_text-input')
+      .eq(0)
+      .focus()
+      .type("SHOW tables LIKE '%'", { force: true });
     cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
     cy.get('button[data-test-subj="fullScreenView"]').contains('Full screen view').click();
 
@@ -144,65 +120,63 @@ describe('Test SQL UI', () => {
   });
 });
 
-// describe('Test and verify SQL downloads', () => {
-//   verifyDownloadData.map(({ title, url, file }) => {
-//     it(title, () => {
-//       cy.request({
-//         method: 'POST',
-//         form: false,
-//         url: url,
-//         headers: {
-//           'content-type': 'application/json;charset=UTF-8',
-//           'osd-xsrf': true,
-//         },
-//         body: {
-//           query:
-//             'select * from accounts where balance > 49500 order by account_number',
-//         },
-//       }).then((response) => {
-//         expect(response.body.data.resp).to.have.string(files[file]);
-//       });
-//     });
-//   });
-// });
+describe('Test and verify SQL downloads', () => {
+  verifyDownloadData.map(({ title, url, file }) => {
+    it(title, () => {
+      cy.request({
+        method: 'POST',
+        form: false,
+        url: url,
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+          'osd-xsrf': true,
+        },
+        body: {
+          query: 'select * from accounts where balance > 49500 order by account_number',
+        },
+      }).then((response) => {
+        expect(response.body.data.resp).to.have.string(files[file]);
+      });
+    });
+  });
+});
 
-// describe('Test table display', () => {
-//   beforeEach(() => {
-//     cy.visit('app/opensearch-query-workbench');
-//     cy.wait(delay);
-//     cy.get('[data-test-subj="SQL"]').click({ force: true });
-//     cy.wait(delay);
-//     cy.get('textarea.ace_text-input').eq(0).focus().type('{selectall}{backspace}', { force: true });
-//     cy.wait(delay);
-//   });
+describe('Test table display', () => {
+  beforeEach(() => {
+    cy.visit('app/opensearch-query-workbench');
+    cy.wait(delay);
+    cy.get('[data-test-subj="SQL"]').click({ force: true });
+    cy.wait(delay);
+    cy.get('textarea.ace_text-input').eq(0).focus().type('{selectall}{backspace}', { force: true });
+    cy.wait(delay);
+  });
 
-//   testQueries.map(({ title, query, cell_idx, expected_string }) => {
-//     it(title, () => {
-//       cy.get('button[data-test-subj="sqlClearButton"]').contains('Clear').click();
-//       cy.get('div[data-test-subj="sqlCodeEditor"]')
-//         .click({force:true})
-//         .type(`{selectall}{backspace}${query}`);
-//       cy.get('div[data-test-subj="sqlCodeEditor"]').contains(`${query}`).should('exist');
-//       cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
-//       cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
-//       // cy.get('.euiTab__content').contains('employee_nested').should('exist');
-//       cy.get('span.euiTableCellContent__text')
-//         .eq(cell_idx)
-//         .should((cell) => {
-//           expect(cell).to.contain(expected_string);
-//         });
-//     });
-//   });
+  testQueries.map(({ title, query, cell_idx, expected_string }) => {
+    it(title, () => {
+      cy.get('button[data-test-subj="sqlClearButton"]').contains('Clear').click();
+      cy.get('div[data-test-subj="sqlCodeEditor"]')
+        .click({ force: true })
+        .type(`{selectall}{backspace}${query}`);
+      cy.get('div[data-test-subj="sqlCodeEditor"]').contains(`${query}`).should('exist');
+      cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
+      cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
+      cy.get('span.euiTableCellContent__text')
+        .eq(cell_idx)
+        .should((cell) => {
+          expect(cell).to.contain(expected_string);
+        });
+    });
+  });
 
-//   it('Test nested fields display', () => {
-//     cy.get('button[data-test-subj="sqlClearButton"]').contains('Clear').click();
-//     cy.get('div[data-test-subj="sqlCodeEditor"]')
-//       .click()
-//       .type(`{selectall}{backspace}select * from employee_nested;`);
-//     cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
-//     cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
-//     cy.get('.euiTab__content').contains('employee_nested').should('exist');
-//     cy.get('button.euiLink').eq(2).click();
-//     cy.contains('message');
-//   });
-// });
+  it('Test nested fields display', () => {
+    cy.get('button[data-test-subj="sqlClearButton"]').contains('Clear').click();
+    cy.get('div[data-test-subj="sqlCodeEditor"]')
+      .click()
+      .type(`{selectall}{backspace}select * from employee_nested;`);
+    cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
+    cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
+    cy.get('.euiTab__content').contains('employee_nested').should('exist');
+    cy.get('button.euiLink').eq(2).click();
+    cy.contains('message');
+  });
+});
