@@ -42,7 +42,7 @@ describe('Test PPL UI', () => {
 
   it('Test Run button', () => {
     cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
-    cy.get('[data-test-subj="pplRunButton"]').contains('Run').click();
+    cy.get('[data-test-subj="pplRunButton"]').contains('Run').should('exist')
     cy.get('[data-test-subj="pplRunButton"]').contains('Run').click();
     cy.get('[data-test-subj="result_tab"]').contains('Events').click({ force: true });
   });
@@ -54,10 +54,11 @@ describe('Test PPL UI', () => {
   });
 
   it('Test full screen view', () => {
+    cy.get('[data-test-subj="pplClearButton"]').contains('Clear').click({ force: true });
     cy.get('.euiButton__text').contains('Full screen view').should('not.exist');
 
-    cy.get('textarea.ace_text-input').eq(0).focus().type('search source=.kibana', { force: true });
-    cy.get('[data-test-subj="pplRunButton"]').contains('Run').click();
+    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
+    cy.get('[data-test-subj="pplRunButton"]').contains('Run').should('exist');
     cy.get('[data-test-subj="pplRunButton"]').contains('Run').click();
     cy.get('[data-test-subj="fullScreenView"]').contains('Full screen view').click();
 
@@ -142,7 +143,7 @@ describe('Test table display', () => {
     cy.wait(delay);
     cy.get('[data-test-subj="SQL"]').click({ force: true });
     cy.wait(delay);
-    cy.get('textarea.ace_text-input').eq(0).focus().type('{selectall}{backspace}', { force: true });
+    cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click();
     cy.wait(delay);
   });
 
@@ -151,9 +152,9 @@ describe('Test table display', () => {
       cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click();
       cy.get('div[data-test-subj="sqlCodeEditor"]')
         .click({ force: true })
-        .type(`{selectall}{backspace}${query}`);
+        .type(`${query}`);
       cy.get('div[data-test-subj="sqlCodeEditor"]').contains(`${query}`).should('exist');
-      cy.get('[data-test-subj="sqlRunButton"]').contains('Run').click();
+      cy.get('[data-test-subj="sqlRunButton"]').contains('Run').should('exist');
       cy.get('[data-test-subj="sqlRunButton"]').contains('Run').click();
       cy.get('span.euiTableCellContent__text')
         .eq(cell_idx)
@@ -167,8 +168,8 @@ describe('Test table display', () => {
     cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click();
     cy.get('div[data-test-subj="sqlCodeEditor"]')
       .click()
-      .type(`{selectall}{backspace}select * from employee_nested;`);
-    cy.get('[data-test-subj="sqlRunButton"]').contains('Run').click();
+      .type(`select * from employee_nested;`);
+    cy.get('[data-test-subj="sqlRunButton"]').contains('Run').should('exist');
     cy.get('[data-test-subj="sqlRunButton"]').contains('Run').click();
     cy.get(('[data-test-subj="result_tab"]')).contains('employee_nested').should('exist');
     cy.get('button.euiLink').eq(2).click();
