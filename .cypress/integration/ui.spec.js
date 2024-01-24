@@ -43,7 +43,7 @@ describe('Test PPL UI', () => {
   it('Test Run button', () => {
     cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
     cy.get('button[data-test-subj="pplRunButton"]').contains('Run').click();
-    cy.get('.euiTab__content').contains('Events').click({ force: true });
+    cy.get('[data-test-subj="result_tab"]').contains('Events').click({ force: true });
   });
 
   it('Test Clear button', () => {
@@ -80,7 +80,7 @@ describe('Test SQL UI', () => {
   it('Test Run button', () => {
     cy.get('textarea.ace_text-input').eq(0).focus().type('{enter}', { force: true });
     cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
-    cy.get('.euiTab__content').contains("SHOW tables LIKE '%'").click({ force: true });
+    cy.get('[data-test-subj="result_tab"]').contains("SHOW tables LIKE '%'").click({ force: true });
   });
 
   it('Test Translate button', () => {
@@ -168,7 +168,7 @@ describe('Test table display', () => {
       .type(`{selectall}{backspace}select * from employee_nested;`);
     cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
     cy.get('button[data-test-subj="sqlRunButton"]').contains('Run').click();
-    cy.get('.euiTab__content').contains('employee_nested').should('exist');
+    cy.get(('[data-test-subj="result_tab"]')).contains('employee_nested').should('exist');
     cy.get('button.euiLink').eq(2).click();
     cy.contains('message');
   });
