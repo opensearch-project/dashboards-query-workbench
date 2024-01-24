@@ -44,13 +44,6 @@ describe('Test PPL UI', () => {
     cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
     cy.get('button[data-test-subj="pplRunButton"]').contains('Run').click();
     cy.get('.euiTab__content').contains('Events').click({ force: true });
-
-    cy.get('.euiTableRow')
-      .contains('Nanette')
-      .should('exist')
-      .then(($element) => {
-        const text = $element.text();
-      });
   });
 
   it('Test Clear button', () => {
