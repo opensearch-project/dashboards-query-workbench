@@ -61,6 +61,7 @@ describe('Test PPL UI', () => {
     cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
     cy.get('[data-test-subj="pplRunButton"]').contains('Run').should('exist');
     cy.get('[data-test-subj="pplRunButton"]').contains('Run').click();
+    cy.get('[data-test-subj="pplRunButton"]').contains('Run').click();
 
     cy.get('[data-test-subj="fullScreenView"]').contains('Full screen view').click();
 
