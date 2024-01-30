@@ -30,7 +30,7 @@ interface PPLPageProps {
   onClear: () => void;
   updatePPLQueries: (query: string) => void;
   pplQuery: string;
-  pplTranslations: ResponseDetail<TranslateResult>[];
+  pplTranslations: Array<ResponseDetail<TranslateResult>>;
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
 }
@@ -122,7 +122,6 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
             showGutter: false,
           }}
           aria-label="Code Editor"
-          isReadOnly={this.props.asyncLoading}
         />
         <EuiSpacer />
         <EuiFlexGroup className="action-container" gutterSize="m">

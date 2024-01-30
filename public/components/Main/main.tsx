@@ -58,18 +58,20 @@ export interface ResponseDetail<T> {
   data?: T;
 }
 
-export type TranslateResult = { [key: string]: any };
+export interface TranslateResult {
+  [key: string]: any;
+}
 
 export interface QueryMessage {
   text: any;
   className: string;
 }
 
-export type QueryResult = {
+export interface QueryResult {
   fields: string[];
   records: DataRow[];
   message: string;
-};
+}
 
 export interface Tab {
   id: string;
@@ -77,18 +79,18 @@ export interface Tab {
   disabled: boolean;
 }
 
-export type ItemIdToExpandedRowMap = {
+export interface ItemIdToExpandedRowMap {
   [key: string]: {
     nodes: Tree;
     expandedRow?: {};
     selectedNodes?: { [key: string]: any };
   };
-};
+}
 
-export type DataRow = {
+export interface DataRow {
   rowId: number;
   data: { [key: string]: any };
-};
+}
 
 interface MainProps {
   httpClient: CoreStart['http'];
@@ -112,7 +114,7 @@ interface MainState {
   selectedTabId: string;
   searchQuery: string;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
-  messages: Array<QueryMessage>;
+  messages: QueryMessage[];
   isResultFullScreen: boolean;
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
@@ -127,7 +129,7 @@ interface MainState {
 const SUCCESS_MESSAGE = 'Success';
 
 const errorQueryResponse = (queryResultResponseDetail: any) => {
-  let errorMessage =
+  const errorMessage =
     queryResultResponseDetail.errorMessage +
     ', this query is not runnable. \n \n' +
     queryResultResponseDetail.data;
@@ -135,9 +137,9 @@ const errorQueryResponse = (queryResultResponseDetail: any) => {
 };
 
 export function getQueryResultsForTable(
-  queryResults: ResponseDetail<string>[],
+  queryResults: Array<ResponseDetail<string>>,
   jsonParseData: boolean
-): ResponseDetail<QueryResult>[] {
+): Array<ResponseDetail<QueryResult>> {
   return queryResults.map(
     (queryResultResponseDetail: ResponseDetail<string>): ResponseDetail<QueryResult> => {
       if (!queryResultResponseDetail.fulfilled) {
@@ -150,8 +152,8 @@ export function getQueryResultsForTable(
           ? JSON.parse(queryResultResponseDetail.data)
           : queryResultResponseDetail.data;
         const responseObj = queryResultResponseDetail.data ? resultData : '';
-        let fields: string[] = [];
-        let dataRows: DataRow[] = [];
+        const fields: string[] = [];
+        const dataRows: DataRow[] = [];
 
         const schema: object[] = _.get(responseObj, 'schema');
         const datarows: any[][] = _.get(responseObj, 'datarows');
@@ -179,9 +181,9 @@ export function getQueryResultsForTable(
             }
 
             for (const [id, field] of datarows.entries()) {
-              let row: { [key: string]: any } = {};
-              row['TABLE_NAME'] = field[index];
-              let dataRow: DataRow = {
+              const row: { [key: string]: any } = {};
+              row.TABLE_NAME = field[index];
+              const dataRow: DataRow = {
                 rowId: id,
                 data: row,
               };
@@ -203,12 +205,12 @@ export function getQueryResultsForTable(
             }
 
             for (const [id, data] of datarows.entries()) {
-              let row: { [key: string]: any } = {};
-              for (const index of schema.keys()) {
-                const fieldname = fields[index];
-                row[fieldname] = _.isNull(data[index]) ? '-' : data[index];
+              const row: { [key: string]: any } = {};
+              for (const idx of schema.keys()) {
+                const fieldname = fields[idx];
+                row[fieldname] = _.isNull(data[idx]) ? '-' : data[idx];
               }
-              let dataRow: DataRow = {
+              const dataRow: DataRow = {
                 rowId: id,
                 data: row,
               };
@@ -221,7 +223,7 @@ export function getQueryResultsForTable(
         return {
           fulfilled: queryResultResponseDetail.fulfilled,
           data: {
-            fields: fields,
+            fields,
             records: dataRows,
             message: SUCCESS_MESSAGE,
           },
@@ -309,14 +311,14 @@ export class Main extends React.Component<MainProps, MainState> {
       };
     }
     if (!response.data.ok) {
-      let err = response.data.resp;
+      const err = response.data.resp;
       console.log('Error occurred when processing query response: ', err);
 
       // Exclude a special case from the error cases:
       // When downloading the csv result, it gets the "Unable to parse/serialize body" response
       // But data is also returned in data body. For this case:
       // Mark fulfilled to true for this case to write the csv result to downloading file
-      if (response.data.body && err == 'Unable to parse/serialize body') {
+      if (response.data.body && err === 'Unable to parse/serialize body') {
         return {
           fulfilled: true,
           errorMessage: err,
@@ -358,7 +360,7 @@ export class Main extends React.Component<MainProps, MainState> {
   };
 
   // It returns the error or successful message to display in the Message Tab
-  getMessage(queryResultsForTable: ResponseDetail<QueryResult>[]): Array<QueryMessage> {
+  getMessage(queryResultsForTable: Array<ResponseDetail<QueryResult>>): QueryMessage[] {
     return queryResultsForTable.map((queryResult) => {
       return {
         text:
@@ -370,7 +372,7 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
-  getTranslateMessage(translationResult: ResponseDetail<TranslateResult>[]): Array<QueryMessage> {
+  getTranslateMessage(translationResult: Array<ResponseDetail<TranslateResult>>): QueryMessage[] {
     return translationResult.map((translation) => {
       return {
         text: translation.data ? SUCCESS_MESSAGE : translation.errorMessage,
@@ -383,7 +385,7 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       const responsePromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
@@ -401,13 +403,16 @@ export class Main extends React.Component<MainProps, MainState> {
         )
       );
       Promise.all([responsePromise]).then(([response]) => {
-        const results: ResponseDetail<string>[] = response.map((response) =>
-          this.processQueryResponse(response as IHttpResponse<ResponseData>)
+        const results: Array<ResponseDetail<string>> = response.map((resp) =>
+          this.processQueryResponse(resp as IHttpResponse<ResponseData>)
         );
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable(results, true);
+        const resultTable: Array<ResponseDetail<QueryResult>> = getQueryResultsForTable(
+          results,
+          true
+        );
         this.setState(
           {
-            queries: queries,
+            queries,
             queryResults: results,
             queryResultsTable: resultTable,
             selectedTabId: getDefaultTabId(results),
@@ -434,6 +439,7 @@ export class Main extends React.Component<MainProps, MainState> {
     // finding regular query here
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
+    const currentDataSource = this.state.selectedDatasource[0].label;
     if (queries.length > 0) {
       const responsePromise = Promise.all(
         queries.map((query: string) =>
@@ -441,9 +447,9 @@ export class Main extends React.Component<MainProps, MainState> {
             .post(ASYNC_QUERY_ENDPOINT, {
               body: JSON.stringify({
                 lang: language,
-                query: query,
-                datasource: this.state.selectedDatasource[0].label,
-                sessionId: getAsyncSessionId() ?? undefined,
+                query,
+                datasource: currentDataSource,
+                sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
               }),
             })
             .catch((error: any) => {
@@ -460,8 +466,8 @@ export class Main extends React.Component<MainProps, MainState> {
       );
 
       Promise.all([responsePromise]).then(([response]) => {
-        const results: ResponseDetail<string>[] = response.map((response) =>
-          this.processQueryResponse(response as IHttpResponse<ResponseData>)
+        const results: Array<ResponseDetail<string>> = response.map((resp) =>
+          this.processQueryResponse(resp as IHttpResponse<ResponseData>)
         );
         results.map(
           (queryResultResponseDetail: ResponseDetail<string>): ResponseDetail<QueryResult> => {
@@ -476,7 +482,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 : '';
 
               const queryId: string = _.get(responseObj, 'queryId');
-              setAsyncSessionId(_.get(responseObj, 'sessionId', null));
+              setAsyncSessionId(currentDataSource, _.get(responseObj, 'sessionId', null));
 
               // clear state from previous results and start async loading
               this.setState({
@@ -527,13 +533,16 @@ export class Main extends React.Component<MainProps, MainState> {
       const result: ResponseDetail<string> = this.processQueryResponse(
         response as IHttpResponse<ResponseData>
       );
-      const status = result.data['status'];
+      const status = result.data.status;
       if (_.isEqual(status, 'SUCCESS')) {
-        const resultTable: ResponseDetail<QueryResult>[] = getQueryResultsForTable([result], false);
+        const resultTable: Array<ResponseDetail<QueryResult>> = getQueryResultsForTable(
+          [result],
+          false
+        );
         this.setState({
-          queries: queries,
+          queries,
           queryResults: [result],
-          queryResultsTable: result.data['schema'].length > 0 ? resultTable : [],
+          queryResultsTable: result.data.schema.length > 0 ? resultTable : [],
           selectedTabId: getDefaultTabId([result]),
           selectedTabName: getDefaultTabLabel([result], queries[0]),
           messages: this.getMessage(resultTable),
@@ -544,7 +553,7 @@ export class Main extends React.Component<MainProps, MainState> {
           searchQuery: '',
           asyncLoading: false,
           asyncLoadingStatus: status,
-          isCallOutVisible: !(result.data['schema'].length > 0),
+          isCallOutVisible: !(result.data.schema.length > 0),
         });
       } else if (_.isEqual(status, 'FAILED') || _.isEqual(status, 'CANCELLED')) {
         this.setState({
@@ -556,7 +565,7 @@ export class Main extends React.Component<MainProps, MainState> {
               className: 'error-message',
             },
           ],
-          asyncQueryError: result.data['error'],
+          asyncQueryError: result.data.error,
         });
       } else {
         this.setState({
@@ -589,12 +598,12 @@ export class Main extends React.Component<MainProps, MainState> {
     const language = this.state.language;
 
     if (queries.length > 0) {
-      let endpoint =
+      const endpoint =
         '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
       const translationPromise = Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query: query }) })
+            .post(endpoint, { body: JSON.stringify({ query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -609,12 +618,12 @@ export class Main extends React.Component<MainProps, MainState> {
       );
 
       Promise.all([translationPromise]).then(([translationResponse]) => {
-        const translationResult: ResponseDetail<
+        const translationResult: Array<ResponseDetail<
           TranslateResult
-        >[] = translationResponse.map((translationResponse) =>
-          this.processTranslateResponse(translationResponse as IHttpResponse<ResponseData>)
+        >> = translationResponse.map((translationResp) =>
+          this.processTranslateResponse(translationResp as IHttpResponse<ResponseData>)
         );
-        const shouldCleanResults = queries == this.state.queries;
+        const shouldCleanResults = queries === this.state.queries;
         if (shouldCleanResults) {
           this.setState({
             queries,
@@ -653,8 +662,8 @@ export class Main extends React.Component<MainProps, MainState> {
             })
         )
       ).then((response) => {
-        const results: ResponseDetail<string>[] = response.map((response) =>
-          this.processQueryResponse(response as IHttpResponse<ResponseData>)
+        const results: Array<ResponseDetail<string>> = response.map((resp) =>
+          this.processQueryResponse(resp as IHttpResponse<ResponseData>)
         );
         this.setState(
           {
@@ -670,11 +679,11 @@ export class Main extends React.Component<MainProps, MainState> {
   getJdbc = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query: query }) })
+            .post(endpoint, { body: JSON.stringify({ query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -687,8 +696,8 @@ export class Main extends React.Component<MainProps, MainState> {
             })
         )
       ).then((jdbcResponse) => {
-        const jdbcResult: ResponseDetail<string>[] = jdbcResponse.map((jdbcResponse) =>
-          this.processQueryResponse(jdbcResponse as IHttpResponse<ResponseData>)
+        const jdbcResult: Array<ResponseDetail<string>> = jdbcResponse.map((jdbcResp) =>
+          this.processQueryResponse(jdbcResp as IHttpResponse<ResponseData>)
         );
         this.setState(
           {
@@ -704,11 +713,11 @@ export class Main extends React.Component<MainProps, MainState> {
   getCsv = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
+      const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query: query }) })
+            .post(endpoint, { body: JSON.stringify({ query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -721,8 +730,8 @@ export class Main extends React.Component<MainProps, MainState> {
             })
         )
       ).then((csvResponse) => {
-        const csvResult: ResponseDetail<string>[] = csvResponse.map((csvResponse) =>
-          this.processQueryResponse(csvResponse as IHttpResponse<ResponseData>)
+        const csvResult: Array<ResponseDetail<string>> = csvResponse.map((csvResp) =>
+          this.processQueryResponse(csvResp as IHttpResponse<ResponseData>)
         );
         this.setState(
           {
@@ -738,11 +747,11 @@ export class Main extends React.Component<MainProps, MainState> {
   getText = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
-      let endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
+      const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
       Promise.all(
         queries.map((query: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query: query }) })
+            .post(endpoint, { body: JSON.stringify({ query }) })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -755,8 +764,8 @@ export class Main extends React.Component<MainProps, MainState> {
             })
         )
       ).then((textResponse) => {
-        const textResult: ResponseDetail<string>[] = textResponse.map((textResponse) =>
-          this.processQueryResponse(textResponse as IHttpResponse<ResponseData>)
+        const textResult: Array<ResponseDetail<string>> = textResponse.map((textResp) =>
+          this.processQueryResponse(textResp as IHttpResponse<ResponseData>)
         );
         this.setState(
           {
@@ -845,7 +854,7 @@ export class Main extends React.Component<MainProps, MainState> {
     let link;
     let linkTitle;
 
-    if (this.state.language == 'SQL') {
+    if (this.state.language === 'SQL') {
       page = (
         <SQLPage
           http={this.httpClient}
@@ -1012,7 +1021,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
           <EuiPageContent paddingSize="m">
             <EuiPageContentBody>
-              <EuiFlexGroup alignItems="center"></EuiFlexGroup>
+              <EuiFlexGroup alignItems="center" />
               <EuiSpacer size="l" />
               <div>{page}</div>
               <EuiSpacer size="l" />
@@ -1082,5 +1091,3 @@ export class Main extends React.Component<MainProps, MainState> {
     );
   }
 }
-
-export default Main;

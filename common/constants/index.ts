@@ -72,6 +72,7 @@ export const ACCELERATION_AGGREGRATION_FUNCTIONS = [
 export const ACCELERATION_TIME_INTERVAL = [
   { text: 'millisecond(s)', value: 'millisecond' },
   { text: 'second(s)', value: 'second' },
+  { text: 'minutes(s)', value: 'minute' },
   { text: 'hour(s)', value: 'hour' },
   { text: 'day(s)', value: 'day' },
   { text: 'week(s)', value: 'week' },

@@ -19,7 +19,7 @@ import {
   mockQueryTranslationResponse,
   mockResultWithNull,
 } from '../../../test/mocks/mockData';
-import Main from './main';
+import { Main } from './main';
 
 const setBreadcrumbsMock = jest.fn();
 
@@ -201,7 +201,6 @@ describe('<Main /> spec', () => {
   });
 
   it('click clear button', async () => {
-    let postRequestFlag = 0;
     const client = httpClientMock;
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     client.post = jest.fn(() => {

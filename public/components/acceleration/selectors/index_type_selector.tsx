@@ -38,9 +38,9 @@ export const IndexTypeSelector = ({
   setAccelerationFormData,
 }: IndexTypeSelectorProps) => {
   const { setToast } = useToast();
-  const [selectedIndexType, setSelectedIndexType] = useState<EuiComboBoxOptionOption<string>[]>([
-    ACCELERATION_INDEX_TYPES[0],
-  ]);
+  const [selectedIndexType, setSelectedIndexType] = useState<
+    Array<EuiComboBoxOptionOption<string>>
+  >([ACCELERATION_INDEX_TYPES[0]]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const IndexTypeSelector = ({
         datasource: accelerationFormData.dataSource,
       };
       const errorMessage = 'ERROR: failed to load table columns';
-      getJobId(query, http, (id: string) => {
+      getJobId(accelerationFormData.dataSource, query, http, (id: string) => {
         if (id === undefined) {
           setToast(errorMessage, 'danger');
         } else {
@@ -68,7 +68,7 @@ export const IndexTypeSelector = ({
                 }));
               setAccelerationFormData({
                 ...accelerationFormData,
-                dataTableFields: dataTableFields,
+                dataTableFields,
               });
               setLoading(false);
             }
@@ -82,7 +82,7 @@ export const IndexTypeSelector = ({
     }
   }, [accelerationFormData.dataTable]);
 
-  const onChangeIndexType = (indexTypeOption: EuiComboBoxOptionOption<string>[]) => {
+  const onChangeIndexType = (indexTypeOption: Array<EuiComboBoxOptionOption<string>>) => {
     const indexType = indexTypeOption[0].value as AccelerationIndexType;
     setAccelerationFormData({
       ...accelerationFormData,
