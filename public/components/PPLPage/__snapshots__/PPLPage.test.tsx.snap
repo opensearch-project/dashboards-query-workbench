@@ -139,6 +139,7 @@ exports[`<PPLPage /> spec renders the component 1`] = `
       >
         <button
           class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+          data-test-subj="pplRunButton"
           type="button"
         >
           <span
@@ -157,6 +158,7 @@ exports[`<PPLPage /> spec renders the component 1`] = `
       >
         <button
           class="euiButton euiButton--primary sql-editor-button"
+          data-test-subj="pplClearButton"
           type="button"
         >
           <span
@@ -332,6 +334,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
       >
         <button
           class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+          data-test-subj="pplRunButton"
           type="button"
         >
           <span
@@ -350,6 +353,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
       >
         <button
           class="euiButton euiButton--primary sql-editor-button"
+          data-test-subj="pplClearButton"
           type="button"
         >
           <span
