@@ -135,6 +135,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               data-test-subj='pplRunButton'
               className="sql-editor-button"
               isLoading={this.props.asyncLoading}
+              isDisabled={false}
               onClick={() => this.props.onRun(this.props.pplQuery)}
             >
               {this.props.asyncLoading ? 'Running' : 'Run'}

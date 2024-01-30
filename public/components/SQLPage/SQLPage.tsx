@@ -173,6 +173,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     fill={true}
                     className="sql-editor-button"
                     isLoading={this.props.asyncLoading}
+                    isDisabled={false}
                     onClick={() => this.props.onRun(this.props.sqlQuery)}
                   >
                     {this.props.asyncLoading ? 'Running' : 'Run'}
