@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import '@testing-library/jest-dom/extend-expect';
+import { configure, fireEvent, render } from '@testing-library/react';
+import 'mutationobserver-shim';
 import React from 'react';
 import 'regenerator-runtime';
-import 'mutationobserver-shim';
-import '@testing-library/jest-dom/extend-expect';
-import { render, fireEvent, configure } from '@testing-library/react';
-import { mockQueryResults, mockQueries } from '../../../test/mocks/mockData';
+import { mockQueries, mockQueryResults } from '../../../test/mocks/mockData';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
+import { ItemIdToExpandedRowMap, QueryResult, ResponseDetail, Tab } from '../Main/main';
 import QueryResults from './QueryResults';
-import { Tab, ItemIdToExpandedRowMap, ResponseDetail, QueryResult } from '../Main/main';
 
 configure({ testIdAttribute: 'data-test-subj' });
 
@@ -53,7 +53,7 @@ function renderSQLQueryResults(
         getText={getText}
         isResultFullScreen={false}
         setIsResultFullScreen={setIsResultFullScreen}
-        asyncLoadingStatus="SUCCESS"
+        asyncLoadingStatus="success"
         asyncQueryError=""
         selectedDatasource={[{ label: 'OpenSearch' }]}
         cancelAsyncQuery={() => {}}
@@ -189,7 +189,7 @@ function renderPPLQueryResults(
         getText={getText}
         isResultFullScreen={false}
         setIsResultFullScreen={setIsResultFullScreen}
-        asyncLoadingStatus="SUCCESS"
+        asyncLoadingStatus="success"
         asyncQueryError=""
         selectedDatasource={[{ label: 'OpenSearch' }]}
         cancelAsyncQuery={() => {}}
@@ -315,7 +315,7 @@ describe('<AsyncQueryResults /> spec', () => {
           getText={() => {}}
           isResultFullScreen={false}
           setIsResultFullScreen={() => {}}
-          asyncLoadingStatus="RUNNING"
+          asyncLoadingStatus="running"
           asyncQueryError=""
           selectedDatasource={[{ label: 'mys3' }]}
           cancelAsyncQuery={() => {}}
@@ -352,7 +352,7 @@ describe('<AsyncQueryResults /> spec', () => {
           getText={() => {}}
           isResultFullScreen={false}
           setIsResultFullScreen={() => {}}
-          asyncLoadingStatus="FAILED"
+          asyncLoadingStatus="failed"
           asyncQueryError="custom error"
           selectedDatasource={[{ label: 'mys3' }]}
           cancelAsyncQuery={() => {}}

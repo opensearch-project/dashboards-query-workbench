@@ -4,19 +4,19 @@
  */
 
 import {
-  EuiFlexGroup,
-  EuiText,
-  EuiLoadingSpinner,
   EuiButton,
+  EuiFlexGroup,
   EuiIcon,
+  EuiLoadingSpinner,
   EuiModal,
   EuiModalBody,
   EuiModalFooter,
   EuiModalHeader,
   EuiModalHeaderTitle,
+  EuiText,
 } from '@elastic/eui';
-import { AsyncQueryLoadingStatus } from '../../../common/types';
 import React, { useState } from 'react';
+import { AsyncQueryLoadingStatus } from '../../../common/types';
 
 interface AsyncQueryBodyProps {
   asyncLoadingStatus: AsyncQueryLoadingStatus;
@@ -51,7 +51,7 @@ export function AsyncQueryBody(props: AsyncQueryBodyProps) {
 
   return (
     <EuiFlexGroup direction="column" alignItems="center">
-      {asyncLoadingStatus == 'FAILED' ? (
+      {asyncLoadingStatus == 'failed' ? (
         <>
           <EuiIcon size="l" type="alert" color="danger" />
           <EuiText>
