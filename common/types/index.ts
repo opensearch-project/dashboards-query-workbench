@@ -32,7 +32,7 @@ export interface RefreshIntervalType {
   refreshInterval: string;
 }
 
-export interface watermarkDelayType {
+export interface WatermarkDelayType {
   delayWindow: number;
   delayInterval: string;
 }
@@ -45,7 +45,7 @@ export interface GroupByTumbleType {
   tumbleInterval: string;
 }
 
-export interface materializedViewQueryType {
+export interface MaterializedViewQueryType {
   columnsValues: MaterializedViewColumn[];
   groupByTumbleValue: GroupByTumbleType;
 }
@@ -75,13 +75,13 @@ export interface CreateAccelerationForm {
   accelerationIndexType: AccelerationIndexType;
   skippingIndexQueryData: SkippingIndexRowType[];
   coveringIndexQueryData: string[];
-  materializedViewQueryData: materializedViewQueryType;
+  materializedViewQueryData: MaterializedViewQueryType;
   accelerationIndexName: string;
   primaryShardsCount: number;
   replicaShardsCount: number;
   refreshType: AccelerationRefreshType;
   checkpointLocation: string | undefined;
-  watermarkDelay: watermarkDelayType;
+  watermarkDelay: WatermarkDelayType;
   refreshIntervalOptions: RefreshIntervalType;
   formErrors: FormErrorsType;
 }
