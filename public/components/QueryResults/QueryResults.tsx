@@ -370,7 +370,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
                     id="tabsContainer"
                   >
                     <EuiFlexItem style={{ marginTop: '8px' }} grow={false}>
-                      <EuiTabs data-test-subj = "result_tab" style={{ marginLeft: 7, marginBottom: 6 }}>{tabsButtons}</EuiTabs>
+                      <EuiTabs data-test-subj="result_tab" style={{ marginLeft: 7, marginBottom: 6 }}>{tabsButtons}</EuiTabs>
                     </EuiFlexItem>
                   </EuiFlexGroup>
 

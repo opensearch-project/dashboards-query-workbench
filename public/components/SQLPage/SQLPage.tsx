@@ -169,7 +169,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
               <EuiFlexGroup className="action-container" gutterSize="m">
                 <EuiFlexItem grow={false} >
                   <EuiButton
-                    data-test-subj='sqlRunButton'
+                    data-test-subj="sqlRunButton"
                     fill={true}
                     className="sql-editor-button"
                     isLoading={this.props.asyncLoading}
@@ -185,7 +185,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     this.props.onClear();
                   }}
                 >
-                  <EuiButton data-test-subj='sqlClearButton' className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                  <EuiButton data-test-subj="sqlClearButton" className="sql-editor-button" isDisabled={this.props.asyncLoading}>
                     Clear
                   </EuiButton>
                 </EuiFlexItem>
