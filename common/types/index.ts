@@ -86,7 +86,14 @@ export interface CreateAccelerationForm {
   formErrors: FormErrorsType;
 }
 
-export type AsyncQueryLoadingStatus = 'success' | 'failed' | 'running' | 'scheduled' | 'cancelled';
+export enum AsyncQueryLoadingStatus {
+  Success = 'success',
+  Failed = 'failed',
+  Running = 'running',
+  Scheduled = 'scheduled',
+  Cancelled = 'cancelled'
+}
+
 export type TreeItemType =
   | 'covering_index'
   | 'skipping_index'

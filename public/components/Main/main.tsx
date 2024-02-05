@@ -259,7 +259,7 @@ export class Main extends React.Component<MainProps, MainState> {
       isResultFullScreen: false,
       selectedDatasource: [{ label: 'OpenSearch' }],
       asyncLoading: false,
-      asyncLoadingStatus: 'success',
+      asyncLoadingStatus: AsyncQueryLoadingStatus.Success,
       asyncQueryError: '',
       asyncJobId: '',
       refreshTree: false,
@@ -424,7 +424,7 @@ export class Main extends React.Component<MainProps, MainState> {
             queryResultsTEXT: [],
             searchQuery: '',
             asyncLoading: false,
-            asyncLoadingStatus: 'success',
+            asyncLoadingStatus: AsyncQueryLoadingStatus.Success,
             isCallOutVisible: false,
           },
           () => console.log('Successfully updated the states')
@@ -497,7 +497,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 selectedTabName: MESSAGE_TAB_LABEL,
                 itemIdToExpandedRowMap: {},
                 asyncLoading: true,
-                asyncLoadingStatus: 'scheduled',
+                asyncLoadingStatus: AsyncQueryLoadingStatus.Scheduled,
                 asyncJobId: queryId,
                 isCallOutVisible: false,
               });
@@ -792,7 +792,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabName: MESSAGE_TAB_LABEL,
       itemIdToExpandedRowMap: {},
       asyncLoading: false,
-      asyncLoadingStatus: 'success',
+      asyncLoadingStatus: AsyncQueryLoadingStatus.Success,
       isCallOutVisible: false,
     });
   };

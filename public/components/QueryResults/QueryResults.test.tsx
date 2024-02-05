@@ -5,6 +5,7 @@
 
 import '@testing-library/jest-dom/extend-expect';
 import { configure, fireEvent, render } from '@testing-library/react';
+import { AsyncQueryLoadingStatus } from 'common/types';
 import 'mutationobserver-shim';
 import React from 'react';
 import 'regenerator-runtime';
@@ -53,7 +54,7 @@ function renderSQLQueryResults(
         getText={getText}
         isResultFullScreen={false}
         setIsResultFullScreen={setIsResultFullScreen}
-        asyncLoadingStatus="success"
+        asyncLoadingStatus={AsyncQueryLoadingStatus.Success}
         asyncQueryError=""
         selectedDatasource={[{ label: 'OpenSearch' }]}
         cancelAsyncQuery={() => {}}
@@ -189,7 +190,7 @@ function renderPPLQueryResults(
         getText={getText}
         isResultFullScreen={false}
         setIsResultFullScreen={setIsResultFullScreen}
-        asyncLoadingStatus="success"
+        asyncLoadingStatus={AsyncQueryLoadingStatus.Success}
         asyncQueryError=""
         selectedDatasource={[{ label: 'OpenSearch' }]}
         cancelAsyncQuery={() => {}}
@@ -315,7 +316,7 @@ describe('<AsyncQueryResults /> spec', () => {
           getText={() => {}}
           isResultFullScreen={false}
           setIsResultFullScreen={() => {}}
-          asyncLoadingStatus="running"
+          asyncLoadingStatus={AsyncQueryLoadingStatus.Running}
           asyncQueryError=""
           selectedDatasource={[{ label: 'mys3' }]}
           cancelAsyncQuery={() => {}}
@@ -352,7 +353,7 @@ describe('<AsyncQueryResults /> spec', () => {
           getText={() => {}}
           isResultFullScreen={false}
           setIsResultFullScreen={() => {}}
-          asyncLoadingStatus="failed"
+          asyncLoadingStatus={AsyncQueryLoadingStatus.Failed}
           asyncQueryError="custom error"
           selectedDatasource={[{ label: 'mys3' }]}
           cancelAsyncQuery={() => {}}

@@ -51,7 +51,7 @@ export function AsyncQueryBody(props: AsyncQueryBodyProps) {
 
   return (
     <EuiFlexGroup direction="column" alignItems="center">
-      {asyncLoadingStatus == 'failed' ? (
+      {asyncLoadingStatus == AsyncQueryLoadingStatus.Failed ? (
         <>
           <EuiIcon size="l" type="alert" color="danger" />
           <EuiText>
