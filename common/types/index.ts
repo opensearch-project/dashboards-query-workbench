@@ -91,7 +91,7 @@ export enum AsyncQueryLoadingStatus {
   Failed = 'failed',
   Running = 'running',
   Scheduled = 'scheduled',
-  Cancelled = 'cancelled'
+  Cancelled = 'cancelled',
 }
 
 export type TreeItemType =
