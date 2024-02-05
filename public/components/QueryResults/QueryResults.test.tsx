@@ -5,7 +5,9 @@
 
 import '@testing-library/jest-dom/extend-expect';
 import { configure, fireEvent, render } from '@testing-library/react';
-import { AsyncQueryLoadingStatus } from 'common/types';
+// import AsyncQueryLoadingStatus from 'common/types/index';
+import { AsyncQueryLoadingStatus } from "../../../common/types/index";
+
 import 'mutationobserver-shim';
 import React from 'react';
 import 'regenerator-runtime';
