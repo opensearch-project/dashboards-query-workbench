@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import '@testing-library/jest-dom/extend-expect';
+import { configure, fireEvent, render } from '@testing-library/react';
+import 'mutationobserver-shim';
 import React from 'react';
 import 'regenerator-runtime';
-import 'mutationobserver-shim';
-import '@testing-library/jest-dom/extend-expect';
-import { render, fireEvent, configure } from '@testing-library/react';
-import { mockQueryResults, mockQueries } from '../../../test/mocks/mockData';
+import { mockQueries, mockQueryResults } from '../../../test/mocks/mockData';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
+import { ItemIdToExpandedRowMap, QueryResult, ResponseDetail, Tab } from '../Main/main';
 import QueryResults from './QueryResults';
-import { Tab, ItemIdToExpandedRowMap, ResponseDetail, QueryResult } from '../Main/main';
 
 configure({ testIdAttribute: 'data-test-subj' });
 
@@ -126,6 +126,32 @@ describe('<QueryResults with data/> spec', () => {
     expect(getByText('50 rows'));
     expect(getByText('100 rows'));
     await fireEvent.click(getByText('20 rows'));
+  });
+
+  it('renders the component with mock query results and tests the dowmload buttons', async () => {
+    const {
+      getByText,
+    } = renderSQLQueryResults(
+      mockQueryResults,
+      mockQueries,
+      mockSearchQuery,
+      onSelectedTabIdChange,
+      onQueryChange,
+      updateExpandedMap,
+      getRawResponse,
+      getJdbc,
+      getCsv,
+      getText,
+      setIsResultFullScreen
+    );
+    expect(getByText('Download')).toBeInTheDocument();
+    await fireEvent.click(getByText('Download'));
+    expect(getByText('Download JSON')).toBeInTheDocument();
+    expect(getByText('Download JDBC')).toBeInTheDocument();
+    expect(getByText('Download CSV')).toBeInTheDocument();
+    expect(getByText('Download Text')).toBeInTheDocument();
+
+    expect(document.body.children[0]).toMatchSnapshot();
   });
 
   it('renders the component to test tabs down arrow', async () => {
