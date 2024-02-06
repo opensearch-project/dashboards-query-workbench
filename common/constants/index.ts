@@ -18,7 +18,7 @@ export const TREE_ITEM_TABLE_NAME_DEFAULT_NAME = `table`;
 export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
 export const TREE_ITEM_BADGE_NAME = `badge`;
 export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
-export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON datasource.database.table 
+export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON \`datasource\`.\`database\`.\`table\` 
 (status VALUE_SET) 
 WITH (
   auto_refresh = true,
