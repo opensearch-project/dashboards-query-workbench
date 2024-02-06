@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import _ from 'lodash';
 import { EuiButtonGroup } from '@elastic/eui';
+import React from 'react';
 // @ts-ignore
-import { htmlIdGenerator } from '@elastic/eui/lib/services';
 
 interface SwitchProps {
   onChange: (id: string, value?: any) => void;

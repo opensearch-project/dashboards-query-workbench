@@ -327,6 +327,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
                   <EuiButton
                     size="s"
                     iconType="fullScreen"
+                    data-test-subj='fullScreenView'
                     onClick={() => this.props.setIsResultFullScreen(true)}
                   >
                     Full screen view
@@ -369,7 +370,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
                     id="tabsContainer"
                   >
                     <EuiFlexItem style={{ marginTop: '8px' }} grow={false}>
-                      <EuiTabs style={{ marginLeft: 7, marginBottom: 6 }}>{tabsButtons}</EuiTabs>
+                      <EuiTabs data-test-subj="result_tab" style={{ marginLeft: 7, marginBottom: 6 }}>{tabsButtons}</EuiTabs>
                     </EuiFlexItem>
                   </EuiFlexGroup>
 

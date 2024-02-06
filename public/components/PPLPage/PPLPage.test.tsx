@@ -4,9 +4,9 @@
  */
 
 
-import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
+import React from "react";
 import { PPLPage } from "./PPLPage";
 
 
@@ -31,6 +31,7 @@ describe("<PPLPage /> spec", () => {
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
+    const onExplain = jest.fn()
 
     const { getByText } = render(
       <PPLPage
@@ -53,7 +54,74 @@ describe("<PPLPage /> spec", () => {
 
   });
 
+  it('tests the action buttons', async () => {
+    const onRun = jest.fn();
+    const onTranslate = jest.fn();
+    const onClean = jest.fn();
+    const updateSQLQueries = jest.fn();
+    const onExplain = jest.fn()
+
+    const { getByText } = render(
+      <PPLPage
+        onRun={onRun}
+        onTranslate={onTranslate}
+        onClear={onClean}
+        updatePPLQueries={updateSQLQueries}
+        pplTranslations={[]}
+        selectedDatasource={[{ label: 'OpenSearch' }]}
+      />
+    );
+    expect(getByText('Explain')).toBeInTheDocument();
+    fireEvent.click(getByText('Explain'));
+    expect(document.body.children[0]).toMatchSnapshot();
+
+  });
+
+  it('tests the Sample query button', async () => {
+    const onRun = jest.fn();
+    const onTranslate = jest.fn();
+    const onClean = jest.fn();
+    const updateSQLQueries = jest.fn();
+    const onExplain = jest.fn()
+
+    const { getByText } = render(
+      <PPLPage
+        onRun={onRun}
+        onTranslate={onTranslate}
+        onClear={onClean}
+        updatePPLQueries={updateSQLQueries}
+        pplTranslations={[]}
+        selectedDatasource={[{ label: 'glue_1' }]}
+      />
+    );
+    expect(getByText('Sample Query')).toBeInTheDocument();
+    const sampleQueryButton = getByText('Sample Query');
+    const asyncTest = () => {
+      fireEvent.click(sampleQueryButton);
+    };
+    
+    await asyncTest();
+    expect(document.body.children[0]).toMatchSnapshot();
+
+  });
+  it('tests the Sample query button', async () => {
+    const onRun = jest.fn();
+    const onTranslate = jest.fn();
+    const onClean = jest.fn();
+    const updateSQLQueries = jest.fn();
+    const onExplain = jest.fn()
+
+    const { getByText } = render(
+      <PPLPage
+        onRun={onRun}
+        onTranslate={onTranslate}
+        onClear={onClean}
+        updatePPLQueries={updateSQLQueries}
+        pplTranslations={[]}
+        selectedDatasource={[{ label: 'glue_1' }]}
+      />
+    );
+    // expect(getByText('PPL documentation')).toBeInTheDocument();
+    expect(document.body.children[0]).toMatchSnapshot();
+  });
 });
-
-
-

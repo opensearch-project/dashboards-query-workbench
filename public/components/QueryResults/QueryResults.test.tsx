@@ -5,7 +5,6 @@
 
 import '@testing-library/jest-dom/extend-expect';
 import { configure, fireEvent, render } from '@testing-library/react';
-// import AsyncQueryLoadingStatus from 'common/types/index';
 import { AsyncQueryLoadingStatus } from "../../../common/types/index";
 
 import 'mutationobserver-shim';
@@ -129,6 +128,32 @@ describe('<QueryResults with data/> spec', () => {
     expect(getByText('50 rows'));
     expect(getByText('100 rows'));
     await fireEvent.click(getByText('20 rows'));
+  });
+
+  it('renders the component with mock query results and tests the dowmload buttons', async () => {
+    const {
+      getByText,
+    } = renderSQLQueryResults(
+      mockQueryResults,
+      mockQueries,
+      mockSearchQuery,
+      onSelectedTabIdChange,
+      onQueryChange,
+      updateExpandedMap,
+      getRawResponse,
+      getJdbc,
+      getCsv,
+      getText,
+      setIsResultFullScreen
+    );
+    expect(getByText('Download')).toBeInTheDocument();
+    await fireEvent.click(getByText('Download'));
+    expect(getByText('Download JSON')).toBeInTheDocument();
+    expect(getByText('Download JDBC')).toBeInTheDocument();
+    expect(getByText('Download CSV')).toBeInTheDocument();
+    expect(getByText('Download Text')).toBeInTheDocument();
+
+    expect(document.body.children[0]).toMatchSnapshot();
   });
 
   it('renders the component to test tabs down arrow', async () => {
