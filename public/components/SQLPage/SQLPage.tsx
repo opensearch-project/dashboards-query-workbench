@@ -23,9 +23,9 @@ import 'brace/ext/language_tools';
 import 'brace/mode/sql';
 import React from 'react';
 import { CoreStart } from '../../../../../src/core/public';
+import { SAMPLE_SQL_QUERY } from '../../../common/constants';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 import { CreateAcceleration } from '../acceleration/create/create_acceleration';
-import { SAMPLE_SQL_QUERY } from '../../../common/constants';
 
 interface SQLPageProps {
   http: CoreStart['http'];
@@ -148,6 +148,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
         >
           <EuiSpacer size="s" />
           <EuiCodeEditor
+            data-test-subj='sqlCodeEditor'
             mode="sql"
             theme="textmate"
             width="100%"
@@ -166,11 +167,13 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
           <EuiFlexGroup justifyContent="spaceBetween">
             <EuiFlexItem>
               <EuiFlexGroup className="action-container" gutterSize="m">
-                <EuiFlexItem grow={false} onClick={() => this.props.onRun(this.props.sqlQuery)}>
+                <EuiFlexItem grow={false} >
                   <EuiButton
+                    data-test-subj="sqlRunButton"
                     fill={true}
                     className="sql-editor-button"
                     isLoading={this.props.asyncLoading}
+                    onClick={() => this.props.onRun(this.props.sqlQuery)}
                   >
                     {this.props.asyncLoading ? 'Running' : 'Run'}
                   </EuiButton>
@@ -182,7 +185,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     this.props.onClear();
                   }}
                 >
-                  <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                  <EuiButton data-test-subj="sqlClearButton" className="sql-editor-button" isDisabled={this.props.asyncLoading}>
                     Clear
                   </EuiButton>
                 </EuiFlexItem>
