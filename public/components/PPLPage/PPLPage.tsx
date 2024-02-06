@@ -128,12 +128,13 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
           <EuiFlexItem
             className="sql-editor-buttons"
             grow={false}
-            onClick={() => this.props.onRun(this.props.pplQuery)}
           >
             <EuiButton
               fill={true}
+              data-test-subj="pplRunButton"
               className="sql-editor-button"
               isLoading={this.props.asyncLoading}
+              onClick={() => this.props.onRun(this.props.pplQuery)}
             >
               {this.props.asyncLoading ? 'Running' : 'Run'}
             </EuiButton>
@@ -145,7 +146,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               this.props.onClear();
             }}
           >
-            <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+            <EuiButton className="sql-editor-button"  data-test-subj="pplClearButton" isDisabled={this.props.asyncLoading}>
               Clear
             </EuiButton>
           </EuiFlexItem>
