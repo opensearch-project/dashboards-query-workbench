@@ -139,7 +139,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       setTableNames([]);
       const query = {
         lang: 'sql',
-        query: `SHOW SCHEMAS IN ${selectedItems[0].label}`,
+        query: `SHOW SCHEMAS IN \`${selectedItems[0]['label']}\``,
         datasource: selectedItems[0].label,
       };
       getJobId(selectedItems[0].label, query, http, (id) => {
@@ -202,7 +202,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setSelectedDatabase(databaseName);
     const query = {
       lang: 'sql',
-      query: `SHOW TABLES IN ${selectedItems[0].label}.${databaseName}`,
+      query: `SHOW TABLES IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
       datasource: selectedItems[0].label,
     };
     getJobId(selectedItems[0].label, query, http, (id) => {
@@ -270,7 +270,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   const loadCoveringIndex = (tableName: string, databaseName: string) => {
     const coverQuery = {
       lang: 'sql',
-      query: `SHOW INDEX ON ${selectedItems[0].label}.${databaseName}.${tableName}`,
+      query: `SHOW INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
       datasource: selectedItems[0].label,
     };
     getJobId(selectedItems[0].label, coverQuery, http, (id) => {
@@ -354,7 +354,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const materializedViewQuery = {
       lang: 'sql',
-      query: `SHOW MATERIALIZED VIEW IN ${selectedItems[0].label}.${databaseName}`,
+      query: `SHOW MATERIALIZED VIEW IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
       datasource: selectedItems[0].label,
     };
     getJobId(selectedItems[0].label, materializedViewQuery, http, (id) => {
@@ -418,7 +418,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const skipQuery = {
       lang: 'sql',
-      query: `DESC SKIPPING INDEX ON ${selectedItems[0].label}.${databaseName}.${tableName}`,
+      query: `DESC SKIPPING INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
       datasource: selectedItems[0].label,
     };
     getJobId(selectedItems[0].label, skipQuery, http, (id) => {
@@ -472,7 +472,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   };
   const handleQuery = (e: MouseEvent, parentName: string, tableName: string) => {
     e.stopPropagation();
-    updateSQLQueries(`select * from ${selectedItems[0].label}.${parentName}.${tableName} limit 10`);
+    updateSQLQueries(`select * from \`${selectedItems[0].label}\`.\`${parentName}\`.\`${tableName}\` limit 10`);
   };
 
   const iconCreation = (node: TreeItem) => {

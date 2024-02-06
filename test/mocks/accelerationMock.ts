@@ -4,13 +4,13 @@
  */
 
 import {
-  ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
-  ACCELERATION_TIME_INTERVAL,
+    ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
+    ACCELERATION_TIME_INTERVAL,
 } from '../../common/constants';
 import {
-  CreateAccelerationForm,
-  SkippingIndexRowType,
-  materializedViewQueryType,
+    CreateAccelerationForm,
+    MaterializedViewQueryType,
+    SkippingIndexRowType,
 } from '../../common/types';
 
 export const skippingIndexDataMock: SkippingIndexRowType[] = [
@@ -39,7 +39,7 @@ export const materializedViewEmptyDataMock = {
   },
 };
 
-export const materializedViewEmptyTumbleDataMock: materializedViewQueryType = {
+export const materializedViewEmptyTumbleDataMock: MaterializedViewQueryType = {
   columnsValues: [
     {
       id: '1',
@@ -54,7 +54,7 @@ export const materializedViewEmptyTumbleDataMock: materializedViewQueryType = {
   },
 };
 
-export const materializedViewStaleDataMock: materializedViewQueryType = {
+export const materializedViewStaleDataMock: MaterializedViewQueryType = {
   columnsValues: [],
   groupByTumbleValue: {
     timeField: 'timestamp',
@@ -63,7 +63,7 @@ export const materializedViewStaleDataMock: materializedViewQueryType = {
   },
 };
 
-export const materializedViewValidDataMock: materializedViewQueryType = {
+export const materializedViewValidDataMock: MaterializedViewQueryType = {
   columnsValues: [
     {
       id: '1',

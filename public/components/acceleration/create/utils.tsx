@@ -12,8 +12,8 @@ import {
   AccelerationRefreshType,
   CreateAccelerationForm,
   FormErrorsType,
+  MaterializedViewQueryType,
   SkippingIndexRowType,
-  materializedViewQueryType,
 } from '../../../../common/types';
 
 export const pluralizeTime = (timeWindow: number) => {
@@ -103,7 +103,7 @@ export const validateCoveringIndexData = (
 
 export const validateMaterializedViewData = (
   accelerationIndexType: AccelerationIndexType,
-  materializedViewQueryData: materializedViewQueryType
+  materializedViewQueryData: MaterializedViewQueryType
 ) => {
   if (accelerationIndexType !== 'materialized') return [];
 
