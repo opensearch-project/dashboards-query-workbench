@@ -12,7 +12,6 @@ import {
   htmlIdGenerator,
 } from '@elastic/eui';
 import React, { useEffect, useState } from 'react';
-import { CoreStart } from '../../../../../../src/core/public';
 import {
   ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
   ACCELERATION_INDEX_TYPES,
@@ -26,20 +25,16 @@ import {
   DataTableFieldsType,
 } from '../../../../common/types';
 import { executeAsyncQuery } from '../../../../common/utils/async_query_helpers';
-import { useToast } from '../../../../common/utils/toast_helper';
 
 interface IndexTypeSelectorProps {
-  http: CoreStart['http'];
   accelerationFormData: CreateAccelerationForm;
   setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
 
 export const IndexTypeSelector = ({
-  http,
   accelerationFormData,
   setAccelerationFormData,
 }: IndexTypeSelectorProps) => {
-  const { setToast } = useToast();
   const [selectedIndexType, setSelectedIndexType] = useState<
     Array<EuiComboBoxOptionOption<string>>
   >([ACCELERATION_INDEX_TYPES[0]]);

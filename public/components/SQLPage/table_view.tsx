@@ -150,17 +150,17 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       setTableNames([]);
       const query = {
         lang: 'sql',
-        query: `SHOW SCHEMAS IN \`${selectedItems[0]['label']}\``,
+        query: `SHOW SCHEMAS IN \`${selectedItems[0].label}\``,
         datasource: selectedItems[0].label,
       };
       setCurrentQueryHandler(() =>
         executeAsyncQuery(selectedItems[0].label, query, (response: AsyncApiResponse) => {
           const status = response.data.resp.status.toLowerCase();
-          setIsLoading({ flag: true, status: status });
+          setIsLoading({ flag: true, status });
           if (status === AsyncQueryStatus.Success) {
             const fetchedDatabases = [].concat(...response.data.resp.datarows);
             setTreeData(loadTreeItem(fetchedDatabases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
-            setIsLoading({ flag: false, status: status });
+            setIsLoading({ flag: false, status });
           } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
             setIsLoading({
               flag: false,
@@ -204,7 +204,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setSelectedDatabase(databaseName);
     const query = {
       lang: 'sql',
-      query: `SHOW TABLES IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
+      query: `SHOW TABLES IN \`${selectedItems[0].label}\`.\`${databaseName}\``,
       datasource: selectedItems[0].label,
     };
 
@@ -268,7 +268,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   const loadCoveringIndex = (tableName: string, databaseName: string) => {
     const coverQuery = {
       lang: 'sql',
-      query: `SHOW INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
+      query: `SHOW INDEX ON \`${selectedItems[0].label}\`.\`${databaseName}\`.\`${tableName}\``,
       datasource: selectedItems[0].label,
     };
 
@@ -348,7 +348,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const materializedViewQuery = {
       lang: 'sql',
-      query: `SHOW MATERIALIZED VIEW IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
+      query: `SHOW MATERIALIZED VIEW IN \`${selectedItems[0].label}\`.\`${databaseName}\``,
       datasource: selectedItems[0].label,
     };
 
@@ -407,7 +407,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setLoadingForTableElements(databaseName, tableName);
     const skipQuery = {
       lang: 'sql',
-      query: `DESC SKIPPING INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
+      query: `DESC SKIPPING INDEX ON \`${selectedItems[0].label}\`.\`${databaseName}\`.\`${tableName}\``,
       datasource: selectedItems[0].label,
     };
 

@@ -150,7 +150,6 @@ export const IndexSettingOptions = ({
       </EuiText>
       <EuiSpacer size="s" />
       <IndexTypeSelector
-        http={http}
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />

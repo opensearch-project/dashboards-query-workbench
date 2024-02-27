@@ -11,7 +11,7 @@ import {
   POLL_INTERVAL_MS,
 } from '../constants';
 import { AsyncApiResponse, AsyncQueryStatus, PollingCallback } from '../types';
-import { errorToastHelper } from './toast_helper';
+import { RaiseErrorToast } from './toast_helper';
 
 export const setAsyncSessionId = (dataSource: string, value: string | null) => {
   if (value !== null) {
@@ -46,12 +46,14 @@ export const executeAsyncQuery = (
         jobId = responseData?.queryId;
         if (jobId === undefined) {
           console.error('Recieved invalid query id:', responseData?.error);
-          errorToastHelper({
+          RaiseErrorToast({
             errorToastMessage: 'Recieved invalid query id',
             errorDetailsMessage: responseData?.error,
           });
 
-          onErrorCallback && onErrorCallback(responseData?.error);
+          if (onErrorCallback) {
+            onErrorCallback(responseData?.error);
+          }
           return;
         }
         setAsyncSessionId(currentDataSource, responseData?.sessionId ?? null);
@@ -59,12 +61,14 @@ export const executeAsyncQuery = (
       })
       .catch((err) => {
         console.error('Error occurred while getting query id:', err);
-        errorToastHelper({
+        RaiseErrorToast({
           errorToastMessage: 'Error occurred while getting query id',
           errorDetailsMessage: err,
         });
         isQueryFulfilled = true;
-        onErrorCallback && onErrorCallback(err);
+        if (onErrorCallback) {
+          onErrorCallback(err);
+        }
       });
   };
 
@@ -88,12 +92,14 @@ export const executeAsyncQuery = (
             isQueryFulfilled = true;
 
             if (status === AsyncQueryStatus.Failed) {
-              errorToastHelper({
+              RaiseErrorToast({
                 errorToastMessage: 'Query failed',
-                errorDetailsMessage: errorDetailsMessage,
+                errorDetailsMessage,
               });
             }
-            onErrorCallback && onErrorCallback(errorDetailsMessage);
+            if (onErrorCallback) {
+              onErrorCallback(errorDetailsMessage);
+            }
             callback({ ...res });
             break;
 
@@ -104,11 +110,13 @@ export const executeAsyncQuery = (
 
           default:
             console.error('Unrecognized status:', status);
-            errorToastHelper({
+            RaiseErrorToast({
               errorToastMessage: 'Unrecognized status recieved',
               errorDetailsMessage: 'Unrecognized status recieved - ' + errorDetailsMessage,
             });
-            onErrorCallback && onErrorCallback(errorDetailsMessage);
+            if (onErrorCallback) {
+              onErrorCallback(errorDetailsMessage);
+            }
             callback({ ...res });
         }
       })
@@ -128,7 +136,7 @@ export const executeAsyncQuery = (
     if (jobId && !isQueryFulfilled) {
       http.delete(ASYNC_QUERY_JOB_ENDPOINT + jobId).catch((err) => {
         console.error('Error occurred while cancelling query:', err);
-        errorToastHelper({
+        RaiseErrorToast({
           errorToastMessage: 'Query cancellation failed',
           errorDetailsMessage: 'Query cancellation failed for queryId: ' + err,
         });

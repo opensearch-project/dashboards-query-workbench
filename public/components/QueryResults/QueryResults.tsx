@@ -51,7 +51,7 @@ import { AsyncQueryBody } from './async_query_body';
 interface QueryResultsProps {
   language: string;
   queries: string[];
-  queryResults: ResponseDetail<QueryResult>[];
+  queryResults: Array<ResponseDetail<QueryResult>>;
   queryResultsJSON: string;
   queryResultsJDBC: string;
   queryResultsCSV: string;
@@ -83,7 +83,7 @@ interface QueryResultsState {
   itemsPerPage: number;
 }
 
-class QueryResults extends React.Component<QueryResultsProps, QueryResultsState> {
+export class QueryResults extends React.Component<QueryResultsProps, QueryResultsState> {
   public sortableColumns: Array<SortableProperty<string>>;
   public sortableProperties: SortableProperties;
   public sortedColumn: string;
@@ -105,7 +105,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
       [
         {
           name: '',
-          getValue: (item: any) => '',
+          getValue: (_item: any) => '',
           isAscending: true,
         },
       ],
@@ -165,7 +165,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
 
   // Update SORTABLE COLUMNS - All columns
   updateSortableColumns = (queryResultsSelected: QueryResult) => {
-    if (this.sortableColumns.length != 0) {
+    if (this.sortableColumns.length !== 0) {
       this.sortableColumns = [];
     }
     queryResultsSelected.fields.map((field: string) => {
@@ -180,14 +180,14 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
   };
 
   searchItems(dataRows: DataRow[], searchQuery: string): DataRow[] {
-    let rows: { [key: string]: any }[] = [];
+    const rows: Array<{ [key: string]: any }> = [];
     for (const row of dataRows) {
       rows.push(row.data);
     }
     const searchResult = EuiSearchBar.Query.execute(searchQuery, rows);
-    let result: DataRow[] = [];
+    const result: DataRow[] = [];
     for (const row of searchResult) {
-      let dataRow: DataRow = {
+      const dataRow: DataRow = {
         // rowId does not matter here since the data rows would be sorted later
         rowId: 0,
         data: row,
@@ -198,7 +198,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
   }
 
   onSort = (prop: string, items: DataRow[]): DataRow[] => {
-    let sortedRows = this.sortDataRows(items, prop);
+    const sortedRows = this.sortDataRows(items, prop);
     this.sortableProperties.sortOn(prop);
     this.sortedColumn = prop;
     return sortedRows;
@@ -207,12 +207,12 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
   sortDataRows(dataRows: DataRow[], field: string): DataRow[] {
     const property = this.sortableProperties.getSortablePropertyByName(field);
     const copy = [...dataRows];
-    let comparator = (a: DataRow, b: DataRow) => {
+    const comparator = (a: DataRow, b: DataRow) => {
       if (typeof property === 'undefined') {
         return 0;
       }
-      let dataA = a.data;
-      let dataB = b.data;
+      const dataA = a.data;
+      const dataB = b.data;
       if (dataA[field] && dataB[field]) {
         if (dataA[field] > dataB[field]) {
           return 1;
@@ -274,7 +274,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
     // Action button with list of tabs, TODO: disable tabArrowRight and tabArrowLeft when no more scrolling is possible
     const tabArrowDown = <EuiIcon onClick={this.showTabsMenu} type={'arrowDown'} />;
     const tabs: Tab[] = this.renderTabs();
-    const tabsItems = tabs.map((tab, index) => (
+    const tabsItems = tabs.map((tab, _index) => (
       <EuiContextMenuItem
         key="10 rows"
         icon="empty"
@@ -362,7 +362,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
                     padding: 5,
                   }}
                 >
-                  {/*TABS*/}
+                  {/* TABS*/}
                   <EuiFlexGroup
                     className="tabs-container"
                     alignItems="center"
@@ -379,7 +379,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
                     </EuiFlexItem>
                   </EuiFlexGroup>
 
-                  {/*ARROW DOWN*/}
+                  {/* ARROW DOWN*/}
                   {this.state.tabsOverflow && (
                     <div className="tab-arrow-down-container">
                       <EuiFlexGroup>
@@ -402,7 +402,7 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
                 </EuiFlexGroup>
                 <EuiHorizontalRule margin="none" />
 
-                {/*RESULTS TABLE*/}
+                {/* RESULTS TABLE*/}
                 <PanelWrapper
                   shouldWrap={
                     this.props.language === 'SQL' &&
@@ -463,4 +463,3 @@ class QueryResults extends React.Component<QueryResultsProps, QueryResultsState>
     );
   }
 }
-export default QueryResults;

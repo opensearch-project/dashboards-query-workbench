@@ -74,7 +74,7 @@ const loadErrorModal = (errorDetailsMessage: string) => {
   );
 };
 
-export const errorToastHelper = ({
+export const RaiseErrorToast = ({
   errorToastMessage,
   errorDetailsMessage,
 }: {
@@ -91,4 +91,6 @@ export const errorToastHelper = ({
       </EuiButton>
     )
   );
+
+  return <></>;
 };

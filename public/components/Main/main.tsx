@@ -459,7 +459,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
         const queryRequest = {
           lang: language,
-          query: query,
+          query,
           datasource: currentDataSource,
         };
 
