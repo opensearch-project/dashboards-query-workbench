@@ -12408,7 +12408,7 @@ exports[`<Main /> spec renders the component for s3 glue and check sample query 
                           class="euiTextColor euiTextColor--subdued"
                         >
                           Status: 
-                          Query Not Run
+                          Fetching associated objects ...
                         </div>
                       </div>
                     </div>

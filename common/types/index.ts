@@ -120,20 +120,18 @@ export interface DatasourceTreeLoading {
 
 interface AsyncApiDataResponse {
   status: string;
-  schema?: { name: string; type: string }[];
+  schema?: Array<{ name: string; type: string }>;
   datarows?: any;
   total?: number;
   size?: number;
   error?: string;
 }
 
-export type AsyncApiResponse = {
+export interface AsyncApiResponse {
   data: {
     ok: boolean;
     resp: AsyncApiDataResponse;
   };
-};
-
-export interface PollingCallback {
-  (statusObj: AsyncApiResponse): void;
 }
+
+export type PollingCallback = (statusObj: AsyncApiResponse) => void;
