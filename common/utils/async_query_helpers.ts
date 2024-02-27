@@ -3,14 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import _ from 'lodash';
-import { CoreStart } from '../../../../src/core/public';
+import { coreRefs } from '../../public/framework/core_refs';
 import {
   ASYNC_QUERY_ENDPOINT,
   ASYNC_QUERY_JOB_ENDPOINT,
   ASYNC_QUERY_SESSION_ID,
   POLL_INTERVAL_MS,
 } from '../constants';
+import { AsyncApiResponse, AsyncQueryStatus, PollingCallback } from '../types';
+import { errorToastHelper } from './toast_helper';
 
 export const setAsyncSessionId = (dataSource: string, value: string | null) => {
   if (value !== null) {
@@ -22,55 +23,122 @@ export const getAsyncSessionId = (dataSource: string) => {
   return sessionStorage.getItem(`${ASYNC_QUERY_SESSION_ID}_${dataSource}`);
 };
 
-export const getJobId = (
+export const executeAsyncQuery = (
   currentDataSource: string,
   query: {},
-  http: CoreStart['http'],
-  callback
+  pollingCallback: PollingCallback,
+  onErrorCallback?: (errorMessage: string) => void
 ) => {
-  http
-    .post(ASYNC_QUERY_ENDPOINT, {
-      body: JSON.stringify({
-        ...query,
-        sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
-      }),
-    })
-    .then((res) => {
-      const id = res.data.resp.queryId;
-      setAsyncSessionId(currentDataSource, _.get(res.data.resp, 'sessionId', null));
-      if (id === undefined) {
-        console.error(JSON.parse(res.data.body));
-      }
-      callback(id);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-};
+  let jobId: string | undefined;
+  let isQueryFulfilled = false;
+  const http = coreRefs.http!;
 
-export const pollQueryStatus = (id: string, http: CoreStart['http'], callback) => {
-  http
-    .get(ASYNC_QUERY_JOB_ENDPOINT + id)
-    .then((res) => {
-      const status = res.data.resp.status.toLowerCase();
-      if (
-        status === 'pending' ||
-        status === 'running' ||
-        status === 'scheduled' ||
-        status === 'waiting'
-      ) {
-        callback({ status });
-        setTimeout(() => pollQueryStatus(id, http, callback), POLL_INTERVAL_MS);
-      } else if (status === 'failed') {
-        const results = res.data.resp;
-        callback({ status: 'FAILED', error: results.error });
-      } else if (status === 'success') {
-        const results = _.get(res.data.resp, 'datarows');
-        callback({ status: 'SUCCESS', results });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      callback({ status: 'FAILED', error: 'Failed to fetch data' });
-    });
+  const getJobId = () => {
+    http
+      .post(ASYNC_QUERY_ENDPOINT, {
+        body: JSON.stringify({
+          ...query,
+          sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
+        }),
+      })
+      .then((res) => {
+        const responseData = res.data.resp;
+        jobId = responseData?.queryId;
+        if (jobId === undefined) {
+          console.error('Recieved invalid query id:', responseData?.error);
+          errorToastHelper({
+            errorToastMessage: 'Recieved invalid query id',
+            errorDetailsMessage: responseData?.error,
+          });
+
+          onErrorCallback && onErrorCallback(responseData?.error);
+          return;
+        }
+        setAsyncSessionId(currentDataSource, responseData?.sessionId ?? null);
+        pollQueryStatus(jobId, pollingCallback);
+      })
+      .catch((err) => {
+        console.error('Error occurred while getting query id:', err);
+        errorToastHelper({
+          errorToastMessage: 'Error occurred while getting query id',
+          errorDetailsMessage: err,
+        });
+        isQueryFulfilled = true;
+        onErrorCallback && onErrorCallback(err);
+      });
+  };
+
+  const pollQueryStatus = (id: string, callback: PollingCallback) => {
+    http
+      .get(ASYNC_QUERY_JOB_ENDPOINT + id)
+      .then((res: AsyncApiResponse) => {
+        const status = res.data.resp.status.toLowerCase();
+        const errorDetailsMessage = res.data.resp.error ?? '';
+        switch (status) {
+          case AsyncQueryStatus.Pending:
+          case AsyncQueryStatus.Running:
+          case AsyncQueryStatus.Scheduled:
+          case AsyncQueryStatus.Waiting:
+            callback({ ...res });
+            setTimeout(() => pollQueryStatus(id, callback), POLL_INTERVAL_MS);
+            break;
+
+          case AsyncQueryStatus.Failed:
+          case AsyncQueryStatus.Cancelled:
+            isQueryFulfilled = true;
+
+            if (status === AsyncQueryStatus.Failed) {
+              errorToastHelper({
+                errorToastMessage: 'Query failed',
+                errorDetailsMessage: errorDetailsMessage,
+              });
+            }
+            onErrorCallback && onErrorCallback(errorDetailsMessage);
+            callback({ ...res });
+            break;
+
+          case AsyncQueryStatus.Success:
+            isQueryFulfilled = true;
+            callback({ ...res });
+            break;
+
+          default:
+            console.error('Unrecognized status:', status);
+            errorToastHelper({
+              errorToastMessage: 'Unrecognized status recieved',
+              errorDetailsMessage: 'Unrecognized status recieved - ' + errorDetailsMessage,
+            });
+            onErrorCallback && onErrorCallback(errorDetailsMessage);
+            callback({ ...res });
+        }
+      })
+      .catch((err) => {
+        console.error('Error occurred while polling query status:', err);
+        isQueryFulfilled = true;
+        callback({
+          data: {
+            ok: true,
+            resp: { status: AsyncQueryStatus.Failed, error: 'Failed to query status' },
+          },
+        });
+      });
+  };
+
+  const cancelQuery = () => {
+    if (jobId && !isQueryFulfilled) {
+      http.delete(ASYNC_QUERY_JOB_ENDPOINT + jobId).catch((err) => {
+        console.error('Error occurred while cancelling query:', err);
+        errorToastHelper({
+          errorToastMessage: 'Query cancellation failed',
+          errorDetailsMessage: 'Query cancellation failed for queryId: ' + err,
+        });
+      });
+    }
+  };
+
+  // Start executing the query
+  getJobId();
+
+  // Return a function to cancel the query
+  return cancelQuery;
 };

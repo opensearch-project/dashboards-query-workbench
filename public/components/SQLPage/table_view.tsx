@@ -17,7 +17,6 @@ import {
   EuiToolTip,
   EuiTreeView,
 } from '@elastic/eui';
-import { AccelerationIndexType, DatasourceTreeLoading, TreeItem, TreeItemType } from 'common/types';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
@@ -32,8 +31,16 @@ import {
   TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME,
   TREE_ITEM_TABLE_NAME_DEFAULT_NAME,
 } from '../../../common/constants';
-import { useToast } from '../../../common/toast';
-import { getJobId, pollQueryStatus } from '../../../common/utils/async_query_helpers';
+import {
+  AccelerationIndexType,
+  AsyncApiResponse,
+  AsyncQueryStatus,
+  DatasourceTreeLoading,
+  TreeItem,
+  TreeItemType,
+} from '../../../common/types';
+import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
+import { useToast } from '../../../common/utils/toast_helper';
 import { AccelerationIndexFlyout } from './acceleration_index_flyout';
 import './table_view.scss';
 
@@ -54,6 +61,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   });
   const [indexFlyout, setIndexFlyout] = useState(<></>);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
+  const [currentQueryHandler, setCurrentQueryHandler] = useState(() => () => {});
   const { setToast } = useToast();
 
   const resetFlyout = () => {
@@ -100,11 +108,14 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
   }
 
   const getSidebarContent = () => {
+    // Cancel any async running queries
+    currentQueryHandler();
+
     if (selectedItems[0].label === 'OpenSearch') {
       setTableNames([]);
       setIsLoading({
         flag: false,
-        status: 'Query is run',
+        status: 'Fetching OpenSearch indices ...',
       });
       const query = { query: LOAD_OPENSEARCH_INDICES_QUERY };
       http
@@ -142,31 +153,22 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         query: `SHOW SCHEMAS IN \`${selectedItems[0]['label']}\``,
         datasource: selectedItems[0].label,
       };
-      getJobId(selectedItems[0].label, query, http, (id) => {
-        if (id === undefined) {
-          const errorMessage = 'ERROR fetching databases';
-          setIsLoading({
-            flag: false,
-            status: errorMessage,
-          });
-          setToast(errorMessage, 'danger');
-        } else {
-          pollQueryStatus(id, http, (data) => {
-            setIsLoading({ flag: true, status: data.status });
-            if (data.status === 'SUCCESS') {
-              const fetchedDatanases = [].concat(...data.results);
-              setTreeData(loadTreeItem(fetchedDatanases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
-              setIsLoading({ flag: false, status: data.status });
-            } else if (data.status === 'FAILED') {
-              setIsLoading({
-                flag: false,
-                status: data.error,
-              });
-              setToast(`ERROR ${data.error}`, 'danger');
-            }
-          });
-        }
-      });
+      setCurrentQueryHandler(() =>
+        executeAsyncQuery(selectedItems[0].label, query, (response: AsyncApiResponse) => {
+          const status = response.data.resp.status.toLowerCase();
+          setIsLoading({ flag: true, status: status });
+          if (status === AsyncQueryStatus.Success) {
+            const fetchedDatabases = [].concat(...response.data.resp.datarows);
+            setTreeData(loadTreeItem(fetchedDatabases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
+            setIsLoading({ flag: false, status: status });
+          } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
+            setIsLoading({
+              flag: false,
+              status: response.data.resp.error ?? '',
+            });
+          }
+        })
+      );
     }
   };
 
@@ -174,7 +176,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     setTreeData([]);
     setIsLoading({
       flag: true,
-      status: 'Query Not Run',
+      status: 'Fetching associated objects ...',
     });
     getSidebarContent();
   }, [selectedItems, refreshTree]);
@@ -205,19 +207,15 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       query: `SHOW TABLES IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
       datasource: selectedItems[0].label,
     };
-    getJobId(selectedItems[0].label, query, http, (id) => {
-      if (id === undefined) {
-        const errorMessage = 'ERROR fetching Tables';
-        setIsLoading({
-          flag: false,
-          status: errorMessage,
-        });
-        setTreeDataDatabaseError(databaseName);
-        setToast(errorMessage, 'danger');
-      } else {
-        pollQueryStatus(id, http, (data) => {
-          if (data.status === 'SUCCESS') {
-            const fetchTables = data.results.map((subArray) => subArray[1]);
+
+    setCurrentQueryHandler(() =>
+      executeAsyncQuery(
+        selectedItems[0].label,
+        query,
+        (response: AsyncApiResponse) => {
+          const status = response.data.resp.status.toLowerCase();
+          if (status === AsyncQueryStatus.Success) {
+            const fetchTables = response.data.resp.datarows.map((subArray) => subArray[1]);
             let values = loadTreeItem(fetchTables, TREE_ITEM_TABLE_NAME_DEFAULT_NAME);
             const mvObj = loadTreeItem(
               [TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME],
@@ -232,18 +230,18 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                 return database;
               });
             });
-          } else if (data.status === 'FAILED') {
+          } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
             setIsLoading({
               flag: false,
-              status: data.error,
+              status: response.data.resp.error ?? '',
             });
-            setTreeDataDatabaseError(databaseName);
-            setToast(`ERROR ${data.error}`, 'danger');
           }
-        });
-      }
-    });
+        },
+        () => setTreeDataDatabaseError(databaseName)
+      )
+    );
   };
+
   const setTreeDataTableError = (databaseName: string, tableName: string) => {
     setTreeData((prevTreeData) => {
       return prevTreeData.map((database) => {
@@ -273,57 +271,53 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       query: `SHOW INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
       datasource: selectedItems[0].label,
     };
-    getJobId(selectedItems[0].label, coverQuery, http, (id) => {
-      if (id === undefined) {
-        const errorMessage = 'ERROR fetching Covering Index';
-        setIsLoading({
-          flag: false,
-          status: errorMessage,
-        });
-        setTreeDataTableError(databaseName, tableName);
-        setToast(errorMessage, 'danger');
-      }
-      pollQueryStatus(id, http, (data) => {
-        if (data.status === 'SUCCESS') {
-          const res = [].concat(data.results);
-          const coverIndexObj = loadTreeItem(res, TREE_ITEM_COVERING_INDEX_DEFAULT_NAME);
-          setTreeData((prevTreeData) => {
-            return prevTreeData.map((database) => {
-              if (database.name === databaseName) {
-                return {
-                  ...database,
-                  values: database.values?.map((table) => {
-                    if (table.name === tableName) {
-                      let newValues = table.values?.concat(...coverIndexObj);
-                      if (newValues?.length === 0) {
-                        newValues = [
-                          { name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false },
-                        ];
+
+    setCurrentQueryHandler(() =>
+      executeAsyncQuery(
+        selectedItems[0].label,
+        coverQuery,
+        (response: AsyncApiResponse) => {
+          const status = response.data.resp.status.toLowerCase();
+          if (status === AsyncQueryStatus.Success) {
+            const res = [].concat(response.data.resp.datarows);
+            const coverIndexObj = loadTreeItem(res, TREE_ITEM_COVERING_INDEX_DEFAULT_NAME);
+            setTreeData((prevTreeData) => {
+              return prevTreeData.map((database) => {
+                if (database.name === databaseName) {
+                  return {
+                    ...database,
+                    values: database.values?.map((table) => {
+                      if (table.name === tableName) {
+                        let newValues = table.values?.concat(...coverIndexObj);
+                        if (newValues?.length === 0) {
+                          newValues = [
+                            { name: 'No Indicies', type: TREE_ITEM_BADGE_NAME, isExpanded: false },
+                          ];
+                        }
+                        return {
+                          ...table,
+                          values: newValues,
+                          isLoading: false,
+                          isExpanded: true,
+                        };
                       }
-                      return {
-                        ...table,
-                        values: newValues,
-                        isLoading: false,
-                        isExpanded: true,
-                      };
-                    }
-                    return table;
-                  }),
-                };
-              }
-              return database;
+                      return table;
+                    }),
+                  };
+                }
+                return database;
+              });
             });
-          });
-        } else if (data.status === 'FAILED') {
-          setIsLoading({
-            flag: false,
-            status: data.error,
-          });
-          setTreeDataTableError(databaseName, tableName);
-          setToast(`ERROR ${data.error}`, 'danger');
-        }
-      });
-    });
+          } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
+            setIsLoading({
+              flag: false,
+              status: response.data.resp.error ?? '',
+            });
+          }
+        },
+        () => setTreeDataTableError(databaseName, tableName)
+      )
+    );
   };
 
   const setLoadingForTableElements = (databaseName: string, tableName: string) => {
@@ -357,19 +351,15 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       query: `SHOW MATERIALIZED VIEW IN \`${selectedItems[0]['label']}\`.\`${databaseName}\``,
       datasource: selectedItems[0].label,
     };
-    getJobId(selectedItems[0].label, materializedViewQuery, http, (id) => {
-      if (id === undefined) {
-        const errorMessage = 'ERROR fetching Materialized View';
-        setIsLoading({
-          flag: false,
-          status: errorMessage,
-        });
-        setTreeDataTableError(tableName, databaseName);
-        setToast(errorMessage, 'danger');
-      } else {
-        pollQueryStatus(id, http, (data) => {
-          if (data.status === 'SUCCESS') {
-            const fetchMaterialzedView = data.results;
+
+    setCurrentQueryHandler(() =>
+      executeAsyncQuery(
+        selectedItems[0].label,
+        materializedViewQuery,
+        (response: AsyncApiResponse) => {
+          const status = response.data.resp.status.toLowerCase();
+          if (status === AsyncQueryStatus.Success) {
+            const fetchMaterialzedView = response.data.resp.datarows;
             let values = loadTreeItem(
               fetchMaterialzedView,
               TREE_ITEM_MATERIALIZED_VIEW_DEFAULT_NAME
@@ -400,17 +390,16 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                 return database;
               });
             });
-          } else if (data.status === 'FAILED') {
+          } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
             setIsLoading({
               flag: false,
-              status: data.error,
+              status: response.data.resp.error ?? '',
             });
-            setTreeDataTableError(databaseName, tableName);
-            setToast(`ERROR ${data.error}`, 'danger');
           }
-        });
-      }
-    });
+        },
+        () => setTreeDataTableError(tableName, databaseName)
+      )
+    );
   };
 
   const handleTableClick = (tableName: string, databaseName: string) => {
@@ -421,19 +410,15 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       query: `DESC SKIPPING INDEX ON \`${selectedItems[0]['label']}\`.\`${databaseName}\`.\`${tableName}\``,
       datasource: selectedItems[0].label,
     };
-    getJobId(selectedItems[0].label, skipQuery, http, (id) => {
-      if (id === undefined) {
-        const errorMessage = 'ERROR fetching Skipping index';
-        setIsLoading({
-          flag: false,
-          status: 'error',
-        });
-        setTreeDataTableError(databaseName, tableName);
-        setToast(errorMessage, 'danger');
-      } else {
-        pollQueryStatus(id, http, (data) => {
-          if (data.status === 'SUCCESS') {
-            if (data.results.length > 0) {
+
+    setCurrentQueryHandler(() =>
+      executeAsyncQuery(
+        selectedItems[0].label,
+        skipQuery,
+        (response: AsyncApiResponse) => {
+          const status = response.data.resp.status.toLowerCase();
+          if (status === AsyncQueryStatus.Success) {
+            if (response.data.resp.datarows.length > 0) {
               setTreeData((prevTreeData) => {
                 return prevTreeData.map((database) => {
                   if (database.name === databaseName) {
@@ -458,21 +443,23 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
               });
             }
             loadCoveringIndex(tableName, databaseName);
-          } else if (data.status === 'FAILED') {
+          } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
             setIsLoading({
               flag: false,
-              status: data.error,
+              status: response.data.resp.error ?? '',
             });
-            setTreeDataTableError(databaseName, tableName);
-            setToast(`ERROR ${data.error}`, 'danger');
           }
-        });
-      }
-    });
+        },
+        () => setTreeDataTableError(databaseName, tableName)
+      )
+    );
   };
+
   const handleQuery = (e: MouseEvent, parentName: string, tableName: string) => {
     e.stopPropagation();
-    updateSQLQueries(`select * from \`${selectedItems[0].label}\`.\`${parentName}\`.\`${tableName}\` limit 10`);
+    updateSQLQueries(
+      `select * from \`${selectedItems[0].label}\`.\`${parentName}\`.\`${tableName}\` limit 10`
+    );
   };
 
   const iconCreation = (node: TreeItem) => {

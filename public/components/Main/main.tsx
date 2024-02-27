@@ -22,14 +22,9 @@ import { IHttpResponse } from 'angular';
 import _ from 'lodash';
 import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
-import {
-  ASYNC_QUERY_ENDPOINT,
-  ASYNC_QUERY_JOB_ENDPOINT,
-  OPENSEARCH_SQL_INIT_QUERY,
-  POLL_INTERVAL_MS,
-} from '../../../common/constants';
-import { AsyncQueryLoadingStatus } from '../../../common/types';
-import { getAsyncSessionId, setAsyncSessionId } from '../../../common/utils/async_query_helpers';
+import { OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
+import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
+import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -118,9 +113,9 @@ interface MainState {
   isResultFullScreen: boolean;
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
-  asyncLoadingStatus: AsyncQueryLoadingStatus;
+  asyncLoadingStatus: AsyncQueryStatus;
   asyncQueryError: string;
-  asyncJobId: string;
+  cancelQueryHandler: () => void;
   refreshTree: boolean;
   isAccelerationFlyoutOpened: boolean;
   isCallOutVisible: boolean;
@@ -259,9 +254,9 @@ export class Main extends React.Component<MainProps, MainState> {
       isResultFullScreen: false,
       selectedDatasource: [{ label: 'OpenSearch' }],
       asyncLoading: false,
-      asyncLoadingStatus: AsyncQueryLoadingStatus.Success,
+      asyncLoadingStatus: AsyncQueryStatus.Success,
       asyncQueryError: '',
-      asyncJobId: '',
+      cancelQueryHandler: () => () => {},
       refreshTree: false,
       isAccelerationFlyoutOpened: false,
       isCallOutVisible: false,
@@ -424,7 +419,7 @@ export class Main extends React.Component<MainProps, MainState> {
             queryResultsTEXT: [],
             searchQuery: '',
             asyncLoading: false,
-            asyncLoadingStatus: AsyncQueryLoadingStatus.Success,
+            asyncLoadingStatus: AsyncQueryStatus.Success,
             isCallOutVisible: false,
           },
           () => console.log('Successfully updated the states')
@@ -440,157 +435,100 @@ export class Main extends React.Component<MainProps, MainState> {
     const queries: string[] = getQueries(queriesString);
     const language = this.state.language;
     const currentDataSource = this.state.selectedDatasource[0].label;
+
     if (queries.length > 0) {
-      const responsePromise = Promise.all(
-        queries.map((query: string) =>
-          this.httpClient
-            .post(ASYNC_QUERY_ENDPOINT, {
-              body: JSON.stringify({
-                lang: language,
-                query,
-                datasource: currentDataSource,
-                sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
-              }),
-            })
-            .catch((error: any) => {
+      queries.map((query: string) => {
+        this.setState({ asyncLoading: true });
+        // clear state from previous results and start async loading
+        this.setState({
+          queryTranslations: [],
+          queryResultsTable: [],
+          queryResults: [],
+          queryResultsCSV: [],
+          queryResultsJSON: [],
+          queryResultsTEXT: [],
+          messages: [],
+          selectedTabId: MESSAGE_TAB_LABEL,
+          selectedTabName: MESSAGE_TAB_LABEL,
+          itemIdToExpandedRowMap: {},
+          asyncLoading: true,
+          asyncLoadingStatus: AsyncQueryStatus.Scheduled,
+          cancelQueryHandler: () => () => {},
+          isCallOutVisible: false,
+        });
+
+        const queryRequest = {
+          lang: language,
+          query: query,
+          datasource: currentDataSource,
+        };
+
+        const cancelQuery = executeAsyncQuery(
+          currentDataSource,
+          queryRequest,
+          (response: AsyncApiResponse) => {
+            const status = response.data.resp.status.toLowerCase();
+            const result: ResponseDetail<string> = this.processQueryResponse(
+              response as IHttpResponse<ResponseData>
+            );
+            if (status === AsyncQueryStatus.Success) {
+              const resultTable: Array<ResponseDetail<QueryResult>> = getQueryResultsForTable(
+                [result],
+                false
+              );
               this.setState({
+                queries,
+                queryResults: [result],
+                queryResultsTable: result?.data?.schema.length > 0 ? resultTable : [],
+                selectedTabId: getDefaultTabId([result]),
+                selectedTabName: getDefaultTabLabel([result], queries[0]),
+                messages: this.getMessage(resultTable),
+                itemIdToExpandedRowMap: {},
+                queryResultsJSON: [],
+                queryResultsCSV: [],
+                queryResultsTEXT: [],
+                searchQuery: '',
+                asyncLoading: false,
+                asyncLoadingStatus: status,
+                isCallOutVisible: !(result?.data?.schema.length > 0),
+              });
+            } else if (
+              status === AsyncQueryStatus.Failed ||
+              status === AsyncQueryStatus.Cancelled
+            ) {
+              this.setState({
+                asyncLoading: false,
+                asyncLoadingStatus: status,
                 messages: [
                   {
-                    text: error.message,
+                    text: status,
                     className: 'error-message',
                   },
                 ],
+                asyncQueryError: result?.data?.error,
               });
-            })
-        )
-      );
-
-      Promise.all([responsePromise]).then(([response]) => {
-        const results: Array<ResponseDetail<string>> = response.map((resp) =>
-          this.processQueryResponse(resp as IHttpResponse<ResponseData>)
-        );
-        results.map(
-          (queryResultResponseDetail: ResponseDetail<string>): ResponseDetail<QueryResult> => {
-            if (!queryResultResponseDetail.fulfilled) {
-              return {
-                fulfilled: queryResultResponseDetail.fulfilled,
-                errorMessage: errorQueryResponse(queryResultResponseDetail),
-              };
             } else {
-              const responseObj = queryResultResponseDetail.data
-                ? queryResultResponseDetail.data
-                : '';
-
-              const queryId: string = _.get(responseObj, 'queryId');
-              setAsyncSessionId(currentDataSource, _.get(responseObj, 'sessionId', null));
-
-              // clear state from previous results and start async loading
               this.setState({
-                queryTranslations: [],
-                queryResultsTable: [],
-                queryResults: [],
-                queryResultsCSV: [],
-                queryResultsJSON: [],
-                queryResultsTEXT: [],
-                messages: [],
-                selectedTabId: MESSAGE_TAB_LABEL,
-                selectedTabName: MESSAGE_TAB_LABEL,
-                itemIdToExpandedRowMap: {},
                 asyncLoading: true,
-                asyncLoadingStatus: AsyncQueryLoadingStatus.Scheduled,
-                asyncJobId: queryId,
-                isCallOutVisible: false,
+                asyncLoadingStatus: status,
               });
-              this.callGetStartPolling(queries);
-              const interval = setInterval(() => {
-                if (!this.state.asyncLoading) {
-                  clearInterval(interval);
-                }
-                this.callGetStartPolling(queries);
-              }, POLL_INTERVAL_MS);
             }
+          },
+          (errorDetails: string) => {
+            this.setState({
+              messages: [
+                {
+                  text: 'Query run failed: ' + errorDetails,
+                  className: 'error-message',
+                },
+              ],
+              asyncLoading: false,
+            });
           }
         );
+        this.setState({ cancelQueryHandler: cancelQuery });
       });
     }
-  };
-
-  callGetStartPolling = async (queries: string[]) => {
-    const nextP = this.httpClient
-      .get(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
-      .catch((error: any) => {
-        this.setState({
-          messages: [
-            {
-              text: error.message,
-              className: 'error-message',
-            },
-          ],
-        });
-      });
-
-    return await nextP.then((response) => {
-      const result: ResponseDetail<string> = this.processQueryResponse(
-        response as IHttpResponse<ResponseData>
-      );
-      const status = result.data.status.toLowerCase();
-      if (_.isEqual(status, 'success')) {
-        const resultTable: Array<ResponseDetail<QueryResult>> = getQueryResultsForTable(
-          [result],
-          false
-        );
-        this.setState({
-          queries,
-          queryResults: [result],
-          queryResultsTable: result.data.schema.length > 0 ? resultTable : [],
-          selectedTabId: getDefaultTabId([result]),
-          selectedTabName: getDefaultTabLabel([result], queries[0]),
-          messages: this.getMessage(resultTable),
-          itemIdToExpandedRowMap: {},
-          queryResultsJSON: [],
-          queryResultsCSV: [],
-          queryResultsTEXT: [],
-          searchQuery: '',
-          asyncLoading: false,
-          asyncLoadingStatus: status,
-          isCallOutVisible: !(result.data.schema.length > 0),
-        });
-      } else if (_.isEqual(status, 'failed') || _.isEqual(status, 'cancelled')) {
-        this.setState({
-          asyncLoading: false,
-          asyncLoadingStatus: status,
-          messages: [
-            {
-              text: status,
-              className: 'error-message',
-            },
-          ],
-          asyncQueryError: result.data.error,
-        });
-      } else {
-        this.setState({
-          asyncLoading: true,
-          asyncLoadingStatus: status,
-        });
-      }
-    });
-  };
-
-  cancelAsyncQuery = async () => {
-    Promise.all([
-      this.httpClient
-        .delete(ASYNC_QUERY_JOB_ENDPOINT + this.state.asyncJobId)
-        .catch((error: any) => {
-          this.setState({
-            messages: [
-              {
-                text: error.message,
-                className: 'error-message',
-              },
-            ],
-          });
-        }),
-    ]);
   };
 
   onTranslate = (queriesString: string): void => {
@@ -792,7 +730,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedTabName: MESSAGE_TAB_LABEL,
       itemIdToExpandedRowMap: {},
       asyncLoading: false,
-      asyncLoadingStatus: AsyncQueryLoadingStatus.Success,
+      asyncLoadingStatus: AsyncQueryStatus.Success,
       isCallOutVisible: false,
     });
   };
@@ -936,7 +874,7 @@ export class Main extends React.Component<MainProps, MainState> {
             setIsResultFullScreen={this.setIsResultFullScreen}
             asyncLoadingStatus={this.state.asyncLoadingStatus}
             asyncQueryError={this.state.asyncQueryError}
-            cancelAsyncQuery={this.cancelAsyncQuery}
+            cancelAsyncQuery={this.state.cancelQueryHandler}
             selectedDatasource={this.state.selectedDatasource}
           />
         </div>
@@ -1080,7 +1018,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   setIsResultFullScreen={this.setIsResultFullScreen}
                   asyncLoadingStatus={this.state.asyncLoadingStatus}
                   asyncQueryError={this.state.asyncQueryError}
-                  cancelAsyncQuery={this.cancelAsyncQuery}
+                  cancelAsyncQuery={this.state.cancelQueryHandler}
                   selectedDatasource={this.state.selectedDatasource}
                 />
               </div>

@@ -1,0 +1,94 @@
+/*
+ * Copyright OpenSearch Contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import {
+  EuiButton,
+  EuiCodeBlock,
+  EuiModal,
+  EuiModalBody,
+  EuiModalFooter,
+  EuiModalHeader,
+  EuiModalHeaderTitle,
+} from '@elastic/eui';
+import React from 'react';
+import { MountPoint, ToastInputFields } from '../../../../src/core/public';
+import { toMountPoint } from '../../../../src/plugins/opensearch_dashboards_react/public';
+import { coreRefs } from '../../public/framework/core_refs';
+
+type Color = 'success' | 'primary' | 'warning' | 'danger' | undefined;
+
+export const useToast = () => {
+  const toasts = coreRefs.toasts!;
+
+  const setToast = (title: string, color: Color = 'success', text?: string | MountPoint) => {
+    const newToast: ToastInputFields = {
+      id: new Date().toISOString(),
+      title,
+      text,
+    };
+    switch (color) {
+      case 'danger': {
+        toasts.addDanger(newToast);
+        break;
+      }
+      case 'warning': {
+        toasts.addWarning(newToast);
+        break;
+      }
+      default: {
+        toasts.addSuccess(newToast);
+        break;
+      }
+    }
+  };
+
+  return { setToast };
+};
+
+const loadErrorModal = (errorDetailsMessage: string) => {
+  const openModal = coreRefs.overlays?.openModal!;
+  const modal = openModal(
+    toMountPoint(
+      <EuiModal onClose={() => modal.close()}>
+        <EuiModalHeader>
+          <EuiModalHeaderTitle>Error details</EuiModalHeaderTitle>
+        </EuiModalHeader>
+        <EuiModalBody>
+          <EuiCodeBlock
+            language="json"
+            fontSize="m"
+            paddingSize="m"
+            overflowHeight={200}
+            isCopyable
+          >
+            {errorDetailsMessage}
+          </EuiCodeBlock>
+        </EuiModalBody>
+        <EuiModalFooter>
+          <EuiButton onClick={() => modal.close()}>Close</EuiButton>
+        </EuiModalFooter>
+      </EuiModal>
+    )
+  );
+};
+
+export const errorToastHelper = ({
+  errorToastMessage,
+  errorDetailsMessage,
+}: {
+  errorToastMessage: string;
+  errorDetailsMessage: string;
+}) => {
+  const { setToast } = useToast();
+  setToast(
+    errorToastMessage,
+    'danger',
+    toMountPoint(
+      <EuiButton color="danger" size="s" onClick={() => loadErrorModal(errorDetailsMessage)}>
+        More details
+      </EuiButton>
+    )
+  );
+};

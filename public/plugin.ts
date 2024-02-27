@@ -35,13 +35,13 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
   }
 
   public start(core: CoreStart): WorkbenchPluginStart {
-
     coreRefs.http = core.http;
     coreRefs.savedObjectsClient = core.savedObjects.client;
     coreRefs.toasts = core.notifications.toasts;
     coreRefs.chrome = core.chrome;
     coreRefs.application = core.application;
-    
+    coreRefs.overlays = core.overlays;
+
     return {};
   }
 

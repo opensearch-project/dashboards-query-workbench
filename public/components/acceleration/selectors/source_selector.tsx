@@ -7,9 +7,13 @@ import { EuiComboBox, EuiComboBoxOptionOption, EuiFormRow, EuiSpacer, EuiText } 
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
-import { useToast } from '../../../../common/toast';
-import { CreateAccelerationForm } from '../../../../common/types';
-import { getJobId, pollQueryStatus } from '../../../../common/utils/async_query_helpers';
+import {
+  AsyncApiResponse,
+  AsyncQueryStatus,
+  CreateAccelerationForm,
+} from '../../../../common/types';
+import { executeAsyncQuery } from '../../../../common/utils/async_query_helpers';
+import { useToast } from '../../../../common/utils/toast_helper';
 import { hasError, validateDataSource } from '../create/utils';
 
 interface AccelerationDataSourceSelectorProps {
@@ -70,24 +74,20 @@ export const AccelerationDataSourceSelector = ({
       query: `SHOW SCHEMAS IN \`${accelerationFormData.dataSource}\``,
       datasource: accelerationFormData.dataSource,
     };
-    const errorMessage = `ERROR: failed to load databases`;
-    getJobId(selectedDataConnection[0].label, query, http, (id: string) => {
-      if (id === undefined) {
-        setToast(errorMessage, 'danger');
-      } else {
-        pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-          if (data.status === 'SUCCESS') {
-            let databaseOptions: Array<EuiComboBoxOptionOption<string>> = [];
-            if (data.results.length > 0)
-              databaseOptions = data.results.map((subArray: any[]) => ({ label: subArray[0] }));
-            setDatabases(databaseOptions);
-            setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-          }
-          if (data.status === 'FAILED') {
-            setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
-            setToast(errorMessage, 'danger');
-          }
-        });
+
+    executeAsyncQuery(accelerationFormData.dataSource, query, (response: AsyncApiResponse) => {
+      const status = response.data.resp.status.toLowerCase();
+      if (status === AsyncQueryStatus.Success) {
+        let databaseOptions: Array<EuiComboBoxOptionOption<string>> = [];
+        if (response.data.resp.datarows.length > 0)
+          databaseOptions = response.data.resp.datarows.map((subArray: any[]) => ({
+            label: subArray[0],
+          }));
+        setDatabases(databaseOptions);
+        setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+      }
+      if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
+        setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
       }
     });
   };
@@ -96,27 +96,23 @@ export const AccelerationDataSourceSelector = ({
     setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: true });
     const query = {
       lang: 'sql',
-      query: `SHOW TABLES IN \`${accelerationFormData.dataSource}.\`${accelerationFormData.database}\``,
+      query: `SHOW TABLES IN \`${accelerationFormData.dataSource}\`.\`${accelerationFormData.database}\``,
       datasource: accelerationFormData.dataSource,
     };
-    const errorMessage = `ERROR: failed to load tables`;
-    getJobId(selectedDataConnection[0].label, query, http, (id: string) => {
-      if (id === undefined) {
-        setToast(errorMessage, 'danger');
-      } else {
-        pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-          if (data.status === 'SUCCESS') {
-            let dataTableOptions: Array<EuiComboBoxOptionOption<string>> = [];
-            if (data.results.length > 0)
-              dataTableOptions = data.results.map((subArray) => ({ label: subArray[1] }));
-            setTables(dataTableOptions);
-            setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-          }
-          if (data.status === 'FAILED') {
-            setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
-            setToast(errorMessage, 'danger');
-          }
-        });
+
+    executeAsyncQuery(accelerationFormData.dataSource, query, (response: AsyncApiResponse) => {
+      const status = response.data.resp.status.toLowerCase();
+      if (status === AsyncQueryStatus.Success) {
+        let dataTableOptions: Array<EuiComboBoxOptionOption<string>> = [];
+        if (response.data.resp.datarows.length > 0)
+          dataTableOptions = response.data.resp.datarows.map((subArray) => ({
+            label: subArray[1],
+          }));
+        setTables(dataTableOptions);
+        setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+      }
+      if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
+        setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
       }
     });
   };

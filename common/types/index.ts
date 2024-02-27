@@ -86,12 +86,14 @@ export interface CreateAccelerationForm {
   formErrors: FormErrorsType;
 }
 
-export enum AsyncQueryLoadingStatus {
+export enum AsyncQueryStatus {
+  Pending = 'pending',
   Success = 'success',
   Failed = 'failed',
   Running = 'running',
   Scheduled = 'scheduled',
   Cancelled = 'cancelled',
+  Waiting = 'waiting',
 }
 
 export type TreeItemType =
@@ -114,4 +116,24 @@ export interface TreeItem {
 export interface DatasourceTreeLoading {
   flag: boolean;
   status: string;
+}
+
+interface AsyncApiDataResponse {
+  status: string;
+  schema?: { name: string; type: string }[];
+  datarows?: any;
+  total?: number;
+  size?: number;
+  error?: string;
+}
+
+export type AsyncApiResponse = {
+  data: {
+    ok: boolean;
+    resp: AsyncApiDataResponse;
+  };
+};
+
+export interface PollingCallback {
+  (statusObj: AsyncApiResponse): void;
 }

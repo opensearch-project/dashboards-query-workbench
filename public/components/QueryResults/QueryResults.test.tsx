@@ -5,7 +5,7 @@
 
 import '@testing-library/jest-dom/extend-expect';
 import { configure, fireEvent, render } from '@testing-library/react';
-import { AsyncQueryLoadingStatus } from "../../../common/types/index";
+import { AsyncQueryStatus } from '../../../common/types/index';
 
 import 'mutationobserver-shim';
 import React from 'react';
@@ -55,7 +55,7 @@ function renderSQLQueryResults(
         getText={getText}
         isResultFullScreen={false}
         setIsResultFullScreen={setIsResultFullScreen}
-        asyncLoadingStatus={AsyncQueryLoadingStatus.Success}
+        asyncLoadingStatus={AsyncQueryStatus.Success}
         asyncQueryError=""
         selectedDatasource={[{ label: 'OpenSearch' }]}
         cancelAsyncQuery={() => {}}
@@ -131,9 +131,7 @@ describe('<QueryResults with data/> spec', () => {
   });
 
   it('renders the component with mock query results and tests the dowmload buttons', async () => {
-    const {
-      getByText,
-    } = renderSQLQueryResults(
+    const { getByText } = renderSQLQueryResults(
       mockQueryResults,
       mockQueries,
       mockSearchQuery,
@@ -217,7 +215,7 @@ function renderPPLQueryResults(
         getText={getText}
         isResultFullScreen={false}
         setIsResultFullScreen={setIsResultFullScreen}
-        asyncLoadingStatus={AsyncQueryLoadingStatus.Success}
+        asyncLoadingStatus={AsyncQueryStatus.Success}
         asyncQueryError=""
         selectedDatasource={[{ label: 'OpenSearch' }]}
         cancelAsyncQuery={() => {}}
@@ -343,7 +341,7 @@ describe('<AsyncQueryResults /> spec', () => {
           getText={() => {}}
           isResultFullScreen={false}
           setIsResultFullScreen={() => {}}
-          asyncLoadingStatus={AsyncQueryLoadingStatus.Running}
+          asyncLoadingStatus={AsyncQueryStatus.Running}
           asyncQueryError=""
           selectedDatasource={[{ label: 'mys3' }]}
           cancelAsyncQuery={() => {}}
@@ -380,7 +378,7 @@ describe('<AsyncQueryResults /> spec', () => {
           getText={() => {}}
           isResultFullScreen={false}
           setIsResultFullScreen={() => {}}
-          asyncLoadingStatus={AsyncQueryLoadingStatus.Failed}
+          asyncLoadingStatus={AsyncQueryStatus.Failed}
           asyncQueryError="custom error"
           selectedDatasource={[{ label: 'mys3' }]}
           cancelAsyncQuery={() => {}}
