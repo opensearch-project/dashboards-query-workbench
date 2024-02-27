@@ -631,9 +631,17 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       ) : OpenSearchIndicesTree.length > 0 || treeDataDatabases.length > 0 ? (
         <EuiFlexItem grow={false} className="workbench-tree">
           {selectedItems[0].label === 'OpenSearch' ? (
-            <EuiTreeView aria-label="Sample Folder Tree" items={OpenSearchIndicesTree} />
+            <EuiTreeView
+              aria-label="OpenSearch Folder Tree"
+              data-test-subj="openesearch-tree"
+              items={OpenSearchIndicesTree}
+            />
           ) : (
-            <EuiTreeView aria-label="Sample Folder Tree" items={treeDataDatabases} />
+            <EuiTreeView
+              aria-label="S3 Datasource Folder Tree"
+              data-test-subj="s3-datasource-tree"
+              items={treeDataDatabases}
+            />
           )}
         </EuiFlexItem>
       ) : (

@@ -16,8 +16,9 @@ exports[`Render databases in tree fetches Materialized view in the Side tree 1`]
       </p>
       <ul
         aria-describedby="some_html_id--instruction"
-        aria-label="Sample Folder Tree"
+        aria-label="S3 Datasource Folder Tree"
         class="euiTreeView"
+        data-test-subj="s3-datasource-tree"
         id="some_html_id"
       >
         <li
@@ -80,7 +81,7 @@ exports[`Render databases in tree fetches Materialized view in the Side tree 1`]
               class="euiText euiText--medium euiTreeView__wrapper"
             >
               <ul
-                aria-label="default  child of Sample Folder Tree"
+                aria-label="default  child of S3 Datasource Folder Tree"
                 class="euiTreeView"
               >
                 <li
@@ -229,8 +230,9 @@ exports[`Render databases in tree fetches No materilaized views badge in side tr
       </p>
       <ul
         aria-describedby="some_html_id--instruction"
-        aria-label="Sample Folder Tree"
+        aria-label="S3 Datasource Folder Tree"
         class="euiTreeView"
+        data-test-subj="s3-datasource-tree"
         id="some_html_id"
       >
         <li
@@ -293,7 +295,7 @@ exports[`Render databases in tree fetches No materilaized views badge in side tr
               class="euiText euiText--medium euiTreeView__wrapper"
             >
               <ul
-                aria-label="default  child of Sample Folder Tree"
+                aria-label="default  child of S3 Datasource Folder Tree"
                 class="euiTreeView"
               >
                 <li
@@ -434,8 +436,9 @@ exports[`Render databases in tree fetches and displays No indicies in the side t
       </p>
       <ul
         aria-describedby="some_html_id--instruction"
-        aria-label="Sample Folder Tree"
+        aria-label="S3 Datasource Folder Tree"
         class="euiTreeView"
+        data-test-subj="s3-datasource-tree"
         id="some_html_id"
       >
         <li
@@ -498,7 +501,7 @@ exports[`Render databases in tree fetches and displays No indicies in the side t
               class="euiText euiText--medium euiTreeView__wrapper"
             >
               <ul
-                aria-label="default  child of Sample Folder Tree"
+                aria-label="default  child of S3 Datasource Folder Tree"
                 class="euiTreeView"
               >
                 <li
@@ -646,7 +649,7 @@ exports[`Render databases in tree fetches and displays No indicies in the side t
                       class="euiText euiText--medium euiTreeView__wrapper"
                     >
                       <ul
-                        aria-label="http_logs2  child of default  child of Sample Folder Tree"
+                        aria-label="http_logs2  child of default  child of S3 Datasource Folder Tree"
                         class="euiTreeView"
                       >
                         <li
@@ -770,8 +773,9 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
       </p>
       <ul
         aria-describedby="some_html_id--instruction"
-        aria-label="Sample Folder Tree"
+        aria-label="OpenSearch Folder Tree"
         class="euiTreeView"
+        data-test-subj="openesearch-tree"
         id="some_html_id"
       >
         <li
@@ -1825,8 +1829,9 @@ exports[`Render databases in tree fetches and displays skipping index in the sid
       </p>
       <ul
         aria-describedby="some_html_id--instruction"
-        aria-label="Sample Folder Tree"
+        aria-label="S3 Datasource Folder Tree"
         class="euiTreeView"
+        data-test-subj="s3-datasource-tree"
         id="some_html_id"
       >
         <li
@@ -1889,7 +1894,7 @@ exports[`Render databases in tree fetches and displays skipping index in the sid
               class="euiText euiText--medium euiTreeView__wrapper"
             >
               <ul
-                aria-label="default  child of Sample Folder Tree"
+                aria-label="default  child of S3 Datasource Folder Tree"
                 class="euiTreeView"
               >
                 <li
@@ -2037,7 +2042,7 @@ exports[`Render databases in tree fetches and displays skipping index in the sid
                       class="euiText euiText--medium euiTreeView__wrapper"
                     >
                       <ul
-                        aria-label="http_logs2  child of default  child of Sample Folder Tree"
+                        aria-label="http_logs2  child of default  child of S3 Datasource Folder Tree"
                         class="euiTreeView"
                       >
                         <li
@@ -2291,8 +2296,9 @@ exports[`Render databases in tree fetches and displays tables in the side tree 1
       </p>
       <ul
         aria-describedby="some_html_id--instruction"
-        aria-label="Sample Folder Tree"
+        aria-label="S3 Datasource Folder Tree"
         class="euiTreeView"
+        data-test-subj="s3-datasource-tree"
         id="some_html_id"
       >
         <li
@@ -2355,7 +2361,7 @@ exports[`Render databases in tree fetches and displays tables in the side tree 1
               class="euiText euiText--medium euiTreeView__wrapper"
             >
               <ul
-                aria-label="default  child of Sample Folder Tree"
+                aria-label="default  child of S3 Datasource Folder Tree"
                 class="euiTreeView"
               >
                 <li
@@ -2576,8 +2582,9 @@ exports[`Render databases in tree fetches default database in the side tree 1`] 
       </p>
       <ul
         aria-describedby="some_html_id--instruction"
-        aria-label="Sample Folder Tree"
+        aria-label="S3 Datasource Folder Tree"
         class="euiTreeView"
+        data-test-subj="s3-datasource-tree"
         id="some_html_id"
       >
         <li
@@ -2659,8 +2666,9 @@ exports[`Render databases in tree fetches the tree when datasource is S3 1`] = `
       </p>
       <ul
         aria-describedby="some_html_id--instruction"
-        aria-label="Sample Folder Tree"
+        aria-label="S3 Datasource Folder Tree"
         class="euiTreeView"
+        data-test-subj="s3-datasource-tree"
         id="some_html_id"
       >
         <li
