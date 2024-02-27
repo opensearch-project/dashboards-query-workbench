@@ -35,7 +35,7 @@ import {
 } from '../../utils/utils';
 import { PPLPage } from '../PPLPage/PPLPage';
 import Switch from '../QueryLanguageSwitch/Switch';
-import QueryResults from '../QueryResults/QueryResults';
+import { QueryResults } from '../QueryResults/QueryResults';
 import { CreateButton } from '../SQLPage/CreateButton';
 import { DataSelect } from '../SQLPage/DataSelect';
 import { SQLPage } from '../SQLPage/SQLPage';

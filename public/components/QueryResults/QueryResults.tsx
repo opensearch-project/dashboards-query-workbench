@@ -83,7 +83,7 @@ interface QueryResultsState {
   itemsPerPage: number;
 }
 
-export default class QueryResults extends React.Component<QueryResultsProps, QueryResultsState> {
+export class QueryResults extends React.Component<QueryResultsProps, QueryResultsState> {
   public sortableColumns: Array<SortableProperty<string>>;
   public sortableProperties: SortableProperties;
   public sortedColumn: string;
