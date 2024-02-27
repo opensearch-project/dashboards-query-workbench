@@ -73,7 +73,7 @@ describe('Render databases in tree', () => {
       );
     };
     await asyncTest();
-    expect(screen.getByTestId('openesearch-tree')).toBeInTheDocument();
+    expect(screen.getByTestId('opensearch-tree')).toBeInTheDocument();
     expect(document.body.children[0]).toMatchSnapshot();
   });
 

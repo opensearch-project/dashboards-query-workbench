@@ -775,7 +775,7 @@ exports[`Render databases in tree fetches and displays indicies when datasource 
         aria-describedby="some_html_id--instruction"
         aria-label="OpenSearch Folder Tree"
         class="euiTreeView"
-        data-test-subj="openesearch-tree"
+        data-test-subj="opensearch-tree"
         id="some_html_id"
       >
         <li

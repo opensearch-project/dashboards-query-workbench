@@ -633,7 +633,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
           {selectedItems[0].label === 'OpenSearch' ? (
             <EuiTreeView
               aria-label="OpenSearch Folder Tree"
-              data-test-subj="openesearch-tree"
+              data-test-subj="opensearch-tree"
               items={OpenSearchIndicesTree}
             />
           ) : (

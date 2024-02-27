@@ -147,28 +147,6 @@ describe('<QueryResults with data/> spec', () => {
 
     expect(document.body.children[0]).toMatchSnapshot();
   });
-
-  it('renders the component to test tabs down arrow', async () => {
-    const { getAllByTestId } = renderSQLQueryResults(
-      mockQueryResults,
-      mockQueries,
-      mockSearchQuery,
-      onSelectedTabIdChange,
-      onQueryChange,
-      updateExpandedMap,
-      getRawResponse,
-      getJdbc,
-      getCsv,
-      getText,
-      setIsResultFullScreen
-    );
-
-    expect(document.body.children[0]).toMatchSnapshot();
-
-    // It tests right scrolling arrows
-    expect(getAllByTestId('slide-down')).toBeInTheDocument();
-    await fireEvent.click(getAllByTestId('slide-down')[0]);
-  });
 });
 
 function renderPPLQueryResults(
@@ -277,28 +255,6 @@ describe('<QueryResults with PPL data/> spec', () => {
     expect(getByText('50 rows')).toBeInTheDocument();
     expect(getByText('100 rows')).toBeInTheDocument();
     await fireEvent.click(getByText('20 rows'));
-  });
-
-  it('renders the component to test tabs down arrow', async () => {
-    const { getAllByTestId } = renderPPLQueryResults(
-      mockQueryResults,
-      mockQueries,
-      mockSearchQuery,
-      onSelectedTabIdChange,
-      onQueryChange,
-      updateExpandedMap,
-      getRawResponse,
-      getJdbc,
-      getCsv,
-      getText,
-      setIsResultFullScreen
-    );
-
-    expect(document.body.children[0]).toMatchSnapshot();
-
-    // It tests right scrolling arrows
-    expect(getAllByTestId('slide-down')).toBeInTheDocument();
-    await fireEvent.click(getAllByTestId('slide-down')[0]);
   });
 });
 

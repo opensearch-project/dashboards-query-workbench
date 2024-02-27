@@ -252,7 +252,7 @@ exports[`<Main /> spec click clear button 1`] = `
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -2924,7 +2924,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -5031,7 +5031,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -5668,7 +5668,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -6301,7 +6301,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -8407,7 +8407,7 @@ exports[`<Main /> spec renders the component 1`] = `
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -8995,7 +8995,7 @@ exports[`<Main /> spec renders the component and checks if Opensearch is selecte
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -9583,7 +9583,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -11159,7 +11159,7 @@ exports[`<Main /> spec renders the component and s3 glue component is present 1`
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
@@ -11747,7 +11747,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
                   aria-describedby="some_html_id--instruction"
                   aria-label="OpenSearch Folder Tree"
                   class="euiTreeView"
-                  data-test-subj="openesearch-tree"
+                  data-test-subj="opensearch-tree"
                   id="some_html_id"
                 >
                   <li
