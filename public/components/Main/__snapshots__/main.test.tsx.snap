@@ -12365,64 +12365,50 @@ exports[`<Main /> spec renders the component for s3 glue and check sample query 
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <div
-              class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+              class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
             >
-              <div
-                class="euiSpacer euiSpacer--l"
-              />
-              <div
-                class="euiFlexItem"
-              >
-                <span
-                  class="euiLoadingSpinner euiLoadingSpinner--large"
-                />
-              </div>
-              <div
-                class="euiFlexItem euiFlexItem--flexGrowZero"
-              >
-                Loading data
-              </div>
               <div
                 class="euiFlexItem euiFlexItem--flexGrowZero"
               >
                 <div
-                  style="padding: 10px;"
+                  class="euiEmptyPrompt"
                 >
-                  <div
-                    class="euiFlexItem"
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--medium"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
+                    <path
+                      d="M2 12h12v-1.97c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V12Zm-1 0V3c0-1.105 3.134-2 7-2s7 .895 7 2v9c0 1.105-3.134 2-7 2s-7-.895-7-2Zm1-3h12V7.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97V9Zm0-4.97V6h12V4.03c-1.225.582-3.454.97-6 .97s-4.775-.388-6-.97Zm10.675-1.483C11.467 2.202 9.795 2 8 2c-1.794 0-3.467.202-4.675.547-.492.14-.88.298-1.136.453.256.155.644.312 1.136.453C4.533 3.798 6.205 4 8 4c1.794 0 3.467-.202 4.675-.547.492-.14.88-.298 1.136-.453-.256-.155-.644-.312-1.136-.453ZM2 6c.257.155.833.312 1.325.453C4.533 6.798 6.205 7 8 7c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 9.798 6.205 10 8 10c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Zm0 3c.257.155.833.312 1.325.453C4.533 12.798 6.205 13 8 13c1.794 0 3.467-.202 4.675-.547.492-.14 1.07-.298 1.327-.453H2Z"
+                    />
+                  </svg>
+                  <div
+                    class="euiSpacer euiSpacer--m"
+                  />
+                  <p
+                    class="euiTitle euiTitle--xsmall"
+                  >
+                    No Data available
+                  </p>
+                  <span
+                    class="euiTextColor euiTextColor--subdued"
+                  >
+                    <div
+                      class="euiSpacer euiSpacer--m"
+                    />
                     <div
                       class="euiText euiText--medium"
                     >
-                      <div
-                        class="euiTextAlign euiTextAlign--center"
-                      >
-                        <div
-                          class="euiTextColor euiTextColor--subdued"
-                        >
-                          Loading may take over 30 seconds
-                        </div>
-                      </div>
+                      <p>
+                        Failed to load databases
+                      </p>
                     </div>
-                  </div>
-                  <div
-                    class="euiFlexItem"
-                  >
-                    <div
-                      class="euiText euiText--medium"
-                    >
-                      <div
-                        class="euiTextAlign euiTextAlign--center"
-                      >
-                        <div
-                          class="euiTextColor euiTextColor--subdued"
-                        >
-                          Status: 
-                          Fetching associated objects ...
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </span>
                 </div>
               </div>
             </div>
