@@ -3,8 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ApplicationStart, ChromeStart, HttpStart, IToasts } from '../../../../src/core/public';
-import { SavedObjectsClientContract } from '../../../../src/core/public';
+import {
+  ApplicationStart,
+  ChromeStart,
+  HttpStart,
+  IToasts,
+  OverlayStart,
+  SavedObjectsClientContract,
+} from '../../../../src/core/public';
 
 class CoreRefs {
   private static _instance: CoreRefs;
@@ -14,6 +20,7 @@ class CoreRefs {
   public toasts?: IToasts;
   public chrome?: ChromeStart;
   public application?: ApplicationStart;
+  public overlays?: OverlayStart;
   private constructor() {
     // ...
   }

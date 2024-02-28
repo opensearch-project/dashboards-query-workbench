@@ -12,32 +12,29 @@ import {
   htmlIdGenerator,
 } from '@elastic/eui';
 import React, { useEffect, useState } from 'react';
-import { CoreStart } from '../../../../../../src/core/public';
 import {
   ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
   ACCELERATION_INDEX_TYPES,
   ACC_INDEX_TYPE_DOCUMENTATION_URL,
 } from '../../../../common/constants';
-import { useToast } from '../../../../common/toast';
 import {
   AccelerationIndexType,
+  AsyncApiResponse,
+  AsyncQueryStatus,
   CreateAccelerationForm,
   DataTableFieldsType,
 } from '../../../../common/types';
-import { getJobId, pollQueryStatus } from '../../../../common/utils/async_query_helpers';
+import { executeAsyncQuery } from '../../../../common/utils/async_query_helpers';
 
 interface IndexTypeSelectorProps {
-  http: CoreStart['http'];
   accelerationFormData: CreateAccelerationForm;
   setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
 
 export const IndexTypeSelector = ({
-  http,
   accelerationFormData,
   setAccelerationFormData,
 }: IndexTypeSelectorProps) => {
-  const { setToast } = useToast();
   const [selectedIndexType, setSelectedIndexType] = useState<
     Array<EuiComboBoxOptionOption<string>>
   >([ACCELERATION_INDEX_TYPES[0]]);
@@ -52,33 +49,32 @@ export const IndexTypeSelector = ({
         query: `DESC \`${accelerationFormData.dataSource}\`.\`${accelerationFormData.database}\`.\`${accelerationFormData.dataTable}\``,
         datasource: accelerationFormData.dataSource,
       };
-      const errorMessage = 'ERROR: failed to load table columns';
-      getJobId(accelerationFormData.dataSource, query, http, (id: string) => {
-        if (id === undefined) {
-          setToast(errorMessage, 'danger');
-        } else {
-          pollQueryStatus(id, http, (data: { status: string; results: any[] }) => {
-            if (data.status === 'SUCCESS') {
-              const dataTableFields: DataTableFieldsType[] = data.results
-                .filter((row) => !row[0].startsWith('#'))
-                .map((row, index) => ({
-                  id: `${idPrefix}${index + 1}`,
-                  fieldName: row[0],
-                  dataType: row[1],
-                }));
-              setAccelerationFormData({
-                ...accelerationFormData,
-                dataTableFields,
-              });
-              setLoading(false);
-            }
-            if (data.status === 'FAILED') {
-              setLoading(false);
-              setToast(errorMessage, 'danger');
-            }
-          });
-        }
-      });
+
+      executeAsyncQuery(
+        accelerationFormData.dataSource,
+        query,
+        (response: AsyncApiResponse) => {
+          const status = response.data.resp.status.toLowerCase();
+          if (status === AsyncQueryStatus.Success) {
+            const dataTableFields: DataTableFieldsType[] = response.data.resp.datarows
+              .filter((row) => !row[0].startsWith('#'))
+              .map((row, index) => ({
+                id: `${idPrefix}${index + 1}`,
+                fieldName: row[0],
+                dataType: row[1],
+              }));
+            setAccelerationFormData({
+              ...accelerationFormData,
+              dataTableFields,
+            });
+            setLoading(false);
+          }
+          if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
+            setLoading(false);
+          }
+        },
+        () => setLoading(false)
+      );
     }
   }, [accelerationFormData.dataTable]);
 

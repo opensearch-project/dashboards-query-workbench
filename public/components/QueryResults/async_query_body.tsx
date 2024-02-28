@@ -16,10 +16,10 @@ import {
   EuiText,
 } from '@elastic/eui';
 import React, { useState } from 'react';
-import { AsyncQueryLoadingStatus } from '../../../common/types';
+import { AsyncQueryStatus } from '../../../common/types';
 
 interface AsyncQueryBodyProps {
-  asyncLoadingStatus: AsyncQueryLoadingStatus;
+  asyncLoadingStatus: AsyncQueryStatus;
   cancelAsyncQuery: () => void;
   asyncQueryError: string;
 }
@@ -51,7 +51,7 @@ export function AsyncQueryBody(props: AsyncQueryBodyProps) {
 
   return (
     <EuiFlexGroup direction="column" alignItems="center">
-      {asyncLoadingStatus == AsyncQueryLoadingStatus.Failed ? (
+      {asyncLoadingStatus === AsyncQueryStatus.Failed ? (
         <>
           <EuiIcon size="l" type="alert" color="danger" />
           <EuiText>
@@ -68,7 +68,9 @@ export function AsyncQueryBody(props: AsyncQueryBodyProps) {
             <h3>Query running</h3>
           </EuiText>
           <EuiText>Status: {asyncLoadingStatus}</EuiText>
-          <EuiButton onClick={cancelAsyncQuery}>Cancel</EuiButton>
+          {asyncLoadingStatus !== AsyncQueryStatus.Scheduled && (
+            <EuiButton onClick={cancelAsyncQuery}>Cancel</EuiButton>
+          )}
         </>
       )}
     </EuiFlexGroup>

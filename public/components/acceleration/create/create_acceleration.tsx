@@ -121,7 +121,6 @@ export const CreateAcceleration = ({
             />
             <EuiSpacer size="xxl" />
             <IndexSettingOptions
-              http={http}
               accelerationFormData={accelerationFormData}
               setAccelerationFormData={setAccelerationFormData}
             />
