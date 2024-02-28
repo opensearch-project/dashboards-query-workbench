@@ -14,7 +14,6 @@ import {
 } from '@elastic/eui';
 import producer from 'immer';
 import React, { ChangeEvent, useState } from 'react';
-import { CoreStart } from '../../../../../../src/core/public';
 import { ACCELERATION_TIME_INTERVAL } from '../../../../common/constants';
 import { AccelerationRefreshType, CreateAccelerationForm } from '../../../../common/types';
 import {
@@ -28,13 +27,11 @@ import {
 import { IndexTypeSelector } from './index_type_selector';
 
 interface IndexSettingOptionsProps {
-  http: CoreStart['http'];
   accelerationFormData: CreateAccelerationForm;
   setAccelerationFormData: React.Dispatch<React.SetStateAction<CreateAccelerationForm>>;
 }
 
 export const IndexSettingOptions = ({
-  http,
   accelerationFormData,
   setAccelerationFormData,
 }: IndexSettingOptionsProps) => {
@@ -72,9 +69,9 @@ export const IndexSettingOptions = ({
   };
 
   const onChangeReplicaCount = (e: ChangeEvent<HTMLInputElement>) => {
-    const replicaCount = parseInt(e.target.value, 10);
-    setAccelerationFormData({ ...accelerationFormData, replicaShardsCount: replicaCount });
-    setReplicaCount(replicaCount);
+    const parsedReplicaCount = parseInt(e.target.value, 10);
+    setAccelerationFormData({ ...accelerationFormData, replicaShardsCount: parsedReplicaCount });
+    setReplicaCount(parsedReplicaCount);
   };
 
   const onChangeRefreshType = (optionId: React.SetStateAction<string>) => {
@@ -134,12 +131,12 @@ export const IndexSettingOptions = ({
         accData.watermarkDelay.delayInterval = delayIntervalValue;
       })
     );
-    setRefreshInterval(delayIntervalValue);
+    setDelayInterval(delayIntervalValue);
   };
 
   const onChangeCheckpoint = (e: ChangeEvent<HTMLInputElement>) => {
     const checkpointLocation = e.target.value;
-    setAccelerationFormData({ ...accelerationFormData, checkpointLocation: checkpointLocation });
+    setAccelerationFormData({ ...accelerationFormData, checkpointLocation });
     setCheckpoint(checkpointLocation);
   };
 
@@ -150,7 +147,6 @@ export const IndexSettingOptions = ({
       </EuiText>
       <EuiSpacer size="s" />
       <IndexTypeSelector
-        http={http}
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />

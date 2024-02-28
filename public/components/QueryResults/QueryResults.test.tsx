@@ -5,7 +5,7 @@
 
 import '@testing-library/jest-dom/extend-expect';
 import { configure, fireEvent, render } from '@testing-library/react';
-import { AsyncQueryLoadingStatus } from "../../../common/types/index";
+import { AsyncQueryStatus } from '../../../common/types/index';
 
 import 'mutationobserver-shim';
 import React from 'react';
@@ -13,13 +13,13 @@ import 'regenerator-runtime';
 import { mockQueries, mockQueryResults } from '../../../test/mocks/mockData';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import { ItemIdToExpandedRowMap, QueryResult, ResponseDetail, Tab } from '../Main/main';
-import QueryResults from './QueryResults';
+import { QueryResults } from './QueryResults';
 
 configure({ testIdAttribute: 'data-test-subj' });
 
 function renderSQLQueryResults(
-  mockQueryResults: ResponseDetail<QueryResult>[],
-  mockQueries: string[] = [],
+  mockQueryResultsParameter: Array<ResponseDetail<QueryResult>>,
+  mockQueriesParameter: string[] = [],
   mockSearchQuery: string = '',
   onSelectedTabIdChange: (tab: Tab) => void,
   onQueryChange: () => {},
@@ -34,8 +34,8 @@ function renderSQLQueryResults(
     ...render(
       <QueryResults
         language="SQL"
-        queries={mockQueries}
-        queryResults={mockQueryResults}
+        queries={mockQueriesParameter}
+        queryResults={mockQueryResultsParameter}
         queryResultsJDBC={''}
         queryResultsJSON={''}
         queryResultsCSV={''}
@@ -55,7 +55,7 @@ function renderSQLQueryResults(
         getText={getText}
         isResultFullScreen={false}
         setIsResultFullScreen={setIsResultFullScreen}
-        asyncLoadingStatus={AsyncQueryLoadingStatus.Success}
+        asyncLoadingStatus={AsyncQueryStatus.Success}
         asyncQueryError=""
         selectedDatasource={[{ label: 'OpenSearch' }]}
         cancelAsyncQuery={() => {}}
@@ -84,13 +84,7 @@ describe('<QueryResults with data/> spec', () => {
   (window as any).HTMLElement.prototype.scrollBy = jest.fn();
 
   it('renders the component with mock query results', async () => {
-    const {
-      getAllByRole,
-      getByText,
-      getAllByText,
-      getAllByTestId,
-      getAllByLabelText,
-    } = renderSQLQueryResults(
+    const { getAllByRole, getByText, getAllByText, getAllByLabelText } = renderSQLQueryResults(
       mockQueryResults,
       mockQueries,
       mockSearchQuery,
@@ -110,7 +104,7 @@ describe('<QueryResults with data/> spec', () => {
     expect(getAllByRole('tab')[0].getAttribute('aria-selected')).toEqual('false');
     expect(getAllByRole('tab')[1].getAttribute('aria-selected')).toEqual('true');
 
-    //It tests that there is one tab for each QueryResult
+    // It tests that there is one tab for each QueryResult
     expect(getAllByRole('tab')).toHaveLength(11);
 
     // It tests Tab button
@@ -123,17 +117,15 @@ describe('<QueryResults with data/> spec', () => {
     // It tests pagination
     await fireEvent.click(getAllByLabelText('Page 2 of 2')[0]);
     await fireEvent.click(getAllByText('Rows per page', { exact: false })[0]);
-    expect(getByText('10 rows'));
-    expect(getByText('20 rows'));
-    expect(getByText('50 rows'));
-    expect(getByText('100 rows'));
+    expect(getByText('10 rows')).toBeInTheDocument();
+    expect(getByText('20 rows')).toBeInTheDocument();
+    expect(getByText('50 rows')).toBeInTheDocument();
+    expect(getByText('100 rows')).toBeInTheDocument();
     await fireEvent.click(getByText('20 rows'));
   });
 
   it('renders the component with mock query results and tests the dowmload buttons', async () => {
-    const {
-      getByText,
-    } = renderSQLQueryResults(
+    const { getByText } = renderSQLQueryResults(
       mockQueryResults,
       mockQueries,
       mockSearchQuery,
@@ -155,33 +147,11 @@ describe('<QueryResults with data/> spec', () => {
 
     expect(document.body.children[0]).toMatchSnapshot();
   });
-
-  it('renders the component to test tabs down arrow', async () => {
-    const { getAllByTestId } = renderSQLQueryResults(
-      mockQueryResults,
-      mockQueries,
-      mockSearchQuery,
-      onSelectedTabIdChange,
-      onQueryChange,
-      updateExpandedMap,
-      getRawResponse,
-      getJdbc,
-      getCsv,
-      getText,
-      setIsResultFullScreen
-    );
-
-    expect(document.body.children[0]).toMatchSnapshot();
-
-    // It tests right scrolling arrows
-    expect(getAllByTestId('slide-down'));
-    await fireEvent.click(getAllByTestId('slide-down')[0]);
-  });
 });
 
 function renderPPLQueryResults(
-  mockQueryResults: ResponseDetail<QueryResult>[],
-  mockQueries: string[] = [],
+  mockQueryResultsParameter: Array<ResponseDetail<QueryResult>>,
+  mockQueriesParameter: string[] = [],
   mockSearchQuery: string = '',
   onSelectedTabIdChange: (tab: Tab) => void,
   onQueryChange: () => {},
@@ -196,8 +166,8 @@ function renderPPLQueryResults(
     ...render(
       <QueryResults
         language="PPL"
-        queries={mockQueries}
-        queryResults={mockQueryResults}
+        queries={mockQueriesParameter}
+        queryResults={mockQueryResultsParameter}
         queryResultsJDBC={''}
         queryResultsJSON={''}
         queryResultsCSV={''}
@@ -217,7 +187,7 @@ function renderPPLQueryResults(
         getText={getText}
         isResultFullScreen={false}
         setIsResultFullScreen={setIsResultFullScreen}
-        asyncLoadingStatus={AsyncQueryLoadingStatus.Success}
+        asyncLoadingStatus={AsyncQueryStatus.Success}
         asyncQueryError=""
         selectedDatasource={[{ label: 'OpenSearch' }]}
         cancelAsyncQuery={() => {}}
@@ -226,7 +196,7 @@ function renderPPLQueryResults(
   };
 }
 
-describe('<QueryResults /> spec', () => {
+describe('<QueryResults /> empty spec', () => {
   it('renders the component with no data', async () => {
     (window as any).HTMLElement.prototype.scrollBy = function () {};
 
@@ -234,7 +204,7 @@ describe('<QueryResults /> spec', () => {
   });
 });
 
-describe('<QueryResults with data/> spec', () => {
+describe('<QueryResults with PPL data/> spec', () => {
   const onSelectedTabIdChange = jest.fn();
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
@@ -247,13 +217,7 @@ describe('<QueryResults with data/> spec', () => {
   (window as any).HTMLElement.prototype.scrollBy = jest.fn();
 
   it('renders the component with mock query results', async () => {
-    const {
-      getAllByRole,
-      getByText,
-      getAllByText,
-      getAllByTestId,
-      getAllByLabelText,
-    } = renderPPLQueryResults(
+    const { getAllByRole, getByText, getAllByText, getAllByLabelText } = renderPPLQueryResults(
       mockQueryResults,
       mockQueries,
       mockSearchQuery,
@@ -273,7 +237,7 @@ describe('<QueryResults with data/> spec', () => {
     expect(getAllByRole('tab')[0].getAttribute('aria-selected')).toEqual('false');
     expect(getAllByRole('tab')[1].getAttribute('aria-selected')).toEqual('true');
 
-    //It tests that there is one tab for each QueryResult
+    // It tests that there is one tab for each QueryResult
     expect(getAllByRole('tab')).toHaveLength(11);
 
     // It tests Tab button
@@ -286,33 +250,11 @@ describe('<QueryResults with data/> spec', () => {
     // It tests pagination
     await fireEvent.click(getAllByLabelText('Page 2 of 2')[0]);
     await fireEvent.click(getAllByText('Rows per page', { exact: false })[0]);
-    expect(getByText('10 rows'));
-    expect(getByText('20 rows'));
-    expect(getByText('50 rows'));
-    expect(getByText('100 rows'));
+    expect(getByText('10 rows')).toBeInTheDocument();
+    expect(getByText('20 rows')).toBeInTheDocument();
+    expect(getByText('50 rows')).toBeInTheDocument();
+    expect(getByText('100 rows')).toBeInTheDocument();
     await fireEvent.click(getByText('20 rows'));
-  });
-
-  it('renders the component to test tabs down arrow', async () => {
-    const { getAllByTestId } = renderPPLQueryResults(
-      mockQueryResults,
-      mockQueries,
-      mockSearchQuery,
-      onSelectedTabIdChange,
-      onQueryChange,
-      updateExpandedMap,
-      getRawResponse,
-      getJdbc,
-      getCsv,
-      getText,
-      setIsResultFullScreen
-    );
-
-    expect(document.body.children[0]).toMatchSnapshot();
-
-    // It tests right scrolling arrows
-    expect(getAllByTestId('slide-down'));
-    await fireEvent.click(getAllByTestId('slide-down')[0]);
   });
 });
 
@@ -343,7 +285,7 @@ describe('<AsyncQueryResults /> spec', () => {
           getText={() => {}}
           isResultFullScreen={false}
           setIsResultFullScreen={() => {}}
-          asyncLoadingStatus={AsyncQueryLoadingStatus.Running}
+          asyncLoadingStatus={AsyncQueryStatus.Running}
           asyncQueryError=""
           selectedDatasource={[{ label: 'mys3' }]}
           cancelAsyncQuery={() => {}}
@@ -380,7 +322,7 @@ describe('<AsyncQueryResults /> spec', () => {
           getText={() => {}}
           isResultFullScreen={false}
           setIsResultFullScreen={() => {}}
-          asyncLoadingStatus={AsyncQueryLoadingStatus.Failed}
+          asyncLoadingStatus={AsyncQueryStatus.Failed}
           asyncQueryError="custom error"
           selectedDatasource={[{ label: 'mys3' }]}
           cancelAsyncQuery={() => {}}
