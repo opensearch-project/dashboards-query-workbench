@@ -50,26 +50,31 @@ export const IndexTypeSelector = ({
         datasource: accelerationFormData.dataSource,
       };
 
-      executeAsyncQuery(accelerationFormData.dataSource, query, (response: AsyncApiResponse) => {
-        const status = response.data.resp.status.toLowerCase();
-        if (status === AsyncQueryStatus.Success) {
-          const dataTableFields: DataTableFieldsType[] = response.data.resp.datarows
-            .filter((row) => !row[0].startsWith('#'))
-            .map((row, index) => ({
-              id: `${idPrefix}${index + 1}`,
-              fieldName: row[0],
-              dataType: row[1],
-            }));
-          setAccelerationFormData({
-            ...accelerationFormData,
-            dataTableFields,
-          });
-          setLoading(false);
-        }
-        if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
-          setLoading(false);
-        }
-      });
+      executeAsyncQuery(
+        accelerationFormData.dataSource,
+        query,
+        (response: AsyncApiResponse) => {
+          const status = response.data.resp.status.toLowerCase();
+          if (status === AsyncQueryStatus.Success) {
+            const dataTableFields: DataTableFieldsType[] = response.data.resp.datarows
+              .filter((row) => !row[0].startsWith('#'))
+              .map((row, index) => ({
+                id: `${idPrefix}${index + 1}`,
+                fieldName: row[0],
+                dataType: row[1],
+              }));
+            setAccelerationFormData({
+              ...accelerationFormData,
+              dataTableFields,
+            });
+            setLoading(false);
+          }
+          if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
+            setLoading(false);
+          }
+        },
+        () => setLoading(false)
+      );
     }
   }, [accelerationFormData.dataTable]);
 

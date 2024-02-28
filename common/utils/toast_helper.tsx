@@ -56,13 +56,7 @@ const loadErrorModal = (errorDetailsMessage: string) => {
           <EuiModalHeaderTitle>Error details</EuiModalHeaderTitle>
         </EuiModalHeader>
         <EuiModalBody>
-          <EuiCodeBlock
-            language="json"
-            fontSize="m"
-            paddingSize="m"
-            overflowHeight={200}
-            isCopyable
-          >
+          <EuiCodeBlock language="json" fontSize="m" paddingSize="m" isCopyable>
             {errorDetailsMessage}
           </EuiCodeBlock>
         </EuiModalBody>
@@ -87,7 +81,7 @@ export const RaiseErrorToast = ({
     'danger',
     toMountPoint(
       <EuiButton color="danger" size="s" onClick={() => loadErrorModal(errorDetailsMessage)}>
-        More details
+        Error details
       </EuiButton>
     )
   );

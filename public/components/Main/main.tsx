@@ -516,13 +516,9 @@ export class Main extends React.Component<MainProps, MainState> {
           },
           (errorDetails: string) => {
             this.setState({
-              messages: [
-                {
-                  text: 'Query run failed: ' + errorDetails,
-                  className: 'error-message',
-                },
-              ],
               asyncLoading: false,
+              asyncLoadingStatus: AsyncQueryStatus.Failed,
+              asyncQueryError: errorDetails,
             });
           }
         );

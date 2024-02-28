@@ -154,20 +154,33 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         datasource: selectedItems[0].label,
       };
       setCurrentQueryHandler(() =>
-        executeAsyncQuery(selectedItems[0].label, query, (response: AsyncApiResponse) => {
-          const status = response.data.resp.status.toLowerCase();
-          setIsLoading({ flag: true, status });
-          if (status === AsyncQueryStatus.Success) {
-            const fetchedDatabases = [].concat(...response.data.resp.datarows);
-            setTreeData(loadTreeItem(fetchedDatabases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
-            setIsLoading({ flag: false, status });
-          } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
+        executeAsyncQuery(
+          selectedItems[0].label,
+          query,
+          (response: AsyncApiResponse) => {
+            const status = response.data.resp.status.toLowerCase();
+            setIsLoading({ flag: true, status });
+            if (status === AsyncQueryStatus.Success) {
+              const fetchedDatabases = [].concat(...response.data.resp.datarows);
+              setTreeData(loadTreeItem(fetchedDatabases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
+              setIsLoading({ flag: false, status });
+            } else if (
+              status === AsyncQueryStatus.Failed ||
+              status === AsyncQueryStatus.Cancelled
+            ) {
+              setIsLoading({
+                flag: false,
+                status: response.data.resp.error ?? '',
+              });
+            }
+          },
+          () => {
             setIsLoading({
               flag: false,
-              status: response.data.resp.error ?? '',
+              status: 'Failed to load databases',
             });
           }
-        })
+        )
       );
     }
   };

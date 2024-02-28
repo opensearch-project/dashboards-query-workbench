@@ -44,15 +44,15 @@ export const executeAsyncQuery = (
       .then((res) => {
         const responseData = res.data.resp;
         jobId = responseData?.queryId;
-        if (jobId === undefined) {
-          console.error('Recieved invalid query id:', responseData?.error);
+        if (jobId === undefined || !res.data.ok) {
+          console.error('Recieved an invalid query id:', res.data);
           RaiseErrorToast({
-            errorToastMessage: 'Recieved invalid query id',
-            errorDetailsMessage: responseData?.error,
+            errorToastMessage: 'Recieved an invalid query id: ' + res.data.resp,
+            errorDetailsMessage: res.data.body,
           });
 
           if (onErrorCallback) {
-            onErrorCallback(responseData?.error);
+            onErrorCallback(res.data.body);
           }
           return;
         }
