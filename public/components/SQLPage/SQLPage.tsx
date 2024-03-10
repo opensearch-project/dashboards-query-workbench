@@ -24,6 +24,7 @@ import 'brace/mode/sql';
 import React from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { SAMPLE_SQL_QUERY } from '../../../common/constants';
+import { getRenderCreateAccelerationFlyout } from '../../dependencies/register_observability_flyouts';
 import { ResponseDetail, TranslateResult } from '../Main/main';
 import { CreateAcceleration } from '../acceleration/create/create_acceleration';
 
@@ -58,6 +59,8 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
       flyoutComponent: <></>,
     };
   }
+
+  renderCreateAccelerationFlyout = getRenderCreateAccelerationFlyout();
 
   setIsModalVisible(visible: boolean): void {
     this.setState({
@@ -148,7 +151,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
         >
           <EuiSpacer size="s" />
           <EuiCodeEditor
-            data-test-subj='sqlCodeEditor'
+            data-test-subj="sqlCodeEditor"
             mode="sql"
             theme="textmate"
             width="100%"
@@ -167,7 +170,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
           <EuiFlexGroup justifyContent="spaceBetween">
             <EuiFlexItem>
               <EuiFlexGroup className="action-container" gutterSize="m">
-                <EuiFlexItem grow={false} >
+                <EuiFlexItem grow={false}>
                   <EuiButton
                     data-test-subj="sqlRunButton"
                     fill={true}
@@ -185,7 +188,11 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     this.props.onClear();
                   }}
                 >
-                  <EuiButton data-test-subj="sqlClearButton" className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                  <EuiButton
+                    data-test-subj="sqlClearButton"
+                    className="sql-editor-button"
+                    isDisabled={this.props.asyncLoading}
+                  >
                     Clear
                   </EuiButton>
                 </EuiFlexItem>
@@ -220,7 +227,9 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                 <EuiFlexItem grow={false}>
                   <EuiButton
                     className="sql-accelerate-button"
-                    onClick={this.setAccelerationFlyout}
+                    onClick={() =>
+                      this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label)
+                    }
                     isDisabled={this.props.asyncLoading}
                   >
                     Accelerate Table

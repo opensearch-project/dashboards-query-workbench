@@ -5,6 +5,7 @@
 
 import { AppMountParameters, CoreSetup, CoreStart, Plugin } from '../../../src/core/public';
 import { PLUGIN_NAME } from '../common/constants';
+import { registerObservabilityDependencies } from './dependencies/register_observability_flyouts';
 import { coreRefs } from './framework/core_refs';
 import { AppPluginStartDependencies, WorkbenchPluginSetup, WorkbenchPluginStart } from './types';
 
@@ -34,7 +35,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     return {};
   }
 
-  public start(core: CoreStart): WorkbenchPluginStart {
+  public start(core: CoreStart, startDeps: AppPluginStartDependencies): WorkbenchPluginStart {
     coreRefs.http = core.http;
     coreRefs.savedObjectsClient = core.savedObjects.client;
     coreRefs.toasts = core.notifications.toasts;
@@ -42,6 +43,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     coreRefs.application = core.application;
     coreRefs.overlays = core.overlays;
 
+    registerObservabilityDependencies(startDeps.observabilityDashboards);
     return {};
   }
 
