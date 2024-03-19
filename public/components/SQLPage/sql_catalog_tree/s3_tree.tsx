@@ -45,6 +45,7 @@ interface S3TreeProps {
 
 export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProps) => {
   const { setToast } = useToast();
+  const [isFirstRender, setIsFirstRender] = useState(true);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
   const [currentSelectedDatabase, setCurrentSelectedDatabase] = useState('');
   const renderAccelerationDetailsFlyout = getRenderAccelerationDetailsFlyout();
@@ -248,6 +249,14 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
   }, [dataSource]);
 
   useEffect(() => {
+    setIsFirstRender(false);
+  }, []);
+
+  useEffect(() => {
+    if (isFirstRender) {
+      return;
+    }
+    // This will only execute on changes to refreshTree after the initial render
     onRefreshTree();
   }, [refreshTree]);
 
