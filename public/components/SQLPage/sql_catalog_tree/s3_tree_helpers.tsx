@@ -109,8 +109,6 @@ export const isEitherObjectCacheEmpty = (dataSourceName: string, databaseName: s
   const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
     dataSourceName
   );
-  console.log('dbCache.status', dbCache.status);
-  console.log('dsCache.status', dsCache.status);
   return (
     dbCache.status === CachedDataSourceStatus.Empty ||
     dsCache.status === CachedDataSourceStatus.Empty ||
