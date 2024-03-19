@@ -24,9 +24,8 @@ import 'brace/mode/sql';
 import React from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { SAMPLE_SQL_QUERY } from '../../../common/constants';
-import { getRenderCreateAccelerationFlyout } from '../../dependencies/register_observability_flyouts';
+import { getRenderCreateAccelerationFlyout } from '../../dependencies/register_observability_dependencies';
 import { ResponseDetail, TranslateResult } from '../Main/main';
-import { CreateAcceleration } from '../acceleration/create/create_acceleration';
 
 interface SQLPageProps {
   http: CoreStart['http'];
@@ -46,7 +45,7 @@ interface SQLPageState {
   sqlQuery: string;
   translation: string;
   isModalVisible: boolean;
-  flyoutComponent: JSX.Element;
+  queryToRun: string;
 }
 
 export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
@@ -56,10 +55,9 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
       sqlQuery: this.props.sqlQuery,
       translation: '',
       isModalVisible: false,
-      flyoutComponent: <></>,
+      queryToRun: '',
     };
   }
-
   renderCreateAccelerationFlyout = getRenderCreateAccelerationFlyout();
 
   setIsModalVisible(visible: boolean): void {
@@ -68,21 +66,8 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
     });
   }
 
-  resetFlyout = () => {
-    this.setState({ flyoutComponent: <></> });
-  };
-
   setAccelerationFlyout = () => {
-    this.setState({
-      flyoutComponent: (
-        <CreateAcceleration
-          http={this.props.http}
-          selectedDatasource={this.props.selectedDatasource}
-          resetFlyout={this.resetFlyout}
-          updateQueries={this.props.updateSQLQueries}
-        />
-      ),
-    });
+    this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label);
   };
 
   componentDidUpdate(prevProps: SQLPageProps) {
@@ -239,7 +224,6 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
           </EuiFlexGroup>
         </EuiPanel>
         {modal}
-        {this.state.flyoutComponent}
       </>
     );
   }

@@ -5,7 +5,7 @@
 
 import { AppMountParameters, CoreSetup, CoreStart, Plugin } from '../../../src/core/public';
 import { PLUGIN_NAME } from '../common/constants';
-import { registerObservabilityDependencies } from './dependencies/register_observability_flyouts';
+import { registerObservabilityDependencies } from './dependencies/register_observability_dependencies';
 import { coreRefs } from './framework/core_refs';
 import { AppPluginStartDependencies, WorkbenchPluginSetup, WorkbenchPluginStart } from './types';
 

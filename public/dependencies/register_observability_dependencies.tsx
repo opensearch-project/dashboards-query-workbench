@@ -4,6 +4,7 @@
  */
 
 import { createGetterSetter } from '../../../../src/plugins/opensearch_dashboards_utils/public';
+import { catalogCacheRefs } from '../framework/catalog_cache_refs';
 import { ObservabilityStart } from '../types';
 
 export const [
@@ -27,4 +28,9 @@ export const registerObservabilityDependencies = (start?: ObservabilityStart) =>
   setRenderAccelerationDetailsFlyout(start.renderAccelerationDetailsFlyout);
   setRenderAssociatedObjectsDetailsFlyout(start.renderAssociatedObjectsDetailsFlyout);
   setRenderCreateAccelerationFlyout(start.renderCreateAccelerationFlyout);
+  catalogCacheRefs.CatalogCacheManager = start.CatalogCacheManagerInstance;
+  catalogCacheRefs.useLoadDatabasesToCache = start.useLoadDatabasesToCacheHook;
+  catalogCacheRefs.useLoadTablesToCache = start.useLoadTablesToCacheHook;
+  catalogCacheRefs.useLoadTableColumnsToCache = start.useLoadTableColumnsToCacheHook;
+  catalogCacheRefs.useLoadAccelerationsToCache = start.useLoadAccelerationsToCacheHook;
 };

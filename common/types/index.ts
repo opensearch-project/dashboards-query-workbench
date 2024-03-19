@@ -96,6 +96,12 @@ export enum AsyncQueryStatus {
   Waiting = 'waiting',
 }
 
+export enum CachedDataSourceStatus {
+  Updated = 'Updated',
+  Failed = 'Failed',
+  Empty = 'Empty',
+}
+
 export type TreeItemType =
   | 'covering_index'
   | 'skipping_index'
