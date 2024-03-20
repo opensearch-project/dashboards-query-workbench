@@ -60,17 +60,17 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
   const {
     loadStatus: loadDatabasesStatus,
     startLoading: startDatabasesLoading,
-    stopLoading: _stopDatabasesLoading,
+    stopLoading: stopDatabasesLoading,
   } = catalogCacheRefs.useLoadDatabasesToCache();
   const {
     loadStatus: loadTablesStatus,
     startLoading: startLoadingTables,
-    stopLoading: _stopLoadingTables,
+    stopLoading: stopLoadingTables,
   } = catalogCacheRefs.useLoadTablesToCache();
   const {
     loadStatus: loadAccelerationsStatus,
     startLoading: startLoadingAccelerations,
-    stopLoading: _stopLoadingAccelerations,
+    stopLoading: stopLoadingAccelerations,
   } = catalogCacheRefs.useLoadAccelerationsToCache();
 
   const updateDatabaseState = (databaseName: string, isLoading: boolean, values?: TreeItem[]) => {
@@ -273,6 +273,14 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
       setCurrentSelectedDatabase('');
     }
   }, [isObjectLoading]);
+
+  useEffect(() => {
+    return () => {
+      stopDatabasesLoading();
+      stopLoadingTables();
+      stopLoadingAccelerations();
+    };
+  }, []);
 
   const treeLoadingStateRenderer = (
     <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
