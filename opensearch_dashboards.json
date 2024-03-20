@@ -4,9 +4,6 @@
   "opensearchDashboardsVersion": "2.13.0",
   "server": true,
   "ui": true,
-  "requiredPlugins": [
-    "navigation",
-    "opensearchDashboardsReact"
-  ],
-  "optionalPlugins": []
+  "requiredPlugins": ["navigation", "opensearchDashboardsReact", "opensearchDashboardsUtils"],
+  "optionalPlugins": ["observabilityDashboards"]
 }

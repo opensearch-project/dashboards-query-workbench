@@ -24,8 +24,8 @@ import 'brace/mode/sql';
 import React from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { SAMPLE_SQL_QUERY } from '../../../common/constants';
+import { getRenderCreateAccelerationFlyout } from '../../dependencies/register_observability_dependencies';
 import { ResponseDetail, TranslateResult } from '../Main/main';
-import { CreateAcceleration } from '../acceleration/create/create_acceleration';
 
 interface SQLPageProps {
   http: CoreStart['http'];
@@ -45,7 +45,7 @@ interface SQLPageState {
   sqlQuery: string;
   translation: string;
   isModalVisible: boolean;
-  flyoutComponent: JSX.Element;
+  queryToRun: string;
 }
 
 export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
@@ -55,9 +55,10 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
       sqlQuery: this.props.sqlQuery,
       translation: '',
       isModalVisible: false,
-      flyoutComponent: <></>,
+      queryToRun: '',
     };
   }
+  renderCreateAccelerationFlyout = getRenderCreateAccelerationFlyout();
 
   setIsModalVisible(visible: boolean): void {
     this.setState({
@@ -65,21 +66,8 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
     });
   }
 
-  resetFlyout = () => {
-    this.setState({ flyoutComponent: <></> });
-  };
-
   setAccelerationFlyout = () => {
-    this.setState({
-      flyoutComponent: (
-        <CreateAcceleration
-          http={this.props.http}
-          selectedDatasource={this.props.selectedDatasource}
-          resetFlyout={this.resetFlyout}
-          updateQueries={this.props.updateSQLQueries}
-        />
-      ),
-    });
+    this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label);
   };
 
   componentDidUpdate(prevProps: SQLPageProps) {
@@ -148,7 +136,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
         >
           <EuiSpacer size="s" />
           <EuiCodeEditor
-            data-test-subj='sqlCodeEditor'
+            data-test-subj="sqlCodeEditor"
             mode="sql"
             theme="textmate"
             width="100%"
@@ -167,7 +155,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
           <EuiFlexGroup justifyContent="spaceBetween">
             <EuiFlexItem>
               <EuiFlexGroup className="action-container" gutterSize="m">
-                <EuiFlexItem grow={false} >
+                <EuiFlexItem grow={false}>
                   <EuiButton
                     data-test-subj="sqlRunButton"
                     fill={true}
@@ -185,7 +173,11 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     this.props.onClear();
                   }}
                 >
-                  <EuiButton data-test-subj="sqlClearButton" className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                  <EuiButton
+                    data-test-subj="sqlClearButton"
+                    className="sql-editor-button"
+                    isDisabled={this.props.asyncLoading}
+                  >
                     Clear
                   </EuiButton>
                 </EuiFlexItem>
@@ -220,7 +212,9 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                 <EuiFlexItem grow={false}>
                   <EuiButton
                     className="sql-accelerate-button"
-                    onClick={this.setAccelerationFlyout}
+                    onClick={() =>
+                      this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label)
+                    }
                     isDisabled={this.props.asyncLoading}
                   >
                     Accelerate Table
@@ -230,7 +224,6 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
           </EuiFlexGroup>
         </EuiPanel>
         {modal}
-        {this.state.flyoutComponent}
       </>
     );
   }
