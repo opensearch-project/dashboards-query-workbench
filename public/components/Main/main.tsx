@@ -19,6 +19,7 @@ import {
   EuiText,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
+import { createBrowserHistory } from 'history';
 import _ from 'lodash';
 import React from 'react';
 import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
@@ -39,7 +40,7 @@ import { QueryResults } from '../QueryResults/QueryResults';
 import { CreateButton } from '../SQLPage/CreateButton';
 import { DataSelect } from '../SQLPage/DataSelect';
 import { SQLPage } from '../SQLPage/SQLPage';
-import { TableView } from '../SQLPage/table_view';
+import { CatalogTree } from '../SQLPage/sql_catalog_tree/catalog_tree';
 
 interface ResponseData {
   ok: boolean;
@@ -230,6 +231,7 @@ export function getQueryResultsForTable(
 
 export class Main extends React.Component<MainProps, MainState> {
   httpClient: CoreStart['http'];
+  historyFromRedirection = createBrowserHistory();
 
   constructor(props: MainProps) {
     super(props);
@@ -759,6 +761,21 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   }
 
+  checkHistoryState = () => {
+    if (!this.historyFromRedirection.location.state) return;
+
+    const { language, queryToRun }: any = this.historyFromRedirection.location.state;
+    if (language === 'sql') {
+      this.updateSQLQueries(queryToRun);
+
+      // Clear the state after use
+      this.historyFromRedirection.replace({
+        ...location,
+        state: null,
+      });
+    }
+  };
+
   handleDataSelect = (selectedItems: EuiComboBoxOptionOption[]) => {
     this.updateSQLQueries('');
     this.updatePPLQueries('');
@@ -769,6 +786,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.setState({
       selectedDatasource: selectedItems,
     });
+    this.checkHistoryState();
   };
 
   handleReloadTree = () => {
@@ -940,8 +958,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   }}
                 >
                   <EuiFlexItem grow={false}>
-                    <TableView
-                      http={this.httpClient}
+                    <CatalogTree
                       selectedItems={this.state.selectedDatasource}
                       updateSQLQueries={this.updateSQLQueries}
                       refreshTree={this.state.refreshTree}
