@@ -26,6 +26,8 @@ import { CoreStart } from '../../../../../src/core/public';
 import { SAMPLE_SQL_QUERY } from '../../../common/constants';
 import { getRenderCreateAccelerationFlyout } from '../../dependencies/register_observability_dependencies';
 import { ResponseDetail, TranslateResult } from '../Main/main';
+import { catalogCacheRefs } from '../../framework/catalog_cache_refs';
+import { AccelerationFlyoutButton } from './AccelerationFlyoutButton';
 
 interface SQLPageProps {
   http: CoreStart['http'];
@@ -67,7 +69,13 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
   }
 
   setAccelerationFlyout = () => {
-    this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label);
+    const { loadStatus, startLoading, stopLoading } = catalogCacheRefs.useLoadTableColumnsToCache();
+    this.renderCreateAccelerationFlyout(
+      this.props.selectedDatasource[0].label,
+      loadStatus,
+      startLoading,
+      stopLoading
+    );
   };
 
   componentDidUpdate(prevProps: SQLPageProps) {
@@ -210,15 +218,10 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
             {this.props.selectedDatasource &&
               this.props.selectedDatasource[0].label !== 'OpenSearch' && (
                 <EuiFlexItem grow={false}>
-                  <EuiButton
-                    className="sql-accelerate-button"
-                    onClick={() =>
-                      this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label)
-                    }
-                    isDisabled={this.props.asyncLoading}
-                  >
-                    Accelerate Table
-                  </EuiButton>
+                  <AccelerationFlyoutButton
+                    datasource={this.props.selectedDatasource[0].label}
+                    asyncLoading={this.props.asyncLoading}
+                  />
                 </EuiFlexItem>
               )}
           </EuiFlexGroup>

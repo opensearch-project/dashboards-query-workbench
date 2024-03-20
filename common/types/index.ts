@@ -87,6 +87,7 @@ export interface CreateAccelerationForm {
 }
 
 export enum AsyncQueryStatus {
+  Initial = 'initial',
   Pending = 'pending',
   Success = 'success',
   Failed = 'failed',
