@@ -8,6 +8,13 @@ import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { SQLPage } from './SQLPage';
 
+jest.mock('../../dependencies/register_observability_dependencies', () => ({
+  getRenderAccelerationDetailsFlyout: jest.fn(() => jest.fn()),
+  getRenderCreateAccelerationFlyout: jest.fn(() => jest.fn()),
+  setRenderAccelerationDetailsFlyout: jest.fn(() => jest.fn()),
+  setRenderCreateAccelerationFlyout: jest.fn(() => jest.fn()),
+}));
+
 describe('<SQLPage /> spec', () => {
   it('renders the component', () => {
     render(

@@ -23,6 +23,46 @@ import { Main } from './main';
 
 const setBreadcrumbsMock = jest.fn();
 
+jest.mock('../../dependencies/register_observability_dependencies', () => ({
+  getRenderAccelerationDetailsFlyout: jest.fn(() => jest.fn()),
+  getRenderCreateAccelerationFlyout: jest.fn(() => jest.fn()),
+  setRenderAccelerationDetailsFlyout: jest.fn(() => jest.fn()),
+  setRenderCreateAccelerationFlyout: jest.fn(() => jest.fn()),
+}));
+
+jest.mock('../../framework/catalog_cache_refs', () => ({
+  catalogCacheRefs: {
+    CatalogCacheManager: {
+      addOrUpdateAccelerationsByDataSource: () => ({
+        dbCache: { status: 'empty' },
+      }),
+      getOrCreateDataSource: () => ({
+        dsCache: { status: 'empty' },
+      }),
+    },
+    useLoadDatabasesToCache: () => ({
+      loadStatus: 'Scheduled',
+      startLoading: jest.fn(),
+      stopLoading: jest.fn(),
+    }),
+    useLoadTablesToCache: () => ({
+      loadStatus: 'Scheduled',
+      startLoading: jest.fn(),
+      stopLoading: jest.fn(),
+    }),
+    useLoadTableColumnsToCache: () => ({
+      loadStatus: 'Scheduled',
+      startLoading: jest.fn(),
+      stopLoading: jest.fn(),
+    }),
+    useLoadAccelerationsToCache: () => ({
+      loadStatus: 'Scheduled',
+      startLoading: jest.fn(),
+      stopLoading: jest.fn(),
+    }),
+  },
+}));
+
 describe('<Main /> spec', () => {
   it('renders the component', async () => {
     const client = httpClientMock;
@@ -45,9 +85,9 @@ describe('<Main /> spec', () => {
     const asyncTest = () => {
       fireEvent.click(pplButton);
     };
-    waitFor(()=>{
+    waitFor(() => {
       asyncTest();
-    })
+    });
     expect(document.body.children[0]).toMatchSnapshot();
   });
   it('renders the component and checks if Opensearch is selected', async () => {
@@ -68,7 +108,7 @@ describe('<Main /> spec', () => {
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
     expect(getByText('OpenSearch')).toBeInTheDocument();
-    fireEvent.click(getByText('OpenSearch'))
+    fireEvent.click(getByText('OpenSearch'));
     await waitFor(() => {
       expect(getByText('glue_1')).toBeInTheDocument();
     });
@@ -81,9 +121,11 @@ describe('<Main /> spec', () => {
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
-    expect(getByText('OpenSearch')).toBeInTheDocument();
-    fireEvent.click(getByText('OpenSearch'))
-    fireEvent.click(getByText('glue_1'))
+    await waitFor(() => {
+      expect(getByText('OpenSearch')).toBeInTheDocument();
+    });
+    fireEvent.click(getByText('OpenSearch'));
+    fireEvent.click(getByText('glue_1'));
     await waitFor(() => {
       expect(getByText('Sample Query')).toBeInTheDocument();
     });
@@ -100,7 +142,10 @@ describe('<Main /> spec', () => {
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
-    expect(getByText('.kibana_1')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(getByText('.kibana_1')).toBeInTheDocument();
+    });
 
     expect(document.body.children[0]).toMatchSnapshot();
   });
