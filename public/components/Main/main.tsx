@@ -524,7 +524,15 @@ export class Main extends React.Component<MainProps, MainState> {
             });
           }
         );
-        this.setState({ cancelQueryHandler: cancelQuery });
+
+        const cancelQueryRequester = () => {
+          this.setState({
+            asyncLoading: false,
+            asyncLoadingStatus: AsyncQueryStatus.Cancelled,
+          });
+          cancelQuery();
+        };
+        this.setState({ cancelQueryHandler: cancelQueryRequester });
       });
     }
   };
