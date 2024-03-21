@@ -31,6 +31,7 @@ export const executeAsyncQuery = (
 ) => {
   let jobId: string | undefined;
   let isQueryFulfilled = false;
+  let isQueryCancelled = false;
   const http = coreRefs.http!;
 
   const getJobId = () => {
@@ -73,67 +74,69 @@ export const executeAsyncQuery = (
   };
 
   const pollQueryStatus = (id: string, callback: PollingCallback) => {
-    http
-      .get(ASYNC_QUERY_JOB_ENDPOINT + id)
-      .then((res: AsyncApiResponse) => {
-        const status = res.data.resp.status.toLowerCase();
-        const errorDetailsMessage = res.data.resp.error ?? '';
-        switch (status) {
-          case AsyncQueryStatus.Pending:
-          case AsyncQueryStatus.Running:
-          case AsyncQueryStatus.Scheduled:
-          case AsyncQueryStatus.Waiting:
-            callback({ ...res });
-            setTimeout(() => pollQueryStatus(id, callback), POLL_INTERVAL_MS);
-            break;
+    !isQueryCancelled &&
+      http
+        .get(ASYNC_QUERY_JOB_ENDPOINT + id)
+        .then((res: AsyncApiResponse) => {
+          const status = res.data.resp.status.toLowerCase();
+          const errorDetailsMessage = res.data.resp.error ?? '';
+          switch (status) {
+            case AsyncQueryStatus.Pending:
+            case AsyncQueryStatus.Running:
+            case AsyncQueryStatus.Scheduled:
+            case AsyncQueryStatus.Waiting:
+              callback({ ...res });
+              setTimeout(() => pollQueryStatus(id, callback), POLL_INTERVAL_MS);
+              break;
 
-          case AsyncQueryStatus.Failed:
-          case AsyncQueryStatus.Cancelled:
-            isQueryFulfilled = true;
+            case AsyncQueryStatus.Failed:
+            case AsyncQueryStatus.Cancelled:
+              isQueryFulfilled = true;
 
-            if (status === AsyncQueryStatus.Failed) {
+              if (status === AsyncQueryStatus.Failed) {
+                RaiseErrorToast({
+                  errorToastMessage: 'Query failed',
+                  errorDetailsMessage,
+                });
+              }
+              if (onErrorCallback) {
+                onErrorCallback(errorDetailsMessage);
+              }
+              callback({ ...res });
+              break;
+
+            case AsyncQueryStatus.Success:
+              isQueryFulfilled = true;
+              callback({ ...res });
+              break;
+
+            default:
+              console.error('Unrecognized status:', status);
               RaiseErrorToast({
-                errorToastMessage: 'Query failed',
-                errorDetailsMessage,
+                errorToastMessage: 'Unrecognized status recieved',
+                errorDetailsMessage: 'Unrecognized status recieved - ' + errorDetailsMessage,
               });
-            }
-            if (onErrorCallback) {
-              onErrorCallback(errorDetailsMessage);
-            }
-            callback({ ...res });
-            break;
-
-          case AsyncQueryStatus.Success:
-            isQueryFulfilled = true;
-            callback({ ...res });
-            break;
-
-          default:
-            console.error('Unrecognized status:', status);
-            RaiseErrorToast({
-              errorToastMessage: 'Unrecognized status recieved',
-              errorDetailsMessage: 'Unrecognized status recieved - ' + errorDetailsMessage,
-            });
-            if (onErrorCallback) {
-              onErrorCallback(errorDetailsMessage);
-            }
-            callback({ ...res });
-        }
-      })
-      .catch((err) => {
-        console.error('Error occurred while polling query status:', err);
-        isQueryFulfilled = true;
-        callback({
-          data: {
-            ok: true,
-            resp: { status: AsyncQueryStatus.Failed, error: 'Failed to query status' },
-          },
+              if (onErrorCallback) {
+                onErrorCallback(errorDetailsMessage);
+              }
+              callback({ ...res });
+          }
+        })
+        .catch((err) => {
+          console.error('Error occurred while polling query status:', err);
+          isQueryFulfilled = true;
+          callback({
+            data: {
+              ok: true,
+              resp: { status: AsyncQueryStatus.Failed, error: 'Failed to query status' },
+            },
+          });
         });
-      });
   };
 
   const cancelQuery = () => {
     if (jobId && !isQueryFulfilled) {
+      isQueryCancelled = true;
       http.delete(ASYNC_QUERY_JOB_ENDPOINT + jobId).catch((err) => {
         console.error('Error occurred while cancelling query:', err);
         RaiseErrorToast({

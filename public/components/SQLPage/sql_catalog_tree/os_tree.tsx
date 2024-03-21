@@ -31,7 +31,7 @@ export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree }: OSTreeP
     setTreeData([]);
     setIsTreeLoading({
       status: true,
-      message: 'Fetching associated objects ...',
+      message: '',
     });
     const { treeContent, loadingStatus } = await getTreeContent(selectedItems);
     setTreeData(treeContent);
@@ -44,38 +44,37 @@ export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree }: OSTreeP
       <EuiFlexItem>
         <EuiLoadingSpinner size="l" />
       </EuiFlexItem>
-      <EuiFlexItem grow={false}>Loading tree data</EuiFlexItem>
-      <EuiFlexItem grow={false}>
-        <div style={{ padding: '10px' }}>
-          <EuiFlexItem>
-            <EuiText textAlign="center" color="subdued">
-              Loading may take over 30 seconds
-            </EuiText>
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiText textAlign="center" color="subdued">
-              Status: {isTreeLoading.status}
-            </EuiText>
-          </EuiFlexItem>
-        </div>
-      </EuiFlexItem>
+      <EuiFlexItem grow={false}>Loading indices</EuiFlexItem>
     </EuiFlexGroup>
   );
 
-  const treeStateRenderer =
-    isTreeLoading.message === '' ? (
+  const treeViewRenderer =
+    treeData.length === 0 ? (
+      <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
+        <EuiSpacer />
+        <EuiFlexItem>
+          <EuiIcon type="database" />
+        </EuiFlexItem>
+        <EuiFlexItem grow={false}>No indices found</EuiFlexItem>
+      </EuiFlexGroup>
+    ) : (
       <EuiTreeView
         aria-label="OpenSearch Folder Tree"
         data-test-subj="opensearch-tree"
         items={treeData}
       />
+    );
+
+  const treeStateRenderer =
+    isTreeLoading.message === '' ? (
+      treeViewRenderer
     ) : (
       <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
         <EuiSpacer />
         <EuiFlexItem>
           <EuiIcon type="alert" />
         </EuiFlexItem>
-        <EuiFlexItem grow={false}>Failed to load the tree</EuiFlexItem>
+        <EuiFlexItem grow={false}>Failed to load indices</EuiFlexItem>
         <EuiFlexItem grow={false}>
           <div style={{ padding: '10px' }}>
             <EuiFlexItem>

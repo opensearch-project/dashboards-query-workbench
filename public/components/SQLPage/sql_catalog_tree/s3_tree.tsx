@@ -288,7 +288,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
       <EuiFlexItem>
         <EuiLoadingSpinner size="l" />
       </EuiFlexItem>
-      <EuiFlexItem grow={false}>Loading tree data</EuiFlexItem>
+      <EuiFlexItem grow={false}>Loading databases</EuiFlexItem>
       <EuiFlexItem grow={false}>
         <div style={{ padding: '10px' }}>
           <EuiFlexItem>
@@ -306,20 +306,33 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
     </EuiFlexGroup>
   );
 
-  const treeStateRenderer =
-    isTreeLoading.message === '' ? (
+  const treeViewRenderer =
+    treeData.length === 0 ? (
+      <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
+        <EuiSpacer />
+        <EuiFlexItem>
+          <EuiIcon type="database" />
+        </EuiFlexItem>
+        <EuiFlexItem grow={false}>No databases found</EuiFlexItem>
+      </EuiFlexGroup>
+    ) : (
       <EuiTreeView
         aria-label="S3 Datasource Folder Tree"
         data-test-subj="s3-datasource-tree"
         items={treeDataDatabases}
       />
+    );
+
+  const treeStateRenderer =
+    isTreeLoading.message === '' ? (
+      treeViewRenderer
     ) : (
       <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
         <EuiSpacer />
         <EuiFlexItem>
           <EuiIcon type="alert" />
         </EuiFlexItem>
-        <EuiFlexItem grow={false}>Failed to load the tree</EuiFlexItem>
+        <EuiFlexItem grow={false}>Failed to load databases</EuiFlexItem>
         <EuiFlexItem grow={false}>
           <div style={{ padding: '10px' }}>
             <EuiFlexItem>

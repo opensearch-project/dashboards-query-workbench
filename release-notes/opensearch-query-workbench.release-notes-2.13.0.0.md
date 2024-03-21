@@ -4,11 +4,12 @@ Compatible with OpenSearch and OpenSearch Dashboards 2.13.0
 
 ### Features
 
-- Updates create accelerations flyout usage and side tree([#285](https://github.com/opensearch-project/dashboards-query-workbench/pull/285))
+- Updates create accelerations flyout usage and side tree ([#285](https://github.com/opensearch-project/dashboards-query-workbench/pull/285))
 
 ### Bug Fixes
 
-- Refactor async calls and minor bug fixes([#274](https://github.com/opensearch-project/dashboards-query-workbench/pull/274))
+- Refactor async calls and minor bug fixes ([#274](https://github.com/opensearch-project/dashboards-query-workbench/pull/274))
+- Add empty tree state for SQL sidebar ([#292](https://github.com/opensearch-project/dashboards-query-workbench/pull/292))
 
 ### Infrastructure
 
