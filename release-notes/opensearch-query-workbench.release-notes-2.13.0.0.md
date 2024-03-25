@@ -10,6 +10,7 @@ Compatible with OpenSearch and OpenSearch Dashboards 2.13.0
 
 - Refactor async calls and minor bug fixes ([#274](https://github.com/opensearch-project/dashboards-query-workbench/pull/274))
 - Add empty tree state for SQL sidebar ([#292](https://github.com/opensearch-project/dashboards-query-workbench/pull/292))
+- Catch no database found errors from cache manager ([#296](https://github.com/opensearch-project/dashboards-query-workbench/pull/296))
 
 ### Infrastructure
 
