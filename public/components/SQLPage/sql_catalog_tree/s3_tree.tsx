@@ -73,6 +73,22 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
     stopLoading: stopLoadingAccelerations,
   } = catalogCacheRefs.useLoadAccelerationsToCache();
 
+  const refreshDatabasesinTree = () => {
+    const currentTree = [...treeData];
+    currentTree.map((db) => {
+      setTreeData(
+        produce((draft) => {
+          const databaseToUpdate = draft.find((database) => database.name === db.name);
+          if (databaseToUpdate) {
+            databaseToUpdate.isExpanded = false;
+            databaseToUpdate.isLoading = false;
+            databaseToUpdate.values = [];
+          }
+        })
+      );
+    });
+  };
+
   const updateDatabaseState = (databaseName: string, isLoading: boolean, values?: TreeItem[]) => {
     setTreeData(
       produce((draft) => {
@@ -220,6 +236,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
   useEffect(() => {
     const status = loadDatabasesStatus.toLowerCase();
     if (status === AsyncQueryStatus.Success) {
+      refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
     } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
       setIsTreeLoading({ status: false, message: 'Failed to load databases' });

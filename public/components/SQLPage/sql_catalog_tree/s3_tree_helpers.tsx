@@ -22,6 +22,7 @@ import {
   TREE_ITEM_TABLE_NAME_DEFAULT_NAME,
 } from '../../../../common/constants';
 import { CachedDataSourceStatus, TreeItem, TreeItemType } from '../../../../common/types';
+import { useToast } from '../../../../common/utils/toast_helper';
 import { catalogCacheRefs } from '../../../framework/catalog_cache_refs';
 
 export const handleQuery = (
@@ -105,24 +106,36 @@ export const loadTreeItem = (elements: string[], type: TreeItemType, values?: an
 };
 
 export const isEitherObjectCacheEmpty = (dataSourceName: string, databaseName: string) => {
-  const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName);
-  const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
-    dataSourceName
-  );
-  return (
-    dbCache.status === CachedDataSourceStatus.Empty ||
-    dsCache.status === CachedDataSourceStatus.Empty ||
-    dbCache.status === CachedDataSourceStatus.Failed ||
-    dsCache.status === CachedDataSourceStatus.Failed
-  );
+  try {
+    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName);
+    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
+      dataSourceName
+    );
+    return (
+      dbCache.status === CachedDataSourceStatus.Empty ||
+      dsCache.status === CachedDataSourceStatus.Empty ||
+      dbCache.status === CachedDataSourceStatus.Failed ||
+      dsCache.status === CachedDataSourceStatus.Failed
+    );
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };
 
 export const getTablesFromCache = (dataSourceName: string, databaseName: string) => {
-  const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName);
-  if (dbCache.status === CachedDataSourceStatus.Updated) {
-    const tables = dbCache.tables.map((tb) => tb.name);
-    return tables;
-  } else {
+  const { setToast } = useToast();
+  try {
+    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName);
+    if (dbCache.status === CachedDataSourceStatus.Updated) {
+      const tables = dbCache.tables.map((tb) => tb.name);
+      return tables;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+    setToast('Your cache is outdated, refresh databases and tables', 'warning');
     return [];
   }
 };
