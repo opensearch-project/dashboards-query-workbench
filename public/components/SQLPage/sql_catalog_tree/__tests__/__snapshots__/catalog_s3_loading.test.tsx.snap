@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Catalog tree Loading state S3 catalog tree 1`] = `
+<div>
+  <div>
+    <div
+      class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionColumn euiFlexGroup--responsive"
+    >
+      <div
+        class="euiSpacer euiSpacer--l"
+      />
+      <div
+        class="euiFlexItem"
+      >
+        <span
+          class="euiLoadingSpinner euiLoadingSpinner--large"
+        />
+      </div>
+      <div
+        class="euiFlexItem euiFlexItem--flexGrowZero"
+      >
+        Loading databases
+      </div>
+      <div
+        class="euiFlexItem euiFlexItem--flexGrowZero"
+      >
+        <div
+          style="padding: 10px;"
+        >
+          <div
+            class="euiFlexItem"
+          >
+            <div
+              class="euiText euiText--medium"
+            >
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <div
+                  class="euiTextColor euiTextColor--subdued"
+                >
+                  Loading may take over 30 seconds
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="euiFlexItem"
+          >
+            <div
+              class="euiText euiText--medium"
+            >
+              <div
+                class="euiTextAlign euiTextAlign--center"
+              >
+                <div
+                  class="euiTextColor euiTextColor--subdued"
+                >
+                  Status: 
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
