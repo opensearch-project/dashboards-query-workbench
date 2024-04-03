@@ -25,6 +25,7 @@ import { AsyncQueryStatus, CachedDataSourceStatus, TreeItem } from '../../../../
 import { useToast } from '../../../../common/utils/toast_helper';
 import { getRenderAccelerationDetailsFlyout } from '../../../dependencies/register_observability_dependencies';
 import { catalogCacheRefs } from '../../../framework/catalog_cache_refs';
+import '../table_view.scss';
 import {
   createLabel,
   findIndexObject,
@@ -224,7 +225,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
     setIsTreeLoading({ status: true, message: '' });
     const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource);
 
-    if (dsCache.status === CachedDataSourceStatus.Updated && dsCache.databases.length > 0) {
+    if (dsCache.status === CachedDataSourceStatus.Updated) {
       const databases = dsCache.databases.map((db) => db.name);
       setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
       setIsTreeLoading({ status: false, message: '' });
@@ -238,6 +239,11 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
+      const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource);
+      if (dsCache.status === CachedDataSourceStatus.Updated) {
+        const databases = dsCache.databases.map((db) => db.name);
+        setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
+      }
     } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
       setIsTreeLoading({ status: false, message: 'Failed to load databases' });
     }
@@ -336,6 +342,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
       <EuiTreeView
         aria-label="S3 Datasource Folder Tree"
         data-test-subj="s3-datasource-tree"
+        className="workbench-tree"
         items={treeDataDatabases}
       />
     );
