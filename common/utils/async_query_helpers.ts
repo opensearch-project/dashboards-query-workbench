@@ -26,8 +26,9 @@ export const getAsyncSessionId = (dataSource: string) => {
 export const executeAsyncQuery = (
   currentDataSource: string,
   query: {},
+  dataSourceId: string,
   pollingCallback: PollingCallback,
-  onErrorCallback?: (errorMessage: string) => void
+  onErrorCallback?: (errorMessage: string) => void,
 ) => {
   let jobId: string | undefined;
   let isQueryFulfilled = false;

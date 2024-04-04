@@ -12,9 +12,11 @@ interface CatalogTreeProps {
   selectedItems: EuiComboBoxOptionOption[];
   updateSQLQueries: (query: string) => void;
   refreshTree: boolean;
+  dataSourceEnabled: boolean;
+  selectedDataSourceId: string;
 }
 
-export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree }: CatalogTreeProps) => {
+export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, selectedDataSourceId}: CatalogTreeProps) => {
   return (
     <>
       {selectedItems !== undefined && selectedItems[0].label === 'OpenSearch' ? (
@@ -22,12 +24,16 @@ export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree }: Ca
           selectedItems={selectedItems}
           updateSQLQueries={updateSQLQueries}
           refreshTree={refreshTree}
+          dataSourceEnabled={dataSourceEnabled}
+          dataSourceId={selectedDataSourceId}
         />
       ) : (
         <S3Tree
           dataSource={selectedItems[0].label}
           updateSQLQueries={updateSQLQueries}
           refreshTree={refreshTree}
+          dataSourceEnabled={dataSourceEnabled}
+          dataSourceId={selectedDataSourceId}
         />
       )}
     </>
