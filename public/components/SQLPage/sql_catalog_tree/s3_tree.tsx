@@ -42,9 +42,11 @@ interface S3TreeProps {
   dataSource: string;
   updateSQLQueries: (query: string) => void;
   refreshTree: boolean;
+  dataSourceEnabled: boolean;
+  dataSourceId: string;
 }
 
-export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProps) => {
+export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceEnabled, dataSourceId}: S3TreeProps) => {
   const { setToast } = useToast();
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);

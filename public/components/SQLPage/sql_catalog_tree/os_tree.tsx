@@ -19,8 +19,10 @@ interface OSTreeProps {
   selectedItems: EuiComboBoxOptionOption[];
   updateSQLQueries: (query: string) => void;
   refreshTree: boolean;
+  dataSourceEnabled: boolean;
+  dataSourceId: string;
 }
-export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree }: OSTreeProps) => {
+export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, dataSourceId }: OSTreeProps) => {
   const [treeData, setTreeData] = useState<Node[]>([]);
   const [isTreeLoading, setIsTreeLoading] = useState({
     status: false,
@@ -33,7 +35,7 @@ export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree }: OSTreeP
       status: true,
       message: '',
     });
-    const { treeContent, loadingStatus } = await getTreeContent(selectedItems);
+    const { treeContent, loadingStatus } = await getTreeContent(selectedItems, dataSourceEnabled, dataSourceId);
     setTreeData(treeContent);
     setIsTreeLoading({ ...loadingStatus });
   };
