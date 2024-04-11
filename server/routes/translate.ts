@@ -5,19 +5,22 @@
 
 
 import { schema } from '@osd/config-schema';
-import { IOpenSearchDashboardsResponse, IRouter, ResponseError } from '../../../../src/core/server';
+import { IOpenSearchDashboardsResponse, IRouter, OpenSearchServiceSetup, ResponseError } from '../../../../src/core/server';
 import TranslateService from '../services/TranslateService';
 
-export default function translate(server: IRouter, service: TranslateService) {
+export default function translate(server: IRouter, service: TranslateService, openSearchServiceSetup: OpenSearchServiceSetup) {
   server.post(
     {
       path: '/api/sql_console/translatesql',
       validate: {
         body: schema.any(),
+        query: schema.object({
+          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+        })
       },
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.translateSQL(request);
+      const retVal = await service.translateSQL(context, request);
       return response.ok({
         body: retVal,
       });
@@ -29,10 +32,13 @@ export default function translate(server: IRouter, service: TranslateService) {
       path: '/api/sql_console/translateppl',
       validate: {
         body: schema.any(),
+        query: schema.object({
+          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+        })
       },
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.translatePPL(request);
+      const retVal = await service.translatePPL(context, request);
       return response.ok({
         body: retVal,
       });

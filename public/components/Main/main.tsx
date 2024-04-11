@@ -15,8 +15,7 @@ import {
   EuiPageContentBody,
   EuiPageSideBar,
   EuiPanel,
-  EuiSpacer,
-  EuiText,
+  EuiSpacer
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import { createBrowserHistory } from 'history';
@@ -134,7 +133,6 @@ interface MainState {
 }
 
 const SUCCESS_MESSAGE = 'Success';
-
 const errorQueryResponse = (queryResultResponseDetail: any) => {
   const errorMessage =
     queryResultResponseDetail.errorMessage +
@@ -282,7 +280,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.updatePPLQueries = _.debounce(this.updatePPLQueries, 250).bind(this);
     this.setIsResultFullScreen = this.setIsResultFullScreen.bind(this);
   }
-
+  
   componentDidMount() {
     this.props.setBreadcrumbs([
       {
@@ -565,6 +563,7 @@ export class Main extends React.Component<MainProps, MainState> {
       if (this.props.dataSourceEnabled) {
         query = {dataSourceId: this.state.selectedDataConnectionId};
       }
+      console.log('heree',query)
       const endpoint =
         '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
       const translationPromise = Promise.all(
@@ -696,7 +695,7 @@ export class Main extends React.Component<MainProps, MainState> {
       Promise.all(
         queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ eachQuery }, query) })
+            .post(endpoint, { body: JSON.stringify({ eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -872,7 +871,6 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<DataSourceSelectableConfig>();
-  DataSourceSelector = this.props.dataSourceManagement?.ui?.DataSourceSelector;
   
   render() {
     let page;
@@ -967,32 +965,23 @@ export class Main extends React.Component<MainProps, MainState> {
         </div>
       );
     }
+    console.log('from main',this.props.dataSourceEnabled)
 
     return (
       <>
         <this.DataSourceMenu
           setMenuMountPoint={this.props.setActionMenu}
-          componentType={'DataSourceMultiSelectable'}
+          componentType={'DataSourceSelectable'}
           componentConfig={{
               savedObjects:this.props.savedObjects.client,
               notifications:this.props.notifications,
-              hideLocalCluster: true,
               fullWidth: true,
               activeOption: [{label: 'data sources', id: '1'}],
-              onSelectedDataSources: this.selectedDatasourcesGroup
+              onSelectedDataSources: this.onSelectedDataSource
           }}
         />
         <EuiFlexGroup direction="row" alignItems="center">
           <EuiFlexItem>
-            <EuiText>Data Sources</EuiText>
-            <this.DataSourceSelector
-              savedObjectsClient={this.props.savedObjects.client}
-              notifications={this.props.notifications}
-              onSelectedDataSource={this.onSelectedDataSource}
-              disabled={false}
-              fullWidth={false}
-              dataSourceFilter={(dataSource) => this.state.dataSourceOptions.some(item => item.id === dataSource.id)}
-            />
             <EuiSpacer />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
@@ -1001,11 +990,13 @@ export class Main extends React.Component<MainProps, MainState> {
               language={this.state.language}
               asyncLoading={this.state.asyncLoading}
             />
+            <EuiSpacer />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
             <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
               {linkTitle}
             </EuiButton>
+            <EuiSpacer />
           </EuiFlexItem>
         </EuiFlexGroup>
         <EuiPage paddingSize="none">

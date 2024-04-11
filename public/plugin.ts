@@ -19,7 +19,7 @@ export interface WorkbenchPluginStartDependencies {
   dataSource: DataSourcePluginStart;
 }
 export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPluginStart> {
-  public setup(core: CoreSetup, {dataSource, dataSourceManagement} : WorkbenchPluginSetupDependencies): WorkbenchPluginSetup {
+  public setup(core: CoreSetup, {dataSourceManagement} : WorkbenchPluginSetupDependencies): WorkbenchPluginSetup {
     // Register an application into the side navigation menu
     core.application.register({
       id: 'opensearch-query-workbench',
@@ -51,7 +51,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     coreRefs.chrome = core.chrome;
     coreRefs.application = core.application;
     coreRefs.overlays = core.overlays;
-    // coreRefs.dataSource = dataSource;
+    coreRefs.dataSource = startDeps.dataSource;
 
     registerObservabilityDependencies(startDeps.observabilityDashboards);
     return {};
