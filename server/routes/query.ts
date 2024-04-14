@@ -226,11 +226,11 @@ export default function query(server: IRouter, service: QueryService, openSearch
  
   server.get(
     {
-      path: ROUTE_PATH_GET_DATASOURCES,
+      path: `${ROUTE_PATH_GET_DATASOURCES}/{dataSourceId?}`,
       validate: {
-        query: schema.object({
+        params: schema.object({
           dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+        }),
       },
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {

@@ -9,13 +9,11 @@ import { CoreStart } from "../../../../src/core/public";
 export const fetchDataSources = (http: CoreStart['http'], dataSourceId: string, urlDataSource: string, onSuccess, onError) => {
     let dataOptions: { label: string; options?: any; }[] = [];
     let urlSourceFound = false;
-    let query = {};
-
-    if (dataSourceId) {
-      query = { dataSourceId };
+    if(!dataSourceId){
+        dataSourceId = ''
     }
 
-    http.get(`/api/get_datasources`, { query })
+    http.get(`/api/get_datasources/${dataSourceId}`)
       .then((res) => {
         const data = res.data.resp;
         const connectorGroups = {};

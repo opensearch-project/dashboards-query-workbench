@@ -41,12 +41,10 @@ export const loadOpenSearchTree = async (dataSourceEnabled: boolean, dataSourceI
   };
   try {
     let query = {}
-    if(dataSourceEnabled){
+    if(dataSourceEnabled && dataSourceId){
       query = {dataSourceId: dataSourceId};
     }
-    const res = await http!.post(FETCH_OPENSEARCH_INDICES_PATH, {
-      body: JSON.stringify(loadQuery),
-    }, query);
+    const res = await http!.post(FETCH_OPENSEARCH_INDICES_PATH, {body: JSON.stringify({query: LOAD_OPENSEARCH_INDICES_QUERY}), query});
     const responseObj = JSON.parse(res.data.resp);
     const dataRows: any[][] = _.get(responseObj, 'datarows');
     if (dataRows.length > 0) {
