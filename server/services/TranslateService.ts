@@ -65,7 +65,6 @@ export default class TranslateService {
       let queryResponse;
       let client = this.client;
       const {dataSourceId} = request.query;
-      console.log(dataSourceId)
       if (this.dataSourceEnabled && dataSourceId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceId);
         queryResponse = await client

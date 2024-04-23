@@ -34,8 +34,6 @@ export const fetchDataSources = (http: CoreStart['http'], dataSourceId: string, 
           }
         });
 
-        dataOptions.push({ label: 'OpenSearch' });
-
         for (const connector in connectorGroups) {
           if (connectorGroups.hasOwnProperty(connector)) {
             const connectorNames = connectorGroups[connector];

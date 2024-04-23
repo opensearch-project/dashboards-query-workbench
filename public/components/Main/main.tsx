@@ -295,9 +295,8 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   fetchDataConnections = () => {
-    console.log(this.state.selectedDataConnectionId,'inside fetch')
     fetchDataSources(this.httpClient, this.state.selectedDataConnectionId, this.props.urlDataSource,(dataOptions, urlSourceFound) => {
-      if (dataOptions.length > 1) {
+      if (dataOptions.length > 0) {
           this.setState({dataConnections: true})
       } else {
         this.setState({dataConnections: false})
@@ -580,7 +579,6 @@ export class Main extends React.Component<MainProps, MainState> {
       if (this.props.dataSourceEnabled) {
         query = {dataSourceId: this.state.selectedDataConnectionId};
       }
-      console.log('heree',query)
       const endpoint =
         '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
       const translationPromise = Promise.all(
@@ -843,6 +841,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.updateSQLQueries('');
     this.updatePPLQueries('');
     this.onClear();
+    console.log(selectedItems)
     if (selectedItems[0].label === 'OpenSearch' && this.state.language === 'SQL') {
       this.updateSQLQueries(OPENSEARCH_SQL_INIT_QUERY);
     }
@@ -870,24 +869,20 @@ export class Main extends React.Component<MainProps, MainState> {
         cluster: id,
         queryResultsTable: [],
       },
-      () => console.log('Successfully updated cluster to ', this.state.cluster)
     );
-  };
+    if(id === 'Indexes'){
+      this.setState(
+        {
+          selectedDatasource: [{ label: 'OpenSearch' , key: ''}]
+        },
+      );
+    }
+  }
 
   onSelectedDataSource = async (e) => {
     const dataConnectionId = e[0] ? e[0].id : undefined;
-    console.log(dataConnectionId)
     await this.setState({ selectedDataConnectionId: dataConnectionId });
     this.fetchDataConnections()
-
-  }
-
-  selectedDatasourcesGroup = (e) => {
-    this.setState({dataSourceOptions: []})
-    const selectedOptions = e.filter(item => item.checked === "on");
-    if (selectedOptions.length >= 1) {
-      this.setState({dataSourceOptions:selectedOptions})
-    };
   }
 
   DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<DataSourceSelectableConfig>();
@@ -915,6 +910,7 @@ export class Main extends React.Component<MainProps, MainState> {
           openAccelerationFlyout={
             this.props.isAccelerationFlyoutOpen && !this.state.isAccelerationFlyoutOpened
           }
+          dataSourceClientId={this.state.selectedDataConnectionId}
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
@@ -997,27 +993,7 @@ export class Main extends React.Component<MainProps, MainState> {
               onSelectedDataSources: this.onSelectedDataSource
           }}
         />
-        <EuiFlexGroup direction="row" alignItems="center">
-          <EuiFlexItem>
-            <EuiSpacer />
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <Switch
-              onChange={this.onChange}
-              language={this.state.language}
-              asyncLoading={this.state.asyncLoading}
-            />
-            <EuiSpacer />
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
-              {linkTitle}
-            </EuiButton>
-            <EuiSpacer />
-          </EuiFlexItem>
-        </EuiFlexGroup>
         <EuiPage paddingSize="none">
-          {this.state.language === 'SQL' && (
             <EuiPanel grow={true}>
               <EuiPageSideBar
                 style={{
@@ -1061,7 +1037,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 >
                   {this.state.cluster === 'Data Connections' && (
                     <EuiFlexItem grow={false}>
-                      {/* <EuiText>Data Sources</EuiText> */}
+                        <EuiSpacer size="l" />
                         <DataSelect
                           http={this.httpClient}
                           onSelect={this.handleDataSelect}
@@ -1078,18 +1054,32 @@ export class Main extends React.Component<MainProps, MainState> {
                       refreshTree={this.state.refreshTree}
                       dataSourceEnabled={this.props.dataSourceEnabled}
                       selectedDataSourceId={this.state.selectedDataConnectionId}
+                      clusterTab={this.state.cluster}
                     />
                     <EuiSpacer />
                   </EuiFlexItem>
                 </EuiFlexGroup>
               </EuiPageSideBar>
             </EuiPanel>
-          )}
 
           <EuiPageContent paddingSize="m">
+            <EuiFlexGroup direction="row" justifyContent='spaceBetween'>
+              <EuiFlexItem grow={false}>
+                <Switch
+                  onChange={this.onChange}
+                  language={this.state.language}
+                  asyncLoading={this.state.asyncLoading}
+                />
+                <EuiSpacer />
+              </EuiFlexItem>
+              <EuiFlexItem grow={false}>
+                <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
+                  {linkTitle}
+                </EuiButton>
+              </EuiFlexItem>
+            </EuiFlexGroup>
             <EuiPageContentBody>
               <EuiFlexGroup alignItems="center" />
-              <EuiSpacer size="l" />
               <div>{page}</div>
               <EuiSpacer size="l" />
               {this.state.isCallOutVisible && (

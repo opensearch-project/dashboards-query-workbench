@@ -40,7 +40,7 @@ export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading, dataSo
   };
   
   return (
-    options.length > 1 && (
+    options.length > 0 && (
       <EuiComboBox
         singleSelection={{ asPlainText: true }}
         isClearable={false}

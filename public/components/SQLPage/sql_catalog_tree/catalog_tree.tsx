@@ -14,12 +14,13 @@ interface CatalogTreeProps {
   refreshTree: boolean;
   dataSourceEnabled: boolean;
   selectedDataSourceId: string;
+  clusterTab: string
 }
 
-export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, selectedDataSourceId}: CatalogTreeProps) => {
+export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, selectedDataSourceId, clusterTab}: CatalogTreeProps) => {
   return (
     <>
-      {selectedItems !== undefined && selectedItems[0].label === 'OpenSearch' ? (
+      {selectedItems !== undefined && selectedItems[0].label === 'OpenSearch' && clusterTab !== 'Data Connections'? (
         <OSTree
           selectedItems={selectedItems}
           updateSQLQueries={updateSQLQueries}
@@ -27,7 +28,7 @@ export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, data
           dataSourceEnabled={dataSourceEnabled}
           dataSourceId={selectedDataSourceId}
         />
-      ) : (
+      ) : selectedItems[0].label !== 'OpenSearch' && (
         <S3Tree
           dataSource={selectedItems[0].label}
           updateSQLQueries={updateSQLQueries}

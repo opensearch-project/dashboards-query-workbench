@@ -45,8 +45,14 @@ interface S3TreeProps {
   dataSourceEnabled: boolean;
   dataSourceId: string;
 }
+interface StartLoadingParams {
+  dataSourceName: string;
+  dataSourceId?: string;
+  databaseName?: string;
+  tableName?: string;
+}
 
-export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceEnabled, dataSourceId}: S3TreeProps) => {
+export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceId}: S3TreeProps) => {
   const { setToast } = useToast();
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
@@ -145,8 +151,8 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceEn
       setCurrentSelectedDatabase(database.name);
       updateDatabaseState(database.name, true);
       if (!isEitherObjectCacheEmpty(dataSource, database.name)) {
-        const tablesData = getTablesFromCache(dataSource, database.name);
-        const accelerationsData = getAccelerationsFromCache(dataSource);
+        const tablesData = getTablesFromCache(dataSource, database.name, dataSourceId);
+        const accelerationsData = getAccelerationsFromCache(dataSource, dataSourceId);
 
         constructObjectTree(database.name, tablesData, accelerationsData);
         updateDatabaseState(database.name, false);
@@ -157,8 +163,8 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceEn
           tableStatus: true,
           accelerationsStatus: true,
         });
-        startLoadingTables(dataSource, database.name);
-        startLoadingAccelerations(dataSource);
+        startLoadingTables({dataSourceName: dataSource,databaseName:database.name, dataSourceId: dataSourceId});
+        startLoadingAccelerations({dataSourceName: dataSource, dataSourceId: dataSourceId});
       }
     } else {
       setToast('Can only load one database at a time', 'warning');
@@ -220,19 +226,19 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceEn
 
   const onRefreshTree = () => {
     setIsTreeLoading({ status: true, message: '' });
-    startDatabasesLoading(dataSource);
+    startDatabasesLoading({dataSourceName: dataSource, dataSourceId: dataSourceId});
   };
 
   const onLoadS3Tree = () => {
     setIsTreeLoading({ status: true, message: '' });
-    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource);
-
+    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceId);
+    console.log(dsCache)
     if (dsCache.status === CachedDataSourceStatus.Updated) {
       const databases = dsCache.databases.map((db) => db.name);
       setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
       setIsTreeLoading({ status: false, message: '' });
     } else if (dsCache.status === CachedDataSourceStatus.Empty) {
-      startDatabasesLoading(dataSource);
+      startDatabasesLoading({dataSourceName: dataSource, dataSourceId: dataSourceId});
     }
   };
 
@@ -241,7 +247,8 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceEn
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
-      const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource);
+      const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceId);
+      console.log('here',dsCache)
       if (dsCache.status === CachedDataSourceStatus.Updated) {
         const databases = dsCache.databases.map((db) => db.name);
         setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
@@ -271,7 +278,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceEn
 
   useEffect(() => {
     onLoadS3Tree();
-  }, [dataSource]);
+  }, [dataSource,dataSourceId]);
 
   useEffect(() => {
     setIsFirstRender(false);
@@ -290,7 +297,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceEn
       !(isObjectLoading.accelerationsStatus || isObjectLoading.tableStatus) &&
       currentSelectedDatabase !== ''
     ) {
-      const tablesData = getTablesFromCache(dataSource, currentSelectedDatabase);
+      const tablesData = getTablesFromCache(dataSource, currentSelectedDatabase, dataSourceId);
       const accelerationsData = getAccelerationsFromCache(dataSource);
 
       constructObjectTree(currentSelectedDatabase, tablesData, accelerationsData);

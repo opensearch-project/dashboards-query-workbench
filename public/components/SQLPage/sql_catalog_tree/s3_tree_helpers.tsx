@@ -123,10 +123,10 @@ export const isEitherObjectCacheEmpty = (dataSourceName: string, databaseName: s
   }
 };
 
-export const getTablesFromCache = (dataSourceName: string, databaseName: string) => {
+export const getTablesFromCache = (dataSourceName: string, databaseName: string, dataSourceId?: string) => {
   const { setToast } = useToast();
   try {
-    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName);
+    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName, dataSourceId);
     if (dbCache.status === CachedDataSourceStatus.Updated) {
       const tables = dbCache.tables.map((tb) => tb.name);
       return tables;
@@ -140,9 +140,10 @@ export const getTablesFromCache = (dataSourceName: string, databaseName: string)
   }
 };
 
-export const getAccelerationsFromCache = (dataSourceName: string) => {
+export const getAccelerationsFromCache = (dataSourceName: string, dataSourceId?: string) => {
   const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
-    dataSourceName
+    dataSourceName,
+    dataSourceId
   );
 
   if (dsCache.status === CachedDataSourceStatus.Updated && dsCache.accelerations.length > 0) {
