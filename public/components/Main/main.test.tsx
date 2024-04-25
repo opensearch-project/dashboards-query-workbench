@@ -118,7 +118,9 @@ describe('<Main /> spec', () => {
   
 
     });
+
     const dataSourceButton = getByText('Data source Connections');
+    console.log(dataSourceButton, 'button')
     const asyncTest = () => {
       fireEvent.click(dataSourceButton);
     };
