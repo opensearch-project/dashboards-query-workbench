@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DataSourcePluginStart } from '../../../src/plugins/data_source/public';
+import { DataSourcePluginStart } from '../../../src/plugins/data_source/public/types';
 import { NavigationPublicPluginStart } from '../../../src/plugins/navigation/public';
 import { ObservabilityStart } from './types';
 

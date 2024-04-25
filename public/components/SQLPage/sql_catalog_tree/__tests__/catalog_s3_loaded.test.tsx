@@ -66,6 +66,10 @@ describe('Test Catalog tree', () => {
         selectedItems={[{ label: 'my_s3' }]}
         updateSQLQueries={jest.fn()}
         refreshTree={true}
+        dataSourceEnabled={false} 
+        dataSourceMDSId={''} 
+        clusterTab={'Data source Connections'} 
+        language={'SQL'} 
       />
     );
 

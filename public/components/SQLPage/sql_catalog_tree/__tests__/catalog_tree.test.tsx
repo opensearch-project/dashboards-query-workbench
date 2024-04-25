@@ -59,6 +59,10 @@ describe('Test Catalog tree', () => {
         selectedItems={[{ label: 'OpenSearch' }]}
         updateSQLQueries={jest.fn()}
         refreshTree={true}
+        dataSourceEnabled={false} 
+        dataSourceMDSId={''} 
+        clusterTab={'Indexes'} 
+        language={'SQL'} 
       />
     );
 
@@ -78,6 +82,10 @@ describe('Test Catalog tree', () => {
         selectedItems={[{ label: 'my_s3' }]}
         updateSQLQueries={jest.fn()}
         refreshTree={true}
+        dataSourceEnabled={false} 
+        dataSourceMDSId={''} 
+        clusterTab={'Data source Connections'} 
+        language={'SQL'} 
       />
     );
 
