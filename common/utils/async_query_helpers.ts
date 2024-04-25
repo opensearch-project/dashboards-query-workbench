@@ -28,7 +28,7 @@ export const executeAsyncQuery = (
   query: {},
   pollingCallback: PollingCallback,
   dataSourceMDSId?: string,
-  onErrorCallback?: (errorMessage: string) => void,
+  onErrorCallback?: (errorMessage: string) => void
 ) => {
   let jobId: string | undefined;
   let isQueryFulfilled = false;
@@ -43,8 +43,8 @@ export const executeAsyncQuery = (
           sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
         }),
         query: {
-          dataSourceMDSId: dataSourceMDSId
-        }
+          dataSourceMDSId: dataSourceMDSId,
+        },
       })
       .then((res) => {
         const responseData = res.data.resp;
