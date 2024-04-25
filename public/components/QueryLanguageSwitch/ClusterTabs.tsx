@@ -5,7 +5,6 @@
 
 import { EuiButtonGroup } from '@elastic/eui';
 import React from 'react';
-// @ts-ignore
 
 interface SwitchProps {
   onChange: (id: string, value?: any) => void;
@@ -19,8 +18,8 @@ const toggleButtons = [
     label: 'Indexes',
   },
   {
-    id: 'Data Connections',
-    label: 'Data Connections',
+    id: 'Data source Connections',
+    label: 'Data source Connections',
   },
 ];
 
@@ -28,7 +27,7 @@ class ClusterTabs extends React.Component<SwitchProps> {
   constructor(props: SwitchProps) {
     super(props);
     this.state = {
-      cluster: 'Indexes',
+      cluster: 'Data source Connections',
     };
   }
 

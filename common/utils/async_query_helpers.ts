@@ -26,8 +26,8 @@ export const getAsyncSessionId = (dataSource: string) => {
 export const executeAsyncQuery = (
   currentDataSource: string,
   query: {},
-  dataSourceId: string,
   pollingCallback: PollingCallback,
+  dataSourceMDSId?: string,
   onErrorCallback?: (errorMessage: string) => void,
 ) => {
   let jobId: string | undefined;
@@ -42,6 +42,9 @@ export const executeAsyncQuery = (
           ...query,
           sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
         }),
+        query: {
+          dataSourceMDSId: dataSourceMDSId
+        }
       })
       .then((res) => {
         const responseData = res.data.resp;
@@ -77,7 +80,7 @@ export const executeAsyncQuery = (
   const pollQueryStatus = (id: string, callback: PollingCallback) => {
     !isQueryCancelled &&
       http
-        .get(ASYNC_QUERY_JOB_ENDPOINT + id)
+        .get(ASYNC_QUERY_JOB_ENDPOINT + id + `/` + dataSourceMDSId)
         .then((res: AsyncApiResponse) => {
           const status = res.data.resp.status.toLowerCase();
           const errorDetailsMessage = res.data.resp.error ?? '';

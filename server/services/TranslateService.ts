@@ -24,9 +24,9 @@ export default class TranslateService {
       };
       let client = this.client;
       let queryResponse;
-      const {dataSourceId} = request.query;
-      if (this.dataSourceEnabled && dataSourceId) {
-        client = context.dataSource.opensearch.legacy.getClient(dataSourceId);
+      const {dataSourceMDSId} = request.query;
+      if (this.dataSourceEnabled && dataSourceMDSId) {
+        client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI('sql.translateSQL', params);
       } else {
         queryResponse = await client
@@ -64,9 +64,9 @@ export default class TranslateService {
 
       let queryResponse;
       let client = this.client;
-      const {dataSourceId} = request.query;
-      if (this.dataSourceEnabled && dataSourceId) {
-        client = context.dataSource.opensearch.legacy.getClient(dataSourceId);
+      const {dataSourceMDSId} = request.query;
+      if (this.dataSourceEnabled && dataSourceMDSId) {
+        client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client
         .callAPI('sql.translatePPL', params);
       } else {

@@ -28,7 +28,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -46,7 +46,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -64,7 +64,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -82,7 +82,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -100,7 +100,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -118,7 +118,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -136,7 +136,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -154,7 +154,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -172,7 +172,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -186,18 +186,16 @@ export default function query(server: IRouter, service: QueryService, openSearch
 
   server.get(
     {
-      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}",
+      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}" + "/{dataSourceMDSId}",
       validate: {
         params: schema.object({
           id: schema.string(),
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         }),
-        query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
       },
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.describeSQLAsyncGetQuery(context, request, request.params.id);
+      const retVal = await service.describeSQLAsyncGetQuery(context, request, request.params.id, request.params.dataSourceMDSId);
       return response.ok({
         body: retVal,
       });
@@ -206,18 +204,19 @@ export default function query(server: IRouter, service: QueryService, openSearch
 
   server.delete(
     {
-      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}",
+      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}" + "/{dataSourceMDSId?}",
       validate: {
         params: schema.object({
           id: schema.string(),
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         }),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
     async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.describeAsyncDeleteQuery(context, request, request.params.id);
+      const retVal = await service.describeAsyncDeleteQuery(context, request, request.params.id, request.params.dataSourceMDSId);
       return response.ok({
         body: retVal,
       });
@@ -226,10 +225,10 @@ export default function query(server: IRouter, service: QueryService, openSearch
  
   server.get(
     {
-      path: `${ROUTE_PATH_GET_DATASOURCES}/{dataSourceId?}`,
+      path: `${ROUTE_PATH_GET_DATASOURCES}/{dataSourceMDSId?}`,
       validate: {
         params: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         }),
       },
     },

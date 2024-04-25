@@ -20,9 +20,9 @@ interface OSTreeProps {
   updateSQLQueries: (query: string) => void;
   refreshTree: boolean;
   dataSourceEnabled: boolean;
-  dataSourceId: string;
+  dataSourceMDSId: string;
 }
-export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, dataSourceId }: OSTreeProps) => {
+export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, dataSourceMDSId }: OSTreeProps) => {
   const [treeData, setTreeData] = useState<Node[]>([]);
   const [isTreeLoading, setIsTreeLoading] = useState({
     status: false,
@@ -35,7 +35,7 @@ export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourc
       status: true,
       message: '',
     });
-    const { treeContent, loadingStatus } = await getTreeContent(selectedItems, dataSourceEnabled, dataSourceId);
+    const { treeContent, loadingStatus } = await getTreeContent(selectedItems, dataSourceEnabled, dataSourceMDSId);
     setTreeData(treeContent);
     setIsTreeLoading({ ...loadingStatus });
   };
@@ -99,7 +99,7 @@ export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourc
 
   useEffect(() => {
     loadtree();
-  }, [selectedItems, refreshTree]);
+  }, [selectedItems, refreshTree, dataSourceMDSId]);
 
   return <div>{treeRenderer}</div>;
 };

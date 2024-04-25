@@ -30,9 +30,9 @@ export default class QueryService {
       let client = this.client;
       let queryResponse;
 
-      const {dataSourceId} = request.query;
-      if (this.dataSourceEnabled && dataSourceId) {
-        client = context.dataSource.opensearch.legacy.getClient(dataSourceId);
+      const {dataSourceMDSId} = request.query;
+      if (this.dataSourceEnabled && dataSourceMDSId) {
+        client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format, params);
       } else {
         queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, params);
@@ -60,15 +60,14 @@ export default class QueryService {
     }
   };
 
-  describeQueryJobIdInternal = async (request: any, format: string, jobId: string, responseFormat: string, context: any) => {
+  describeQueryJobIdInternal = async (request: any, format: string, jobId: string, responseFormat: string, context: any, dataSourceMDSId: string) => {
     try {
       let client = this.client;
       let queryResponse;
 
-      if (this.dataSourceEnabled) {
-        const {dataSourceId} = request.query;
+      if (this.dataSourceEnabled && dataSourceMDSId) {
 
-        client = context.dataSource.opensearch.legacy.getClient(dataSourceId);
+        client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format, {
           jobId: jobId,
         });
@@ -103,9 +102,9 @@ export default class QueryService {
     try {
       let client = this.client;
       let queryResponse;
-      const dataSourceId  = request.params.dataSourceId;
-      if (this.dataSourceEnabled && dataSourceId) {
-        client = context.dataSource.opensearch.legacy.getClient(dataSourceId);
+      const dataSourceMDSId  = request.params.dataSourceMDSId;
+      if (this.dataSourceEnabled && dataSourceMDSId) {
+        client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format);
       } else {
         queryResponse = await this.client.asScoped(request).callAsCurrentUser(format);
@@ -169,13 +168,13 @@ export default class QueryService {
     return this.describeQueryPostInternal(request, 'sql.sparkSqlQuery', null, request.body, context);
   };
 
-  describeSQLAsyncGetQuery = async (context: any,request: any, jobId: string) => {
-    return this.describeQueryJobIdInternal(request, 'sql.sparkSqlGetQuery', jobId, null, context);
+  describeSQLAsyncGetQuery = async (context: any,request: any, jobId: string, dataSourceMDSId?: string) => {
+    return this.describeQueryJobIdInternal(request, 'sql.sparkSqlGetQuery', jobId, null, context, dataSourceMDSId);
   };
   describeSyncQueryDataSources = async (context: any,request: any) => {
     return this.describeQueryGetInternalSync(request, 'sql.datasourcesGetQuery', null, context);
   };
-  describeAsyncDeleteQuery = async (context: any,request: any, jobId: string) => {
-    return this.describeQueryJobIdInternal(request, 'sql.asyncDeleteQuery', jobId, null, context);
+  describeAsyncDeleteQuery = async (context: any,request: any, jobId: string, dataSourceMDSId?: string) => {
+    return this.describeQueryJobIdInternal(request, 'sql.asyncDeleteQuery', jobId, null, context, dataSourceMDSId);
   };
 }

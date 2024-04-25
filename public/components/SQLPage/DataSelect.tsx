@@ -13,15 +13,15 @@ interface CustomView {
   onSelect: (selectedItems: []) => void;
   urlDataSource: string;
   asyncLoading: boolean;
-  dataSourceId: string;
+  dataSourceMDSId: string;
 }
 
-export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading, dataSourceId }: CustomView) => {
-  const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([{ label: 'OpenSearch' }]);
+export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading, dataSourceMDSId }: CustomView) => {
+  const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([]);
   const [options, setOptions] = useState<any[]>([]);
 
   useEffect(() => {
-    fetchDataSources(http, dataSourceId, urlDataSource, (dataOptions, urlSourceFound) => {
+    fetchDataSources(http, dataSourceMDSId, urlDataSource, (dataOptions, urlSourceFound) => {
       setOptions(dataOptions);
       if (urlSourceFound) {
         setSelectedOptions([{ label: urlDataSource }]);
@@ -30,7 +30,7 @@ export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading, dataSo
     }, (error) => {
       console.error('Error fetching data sources:', error);
     });
-  }, [http, dataSourceId, urlDataSource, onSelect]);
+  }, [http, dataSourceMDSId, urlDataSource, onSelect]);
 
   const handleSelectionChange = (selectedItems: any[]) => {
     if (selectedItems.length > 0) {
@@ -42,6 +42,7 @@ export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading, dataSo
   return (
     options.length > 0 && (
       <EuiComboBox
+        placeholder='Select data source connection'
         singleSelection={{ asPlainText: true }}
         isClearable={false}
         options={options}

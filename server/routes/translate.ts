@@ -15,7 +15,7 @@ export default function translate(server: IRouter, service: TranslateService, op
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },
@@ -33,7 +33,7 @@ export default function translate(server: IRouter, service: TranslateService, op
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
         })
       },
     },

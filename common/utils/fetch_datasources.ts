@@ -6,14 +6,14 @@
 
 import { CoreStart } from "../../../../src/core/public";
 
-export const fetchDataSources = (http: CoreStart['http'], dataSourceId: string, urlDataSource: string, onSuccess, onError) => {
+export const fetchDataSources = (http: CoreStart['http'], dataSourceMDSId: string, urlDataSource: string, onSuccess, onError) => {
     let dataOptions: { label: string; options?: any; }[] = [];
     let urlSourceFound = false;
-    if(!dataSourceId){
-        dataSourceId = ''
+    if(!dataSourceMDSId){
+        dataSourceMDSId = ''
     }
 
-    http.get(`/api/get_datasources/${dataSourceId}`)
+    http.get(`/api/get_datasources/${dataSourceMDSId}`)
       .then((res) => {
         const data = res.data.resp;
         const connectorGroups = {};

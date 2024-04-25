@@ -20,7 +20,7 @@ export const [
 export const [
   getRenderCreateAccelerationFlyout,
   setRenderCreateAccelerationFlyout,
-] = createGetterSetter<(dataSource: string, dataSourceId?: string) => void>('renderCreateAccelerationFlyout');
+] = createGetterSetter<(dataSource: string, dataSourceMDSId?: string) => void>('renderCreateAccelerationFlyout');
 
 export const registerObservabilityDependencies = (start?: ObservabilityStart) => {
   if (!start) {

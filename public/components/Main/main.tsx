@@ -15,14 +15,23 @@ import {
   EuiPageContentBody,
   EuiPageSideBar,
   EuiPanel,
-  EuiSpacer
+  EuiSpacer,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import { createBrowserHistory } from 'history';
 import _ from 'lodash';
 import React from 'react';
-import { ChromeBreadcrumb, CoreStart, MountPoint, NotificationsStart, SavedObjectsStart } from '../../../../../src/core/public';
-import { DataSourceManagementPluginSetup, DataSourceSelectableConfig } from '../../../../../src/plugins/data_source_management/public';
+import {
+  ChromeBreadcrumb,
+  CoreStart,
+  MountPoint,
+  NotificationsStart,
+  SavedObjectsStart,
+} from '../../../../../src/core/public';
+import {
+  DataSourceManagementPluginSetup,
+  DataSourceSelectableConfig,
+} from '../../../../../src/plugins/data_source_management/public';
 import { DataSourceOption } from '../../../../../src/plugins/data_source_management/public/components/data_source_selector/data_source_selector';
 import { OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
@@ -128,9 +137,9 @@ interface MainState {
   refreshTree: boolean;
   isAccelerationFlyoutOpened: boolean;
   isCallOutVisible: boolean;
-  selectedDataConnectionId: string;
+  selectedMDSDataConnectionId: string;
   cluster: string;
-  dataSourceOptions: DataSourceOption[]
+  dataSourceOptions: DataSourceOption[];
   dataConnections: boolean;
 }
 
@@ -265,7 +274,7 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
-      selectedDatasource: [{ label: 'OpenSearch' , key: ''}],
+      selectedDatasource: [{ label: 'OpenSearch', key: '' }],
       asyncLoading: false,
       asyncLoadingStatus: AsyncQueryStatus.Success,
       asyncQueryError: '',
@@ -275,15 +284,15 @@ export class Main extends React.Component<MainProps, MainState> {
       isCallOutVisible: false,
       cluster: 'Indexes',
       dataSourceOptions: [],
-      selectedDataConnectionId: '',
-      dataConnections: false
+      selectedMDSDataConnectionId: '',
+      dataConnections: false,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
     this.updatePPLQueries = _.debounce(this.updatePPLQueries, 250).bind(this);
     this.setIsResultFullScreen = this.setIsResultFullScreen.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.setBreadcrumbs([
       {
@@ -291,20 +300,26 @@ export class Main extends React.Component<MainProps, MainState> {
         href: '#',
       },
     ]);
-    this.fetchDataConnections()
+    this.fetchDataConnections();
   }
 
   fetchDataConnections = () => {
-    fetchDataSources(this.httpClient, this.state.selectedDataConnectionId, this.props.urlDataSource,(dataOptions, urlSourceFound) => {
-      if (dataOptions.length > 0) {
-          this.setState({dataConnections: true})
-      } else {
-        this.setState({dataConnections: false})
+    fetchDataSources(
+      this.httpClient,
+      this.state.selectedMDSDataConnectionId,
+      this.props.urlDataSource,
+      (dataOptions) => {
+        if (dataOptions.length > 0) {
+          this.setState({ dataConnections: true });
+        } else {
+          this.setState({ dataConnections: false });
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching data sources:', error);
       }
-    },(error: any) => {
-      console.error('Error fetching data sources:', error);
-    })
-  }
+    );
+  };
 
   processTranslateResponse(response: IHttpResponse<ResponseData>): ResponseDetail<TranslateResult> {
     if (!response) {
@@ -413,7 +428,7 @@ export class Main extends React.Component<MainProps, MainState> {
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = {dataSourceId: this.state.selectedDataConnectionId};
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
       }
       const responsePromise = Promise.all(
         queries.map((payload: string) =>
@@ -500,7 +515,6 @@ export class Main extends React.Component<MainProps, MainState> {
         const cancelQuery = executeAsyncQuery(
           currentDataSource,
           queryRequest,
-          this.props.dataSourceManagement && this.state.selectedDataConnectionId,
           (response: AsyncApiResponse) => {
             const status = response.data.resp.status.toLowerCase();
             const result: ResponseDetail<string> = this.processQueryResponse(
@@ -549,6 +563,7 @@ export class Main extends React.Component<MainProps, MainState> {
               });
             }
           },
+          this.state.selectedMDSDataConnectionId,
           (errorDetails: string) => {
             this.setState({
               asyncLoading: false,
@@ -577,14 +592,14 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = {dataSourceId: this.state.selectedDataConnectionId};
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
       }
       const endpoint =
         '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
       const translationPromise = Promise.all(
         queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({query: eachQuery }), query })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -629,7 +644,7 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = {dataSourceId: this.state.selectedDataConnectionId};
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
       }
       Promise.all(
         queries.map((eachQuery: string) =>
@@ -666,13 +681,13 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = {dataSourceId: this.state.selectedDataConnectionId};
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       Promise.all(
         queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({query: eachQuery }), query })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -704,13 +719,13 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = {dataSourceId: this.state.selectedDataConnectionId};
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
       Promise.all(
         queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({query: eachQuery }), query })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -742,13 +757,13 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = {dataSourceId: this.state.selectedDataConnectionId};
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
       Promise.all(
         queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({query: eachQuery }), query })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -841,7 +856,6 @@ export class Main extends React.Component<MainProps, MainState> {
     this.updateSQLQueries('');
     this.updatePPLQueries('');
     this.onClear();
-    console.log(selectedItems)
     if (selectedItems[0].label === 'OpenSearch' && this.state.language === 'SQL') {
       this.updateSQLQueries(OPENSEARCH_SQL_INIT_QUERY);
     }
@@ -864,29 +878,32 @@ export class Main extends React.Component<MainProps, MainState> {
   };
 
   onChangeCluster = (id: string) => {
-    this.setState(
-      {
-        cluster: id,
-        queryResultsTable: [],
-      },
-    );
-    if(id === 'Indexes'){
-      this.setState(
-        {
-          selectedDatasource: [{ label: 'OpenSearch' , key: ''}]
-        },
-      );
+    this.setState({
+      cluster: id,
+      queryResultsTable: [],
+    });
+    if (id === 'Indexes') {
+      this.setState({
+        selectedDatasource: [{ label: 'OpenSearch', key: '' }],
+      });
     }
-  }
+  };
 
   onSelectedDataSource = async (e) => {
     const dataConnectionId = e[0] ? e[0].id : undefined;
-    await this.setState({ selectedDataConnectionId: dataConnectionId });
-    this.fetchDataConnections()
-  }
+    await this.setState({
+      selectedMDSDataConnectionId: dataConnectionId,
+      cluster: 'Indexes',
+      selectedDatasource: [{ label: 'OpenSearch', key: '' }],
+      isAccelerationFlyoutOpened: false
+    });
+    this.fetchDataConnections();
+  };
 
-  DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<DataSourceSelectableConfig>();
-  
+  DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<
+    DataSourceSelectableConfig
+  >();
+
   render() {
     let page;
     let link;
@@ -910,7 +927,7 @@ export class Main extends React.Component<MainProps, MainState> {
           openAccelerationFlyout={
             this.props.isAccelerationFlyoutOpen && !this.state.isAccelerationFlyoutOpened
           }
-          dataSourceClientId={this.state.selectedDataConnectionId}
+          dataSourceMDSId={this.state.selectedMDSDataConnectionId}
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
@@ -983,26 +1000,29 @@ export class Main extends React.Component<MainProps, MainState> {
 
     return (
       <>
-        <this.DataSourceMenu
-          setMenuMountPoint={this.props.setActionMenu}
-          componentType={'DataSourceSelectable'}
-          componentConfig={{
-              savedObjects:this.props.savedObjects.client,
-              notifications:this.props.notifications,
+        {this.props.dataSourceEnabled && (
+          <this.DataSourceMenu
+            setMenuMountPoint={this.props.setActionMenu}
+            componentType={'DataSourceSelectable'}
+            componentConfig={{
+              savedObjects: this.props.savedObjects.client,
+              notifications: this.props.notifications,
               fullWidth: true,
-              onSelectedDataSources: this.onSelectedDataSource
-          }}
-        />
+              onSelectedDataSources: this.onSelectedDataSource,
+            }}
+          />
+        )}
         <EuiPage paddingSize="none">
-            <EuiPanel grow={true}>
-              <EuiPageSideBar
-                style={{
-                  maxWidth: '400px',
-                  width: '400px',
-                  height: 'calc(100vh - 254px)',
-                }}
-              >
-                {this.state.dataConnections && ( <EuiFlexGroup direction="row" gutterSize="s">
+          <EuiPanel grow={true}>
+            <EuiPageSideBar
+              style={{
+                maxWidth: '400px',
+                width: '400px',
+                height: 'calc(100vh - 254px)',
+              }}
+            >
+              {this.state.dataConnections && (
+                <EuiFlexGroup direction="row" gutterSize="s">
                   <EuiFlexItem grow={false}>
                     <ClusterTabs
                       onChange={this.onChangeCluster}
@@ -1019,51 +1039,58 @@ export class Main extends React.Component<MainProps, MainState> {
                       onClick={this.handleReloadTree}
                     />
                   </EuiFlexItem>
-                  <EuiFlexItem grow={false}>
-                    <CreateButton
-                      updateSQLQueries={this.updateSQLQueries}
-                      selectedDatasource={this.state.selectedDatasource}
-                    />
-                  </EuiFlexItem>
-                </EuiFlexGroup>)}
-                <EuiSpacer size="l" />
-                <EuiFlexGroup
-                  direction="column"
-                  style={{
-                    overflowY: 'auto',
-                    overflowX: 'hidden',
-                    height: 'calc(100vh - 308px)',
-                  }}
-                >
-                  {this.state.cluster === 'Data Connections' && (
-                    <EuiFlexItem grow={false}>
-                        <EuiSpacer size="l" />
-                        <DataSelect
-                          http={this.httpClient}
-                          onSelect={this.handleDataSelect}
-                          urlDataSource={this.props.urlDataSource}
-                          asyncLoading={this.state.asyncLoading}
-                          dataSourceId={this.state.selectedDataConnectionId}
-                        />
-                    </EuiFlexItem>
-                  )}
-                  <EuiFlexItem grow={false}>
-                    <CatalogTree
-                      selectedItems={this.state.selectedDatasource}
-                      updateSQLQueries={this.updateSQLQueries}
-                      refreshTree={this.state.refreshTree}
-                      dataSourceEnabled={this.props.dataSourceEnabled}
-                      selectedDataSourceId={this.state.selectedDataConnectionId}
-                      clusterTab={this.state.cluster}
-                    />
-                    <EuiSpacer />
-                  </EuiFlexItem>
                 </EuiFlexGroup>
-              </EuiPageSideBar>
-            </EuiPanel>
+              )}
+              <EuiSpacer size="l" />
+              <EuiFlexGroup
+                direction="column"
+                style={{
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
+                  height: 'calc(100vh - 308px)',
+                }}
+              >
+                {this.state.cluster === 'Data source Connections' && (
+                  <>
+                    <EuiFlexItem grow={false}>
+                      <EuiSpacer size="l" />
+                      <DataSelect
+                        http={this.httpClient}
+                        onSelect={this.handleDataSelect}
+                        urlDataSource={this.props.urlDataSource}
+                        asyncLoading={this.state.asyncLoading}
+                        dataSourceMDSId={this.state.selectedMDSDataConnectionId}
+                      />
+                    </EuiFlexItem>
+                    <EuiFlexItem grow={false}>
+                      {this.state.language === 'SQL' && (
+                        <CreateButton
+                          updateSQLQueries={this.updateSQLQueries}
+                          selectedDatasource={this.state.selectedDatasource}
+                        />
+                      )}
+                    </EuiFlexItem>
+                  </>
+                )}
+                <EuiFlexItem grow={false}>
+                  <CatalogTree
+                    selectedItems={this.state.selectedDatasource}
+                    updateSQLQueries={this.updateSQLQueries}
+                    refreshTree={this.state.refreshTree}
+                    dataSourceEnabled={this.props.dataSourceEnabled}
+                    dataSourceMDSId={this.state.selectedMDSDataConnectionId}
+                    clusterTab={this.state.cluster}
+                    language={this.state.language}
+                    updatePPLQueries={this.updatePPLQueries}
+                  />
+                  <EuiSpacer />
+                </EuiFlexItem>
+              </EuiFlexGroup>
+            </EuiPageSideBar>
+          </EuiPanel>
 
           <EuiPageContent paddingSize="m">
-            <EuiFlexGroup direction="row" justifyContent='spaceBetween'>
+            <EuiFlexGroup direction="row" justifyContent="spaceBetween">
               <EuiFlexItem grow={false}>
                 <Switch
                   onChange={this.onChange}

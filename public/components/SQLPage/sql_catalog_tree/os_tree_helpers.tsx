@@ -29,7 +29,7 @@ export const generateOpenSearchTree = (indices: string[]) => {
   return openSearchIndicesTree;
 };
 
-export const loadOpenSearchTree = async (dataSourceEnabled: boolean, dataSourceId: string): Promise<{
+export const loadOpenSearchTree = async (dataSourceEnabled: boolean, dataSourceMDSId: string): Promise<{
   treeContent: Node[];
   loadingStatus: { status: boolean; message: string };
 }> => {
@@ -41,8 +41,8 @@ export const loadOpenSearchTree = async (dataSourceEnabled: boolean, dataSourceI
   };
   try {
     let query = {}
-    if(dataSourceEnabled && dataSourceId){
-      query = {dataSourceId: dataSourceId};
+    if(dataSourceEnabled && dataSourceMDSId){
+      query = {dataSourceMDSId: dataSourceMDSId};
     }
     const res = await http!.post(FETCH_OPENSEARCH_INDICES_PATH, {body: JSON.stringify({query: LOAD_OPENSEARCH_INDICES_QUERY}), query});
     const responseObj = JSON.parse(res.data.resp);
@@ -75,9 +75,9 @@ export const loadOpenSearchTree = async (dataSourceEnabled: boolean, dataSourceI
   }
   return loadedTree;
 };
-export const getTreeContent = async (selectedItems: EuiComboBoxOptionOption[] , dataSourceEnabled: boolean, dataSourceId: string) => {
+export const getTreeContent = async (selectedItems: EuiComboBoxOptionOption[] , dataSourceEnabled: boolean, dataSourceMDSId: string) => {
   if (selectedItems[0].label === 'OpenSearch') {
-    const { treeContent, loadingStatus } = await loadOpenSearchTree(dataSourceEnabled, dataSourceId);
+    const { treeContent, loadingStatus } = await loadOpenSearchTree(dataSourceEnabled, dataSourceMDSId);
     return { treeContent, loadingStatus, s3TreeItems: [] };
   }
 };
