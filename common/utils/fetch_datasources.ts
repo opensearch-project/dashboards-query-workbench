@@ -7,7 +7,7 @@
 import { CoreStart } from "../../../../src/core/public";
 
 export const fetchDataSources = (http: CoreStart['http'], dataSourceMDSId: string, urlDataSource: string, onSuccess, onError) => {
-    let dataOptions: { label: string; options?: any; }[] = [];
+    let dataOptions: { label: string; options?: Array<{ label: string }>; }[] = [];
     let urlSourceFound = false;
     if(!dataSourceMDSId){
         dataSourceMDSId = ''
