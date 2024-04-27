@@ -83,11 +83,9 @@ export default class QueryService {
         },
       };
     } catch (err) {
-      this.logger.info('error describeQueryJobIdInternal');
       this.logger.info(err);
       this.logger.info(request.query);
 
-      console.log(err, request.query);
       return {
         data: {
           ok: false,

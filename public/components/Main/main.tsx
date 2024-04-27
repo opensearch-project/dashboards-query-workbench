@@ -140,7 +140,6 @@ interface MainState {
   selectedMDSDataConnectionId: string;
   cluster: string;
   dataSourceOptions: DataSourceOption[];
-  dataConnections: boolean;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -285,7 +284,6 @@ export class Main extends React.Component<MainProps, MainState> {
       cluster: 'Indexes',
       dataSourceOptions: [],
       selectedMDSDataConnectionId: '',
-      dataConnections: false,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -300,10 +298,10 @@ export class Main extends React.Component<MainProps, MainState> {
         href: '#',
       },
     ]);
-    this.fetchDataConnections();
+    this.fetchFlintDataSources();
   }
 
-  fetchDataConnections = () => {
+  fetchFlintDataSources = () => {
     fetchDataSources(
       this.httpClient,
       this.state.selectedMDSDataConnectionId,
@@ -431,9 +429,9 @@ export class Main extends React.Component<MainProps, MainState> {
         query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
       }
       const responsePromise = Promise.all(
-        queries.map((payload: string) =>
+        queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query: payload }), query })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -897,7 +895,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedDatasource: [{ label: 'OpenSearch', key: '' }],
       isAccelerationFlyoutOpened: false
     });
-    this.fetchDataConnections();
+    this.fetchFlintDataSources();
   };
 
   DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<
@@ -1000,6 +998,7 @@ export class Main extends React.Component<MainProps, MainState> {
 
     return (
       <>
+      {console.log(this.props.savedObjects)}
         {this.props.dataSourceEnabled && (
           <this.DataSourceMenu
             setMenuMountPoint={this.props.setActionMenu}

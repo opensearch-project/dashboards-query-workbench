@@ -18,11 +18,11 @@ The OpenSearch Dashboards Query Workbench enables you to query your OpenSearch d
 [cypress-test-badge]: https://img.shields.io/badge/Cypress%20tests-in%20progress-yellow
 [cypress-test-link]: https://github.com/opensearch-project/opensearch-build/issues/1124
 [cypress-code-badge]: https://img.shields.io/badge/Cypress%20code-blue
-[cypress-code-link]: https://github.com/opensearch-project/sql/tree/main/workbench/.cypress/integration
+[cypress-code-link]: https://github.com/opensearch-project/dashboards-query-workbench/tree/main/.cypress/integration
 
 ## Documentation
 
-Please see our technical [documentation](https://opensearch.org/docs/latest/search-plugins/sql/workbench/) to learn more about its features.
+Please see our technical [documentation](https://opensearch.org/docs/latest/search-plugins/sql/workbench/) to learn more about its features. 
 
 
 ## Contributing

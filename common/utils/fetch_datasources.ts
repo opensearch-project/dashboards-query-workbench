@@ -19,8 +19,7 @@ export const fetchDataSources = (http: CoreStart['http'], dataSourceMDSId: strin
         const connectorGroups = {};
 
         data.forEach((item) => {
-          const connector = item.connector;
-          const name = item.name;
+          const { connector, name } = item
 
           if (connector === 'S3GLUE') {
             if (!connectorGroups[connector]) {
