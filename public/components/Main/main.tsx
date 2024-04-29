@@ -16,6 +16,7 @@ import {
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
+  EuiTitle,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import { createBrowserHistory } from 'history';
@@ -140,6 +141,8 @@ interface MainState {
   selectedMDSDataConnectionId: string;
   cluster: string;
   dataSourceOptions: DataSourceOption[];
+  mdsClusterName: string;
+  flintDataConnections: boolean;
 }
 
 const SUCCESS_MESSAGE = 'Success';
@@ -284,6 +287,8 @@ export class Main extends React.Component<MainProps, MainState> {
       cluster: 'Indexes',
       dataSourceOptions: [],
       selectedMDSDataConnectionId: '',
+      mdsClusterName: '',
+      flintDataConnections: false
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -308,9 +313,9 @@ export class Main extends React.Component<MainProps, MainState> {
       this.props.urlDataSource,
       (dataOptions) => {
         if (dataOptions.length > 0) {
-          this.setState({ dataConnections: true });
+          this.setState({ flintDataConnections: true });
         } else {
-          this.setState({ dataConnections: false });
+          this.setState({ flintDataConnections: false });
         }
       },
       (error: any) => {
@@ -889,8 +894,10 @@ export class Main extends React.Component<MainProps, MainState> {
 
   onSelectedDataSource = async (e) => {
     const dataConnectionId = e[0] ? e[0].id : undefined;
+    const clusterName = e[0] ? e[0].label : '';
     await this.setState({
       selectedMDSDataConnectionId: dataConnectionId,
+      mdsClusterName: clusterName,
       cluster: 'Indexes',
       selectedDatasource: [{ label: 'OpenSearch', key: '' }],
       isAccelerationFlyoutOpened: false
@@ -998,7 +1005,6 @@ export class Main extends React.Component<MainProps, MainState> {
 
     return (
       <>
-      {console.log(this.props.savedObjects)}
         {this.props.dataSourceEnabled && (
           <this.DataSourceMenu
             setMenuMountPoint={this.props.setActionMenu}
@@ -1012,7 +1018,7 @@ export class Main extends React.Component<MainProps, MainState> {
           />
         )}
         <EuiPage paddingSize="none">
-          <EuiPanel grow={true}>
+          <EuiPanel grow={true} style={{marginRight: '10px'}}>
             <EuiPageSideBar
               style={{
                 maxWidth: '400px',
@@ -1020,7 +1026,11 @@ export class Main extends React.Component<MainProps, MainState> {
                 height: 'calc(100vh - 254px)',
               }}
             >
-              {this.state.dataConnections && (
+              <EuiTitle size='xs'>
+                  <p><b>{this.state.mdsClusterName}</b></p>
+                </EuiTitle>
+                <EuiSpacer size='s'/>
+              {this.state.flintDataConnections && (
                 <EuiFlexGroup direction="row" gutterSize="s">
                   <EuiFlexItem grow={false}>
                     <ClusterTabs
@@ -1033,7 +1043,7 @@ export class Main extends React.Component<MainProps, MainState> {
                     <EuiButtonIcon
                       display="base"
                       iconType="refresh"
-                      size="m"
+                      size="s"
                       aria-label="refresh"
                       onClick={this.handleReloadTree}
                     />
@@ -1052,7 +1062,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 {this.state.cluster === 'Data source Connections' && (
                   <>
                     <EuiFlexItem grow={false}>
-                      <EuiSpacer size="l" />
+                      <EuiSpacer size="s" />
                       <DataSelect
                         http={this.httpClient}
                         onSelect={this.handleDataSelect}

@@ -38,7 +38,6 @@ export const WorkbenchApp = ({
   dataSourceManagement,
   setActionMenu,
 }: WorkbenchAppDeps) => {
-  console.log(dataSourceEnabled)
   return (
     <HashRouter>
       <I18nProvider>

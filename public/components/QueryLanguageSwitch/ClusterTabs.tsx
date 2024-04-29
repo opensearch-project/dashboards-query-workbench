@@ -39,7 +39,7 @@ class ClusterTabs extends React.Component<SwitchProps> {
         options={toggleButtons}
         onChange={(id) => this.props.onChange(id)}
         idSelected={this.props.cluster}
-        buttonSize="m"
+        buttonSize="s"
         isDisabled={this.props.asyncLoading}
       />
     );
