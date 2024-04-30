@@ -42,9 +42,7 @@ export const executeAsyncQuery = (
           ...query,
           sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
         }),
-        query: {
-          dataSourceMDSId: dataSourceMDSId,
-        },
+        query: { dataSourceMDSId },
       })
       .then((res) => {
         const responseData = res.data.resp;
