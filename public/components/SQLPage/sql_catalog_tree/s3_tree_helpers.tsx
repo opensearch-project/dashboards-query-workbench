@@ -26,7 +26,6 @@ import { useToast } from '../../../../common/utils/toast_helper';
 import { catalogCacheRefs } from '../../../framework/catalog_cache_refs';
 
 let pageStateLanguage: string;
-// const [language, setPageLanguage] = useState('SQL');
 export const handleQuery = (
   e: React.MouseEvent<SVGElement, MouseEvent>,
   dataSource: string,

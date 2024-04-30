@@ -3,7 +3,7 @@
 exports[`<Switch /> spec renders the component 1`] = `
 <div>
   <fieldset
-    class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+    class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
   >
     <legend
       class="euiScreenReaderOnly"
@@ -14,7 +14,7 @@ exports[`<Switch /> spec renders the component 1`] = `
       class="euiButtonGroup__buttons"
     >
       <label
-        class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+        class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
         for="some_html_id"
       >
         <span
@@ -39,7 +39,7 @@ exports[`<Switch /> spec renders the component 1`] = `
         </span>
       </label>
       <label
-        class="euiButtonGroupButton euiButtonGroupButton--text"
+        class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
         for="some_html_id"
       >
         <span

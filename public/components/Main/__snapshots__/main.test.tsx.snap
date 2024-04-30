@@ -7,11 +7,20 @@ exports[`<Main /> spec click clear button 1`] = `
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -61,7 +70,7 @@ exports[`<Main /> spec click clear button 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -72,7 +81,7 @@ exports[`<Main /> spec click clear button 1`] = `
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -97,7 +106,7 @@ exports[`<Main /> spec click clear button 1`] = `
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span
@@ -435,11 +444,20 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -489,7 +507,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -500,7 +518,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -525,7 +543,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span
@@ -863,11 +881,20 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -917,7 +944,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -928,7 +955,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -951,7 +978,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span
@@ -1287,11 +1314,20 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -1341,7 +1377,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -1352,7 +1388,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -1375,7 +1411,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span
@@ -1711,11 +1747,20 @@ exports[`<Main /> spec click run button, response fills null and missing values 
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -1765,7 +1810,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -1776,7 +1821,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -1799,7 +1844,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span
@@ -2135,11 +2180,20 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -2189,7 +2243,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -2200,7 +2254,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -2225,7 +2279,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span
@@ -2563,11 +2617,20 @@ exports[`<Main /> spec renders the component 1`] = `
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -2617,7 +2680,7 @@ exports[`<Main /> spec renders the component 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -2628,7 +2691,7 @@ exports[`<Main /> spec renders the component 1`] = `
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -2653,7 +2716,7 @@ exports[`<Main /> spec renders the component 1`] = `
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span
@@ -2991,11 +3054,20 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -4073,7 +4145,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -4084,7 +4156,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -4109,7 +4181,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span
@@ -4447,11 +4519,20 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
   >
     <div
       class="euiPanel euiPanel--paddingMedium euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+      style="margin-right: 10px;"
     >
       <div
         class="euiPageSideBar"
         style="max-width: 400px; width: 400px; height: calc(100vh - 254px);"
       >
+        <p
+          class="euiTitle euiTitle--xsmall"
+        >
+          <b />
+        </p>
+        <div
+          class="euiSpacer euiSpacer--s"
+        />
         <div
           class="euiSpacer euiSpacer--l"
         />
@@ -4501,7 +4582,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <fieldset
-            class="euiButtonGroup euiButtonGroup--medium euiButtonGroup--text query-language-switch"
+            class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
           >
             <legend
               class="euiScreenReaderOnly"
@@ -4512,7 +4593,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
               class="euiButtonGroup__buttons"
             >
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
                 for="some_html_id"
               >
                 <span
@@ -4537,7 +4618,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
                 </span>
               </label>
               <label
-                class="euiButtonGroupButton euiButtonGroupButton--text"
+                class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
                 for="some_html_id"
               >
                 <span

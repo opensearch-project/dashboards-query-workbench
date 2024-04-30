@@ -243,6 +243,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
+      console.log(dataSourceMDSId, 'after success')
       const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceMDSId);
       if (dsCache.status === CachedDataSourceStatus.Updated) {
         const databases = dsCache.databases.map((db) => db.name);
