@@ -4,6 +4,7 @@ exports[`<Switch /> spec renders the component 1`] = `
 <div>
   <fieldset
     class="euiButtonGroup euiButtonGroup--small euiButtonGroup--text query-language-switch"
+    data-test-subj="switch-button"
   >
     <legend
       class="euiScreenReaderOnly"
@@ -15,6 +16,7 @@ exports[`<Switch /> spec renders the component 1`] = `
     >
       <label
         class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small euiButtonGroupButton--fill euiButtonGroupButton-isSelected"
+        data-test-subj="switch-button-sql"
         for="some_html_id"
       >
         <span
@@ -40,6 +42,7 @@ exports[`<Switch /> spec renders the component 1`] = `
       </label>
       <label
         class="euiButtonGroupButton euiButtonGroupButton--text euiButtonGroupButton--small"
+        data-test-subj="switch-button-ppl"
         for="some_html_id"
       >
         <span

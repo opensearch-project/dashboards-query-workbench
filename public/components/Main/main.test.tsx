@@ -115,10 +115,14 @@ describe('<Main /> spec', () => {
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     client.post = jest.fn().mockResolvedValue(mockQueryResultJDBCResponse);
 
-    const { getByText } = await render(
+    const { getByText, getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
     const onRunButton = getByText('Run');
+    const pplbutton =getByTestId('PPL');
+    waitFor(() => {
+     expect(pplbutton).toBeInTheDocument();
+    });
     const asyncTest = () => {
       fireEvent.click(onRunButton);
     };
@@ -131,9 +135,13 @@ describe('<Main /> spec', () => {
     client.post = jest.fn().mockResolvedValue(mockResultWithNull);
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
-    const { getByText } = await render(
+    const { getByText ,getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
+    const pplbutton = getByTestId('PPL');
+    waitFor(() => {
+     expect(pplbutton).toBeInTheDocument();
+    });
     const onRunButton = getByText('Run');
     const asyncTest = () => {
       fireEvent.click(onRunButton);
@@ -171,9 +179,13 @@ describe('<Main /> spec', () => {
     });
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
-    const { getByText } = await render(
+    const { getByText, getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
+    const pplbutton = getByTestId("PPL");
+    waitFor(() => {
+     expect(pplbutton).toBeInTheDocument();
+    });
     const onRunButton = getByText('Run');
     const asyncTest = () => {
       fireEvent.click(onRunButton);
@@ -194,9 +206,13 @@ describe('<Main /> spec', () => {
       }
     });
 
-    const { getByText } = await render(
+    const { getByText,getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
+    const pplbutton = getByTestId("PPL");
+    waitFor(() => {
+     expect(pplbutton).toBeInTheDocument();
+    });
     const onTranslateButton = getByText('Explain');
     const asyncTest = () => {
       fireEvent.click(onTranslateButton);

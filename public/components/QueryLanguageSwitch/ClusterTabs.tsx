@@ -34,8 +34,7 @@ class ClusterTabs extends React.Component<SwitchProps> {
   render() {
     return (
       <EuiButtonGroup
-        className="query-language-switch"
-        legend="query-language-swtich"
+        legend='cluster-selector'
         options={toggleButtons}
         onChange={(id) => this.props.onChange(id)}
         idSelected={this.props.cluster}
