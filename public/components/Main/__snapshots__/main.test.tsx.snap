@@ -963,8 +963,6 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                 >
                   <span
                     class="euiButton__text euiButtonGroupButton__textShift"
-                    data-text="SQL"
-                    title="SQL"
                   >
                     <input
                       checked=""
@@ -988,8 +986,6 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                 >
                   <span
                     class="euiButton__text euiButtonGroupButton__textShift"
-                    data-text="PPL"
-                    title="PPL"
                   >
                     <input
                       class="euiScreenReaderOnly"
@@ -1400,8 +1396,6 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                 >
                   <span
                     class="euiButton__text euiButtonGroupButton__textShift"
-                    data-text="SQL"
-                    title="SQL"
                   >
                     <input
                       checked=""
@@ -1425,8 +1419,6 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                 >
                   <span
                     class="euiButton__text euiButtonGroupButton__textShift"
-                    data-text="PPL"
-                    title="PPL"
                   >
                     <input
                       class="euiScreenReaderOnly"
@@ -1837,8 +1829,6 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                 >
                   <span
                     class="euiButton__text euiButtonGroupButton__textShift"
-                    data-text="SQL"
-                    title="SQL"
                   >
                     <input
                       checked=""
@@ -1862,8 +1852,6 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                 >
                   <span
                     class="euiButton__text euiButtonGroupButton__textShift"
-                    data-text="PPL"
-                    title="PPL"
                   >
                     <input
                       class="euiScreenReaderOnly"
@@ -2186,10 +2174,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
 `;
 
 exports[`<Main /> spec click translation button, and response is ok 1`] = `
-<div
-  aria-hidden="true"
-  data-aria-hidden="true"
->
+<div>
   <div
     class="euiPage euiPage--grow"
   >
