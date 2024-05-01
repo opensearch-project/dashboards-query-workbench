@@ -11,6 +11,7 @@ import {
   OverlayStart,
   SavedObjectsClientContract,
 } from '../../../../src/core/public';
+import { DataSourcePluginStart } from '../../../../src/plugins/data_source/public';
 
 class CoreRefs {
   private static _instance: CoreRefs;
@@ -21,6 +22,7 @@ class CoreRefs {
   public chrome?: ChromeStart;
   public application?: ApplicationStart;
   public overlays?: OverlayStart;
+  public dataSource?: DataSourcePluginStart;
   private constructor() {
     // ...
   }
