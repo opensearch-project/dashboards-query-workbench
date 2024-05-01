@@ -63,6 +63,7 @@ describe('Test Catalog tree', () => {
         dataSourceMDSId={''} 
         clusterTab={'Data source Connections'} 
         language={'SQL'} 
+        refreshTree={true}
       />
     );
 

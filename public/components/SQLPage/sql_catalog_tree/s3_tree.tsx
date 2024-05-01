@@ -25,6 +25,7 @@ import { AsyncQueryStatus, CachedDataSourceStatus, TreeItem } from '../../../../
 import { useToast } from '../../../../common/utils/toast_helper';
 import { getRenderAccelerationDetailsFlyout } from '../../../dependencies/register_observability_dependencies';
 import { catalogCacheRefs } from '../../../framework/catalog_cache_refs';
+import '../table_view.scss';
 import {
   createLabel,
   findIndexObject,
@@ -242,7 +243,6 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
-      console.log(dataSourceMDSId, 'after success')
       const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceMDSId);
       if (dsCache.status === CachedDataSourceStatus.Updated) {
         const databases = dsCache.databases.map((db) => db.name);
@@ -347,6 +347,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
       <EuiTreeView
         aria-label="S3 Datasource Folder Tree"
         data-test-subj="s3-datasource-tree"
+        className="workbench-tree"
         items={treeDataDatabases}
       />
     );
