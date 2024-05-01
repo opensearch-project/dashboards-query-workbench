@@ -4,17 +4,17 @@
  */
 
 
-import { ILegacyClusterClient, IRouter } from '../../../../src/core/server';
-import registerTranslateRoute from './translate';
-import registerQueryRoute from './query';
-import TranslateService from '../services/TranslateService';
+import { ILegacyClusterClient, IRouter, Logger, OpenSearchServiceSetup } from '../../../../src/core/server';
 import QueryService from '../services/QueryService';
+import TranslateService from '../services/TranslateService';
+import registerQueryRoute from './query';
+import registerTranslateRoute from './translate';
 
 
-export default function (router: IRouter, client: ILegacyClusterClient) {
-  const translateService = new TranslateService(client);
-  registerTranslateRoute(router, translateService);
+export default function (router: IRouter, client: ILegacyClusterClient | undefined, openSearchServiceSetup: OpenSearchServiceSetup, dataSourceEnabled: boolean, logger: Logger) {
+  const translateService = new TranslateService(client, dataSourceEnabled, logger);
+  registerTranslateRoute(router, translateService, openSearchServiceSetup);
 
-  const queryService = new QueryService(client);
-  registerQueryRoute(router, queryService);
+  const queryService = new QueryService(client, dataSourceEnabled, logger);
+  registerQueryRoute(router, queryService, openSearchServiceSetup);
 }

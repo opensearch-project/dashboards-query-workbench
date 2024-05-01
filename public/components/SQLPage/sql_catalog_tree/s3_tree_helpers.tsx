@@ -25,6 +25,7 @@ import { CachedDataSourceStatus, TreeItem, TreeItemType } from '../../../../comm
 import { useToast } from '../../../../common/utils/toast_helper';
 import { catalogCacheRefs } from '../../../framework/catalog_cache_refs';
 
+let pageStateLanguage: string;
 export const handleQuery = (
   e: React.MouseEvent<SVGElement, MouseEvent>,
   dataSource: string,
@@ -36,12 +37,30 @@ export const handleQuery = (
   updateSQLQueries(`select * from \`${dataSource}\`.\`${database}\`.\`${tableName}\` limit 10`);
 };
 
+export const pageLanguage = (
+  language: string
+) => {
+  pageStateLanguage = language
+}
+
+export const handlePPLQuery = (
+  e: React.MouseEvent<SVGElement, MouseEvent>,
+  dataSource: string,
+  database: string,
+  tableName: string,
+  updatePPLQueries: (query: string) => void
+) => {
+  e.stopPropagation();
+  updatePPLQueries(`source = ${dataSource}.${database}.${tableName} | head 10`);
+};
+
 export const createLabel = (
   node: TreeItem,
   dataSource: string,
   database: string,
   index: number,
-  updateSQLQueries: (query: string) => void
+  updateSQLQueries: (query: string) => void,
+  updatePPLQueries: (query: string) => void
 ) => {
   return (
     <div key={node.name}>
@@ -54,7 +73,13 @@ export const createLabel = (
               {node.type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME && !node.isLoading && (
                 <EuiIcon
                   type="editorCodeBlock"
-                  onClick={(e) => handleQuery(e, dataSource, database, node.name, updateSQLQueries)}
+                  onClick={(e) => {
+                    if (pageStateLanguage === 'SQL') {
+                      handleQuery(e, dataSource, database, node.name, updateSQLQueries);
+                    } else {
+                      handlePPLQuery(e, dataSource, database, node.name, updatePPLQueries);
+                    }
+                  }}                
                 />
               )}
             </EuiText>
@@ -123,10 +148,10 @@ export const isEitherObjectCacheEmpty = (dataSourceName: string, databaseName: s
   }
 };
 
-export const getTablesFromCache = (dataSourceName: string, databaseName: string) => {
+export const getTablesFromCache = (dataSourceName: string, databaseName: string, dataSourceMDSId?: string) => {
   const { setToast } = useToast();
   try {
-    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName);
+    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName, dataSourceMDSId);
     if (dbCache.status === CachedDataSourceStatus.Updated) {
       const tables = dbCache.tables.map((tb) => tb.name);
       return tables;
@@ -140,9 +165,10 @@ export const getTablesFromCache = (dataSourceName: string, databaseName: string)
   }
 };
 
-export const getAccelerationsFromCache = (dataSourceName: string) => {
+export const getAccelerationsFromCache = (dataSourceName: string, dataSourceMDSId?: string) => {
   const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
-    dataSourceName
+    dataSourceName,
+    dataSourceMDSId
   );
 
   if (dsCache.status === CachedDataSourceStatus.Updated && dsCache.accelerations.length > 0) {

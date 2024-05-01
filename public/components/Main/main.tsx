@@ -16,16 +16,28 @@ import {
   EuiPageSideBar,
   EuiPanel,
   EuiSpacer,
-  EuiText,
+  EuiTitle,
 } from '@elastic/eui';
 import { IHttpResponse } from 'angular';
 import { createBrowserHistory } from 'history';
 import _ from 'lodash';
 import React from 'react';
-import { ChromeBreadcrumb, CoreStart } from '../../../../../src/core/public';
+import {
+  ChromeBreadcrumb,
+  CoreStart,
+  MountPoint,
+  NotificationsStart,
+  SavedObjectsStart,
+} from '../../../../../src/core/public';
+import {
+  DataSourceManagementPluginSetup,
+  DataSourceSelectableConfig,
+} from '../../../../../src/plugins/data_source_management/public';
+import { DataSourceOption } from '../../../../../src/plugins/data_source_management/public/components/data_source_selector/data_source_selector';
 import { OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
+import { fetchDataSources } from '../../../common/utils/fetch_datasources';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -35,6 +47,7 @@ import {
   getSelectedResults,
 } from '../../utils/utils';
 import { PPLPage } from '../PPLPage/PPLPage';
+import ClusterTabs from '../QueryLanguageSwitch/ClusterTabs';
 import Switch from '../QueryLanguageSwitch/Switch';
 import { QueryResults } from '../QueryResults/QueryResults';
 import { CreateButton } from '../SQLPage/CreateButton';
@@ -93,6 +106,11 @@ interface MainProps {
   setBreadcrumbs: (newBreadcrumbs: ChromeBreadcrumb[]) => void;
   isAccelerationFlyoutOpen: boolean;
   urlDataSource: string;
+  savedObjects: SavedObjectsStart;
+  notifications: NotificationsStart;
+  dataSourceEnabled: boolean;
+  dataSourceManagement: DataSourceManagementPluginSetup;
+  setActionMenu: (menuMount: MountPoint | undefined) => void;
 }
 
 interface MainState {
@@ -120,10 +138,14 @@ interface MainState {
   refreshTree: boolean;
   isAccelerationFlyoutOpened: boolean;
   isCallOutVisible: boolean;
+  selectedMDSDataConnectionId: string;
+  cluster: string;
+  dataSourceOptions: DataSourceOption[];
+  mdsClusterName: string;
+  flintDataConnections: boolean;
 }
 
 const SUCCESS_MESSAGE = 'Success';
-
 const errorQueryResponse = (queryResultResponseDetail: any) => {
   const errorMessage =
     queryResultResponseDetail.errorMessage +
@@ -254,7 +276,7 @@ export class Main extends React.Component<MainProps, MainState> {
       itemIdToExpandedRowMap: {},
       messages: [],
       isResultFullScreen: false,
-      selectedDatasource: [{ label: 'OpenSearch' }],
+      selectedDatasource: [{ label: 'OpenSearch', key: '' }],
       asyncLoading: false,
       asyncLoadingStatus: AsyncQueryStatus.Success,
       asyncQueryError: '',
@@ -262,6 +284,11 @@ export class Main extends React.Component<MainProps, MainState> {
       refreshTree: false,
       isAccelerationFlyoutOpened: false,
       isCallOutVisible: false,
+      cluster: 'Indexes',
+      dataSourceOptions: [],
+      selectedMDSDataConnectionId: '',
+      mdsClusterName: '',
+      flintDataConnections: false
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -276,7 +303,26 @@ export class Main extends React.Component<MainProps, MainState> {
         href: '#',
       },
     ]);
+    this.fetchFlintDataSources();
   }
+
+  fetchFlintDataSources = () => {
+    fetchDataSources(
+      this.httpClient,
+      this.state.selectedMDSDataConnectionId,
+      this.props.urlDataSource,
+      (dataOptions) => {
+        if (dataOptions.length > 0) {
+          this.setState({ flintDataConnections: true });
+        } else {
+          this.setState({ flintDataConnections: false });
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching data sources:', error);
+      }
+    );
+  };
 
   processTranslateResponse(response: IHttpResponse<ResponseData>): ResponseDetail<TranslateResult> {
     if (!response) {
@@ -383,10 +429,14 @@ export class Main extends React.Component<MainProps, MainState> {
     const language = this.state.language;
     if (queries.length > 0) {
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
+      let query = {};
+      if (this.props.dataSourceEnabled) {
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+      }
       const responsePromise = Promise.all(
-        queries.map((query: string) =>
+        queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -516,6 +566,7 @@ export class Main extends React.Component<MainProps, MainState> {
               });
             }
           },
+          this.state.selectedMDSDataConnectionId,
           (errorDetails: string) => {
             this.setState({
               asyncLoading: false,
@@ -542,12 +593,16 @@ export class Main extends React.Component<MainProps, MainState> {
     const language = this.state.language;
 
     if (queries.length > 0) {
+      let query = {};
+      if (this.props.dataSourceEnabled) {
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+      }
       const endpoint =
         '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
       const translationPromise = Promise.all(
-        queries.map((query: string) =>
+        queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -590,10 +645,14 @@ export class Main extends React.Component<MainProps, MainState> {
 
   getJson = (queries: string[]): void => {
     if (queries.length > 0) {
+      let query = {};
+      if (this.props.dataSourceEnabled) {
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+      }
       Promise.all(
-        queries.map((query: string) =>
+        queries.map((eachQuery: string) =>
           this.httpClient
-            .post('/api/sql_console/sqljson', { body: JSON.stringify({ query }) })
+            .post('/api/sql_console/sqljson', { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -623,11 +682,15 @@ export class Main extends React.Component<MainProps, MainState> {
   getJdbc = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
+      let query = {};
+      if (this.props.dataSourceEnabled) {
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+      }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       Promise.all(
-        queries.map((query: string) =>
+        queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -657,11 +720,15 @@ export class Main extends React.Component<MainProps, MainState> {
   getCsv = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
+      let query = {};
+      if (this.props.dataSourceEnabled) {
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+      }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
       Promise.all(
-        queries.map((query: string) =>
+        queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -691,11 +758,15 @@ export class Main extends React.Component<MainProps, MainState> {
   getText = (queries: string[]): void => {
     const language = this.state.language;
     if (queries.length > 0) {
+      let query = {};
+      if (this.props.dataSourceEnabled) {
+        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+      }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
       Promise.all(
-        queries.map((query: string) =>
+        queries.map((eachQuery: string) =>
           this.httpClient
-            .post(endpoint, { body: JSON.stringify({ query }) })
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
             .catch((error: any) => {
               this.setState({
                 messages: [
@@ -809,11 +880,39 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   };
 
+  onChangeCluster = (id: string) => {
+    this.setState({
+      cluster: id,
+      queryResultsTable: [],
+    });
+    if (id === 'Indexes') {
+      this.setState({
+        selectedDatasource: [{ label: 'OpenSearch', key: '' }],
+      });
+    }
+  };
+
+  onSelectedDataSource = async (e) => {
+    const dataConnectionId = e[0] ? e[0].id : undefined;
+    const clusterName = e[0] ? e[0].label : '';
+    await this.setState({
+      selectedMDSDataConnectionId: dataConnectionId,
+      mdsClusterName: clusterName,
+      cluster: 'Indexes',
+      selectedDatasource: [{ label: 'OpenSearch', key: '' }],
+      isAccelerationFlyoutOpened: false
+    });
+    this.fetchFlintDataSources();
+  };
+
+  DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<
+    DataSourceSelectableConfig
+  >();
+
   render() {
     let page;
     let link;
     let linkTitle;
-
     if (this.state.language === 'SQL') {
       page = (
         <SQLPage
@@ -833,6 +932,7 @@ export class Main extends React.Component<MainProps, MainState> {
           openAccelerationFlyout={
             this.props.isAccelerationFlyoutOpen && !this.state.isAccelerationFlyoutOpened
           }
+          dataSourceMDSId={this.state.selectedMDSDataConnectionId}
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
@@ -905,83 +1005,117 @@ export class Main extends React.Component<MainProps, MainState> {
 
     return (
       <>
-        <EuiFlexGroup direction="row" alignItems="center">
-          <EuiFlexItem>
-            <EuiText>Data Sources</EuiText>
-            <DataSelect
-              http={this.httpClient}
-              onSelect={this.handleDataSelect}
-              urlDataSource={this.props.urlDataSource}
-              asyncLoading={this.state.asyncLoading}
-            />
-            <EuiSpacer />
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <Switch
-              onChange={this.onChange}
-              language={this.state.language}
-              asyncLoading={this.state.asyncLoading}
-            />
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
-              {linkTitle}
-            </EuiButton>
-          </EuiFlexItem>
-        </EuiFlexGroup>
+        {this.props.dataSourceEnabled && (
+          <this.DataSourceMenu
+            setMenuMountPoint={this.props.setActionMenu}
+            componentType={'DataSourceSelectable'}
+            componentConfig={{
+              savedObjects: this.props.savedObjects.client,
+              notifications: this.props.notifications,
+              fullWidth: true,
+              onSelectedDataSources: this.onSelectedDataSource,
+            }}
+          />
+        )}
         <EuiPage paddingSize="none">
-          {this.state.language === 'SQL' && (
-            <EuiPanel grow={true}>
-              <EuiPageSideBar
-                style={{
-                  maxWidth: '400px',
-                  width: '400px',
-                  height: 'calc(100vh - 254px)',
-                }}
-              >
+          <EuiPanel grow={true} style={{marginRight: '10px'}}>
+            <EuiPageSideBar
+              style={{
+                maxWidth: '400px',
+                width: '400px',
+                height: 'calc(100vh - 254px)',
+              }}
+            >
+              <EuiTitle size='xs'>
+                  <p><b>{this.state.mdsClusterName}</b></p>
+                </EuiTitle>
+                <EuiSpacer size='s'/>
+              {this.state.flintDataConnections && (
                 <EuiFlexGroup direction="row" gutterSize="s">
+                  <EuiFlexItem grow={false}>
+                    <ClusterTabs
+                      onChange={this.onChangeCluster}
+                      cluster={this.state.cluster}
+                      asyncLoading={this.state.asyncLoading}
+                    />
+                  </EuiFlexItem>
                   <EuiFlexItem grow={false}>
                     <EuiButtonIcon
                       display="base"
                       iconType="refresh"
-                      size="m"
+                      size="s"
                       aria-label="refresh"
                       onClick={this.handleReloadTree}
                     />
                   </EuiFlexItem>
-                  <EuiFlexItem grow={false}>
-                    <CreateButton
-                      updateSQLQueries={this.updateSQLQueries}
-                      selectedDatasource={this.state.selectedDatasource}
-                    />
-                  </EuiFlexItem>
                 </EuiFlexGroup>
-                <EuiSpacer size="l" />
-                <EuiFlexGroup
-                  direction="column"
-                  style={{
-                    overflowY: 'auto',
-                    overflowX: 'hidden',
-                    height: 'calc(100vh - 308px)',
-                  }}
-                >
-                  <EuiFlexItem grow={false}>
-                    <CatalogTree
-                      selectedItems={this.state.selectedDatasource}
-                      updateSQLQueries={this.updateSQLQueries}
-                      refreshTree={this.state.refreshTree}
-                    />
-                    <EuiSpacer />
-                  </EuiFlexItem>
-                </EuiFlexGroup>
-              </EuiPageSideBar>
-            </EuiPanel>
-          )}
+              )}
+              <EuiSpacer size="l" />
+              <EuiFlexGroup
+                direction="column"
+                style={{
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
+                  height: 'calc(100vh - 308px)',
+                }}
+              >
+                {this.state.cluster === 'Data source Connections' && (
+                  <>
+                    <EuiFlexItem grow={false}>
+                      <EuiSpacer size="s" />
+                      <DataSelect
+                        http={this.httpClient}
+                        onSelect={this.handleDataSelect}
+                        urlDataSource={this.props.urlDataSource}
+                        asyncLoading={this.state.asyncLoading}
+                        dataSourceMDSId={this.state.selectedMDSDataConnectionId}
+                      />
+                    </EuiFlexItem>
+                    <EuiFlexItem grow={false}>
+                      {this.state.language === 'SQL' && (
+                        <CreateButton
+                          updateSQLQueries={this.updateSQLQueries}
+                          selectedDatasource={this.state.selectedDatasource}
+                        />
+                      )}
+                    </EuiFlexItem>
+                  </>
+                )}
+                <EuiFlexItem grow={false}>
+                  <CatalogTree
+                    selectedItems={this.state.selectedDatasource}
+                    updateSQLQueries={this.updateSQLQueries}
+                    refreshTree={this.state.refreshTree}
+                    dataSourceEnabled={this.props.dataSourceEnabled}
+                    dataSourceMDSId={this.state.selectedMDSDataConnectionId}
+                    clusterTab={this.state.cluster}
+                    language={this.state.language}
+                    updatePPLQueries={this.updatePPLQueries}
+                  />
+                  <EuiSpacer />
+                </EuiFlexItem>
+              </EuiFlexGroup>
+            </EuiPageSideBar>
+          </EuiPanel>
 
           <EuiPageContent paddingSize="m">
+            <EuiFlexGroup direction="row" justifyContent="spaceBetween">
+              <EuiFlexItem grow={false}>
+                <Switch
+                  onChange={this.onChange}
+                  language={this.state.language}
+                  asyncLoading={this.state.asyncLoading}
+                />
+                <EuiSpacer />
+              </EuiFlexItem>
+              <EuiFlexItem grow={false}>
+                <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
+                  {linkTitle}
+                </EuiButton>
+              </EuiFlexItem>
+            </EuiFlexGroup>
             <EuiPageContentBody>
               <EuiFlexGroup alignItems="center" />
-              <EuiSpacer size="l" />
               <div>{page}</div>
               <EuiSpacer size="l" />
               {this.state.isCallOutVisible && (
