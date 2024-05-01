@@ -5,48 +5,39 @@
 
 import { EuiButtonGroup } from '@elastic/eui';
 import React from 'react';
-// @ts-ignore
 
 interface SwitchProps {
   onChange: (id: string, value?: any) => void;
-  language: string;
+  cluster: string
   asyncLoading: boolean;
-}
-
-interface SwitchState {
-  // language: string
 }
 
 const toggleButtons = [
   {
-    id: 'SQL',
-    label: 'SQL',
-    "data-test-subj":'switch-button-sql'
+    id: 'Indexes',
+    label: 'Indexes',
   },
   {
-    id: 'PPL',
-    label: 'PPL',
-    "data-test-subj":'switch-button-ppl'
+    id: 'Data source Connections',
+    label: 'Data source Connections',
   },
 ];
 
-class Switch extends React.Component<SwitchProps, SwitchState> {
+class ClusterTabs extends React.Component<SwitchProps> {
   constructor(props: SwitchProps) {
     super(props);
     this.state = {
-      language: 'SQL',
+      cluster: 'Data source Connections',
     };
   }
 
   render() {
     return (
       <EuiButtonGroup
-        data-test-subj='switch-button'
-        className="query-language-switch"
-        legend="query-language-swtich"
+        legend='cluster-selector'
         options={toggleButtons}
         onChange={(id) => this.props.onChange(id)}
-        idSelected={this.props.language}
+        idSelected={this.props.cluster}
         buttonSize="s"
         isDisabled={this.props.asyncLoading}
       />
@@ -54,4 +45,4 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
   }
 }
 
-export default Switch;
+export default ClusterTabs;

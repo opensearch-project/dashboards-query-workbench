@@ -10,7 +10,7 @@ import {
   EuiLoadingSpinner,
   EuiSpacer,
   EuiText,
-  EuiTreeView,
+  EuiTreeView
 } from '@elastic/eui';
 import produce from 'immer';
 import React, { useEffect, useState } from 'react';
@@ -35,15 +35,20 @@ import {
   iconCreation,
   isEitherObjectCacheEmpty,
   loadTreeItem,
+  pageLanguage
 } from './s3_tree_helpers';
 
 interface S3TreeProps {
   dataSource: string;
   updateSQLQueries: (query: string) => void;
   refreshTree: boolean;
+  dataSourceEnabled: boolean;
+  dataSourceMDSId: string;
+  language: string;
+  updatePPLQueries: (query: string) => void;
 }
 
-export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProps) => {
+export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMDSId, language, updatePPLQueries}: S3TreeProps) => {
   const { setToast } = useToast();
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
@@ -142,8 +147,8 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
       setCurrentSelectedDatabase(database.name);
       updateDatabaseState(database.name, true);
       if (!isEitherObjectCacheEmpty(dataSource, database.name)) {
-        const tablesData = getTablesFromCache(dataSource, database.name);
-        const accelerationsData = getAccelerationsFromCache(dataSource);
+        const tablesData = getTablesFromCache(dataSource, database.name, dataSourceMDSId);
+        const accelerationsData = getAccelerationsFromCache(dataSource, dataSourceMDSId);
 
         constructObjectTree(database.name, tablesData, accelerationsData);
         updateDatabaseState(database.name, false);
@@ -154,8 +159,8 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
           tableStatus: true,
           accelerationsStatus: true,
         });
-        startLoadingTables(dataSource, database.name);
-        startLoadingAccelerations(dataSource);
+        startLoadingTables({dataSourceName: dataSource,databaseName:database.name, dataSourceMDSId: dataSourceMDSId});
+        startLoadingAccelerations({dataSourceName: dataSource, dataSourceMDSId: dataSourceMDSId});
       }
     } else {
       setToast('Can only load one database at a time', 'warning');
@@ -178,7 +183,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
   };
 
   const treeDataDatabases = treeData.map((database, index) => ({
-    label: createLabel(database, dataSource, database.name, index, updateSQLQueries),
+    label: createLabel(database, dataSource, database.name, index, updateSQLQueries, updatePPLQueries),
     icon: iconCreation(database),
     id: 'element_' + index,
     callback: () => {
@@ -189,7 +194,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
     isSelectable: true,
     isExpanded: database.isExpanded,
     children: database.values?.map((table, idx) => ({
-      label: createLabel(table, dataSource, database.name, idx, updateSQLQueries),
+      label: createLabel(table, dataSource, database.name, idx, updateSQLQueries, updatePPLQueries),
       id: `${database.name}_${table.name}`,
       icon: iconCreation(table),
       callback: () => {
@@ -217,19 +222,18 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
 
   const onRefreshTree = () => {
     setIsTreeLoading({ status: true, message: '' });
-    startDatabasesLoading(dataSource);
+    startDatabasesLoading({dataSourceName: dataSource, dataSourceMDSId: dataSourceMDSId});
   };
 
   const onLoadS3Tree = () => {
     setIsTreeLoading({ status: true, message: '' });
-    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource);
-
-    if (dsCache.status === CachedDataSourceStatus.Updated && dsCache.databases.length > 0) {
+    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceMDSId);
+    if (dsCache.status === CachedDataSourceStatus.Updated) {
       const databases = dsCache.databases.map((db) => db.name);
       setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
       setIsTreeLoading({ status: false, message: '' });
     } else if (dsCache.status === CachedDataSourceStatus.Empty) {
-      startDatabasesLoading(dataSource);
+      startDatabasesLoading({dataSourceName: dataSource, dataSourceMDSId: dataSourceMDSId});
     }
   };
 
@@ -238,6 +242,12 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
+      console.log(dataSourceMDSId, 'after success')
+      const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceMDSId);
+      if (dsCache.status === CachedDataSourceStatus.Updated) {
+        const databases = dsCache.databases.map((db) => db.name);
+        setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
+      }
     } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
       setIsTreeLoading({ status: false, message: 'Failed to load databases' });
     }
@@ -262,8 +272,9 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
   }, [loadAccelerationsStatus]);
 
   useEffect(() => {
+    pageLanguage(language)
     onLoadS3Tree();
-  }, [dataSource]);
+  }, [dataSource,dataSourceMDSId,language]);
 
   useEffect(() => {
     setIsFirstRender(false);
@@ -282,7 +293,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree }: S3TreeProp
       !(isObjectLoading.accelerationsStatus || isObjectLoading.tableStatus) &&
       currentSelectedDatabase !== ''
     ) {
-      const tablesData = getTablesFromCache(dataSource, currentSelectedDatabase);
+      const tablesData = getTablesFromCache(dataSource, currentSelectedDatabase, dataSourceMDSId);
       const accelerationsData = getAccelerationsFromCache(dataSource);
 
       constructObjectTree(currentSelectedDatabase, tablesData, accelerationsData);

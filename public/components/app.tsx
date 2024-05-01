@@ -9,7 +9,8 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import { EuiPage, EuiPageBody } from '@elastic/eui';
 
-import { CoreStart } from '../../../../src/core/public';
+import { CoreStart, MountPoint } from '../../../../src/core/public';
+import { DataSourceManagementPluginSetup } from '../../../../src/plugins/data_source_management/public';
 import { NavigationPublicPluginStart } from '../../../../src/plugins/navigation/public';
 
 import { Main } from './Main';
@@ -20,6 +21,10 @@ interface WorkbenchAppDeps {
   http: CoreStart['http'];
   navigation: NavigationPublicPluginStart;
   chrome: CoreStart['chrome'];
+  savedObjects: CoreStart['savedObjects'];
+  dataSourceEnabled: boolean;
+  dataSourceManagement: DataSourceManagementPluginSetup;
+  setActionMenu: (menuMount: MountPoint | undefined) => void;
 }
 
 export const WorkbenchApp = ({
@@ -28,6 +33,10 @@ export const WorkbenchApp = ({
   http,
   navigation,
   chrome,
+  savedObjects,
+  dataSourceEnabled,
+  dataSourceManagement,
+  setActionMenu,
 }: WorkbenchAppDeps) => {
   return (
     <HashRouter>
@@ -46,6 +55,11 @@ export const WorkbenchApp = ({
                       setBreadcrumbs={chrome.setBreadcrumbs}
                       isAccelerationFlyoutOpen={false}
                       urlDataSource=""
+                      notifications={notifications}
+                      savedObjects={savedObjects}
+                      dataSourceEnabled={dataSourceEnabled}
+                      dataSourceManagement={dataSourceManagement}
+                      setActionMenu={setActionMenu}
                     />
                   )}
                 />
@@ -59,6 +73,11 @@ export const WorkbenchApp = ({
                       setBreadcrumbs={chrome.setBreadcrumbs}
                       isAccelerationFlyoutOpen={false}
                       urlDataSource={props.match.params.dataSource}
+                      notifications={notifications}
+                      savedObjects={savedObjects}
+                      dataSourceEnabled={dataSourceEnabled}
+                      dataSourceManagement={dataSourceManagement}
+                      setActionMenu={setActionMenu}
                     />
                   )}
                 />
@@ -72,6 +91,11 @@ export const WorkbenchApp = ({
                       setBreadcrumbs={chrome.setBreadcrumbs}
                       isAccelerationFlyoutOpen={true}
                       urlDataSource={props.match.params.dataSource}
+                      notifications={notifications}
+                      savedObjects={savedObjects}
+                      dataSourceEnabled={dataSourceEnabled}
+                      dataSourceManagement={dataSourceManagement}
+                      setActionMenu={setActionMenu}
                     />
                   )}
                 />
