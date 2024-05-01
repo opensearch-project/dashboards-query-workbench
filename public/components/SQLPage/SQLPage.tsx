@@ -39,6 +39,7 @@ interface SQLPageProps {
   asyncLoading: boolean;
   openAccelerationFlyout: boolean;
   setIsAccelerationFlyoutOpened: (value: boolean) => void;
+  dataSourceMDSId: string;
 }
 
 interface SQLPageState {
@@ -67,7 +68,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
   }
 
   setAccelerationFlyout = () => {
-    this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label);
+    this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label,this.props.dataSourceMDSId);
   };
 
   componentDidUpdate(prevProps: SQLPageProps) {
@@ -213,7 +214,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                   <EuiButton
                     className="sql-accelerate-button"
                     onClick={() =>
-                      this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label)
+                      this.renderCreateAccelerationFlyout(this.props.selectedDatasource[0].label,this.props.dataSourceMDSId)
                     }
                     isDisabled={this.props.asyncLoading}
                   >

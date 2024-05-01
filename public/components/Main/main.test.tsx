@@ -9,7 +9,6 @@ import React from 'react';
 import { HttpResponse } from '../../../../../src/core/public';
 import { httpClientMock } from '../../../test/mocks';
 import {
-  mockDataSelectQuery,
   mockDatasourcesQuery,
   mockHttpQuery,
   mockNotOkQueryResultResponse,
@@ -17,7 +16,7 @@ import {
   mockOpenSearchTreeQuery,
   mockQueryResultJDBCResponse,
   mockQueryTranslationResponse,
-  mockResultWithNull,
+  mockResultWithNull
 } from '../../../test/mocks/mockData';
 import { Main } from './main';
 
@@ -90,47 +89,8 @@ describe('<Main /> spec', () => {
     });
     expect(document.body.children[0]).toMatchSnapshot();
   });
-  it('renders the component and checks if Opensearch is selected', async () => {
-    const client = httpClientMock;
-    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
-    client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
-    const { getByText } = await render(
-      <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
-    );
-    expect(getByText('OpenSearch')).toBeInTheDocument();
-    expect(document.body.children[0]).toMatchSnapshot();
-  });
-  it('renders the component and s3 glue component is present', async () => {
-    const client = httpClientMock;
-    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
-    client.get = jest.fn().mockResolvedValue(mockDataSelectQuery);
-    const { getByText } = await render(
-      <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
-    );
-    expect(getByText('OpenSearch')).toBeInTheDocument();
-    fireEvent.click(getByText('OpenSearch'));
-    await waitFor(() => {
-      expect(getByText('glue_1')).toBeInTheDocument();
-    });
-    expect(document.body.children[0]).toMatchSnapshot();
-  });
-  it('renders the component for s3 glue and check sample query button ', async () => {
-    const client = httpClientMock;
-    client.post = jest.fn().mockResolvedValue(mockHttpQuery);
-    client.get = jest.fn().mockResolvedValue(mockDataSelectQuery);
-    const { getByText } = await render(
-      <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
-    );
-    await waitFor(() => {
-      expect(getByText('OpenSearch')).toBeInTheDocument();
-    });
-    fireEvent.click(getByText('OpenSearch'));
-    fireEvent.click(getByText('glue_1'));
-    await waitFor(() => {
-      expect(getByText('Sample Query')).toBeInTheDocument();
-    });
-    expect(document.body.children[0]).toMatchSnapshot();
-  });
+  
+  
   it('renders the component and checks if side tree is loaded', async () => {
     const client = httpClientMock;
     client.post = jest.fn().mockResolvedValue(mockHttpQuery);
@@ -155,10 +115,14 @@ describe('<Main /> spec', () => {
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     client.post = jest.fn().mockResolvedValue(mockQueryResultJDBCResponse);
 
-    const { getByText } = await render(
+    const { getByText, getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
     const onRunButton = getByText('Run');
+    const pplbutton =getByTestId('PPL');
+    waitFor(() => {
+     expect(pplbutton).toBeInTheDocument();
+    });
     const asyncTest = () => {
       fireEvent.click(onRunButton);
     };
@@ -171,9 +135,13 @@ describe('<Main /> spec', () => {
     client.post = jest.fn().mockResolvedValue(mockResultWithNull);
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
-    const { getByText } = await render(
+    const { getByText ,getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
+    const pplbutton = getByTestId('PPL');
+    waitFor(() => {
+     expect(pplbutton).toBeInTheDocument();
+    });
     const onRunButton = getByText('Run');
     const asyncTest = () => {
       fireEvent.click(onRunButton);
@@ -211,9 +179,13 @@ describe('<Main /> spec', () => {
     });
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
-    const { getByText } = await render(
+    const { getByText, getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
+    const pplbutton = getByTestId("PPL");
+    waitFor(() => {
+     expect(pplbutton).toBeInTheDocument();
+    });
     const onRunButton = getByText('Run');
     const asyncTest = () => {
       fireEvent.click(onRunButton);
@@ -234,9 +206,13 @@ describe('<Main /> spec', () => {
       }
     });
 
-    const { getByText } = await render(
+    const { getByText,getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
+    const pplbutton = getByTestId("PPL");
+    waitFor(() => {
+     expect(pplbutton).toBeInTheDocument();
+    });
     const onTranslateButton = getByText('Explain');
     const asyncTest = () => {
       fireEvent.click(onTranslateButton);

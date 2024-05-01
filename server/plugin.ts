@@ -5,18 +5,24 @@
 
 
 import {
-  PluginInitializerContext,
   CoreSetup,
   CoreStart,
-  Plugin,
-  Logger,
   ILegacyClusterClient,
+  Logger,
+  Plugin,
+  PluginInitializerContext,
 } from '../../../src/core/server';
 
-import { WorkbenchPluginSetup, WorkbenchPluginStart } from './types';
+import { DataSourcePluginSetup } from '../../../src/plugins/data_source/server/types';
+import { DataSourceManagementPlugin } from '../../../src/plugins/data_source_management/public/plugin';
+import sqlPlugin from './clusters/sql/sqlPlugin';
 import defineRoutes from './routes';
-import sqlPlugin from './clusters/sql/sqlPlugin'; 
+import { WorkbenchPluginSetup, WorkbenchPluginStart } from './types';
 
+export interface WorkbenchPluginSetupDependencies {
+  dataSourceManagement: ReturnType<DataSourceManagementPlugin['setup']>;
+  dataSource: DataSourcePluginSetup;
+}
 
 export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPluginStart> {
   private readonly logger: Logger;
@@ -25,18 +31,26 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     this.logger = initializerContext.logger.get();
   }
 
-  public setup(core: CoreSetup) {
+  public setup(core: CoreSetup, {dataSource} : WorkbenchPluginSetupDependencies) {
     this.logger.debug('queryWorkbenchDashboards: Setup');
     const router = core.http.createRouter();
-    const client: ILegacyClusterClient = core.opensearch.legacy.createClient(
+
+    const dataSourceEnabled = !!dataSource;
+
+    let client: ILegacyClusterClient | undefined = undefined;
+
+    client = core.opensearch.legacy.createClient(
       'query_workbench',
       {
         plugins: [sqlPlugin]
       }
     )
+    if (dataSourceEnabled) {
+      dataSource.registerCustomApiSchema(sqlPlugin)
+    }
 
     // Register server side APIs
-    defineRoutes(router, client);
+    defineRoutes(router, client, core.opensearch, dataSourceEnabled, this.logger);
 
     return {};
   }

@@ -5,5 +5,5 @@
   "server": true,
   "ui": true,
   "requiredPlugins": ["navigation", "opensearchDashboardsReact", "opensearchDashboardsUtils"],
-  "optionalPlugins": ["observabilityDashboards"]
+  "optionalPlugins": ["observabilityDashboards", "dataSource", "dataSourceManagement"]
 }
