@@ -186,7 +186,7 @@ export default function query(server: IRouter, service: QueryService, openSearch
 
   server.get(
     {
-      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}" + "/{dataSourceMDSId}",
+      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}" + "/{dataSourceMDSId?}",
       validate: {
         params: schema.object({
           id: schema.string(),

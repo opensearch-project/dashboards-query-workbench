@@ -1407,6 +1407,8 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                 >
                   <span
                     class="euiButton__text euiButtonGroupButton__textShift"
+                    data-text="SQL"
+                    title="SQL"
                   >
                     <input
                       checked=""
@@ -1431,6 +1433,8 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                 >
                   <span
                     class="euiButton__text euiButtonGroupButton__textShift"
+                    data-text="PPL"
+                    title="PPL"
                   >
                     <input
                       class="euiScreenReaderOnly"
