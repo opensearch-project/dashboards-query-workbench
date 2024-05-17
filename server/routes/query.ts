@@ -4,11 +4,7 @@
  */
 
 import { schema } from '@osd/config-schema';
-import {
-  IOpenSearchDashboardsResponse,
-  IRouter,
-  ResponseError
-} from '../../../../src/core/server';
+import { IOpenSearchDashboardsResponse, IRouter, ResponseError } from '../../../../src/core/server';
 import QueryService from '../services/QueryService';
 import {
   ROUTE_PATH_GET_DATASOURCES,
@@ -24,10 +20,7 @@ import {
   ROUTE_PATH_SQL_TEXT,
 } from '../utils/constants';
 
-export default function query(
-  server: IRouter,
-  service: QueryService,
-) {
+export default function query(server: IRouter, service: QueryService) {
   server.post(
     {
       path: ROUTE_PATH_SQL_QUERY,
