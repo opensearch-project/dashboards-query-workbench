@@ -7,8 +7,7 @@ import { schema } from '@osd/config-schema';
 import {
   IOpenSearchDashboardsResponse,
   IRouter,
-  OpenSearchServiceSetup,
-  ResponseError,
+  ResponseError
 } from '../../../../src/core/server';
 import QueryService from '../services/QueryService';
 import {
@@ -28,7 +27,6 @@ import {
 export default function query(
   server: IRouter,
   service: QueryService,
-  openSearchServiceSetup: OpenSearchServiceSetup
 ) {
   server.post(
     {
