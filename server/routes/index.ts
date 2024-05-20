@@ -16,5 +16,5 @@ export default function (router: IRouter, client: ILegacyClusterClient | undefin
   registerTranslateRoute(router, translateService, openSearchServiceSetup);
 
   const queryService = new QueryService(client, dataSourceEnabled, logger);
-  registerQueryRoute(router, queryService, openSearchServiceSetup);
+  registerQueryRoute(router, queryService);
 }
