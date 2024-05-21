@@ -14,7 +14,7 @@ import TranslateService from '../services/TranslateService';
 import registerQueryRoute from './query';
 import registerTranslateRoute from './translate';
 
-export default function defineRoutes(
+export default function servicesRouter (
   router: IRouter,
   client: ILegacyClusterClient | undefined,
   openSearchServiceSetup: OpenSearchServiceSetup,
