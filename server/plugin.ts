@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 import {
   CoreSetup,
   CoreStart,
@@ -16,7 +15,7 @@ import {
 import { DataSourcePluginSetup } from '../../../src/plugins/data_source/server/types';
 import { DataSourceManagementPlugin } from '../../../src/plugins/data_source_management/public/plugin';
 import sqlPlugin from './clusters/sql/sqlPlugin';
-import defineRoutes from './routes';
+import { defineRoutes } from './routes';
 import { WorkbenchPluginSetup, WorkbenchPluginStart } from './types';
 
 export interface WorkbenchPluginSetupDependencies {
@@ -31,7 +30,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     this.logger = initializerContext.logger.get();
   }
 
-  public setup(core: CoreSetup, {dataSource} : WorkbenchPluginSetupDependencies) {
+  public setup(core: CoreSetup, { dataSource }: WorkbenchPluginSetupDependencies) {
     this.logger.debug('queryWorkbenchDashboards: Setup');
     const router = core.http.createRouter();
 
@@ -39,14 +38,11 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
 
     let client: ILegacyClusterClient | undefined = undefined;
 
-    client = core.opensearch.legacy.createClient(
-      'query_workbench',
-      {
-        plugins: [sqlPlugin]
-      }
-    )
+    client = core.opensearch.legacy.createClient('query_workbench', {
+      plugins: [sqlPlugin],
+    });
     if (dataSourceEnabled) {
-      dataSource.registerCustomApiSchema(sqlPlugin)
+      dataSource.registerCustomApiSchema(sqlPlugin);
     }
 
     // Register server side APIs
