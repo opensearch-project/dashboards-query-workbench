@@ -5,11 +5,10 @@
 
 import {
   CoreSetup,
-  CoreStart,
   ILegacyClusterClient,
   Logger,
   Plugin,
-  PluginInitializerContext,
+  PluginInitializerContext
 } from '../../../src/core/server';
 
 import { DataSourcePluginSetup } from '../../../src/plugins/data_source/server/types';
@@ -36,7 +35,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
 
     const dataSourceEnabled = !!dataSource;
 
-    let client: ILegacyClusterClient | undefined = undefined;
+    let client: ILegacyClusterClient;
 
     client = core.opensearch.legacy.createClient('query_workbench', {
       plugins: [sqlPlugin],
@@ -51,7 +50,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     return {};
   }
 
-  public start(core: CoreStart) {
+  public start() {
     this.logger.debug('queryWorkbenchDashboards: Started');
     return {};
   }

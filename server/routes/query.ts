@@ -254,9 +254,6 @@ export default function query(server: IRouter, service: QueryService) {
           id: schema.string(),
           dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
         }),
-        query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
-        }),
       },
     },
     async (
