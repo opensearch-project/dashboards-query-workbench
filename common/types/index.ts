@@ -140,12 +140,4 @@ export interface AsyncApiResponse {
   };
 }
 
-export interface RenderAccelerationFlyoutProps {
-  dataSource: string;
-  dataSourceMDSId?: string;
-  databaseName?: string;
-  tableName?: string;
-  handleRefresh?: () => void;
-}
-
 export type PollingCallback = (statusObj: AsyncApiResponse) => void;

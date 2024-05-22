@@ -34,7 +34,7 @@ interface SQLPageProps {
   onClear: () => void;
   updateSQLQueries: (query: string) => void;
   sqlQuery: string;
-  sqlTranslations: ResponseDetail<TranslateResult>[];
+  sqlTranslations: Array<ResponseDetail<TranslateResult>>;
   selectedDatasource: EuiComboBoxOptionOption[];
   asyncLoading: boolean;
   openAccelerationFlyout: boolean;
