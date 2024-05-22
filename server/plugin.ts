@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-  CoreSetup,
-  ILegacyClusterClient,
-  Logger,
-  Plugin,
-  PluginInitializerContext
-} from '../../../src/core/server';
+import { CoreSetup, Logger, Plugin, PluginInitializerContext } from '../../../src/core/server';
 
 import { DataSourcePluginSetup } from '../../../src/plugins/data_source/server/types';
 import { DataSourceManagementPlugin } from '../../../src/plugins/data_source_management/public/plugin';
@@ -35,9 +29,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
 
     const dataSourceEnabled = !!dataSource;
 
-    let client: ILegacyClusterClient;
-
-    client = core.opensearch.legacy.createClient('query_workbench', {
+    const client = core.opensearch.legacy.createClient('query_workbench', {
       plugins: [sqlPlugin],
     });
     if (dataSourceEnabled) {
