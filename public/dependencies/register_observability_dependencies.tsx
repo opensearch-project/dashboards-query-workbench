@@ -5,8 +5,7 @@
 
 import { createGetterSetter } from '../../../../src/plugins/opensearch_dashboards_utils/public';
 import { catalogCacheRefs } from '../framework/catalog_cache_refs';
-import { ObservabilityStart } from '../types';
-
+import { ObservabilityStart, RenderAccelerationFlyoutParams } from '../types';
 export const [
   getRenderAccelerationDetailsFlyout,
   setRenderAccelerationDetailsFlyout,
@@ -20,7 +19,9 @@ export const [
 export const [
   getRenderCreateAccelerationFlyout,
   setRenderCreateAccelerationFlyout,
-] = createGetterSetter<(dataSource: string, dataSourceMDSId?: string) => void>('renderCreateAccelerationFlyout');
+] = createGetterSetter<({ dataSource, dataSourceMDSId }: RenderAccelerationFlyoutParams) => void>(
+  'renderCreateAccelerationFlyout'
+);
 
 export const registerObservabilityDependencies = (start?: ObservabilityStart) => {
   if (!start) {

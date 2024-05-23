@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 import { schema } from '@osd/config-schema';
-import { IOpenSearchDashboardsResponse, IRouter, OpenSearchServiceSetup, ResponseError } from '../../../../src/core/server';
+import { IOpenSearchDashboardsResponse, IRouter, ResponseError } from '../../../../src/core/server';
 import QueryService from '../services/QueryService';
 import {
   ROUTE_PATH_GET_DATASOURCES,
@@ -18,21 +17,25 @@ import {
   ROUTE_PATH_SQL_CSV,
   ROUTE_PATH_SQL_JSON,
   ROUTE_PATH_SQL_QUERY,
-  ROUTE_PATH_SQL_TEXT
+  ROUTE_PATH_SQL_TEXT,
 } from '../utils/constants';
 
-export default function query(server: IRouter, service: QueryService, openSearchServiceSetup: OpenSearchServiceSetup) {
+export function registerQueryRoute(server: IRouter, service: QueryService) {
   server.post(
     {
       path: ROUTE_PATH_SQL_QUERY,
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLQuery(context, request);
       return response.ok({
         body: retVal,
@@ -46,11 +49,15 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describePPLQuery(context, request);
       return response.ok({
         body: retVal,
@@ -64,11 +71,15 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLCsv(context, request);
       return response.ok({
         body: retVal,
@@ -82,11 +93,15 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describePPLCsv(context, request);
       return response.ok({
         body: retVal,
@@ -100,11 +115,15 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLJson(context, request);
       return response.ok({
         body: retVal,
@@ -118,11 +137,15 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describePPLJson(context, request);
       return response.ok({
         body: retVal,
@@ -136,11 +159,15 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLText(context, request);
       return response.ok({
         body: retVal,
@@ -154,11 +181,15 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describePPLText(context, request);
       return response.ok({
         body: retVal,
@@ -172,73 +203,94 @@ export default function query(server: IRouter, service: QueryService, openSearch
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLAsyncQuery(context, request);
       return response.ok({
         body: retVal,
       });
     }
-  )
+  );
 
   server.get(
     {
-      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}" + "/{dataSourceMDSId}",
+      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + '/{id}' + '/{dataSourceMDSId?}',
       validate: {
         params: schema.object({
           id: schema.string(),
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
         }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.describeSQLAsyncGetQuery(context, request, request.params.id, request.params.dataSourceMDSId);
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      const retVal = await service.describeSQLAsyncGetQuery(
+        context,
+        request,
+        request.params.id,
+        request.params.dataSourceMDSId
+      );
       return response.ok({
         body: retVal,
       });
     }
-  )
+  );
 
   server.delete(
     {
-      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + "/{id}" + "/{dataSourceMDSId?}",
+      path: ROUTE_PATH_SPARK_SQL_JOB_QUERY + '/{id}' + '/{dataSourceMDSId?}',
       validate: {
         params: schema.object({
           id: schema.string(),
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
         }),
-        query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.describeAsyncDeleteQuery(context, request, request.params.id, request.params.dataSourceMDSId);
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      const retVal = await service.describeAsyncDeleteQuery(
+        context,
+        request,
+        request.params.id,
+        request.params.dataSourceMDSId
+      );
       return response.ok({
         body: retVal,
       });
     }
-  )
- 
+  );
+
   server.get(
     {
       path: `${ROUTE_PATH_GET_DATASOURCES}/{dataSourceMDSId?}`,
       validate: {
         params: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
         }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSyncQueryDataSources(context, request);
       return response.ok({
         body: retVal,
       });
     }
-  )
-
-
+  );
 }
