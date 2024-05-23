@@ -20,3 +20,5 @@ export interface AppPluginStartDependencies {
 }
 
 export type { ObservabilityStart } from '../../dashboards-observability/public';
+
+export type { RenderAccelerationFlyoutParams } from '../../dashboards-observability/common/types/data_connections';

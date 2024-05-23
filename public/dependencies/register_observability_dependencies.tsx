@@ -4,9 +4,8 @@
  */
 
 import { createGetterSetter } from '../../../../src/plugins/opensearch_dashboards_utils/public';
-import { RenderAccelerationFlyoutParams } from '../../../dashboards-observability/common/types/data_connections';
 import { catalogCacheRefs } from '../framework/catalog_cache_refs';
-import { ObservabilityStart } from '../types';
+import { ObservabilityStart, RenderAccelerationFlyoutParams } from '../types';
 export const [
   getRenderAccelerationDetailsFlyout,
   setRenderAccelerationDetailsFlyout,
