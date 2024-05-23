@@ -20,7 +20,7 @@ import {
   ROUTE_PATH_SQL_TEXT,
 } from '../utils/constants';
 
-export default function query(server: IRouter, service: QueryService) {
+export function registerQueryRoute(server: IRouter, service: QueryService) {
   server.post(
     {
       path: ROUTE_PATH_SQL_QUERY,
