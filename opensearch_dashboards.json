@@ -4,6 +4,14 @@
   "opensearchDashboardsVersion": "2.14.0",
   "server": true,
   "ui": true,
-  "requiredPlugins": ["navigation", "opensearchDashboardsReact", "opensearchDashboardsUtils"],
-  "optionalPlugins": ["observabilityDashboards", "dataSource", "dataSourceManagement"]
+  "requiredPlugins": [
+    "navigation",
+    "opensearchDashboardsReact",
+    "opensearchDashboardsUtils"
+  ],
+  "optionalPlugins": [
+    "observabilityDashboards",
+    "dataSource",
+    "dataSourceManagement"
+  ]
 }
