@@ -1,9 +1,17 @@
 {
   "id": "queryWorkbenchDashboards",
-  "version": "2.14.0.0",
-  "opensearchDashboardsVersion": "2.14.0",
+  "version": "2.15.0.0",
+  "opensearchDashboardsVersion": "2.15.0",
   "server": true,
   "ui": true,
-  "requiredPlugins": ["navigation", "opensearchDashboardsReact", "opensearchDashboardsUtils"],
-  "optionalPlugins": ["observabilityDashboards", "dataSource", "dataSourceManagement"]
+  "requiredPlugins": [
+    "navigation",
+    "opensearchDashboardsReact",
+    "opensearchDashboardsUtils"
+  ],
+  "optionalPlugins": [
+    "observabilityDashboards",
+    "dataSource",
+    "dataSourceManagement"
+  ]
 }
