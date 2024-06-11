@@ -119,9 +119,10 @@ describe('<Main /> spec', () => {
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
     const onRunButton = getByText('Run');
-    const pplbutton =getByTestId('PPL');
+    const sqlbutton = getByText('SQL');
     waitFor(() => {
-     expect(pplbutton).toBeInTheDocument();
+     expect(sqlbutton).toBeInTheDocument();
+     fireEvent.click(sqlbutton);
     });
     const asyncTest = () => {
       fireEvent.click(onRunButton);
@@ -138,9 +139,10 @@ describe('<Main /> spec', () => {
     const { getByText ,getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
-    const pplbutton = getByTestId('PPL');
+    const sqlbutton = getByText('SQL');
     waitFor(() => {
-     expect(pplbutton).toBeInTheDocument();
+     expect(sqlbutton).toBeInTheDocument();
+     fireEvent.click(sqlbutton);
     });
     const onRunButton = getByText('Run');
     const asyncTest = () => {
@@ -182,9 +184,10 @@ describe('<Main /> spec', () => {
     const { getByText, getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
-    const pplbutton = getByTestId("PPL");
+    const sqlbutton = getByText('SQL');
     waitFor(() => {
-     expect(pplbutton).toBeInTheDocument();
+     expect(sqlbutton).toBeInTheDocument();
+     fireEvent.click(sqlbutton);
     });
     const onRunButton = getByText('Run');
     const asyncTest = () => {
@@ -209,9 +212,10 @@ describe('<Main /> spec', () => {
     const { getByText,getByTestId } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
-    const pplbutton = getByTestId("PPL");
+    const sqlbutton = getByText('SQL');
     waitFor(() => {
-     expect(pplbutton).toBeInTheDocument();
+     expect(sqlbutton).toBeInTheDocument();
+     fireEvent.click(sqlbutton);
     });
     const onTranslateButton = getByText('Explain');
     const asyncTest = () => {
