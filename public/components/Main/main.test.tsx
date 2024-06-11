@@ -16,7 +16,7 @@ import {
   mockOpenSearchTreeQuery,
   mockQueryResultJDBCResponse,
   mockQueryTranslationResponse,
-  mockResultWithNull
+  mockResultWithNull,
 } from '../../../test/mocks/mockData';
 import { Main } from './main';
 
@@ -89,8 +89,7 @@ describe('<Main /> spec', () => {
     });
     expect(document.body.children[0]).toMatchSnapshot();
   });
-  
-  
+
   it('renders the component and checks if side tree is loaded', async () => {
     const client = httpClientMock;
     client.post = jest.fn().mockResolvedValue(mockHttpQuery);
@@ -115,13 +114,14 @@ describe('<Main /> spec', () => {
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     client.post = jest.fn().mockResolvedValue(mockQueryResultJDBCResponse);
 
-    const { getByText, getByTestId } = await render(
+    const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
     const onRunButton = getByText('Run');
-    const pplbutton =getByTestId('PPL');
+    const sqlbutton = getByText('SQL');
     waitFor(() => {
-     expect(pplbutton).toBeInTheDocument();
+      expect(sqlbutton).toBeInTheDocument();
+      fireEvent.click(sqlbutton);
     });
     const asyncTest = () => {
       fireEvent.click(onRunButton);
@@ -135,12 +135,13 @@ describe('<Main /> spec', () => {
     client.post = jest.fn().mockResolvedValue(mockResultWithNull);
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
-    const { getByText ,getByTestId } = await render(
+    const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
-    const pplbutton = getByTestId('PPL');
+    const sqlbutton = getByText('SQL');
     waitFor(() => {
-     expect(pplbutton).toBeInTheDocument();
+      expect(sqlbutton).toBeInTheDocument();
+      fireEvent.click(sqlbutton);
     });
     const onRunButton = getByText('Run');
     const asyncTest = () => {
@@ -179,12 +180,13 @@ describe('<Main /> spec', () => {
     });
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
-    const { getByText, getByTestId } = await render(
+    const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
-    const pplbutton = getByTestId("PPL");
+    const sqlbutton = getByText('SQL');
     waitFor(() => {
-     expect(pplbutton).toBeInTheDocument();
+      expect(sqlbutton).toBeInTheDocument();
+      fireEvent.click(sqlbutton);
     });
     const onRunButton = getByText('Run');
     const asyncTest = () => {
@@ -206,12 +208,13 @@ describe('<Main /> spec', () => {
       }
     });
 
-    const { getByText,getByTestId } = await render(
+    const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
     );
-    const pplbutton = getByTestId("PPL");
+    const sqlbutton = getByText('SQL');
     waitFor(() => {
-     expect(pplbutton).toBeInTheDocument();
+      expect(sqlbutton).toBeInTheDocument();
+      fireEvent.click(sqlbutton);
     });
     const onTranslateButton = getByText('Explain');
     const asyncTest = () => {
