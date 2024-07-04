@@ -288,7 +288,7 @@ export class Main extends React.Component<MainProps, MainState> {
       dataSourceOptions: [],
       selectedMDSDataConnectionId: '',
       mdsClusterName: '',
-      flintDataConnections: false
+      flintDataConnections: false,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -297,12 +297,6 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   componentDidMount() {
-    this.props.setBreadcrumbs([
-      {
-        text: 'Query Workbench',
-        href: '#',
-      },
-    ]);
     this.fetchFlintDataSources();
   }
 
@@ -900,7 +894,7 @@ export class Main extends React.Component<MainProps, MainState> {
       mdsClusterName: clusterName,
       cluster: 'Indexes',
       selectedDatasource: [{ label: 'OpenSearch', key: '' }],
-      isAccelerationFlyoutOpened: false
+      isAccelerationFlyoutOpened: false,
     });
     this.fetchFlintDataSources();
   };
@@ -1018,7 +1012,7 @@ export class Main extends React.Component<MainProps, MainState> {
           />
         )}
         <EuiPage paddingSize="none">
-          <EuiPanel grow={true} style={{marginRight: '10px'}}>
+          <EuiPanel grow={true} style={{ marginRight: '10px' }}>
             <EuiPageSideBar
               style={{
                 maxWidth: '400px',
@@ -1026,10 +1020,12 @@ export class Main extends React.Component<MainProps, MainState> {
                 height: 'calc(100vh - 254px)',
               }}
             >
-              <EuiTitle size='xs'>
-                  <p><b>{this.state.mdsClusterName}</b></p>
-                </EuiTitle>
-                <EuiSpacer size='s'/>
+              <EuiTitle size="xs">
+                <p>
+                  <b>{this.state.mdsClusterName}</b>
+                </p>
+              </EuiTitle>
+              <EuiSpacer size="s" />
               {this.state.flintDataConnections && (
                 <EuiFlexGroup direction="row" gutterSize="s">
                   <EuiFlexItem grow={false}>
