@@ -43,7 +43,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
           coreStart,
           depsStart as AppPluginStartDependencies,
           params,
-          dataSourceManagement
+          dataSourceManagement,
         );
       },
     });

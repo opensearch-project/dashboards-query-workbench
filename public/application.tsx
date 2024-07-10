@@ -14,9 +14,10 @@ import { AppPluginStartDependencies } from './types';
 export const renderApp = (
   { notifications, http, chrome, savedObjects }: CoreStart,
   { navigation, dataSource }: AppPluginStartDependencies,
-  { appBasePath, element, setHeaderActionMenu }: AppMountParameters,
+  { appBasePath, element, setHeaderActionMenu, dataSourceId }: AppMountParameters,
   dataSourceManagement: DataSourceManagementPluginSetup
 ) => {
+  console.log(dataSourceId);
   ReactDOM.render(
     <WorkbenchApp
       basename={appBasePath}
@@ -28,6 +29,7 @@ export const renderApp = (
       dataSourceEnabled={!!dataSource}
       dataSourceManagement={dataSourceManagement}
       setActionMenu={setHeaderActionMenu}
+      dataSourceId={dataSourceId}
     />,
     element
   );
