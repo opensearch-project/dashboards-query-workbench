@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiButton,
+  EuiSmallButton,
   EuiButtonIcon,
   EuiCallOut,
   EuiComboBoxOptionOption,
@@ -1132,9 +1132,9 @@ export class Main extends React.Component<MainProps, MainState> {
                 <EuiSpacer />
               </EuiFlexItem>
               <EuiFlexItem grow={false}>
-                <EuiButton href={link} target="_blank" iconType="popout" iconSide="right">
+                <EuiSmallButton href={link} target="_blank" iconType="popout" iconSide="right">
                   {linkTitle}
-                </EuiButton>
+                </EuiSmallButton>
               </EuiFlexItem>
             </EuiFlexGroup>
             <EuiPageContentBody>

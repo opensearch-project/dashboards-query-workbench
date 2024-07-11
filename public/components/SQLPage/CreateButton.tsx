@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiButton, EuiComboBoxOptionOption, EuiContextMenu, EuiPopover } from '@elastic/eui';
+import { EuiSmallButton, EuiComboBoxOptionOption, EuiContextMenu, EuiPopover } from '@elastic/eui';
 import React, { useState } from 'react';
 import {
   COVERING_INDEX_QUERY,
@@ -66,9 +66,9 @@ export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateBut
   ];
 
   const button = (
-    <EuiButton iconType="arrowDown" iconSide="right" onClick={() => togglePopover(null)}>
+    <EuiSmallButton iconType="arrowDown" iconSide="right" onClick={() => togglePopover(null)}>
       Create
-    </EuiButton>
+    </EuiSmallButton>
   );
 
   return (

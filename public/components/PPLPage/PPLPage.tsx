@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiButton,
+  EuiSmallButton,
   EuiCodeBlock,
   EuiCodeEditor,
   EuiComboBoxOptionOption,
@@ -91,9 +91,9 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
             </EuiModalBody>
 
             <EuiModalFooter>
-              <EuiButton onClick={closeModal} fill>
+              <EuiSmallButton onClick={closeModal} fill>
                 Close
-              </EuiButton>
+              </EuiSmallButton>
             </EuiModalFooter>
           </EuiModal>
         </EuiOverlayMask>
@@ -129,7 +129,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
             className="sql-editor-buttons"
             grow={false}
           >
-            <EuiButton
+            <EuiSmallButton
               fill={true}
               data-test-subj="pplRunButton"
               className="sql-editor-button"
@@ -137,7 +137,7 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               onClick={() => this.props.onRun(this.props.pplQuery)}
             >
               {this.props.asyncLoading ? 'Running' : 'Run'}
-            </EuiButton>
+            </EuiSmallButton>
           </EuiFlexItem>
           <EuiFlexItem
             grow={false}
@@ -146,26 +146,26 @@ export class PPLPage extends React.Component<PPLPageProps, PPLPageState> {
               this.props.onClear();
             }}
           >
-            <EuiButton className="sql-editor-button"  data-test-subj="pplClearButton" isDisabled={this.props.asyncLoading}>
+            <EuiSmallButton className="sql-editor-button"  data-test-subj="pplClearButton" isDisabled={this.props.asyncLoading}>
               Clear
-            </EuiButton>
+            </EuiSmallButton>
           </EuiFlexItem>
           {this.props.selectedDatasource &&
           this.props.selectedDatasource[0].label === 'OpenSearch' ? (
             <EuiFlexItem grow={false} onClick={() => this.props.onTranslate(this.props.pplQuery)}>
-              <EuiButton
+              <EuiSmallButton
                 className="sql-editor-button"
                 onClick={showModal}
                 isDisabled={this.props.asyncLoading}
               >
                 Explain
-              </EuiButton>
+              </EuiSmallButton>
             </EuiFlexItem>
           ) : (
             <EuiFlexItem grow={false} onClick={() => this.props.updatePPLQueries(SAMPLE_PPL_QUERY)}>
-              <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+              <EuiSmallButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
                 Sample Query
-              </EuiButton>
+              </EuiSmallButton>
             </EuiFlexItem>
           )}
         </EuiFlexGroup>

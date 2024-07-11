@@ -5,7 +5,7 @@
 
 import {
   EuiBasicTable,
-  EuiButton,
+  EuiSmallButton,
   EuiButtonIcon,
   EuiFlexGroup,
   EuiFlexItem,
@@ -179,14 +179,14 @@ export const SkippingIndexBuilder = ({
       />
       <EuiFlexGroup gutterSize="s" alignItems="center" responsive={false} wrap>
         <EuiFlexItem grow={false}>
-          <EuiButton fill onClick={() => setIsAddModalVisible(true)}>
+          <EuiSmallButton fill onClick={() => setIsAddModalVisible(true)}>
             Add fields
-          </EuiButton>
+          </EuiSmallButton>
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
-          <EuiButton onClick={() => setIsDeleteModalVisible(true)} color="danger">
+          <EuiSmallButton onClick={() => setIsDeleteModalVisible(true)} color="danger">
             Bulk delete
-          </EuiButton>
+          </EuiSmallButton>
         </EuiFlexItem>
       </EuiFlexGroup>
       {modal}
