@@ -7,7 +7,7 @@ import {
   EuiCompressedFieldNumber,
   EuiCompressedFieldText,
   EuiCompressedFormRow,
-  EuiRadioGroup,
+  EuiCompressedRadioGroup,
   EuiCompressedSelect,
   EuiSpacer,
   EuiText,
@@ -204,7 +204,7 @@ export const IndexSettingOptions = ({
         label="Refresh type"
         helpText="Specify how often the index should refresh, which publishes the most recent changes and make them available for search."
       >
-        <EuiRadioGroup
+        <EuiCompressedRadioGroup
           options={refreshOptions}
           idSelected={refreshTypeSelected}
           onChange={onChangeRefreshType}
