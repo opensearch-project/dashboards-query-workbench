@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiButtonIcon,
+  EuiSmallButtonIcon,
   EuiComboBox,
   EuiExpression,
   EuiFieldText,
@@ -177,7 +177,7 @@ export const ColumnExpression = ({
           </EuiFlexItem>
         )}
         <EuiFlexItem grow={false}>
-          <EuiButtonIcon
+          <EuiSmallButtonIcon
             color="danger"
             onClick={onDeleteColumnExpression}
             iconType="trash"

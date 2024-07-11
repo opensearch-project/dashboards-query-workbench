@@ -10,7 +10,7 @@ import { SortableProperties } from '@elastic/eui/lib/services';
 import {
   Comparators,
   EuiSmallButton,
-  EuiButtonIcon,
+  EuiSmallButtonIcon,
   EuiCodeEditor,
   EuiComboBoxOptionOption,
   EuiContextMenu,
@@ -404,7 +404,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
   addExpandingNodeIcon(node: Node, expandedRowMap: ItemIdToExpandedRowMap) {
     return (
-      <EuiButtonIcon
+      <EuiSmallButtonIcon
         style={{ marginLeft: -4 }}
         onClick={() => this.toggleNodeData(node, expandedRowMap)}
         aria-label={
@@ -426,7 +426,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       return;
     }
     return (
-      <EuiButtonIcon
+      <EuiSmallButtonIcon
         onClick={() => this.updateExpandedRowMap(node, expandedRowMap)}
         aria-label={
           expandedRowMap[node.parent!.nodeId] &&
