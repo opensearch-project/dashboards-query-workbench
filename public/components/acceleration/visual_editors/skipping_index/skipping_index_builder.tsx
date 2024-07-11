@@ -9,7 +9,7 @@ import {
   EuiSmallButtonIcon,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiSelect,
+  EuiCompressedSelect,
   EuiSpacer,
   EuiText,
 } from '@elastic/eui';
@@ -96,7 +96,7 @@ export const SkippingIndexBuilder = ({
     {
       name: 'Acceleration method',
       render: (item: SkippingIndexRowType) => (
-        <EuiSelect
+        <EuiCompressedSelect
           id="selectDocExample"
           options={SKIPPING_INDEX_ACCELERATION_METHODS}
           value={item.accelerationMethod}
