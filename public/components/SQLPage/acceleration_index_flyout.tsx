@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiButton,
+  EuiSmallButton,
   EuiButtonEmpty,
   EuiDescriptionList,
   EuiDescriptionListDescription,
@@ -146,7 +146,7 @@ export const AccelerationIndexFlyout = ({
             <EuiFlexItem grow={false}>
               <EuiFlexGroup>
                 <EuiFlexItem grow={false}>
-                  <EuiButton
+                  <EuiSmallButton
                     iconSide="right"
                     fill
                     iconType="lensApp"
@@ -154,10 +154,10 @@ export const AccelerationIndexFlyout = ({
                     size="s"
                   >
                     {`Describe ${indexMetaData.contextType}`}
-                  </EuiButton>
+                  </EuiSmallButton>
                 </EuiFlexItem>
                 <EuiFlexItem grow={false}>
-                  <EuiButton
+                  <EuiSmallButton
                     iconSide="right"
                     iconType="trash"
                     onClick={updateDropQuery}
@@ -165,7 +165,7 @@ export const AccelerationIndexFlyout = ({
                     size="s"
                   >
                     {`Drop ${indexMetaData.contextType}`}
-                  </EuiButton>
+                  </EuiSmallButton>
                 </EuiFlexItem>
               </EuiFlexGroup>
             </EuiFlexItem>

@@ -9,7 +9,7 @@ import { SortableProperties, SortableProperty } from '@elastic/eui/lib/services'
 // @ts-ignore
 import {
   Comparators,
-  EuiButton,
+  EuiSmallButton,
   EuiButtonIcon,
   EuiComboBoxOptionOption,
   EuiContextMenuItem,
@@ -324,14 +324,14 @@ export class QueryResults extends React.Component<QueryResultsProps, QueryResult
                     onClick={() => this.props.setIsResultFullScreen(false)}
                   />
                 ) : (
-                  <EuiButton
+                  <EuiSmallButton
                     size="s"
                     iconType="fullScreen"
                     data-test-subj="fullScreenView"
                     onClick={() => this.props.setIsResultFullScreen(true)}
                   >
                     Full screen view
-                  </EuiButton>
+                  </EuiSmallButton>
                 ))}
             </EuiFlexItem>
           </EuiFlexGroup>

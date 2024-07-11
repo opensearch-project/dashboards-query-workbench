@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiButton,
+  EuiSmallButton,
   EuiCodeBlock,
   EuiModal,
   EuiModalBody,
@@ -61,7 +61,7 @@ const loadErrorModal = (errorDetailsMessage: string) => {
           </EuiCodeBlock>
         </EuiModalBody>
         <EuiModalFooter>
-          <EuiButton onClick={() => modal.close()}>Close</EuiButton>
+          <EuiSmallButton onClick={() => modal.close()}>Close</EuiSmallButton>
         </EuiModalFooter>
       </EuiModal>
     )
@@ -80,9 +80,9 @@ export const RaiseErrorToast = ({
     errorToastMessage,
     'danger',
     toMountPoint(
-      <EuiButton color="danger" size="s" onClick={() => loadErrorModal(errorDetailsMessage)}>
+      <EuiSmallButton color="danger" size="s" onClick={() => loadErrorModal(errorDetailsMessage)}>
         Error details
-      </EuiButton>
+      </EuiSmallButton>
     )
   );
 
