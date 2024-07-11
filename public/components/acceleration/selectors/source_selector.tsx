@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiComboBox, EuiComboBoxOptionOption, EuiCompressedFormRow, EuiSpacer, EuiText } from '@elastic/eui';
+import { EuiCompressedComboBox, EuiComboBoxOptionOption, EuiCompressedFormRow, EuiSpacer, EuiText } from '@elastic/eui';
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
@@ -159,7 +159,7 @@ export const AccelerationDataSourceSelector = ({
         isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
         error={accelerationFormData.formErrors.dataSourceError}
       >
-        <EuiComboBox
+        <EuiCompressedComboBox
           placeholder="Select a data source"
           singleSelection={{ asPlainText: true }}
           options={dataConnections}
@@ -188,7 +188,7 @@ export const AccelerationDataSourceSelector = ({
         isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
         error={accelerationFormData.formErrors.databaseError}
       >
-        <EuiComboBox
+        <EuiCompressedComboBox
           placeholder="Select a database"
           singleSelection={{ asPlainText: true }}
           options={databases}
@@ -215,7 +215,7 @@ export const AccelerationDataSourceSelector = ({
         isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}
         error={accelerationFormData.formErrors.dataTableError}
       >
-        <EuiComboBox
+        <EuiCompressedComboBox
           placeholder="Select a table"
           singleSelection={{ asPlainText: true }}
           options={tables}
