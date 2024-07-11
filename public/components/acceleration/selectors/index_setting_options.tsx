@@ -4,8 +4,8 @@
  */
 
 import {
-  EuiFieldNumber,
-  EuiFieldText,
+  EuiCompressedFieldNumber,
+  EuiCompressedFieldText,
   EuiCompressedFormRow,
   EuiRadioGroup,
   EuiSelect,
@@ -156,7 +156,7 @@ export const IndexSettingOptions = ({
         isInvalid={hasError(accelerationFormData.formErrors, 'primaryShardsError')}
         error={accelerationFormData.formErrors.primaryShardsError}
       >
-        <EuiFieldNumber
+        <EuiCompressedFieldNumber
           placeholder="Number of primary shards"
           value={primaryShards}
           onChange={onChangePrimaryShards}
@@ -181,7 +181,7 @@ export const IndexSettingOptions = ({
         isInvalid={hasError(accelerationFormData.formErrors, 'replicaShardsError')}
         error={accelerationFormData.formErrors.replicaShardsError}
       >
-        <EuiFieldNumber
+        <EuiCompressedFieldNumber
           placeholder="Number of replicas"
           value={replicaCount}
           onChange={onChangeReplicaCount}
@@ -218,7 +218,7 @@ export const IndexSettingOptions = ({
           isInvalid={hasError(accelerationFormData.formErrors, 'refreshIntervalError')}
           error={accelerationFormData.formErrors.refreshIntervalError}
         >
-          <EuiFieldNumber
+          <EuiCompressedFieldNumber
             placeholder="Refresh interval"
             value={refreshWindow}
             onChange={onChangeRefreshWindow}
@@ -252,7 +252,7 @@ export const IndexSettingOptions = ({
           isInvalid={hasError(accelerationFormData.formErrors, 'checkpointLocationError')}
           error={accelerationFormData.formErrors.checkpointLocationError}
         >
-          <EuiFieldText
+          <EuiCompressedFieldText
             placeholder="s3://checkpoint/location"
             value={checkpoint}
             onChange={onChangeCheckpoint}
@@ -278,7 +278,7 @@ export const IndexSettingOptions = ({
           isInvalid={hasError(accelerationFormData.formErrors, 'watermarkDelayError')}
           error={accelerationFormData.formErrors.watermarkDelayError}
         >
-          <EuiFieldNumber
+          <EuiCompressedFieldNumber
             placeholder="Watermark delay interval"
             value={delayWindow}
             onChange={onChangeDelayWindow}
