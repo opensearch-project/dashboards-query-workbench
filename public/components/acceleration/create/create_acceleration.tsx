@@ -5,7 +5,7 @@
 
 import {
   EuiSmallButton,
-  EuiButtonEmpty,
+  EuiSmallButtonEmpty,
   EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
@@ -139,9 +139,9 @@ export const CreateAcceleration = ({
         <EuiFlyoutFooter>
           <EuiFlexGroup justifyContent="spaceBetween">
             <EuiFlexItem grow={false}>
-              <EuiButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
+              <EuiSmallButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
                 Close
-              </EuiButtonEmpty>
+              </EuiSmallButtonEmpty>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiSmallButton onClick={copyToEditor} fill>

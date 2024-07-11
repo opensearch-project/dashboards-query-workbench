@@ -10,6 +10,7 @@ import { SortableProperties } from '@elastic/eui/lib/services';
 import {
   Comparators,
   EuiSmallButton,
+  EuiButton,
   EuiSmallButtonIcon,
   EuiCodeEditor,
   EuiComboBoxOptionOption,
@@ -860,14 +861,14 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   render() {
     // Action button with list of downloads
     const downloadsButton = (
-      <EuiSmallButton
+      <EuiButton
         iconType="arrowDown"
         iconSide="right"
         size="s"
         onClick={this.onDownloadButtonClick}
       >
         Download
-      </EuiSmallButton>
+      </EuiButton>
     );
 
     let modal;
