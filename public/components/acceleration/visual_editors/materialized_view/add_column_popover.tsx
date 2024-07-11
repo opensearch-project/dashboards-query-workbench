@@ -11,7 +11,7 @@ import {
   EuiFieldText,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiFormRow,
+  EuiCompressedFormRow,
   EuiPopover,
   EuiPopoverFooter,
   EuiPopoverTitle,
@@ -115,7 +115,7 @@ export const AddColumnPopOver = ({
       <>
         <EuiFlexGroup>
           <EuiFlexItem>
-            <EuiFormRow label="Aggregate function">
+            <EuiCompressedFormRow label="Aggregate function">
               <EuiComboBox
                 singleSelection={{ asPlainText: true }}
                 options={ACCELERATION_AGGREGRATION_FUNCTIONS}
@@ -123,10 +123,10 @@ export const AddColumnPopOver = ({
                 onChange={setSelectedFunction}
                 isClearable={false}
               />
-            </EuiFormRow>
+            </EuiCompressedFormRow>
           </EuiFlexItem>
           <EuiFlexItem>
-            <EuiFormRow label="Aggregation field">
+            <EuiCompressedFormRow label="Aggregation field">
               <EuiComboBox
                 singleSelection={{ asPlainText: true }}
                 options={[
@@ -137,13 +137,13 @@ export const AddColumnPopOver = ({
                 onChange={setSelectedField}
                 isClearable={false}
               />
-            </EuiFormRow>
+            </EuiCompressedFormRow>
           </EuiFlexItem>
         </EuiFlexGroup>
         <EuiSpacer size="m" />
-        <EuiFormRow label="Column alias - optional">
+        <EuiCompressedFormRow label="Column alias - optional">
           <EuiFieldText name="aliasField" onChange={onChangeAlias} />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       </>
       <EuiPopoverFooter>
         <EuiButton size="s" fill onClick={onAddExpression}>

@@ -6,7 +6,7 @@
 import {
   EuiFieldNumber,
   EuiFieldText,
-  EuiFormRow,
+  EuiCompressedFormRow,
   EuiRadioGroup,
   EuiSelect,
   EuiSpacer,
@@ -150,7 +150,7 @@ export const IndexSettingOptions = ({
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
-      <EuiFormRow
+      <EuiCompressedFormRow
         label="Number of primary shards"
         helpText="Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created."
         isInvalid={hasError(accelerationFormData.formErrors, 'primaryShardsError')}
@@ -174,8 +174,8 @@ export const IndexSettingOptions = ({
           }}
           isInvalid={hasError(accelerationFormData.formErrors, 'primaryShardsError')}
         />
-      </EuiFormRow>
-      <EuiFormRow
+      </EuiCompressedFormRow>
+      <EuiCompressedFormRow
         label="Number of replicas"
         helpText="Specify the number of replicas each primary shard should have."
         isInvalid={hasError(accelerationFormData.formErrors, 'replicaShardsError')}
@@ -199,8 +199,8 @@ export const IndexSettingOptions = ({
           }}
           isInvalid={hasError(accelerationFormData.formErrors, 'replicaShardsError')}
         />
-      </EuiFormRow>
-      <EuiFormRow
+      </EuiCompressedFormRow>
+      <EuiCompressedFormRow
         label="Refresh type"
         helpText="Specify how often the index should refresh, which publishes the most recent changes and make them available for search."
       >
@@ -210,9 +210,9 @@ export const IndexSettingOptions = ({
           onChange={onChangeRefreshType}
           name="refresh type radio group"
         />
-      </EuiFormRow>
+      </EuiCompressedFormRow>
       {refreshTypeSelected === intervalRefreshId && (
-        <EuiFormRow
+        <EuiCompressedFormRow
           label="Refresh interval"
           helpText="Specify how often the index should refresh, which publishes the most recent changes and make them available for search"
           isInvalid={hasError(accelerationFormData.formErrors, 'refreshIntervalError')}
@@ -243,10 +243,10 @@ export const IndexSettingOptions = ({
               />
             }
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       )}
       {refreshTypeSelected !== manualRefreshId && (
-        <EuiFormRow
+        <EuiCompressedFormRow
           label="Checkpoint location"
           helpText="The HDFS compatible file system location path for incremental refresh job checkpoint."
           isInvalid={hasError(accelerationFormData.formErrors, 'checkpointLocationError')}
@@ -269,10 +269,10 @@ export const IndexSettingOptions = ({
               );
             }}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       )}
       {accelerationFormData.accelerationIndexType === 'materialized' && (
-        <EuiFormRow
+        <EuiCompressedFormRow
           label="Watermark Delay"
           helpText="Data arrival delay for incremental refresh on a materialized view with aggregations"
           isInvalid={hasError(accelerationFormData.formErrors, 'watermarkDelayError')}
@@ -303,7 +303,7 @@ export const IndexSettingOptions = ({
               />
             }
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       )}
     </>
   );
