@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiComboBox,
+  EuiCompressedComboBox,
   EuiComboBoxOptionOption,
   EuiExpression,
   EuiCompressedFieldNumber,
@@ -88,7 +88,7 @@ export const GroupByTumbleExpression = ({
         <EuiFlexGroup>
           <EuiFlexItem>
             <EuiCompressedFormRow label="Time Field">
-              <EuiComboBox
+              <EuiCompressedComboBox
                 style={{ minWidth: '200px' }}
                 placeholder="Select one or more options"
                 singleSelection={{ asPlainText: true }}

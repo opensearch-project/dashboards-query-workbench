@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiComboBox,
+  EuiCompressedComboBox,
   EuiComboBoxOptionOption,
   EuiCompressedFormRow,
   EuiLink,
@@ -101,7 +101,7 @@ export const IndexTypeSelector = ({
           </EuiText>
         }
       >
-        <EuiComboBox
+        <EuiCompressedComboBox
           placeholder="Select an index type"
           singleSelection={{ asPlainText: true }}
           options={ACCELERATION_INDEX_TYPES}
