@@ -8,7 +8,7 @@ import {
   EuiCompressedFieldText,
   EuiCompressedFormRow,
   EuiRadioGroup,
-  EuiSelect,
+  EuiCompressedSelect,
   EuiSpacer,
   EuiText,
 } from '@elastic/eui';
@@ -236,7 +236,7 @@ export const IndexSettingOptions = ({
               );
             }}
             append={
-              <EuiSelect
+              <EuiCompressedSelect
                 value={refreshInterval}
                 onChange={onChangeRefreshInterval}
                 options={ACCELERATION_TIME_INTERVAL}
@@ -296,7 +296,7 @@ export const IndexSettingOptions = ({
               );
             }}
             append={
-              <EuiSelect
+              <EuiCompressedSelect
                 value={delayInterval}
                 onChange={onChangeDelayInterval}
                 options={ACCELERATION_TIME_INTERVAL}
