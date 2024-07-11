@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiComboBox, EuiComboBoxOptionOption, EuiFormRow, EuiSpacer, EuiText } from '@elastic/eui';
+import { EuiComboBox, EuiComboBoxOptionOption, EuiCompressedFormRow, EuiSpacer, EuiText } from '@elastic/eui';
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
@@ -153,7 +153,7 @@ export const AccelerationDataSourceSelector = ({
         Select the data source to accelerate data from. External data sources may take time to load.
       </EuiText>
       <EuiSpacer size="s" />
-      <EuiFormRow
+      <EuiCompressedFormRow
         label="Data source"
         helpText="A data source has to be configured and active to be able to select it and index data from."
         isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
@@ -181,8 +181,8 @@ export const AccelerationDataSourceSelector = ({
           isInvalid={hasError(accelerationFormData.formErrors, 'dataSourceError')}
           isLoading={loadingComboBoxes.dataSource}
         />
-      </EuiFormRow>
-      <EuiFormRow
+      </EuiCompressedFormRow>
+      <EuiCompressedFormRow
         label="Database"
         helpText="Select the database that contains the tables you'd like to use."
         isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
@@ -208,8 +208,8 @@ export const AccelerationDataSourceSelector = ({
           isInvalid={hasError(accelerationFormData.formErrors, 'databaseError')}
           isLoading={loadingComboBoxes.database}
         />
-      </EuiFormRow>
-      <EuiFormRow
+      </EuiCompressedFormRow>
+      <EuiCompressedFormRow
         label="Table"
         helpText="Select the Spark table that has the data you would like to index."
         isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}
@@ -235,7 +235,7 @@ export const AccelerationDataSourceSelector = ({
           isInvalid={hasError(accelerationFormData.formErrors, 'dataTableError')}
           isLoading={loadingComboBoxes.dataTable}
         />
-      </EuiFormRow>
+      </EuiCompressedFormRow>
     </>
   );
 };
