@@ -8,7 +8,7 @@ import {
   EuiSmallButtonEmpty,
   EuiComboBox,
   EuiComboBoxOptionOption,
-  EuiFieldText,
+  EuiCompressedFieldText,
   EuiFlexGroup,
   EuiFlexItem,
   EuiCompressedFormRow,
@@ -142,7 +142,7 @@ export const AddColumnPopOver = ({
         </EuiFlexGroup>
         <EuiSpacer size="m" />
         <EuiCompressedFormRow label="Column alias - optional">
-          <EuiFieldText name="aliasField" onChange={onChangeAlias} />
+          <EuiCompressedFieldText name="aliasField" onChange={onChangeAlias} />
         </EuiCompressedFormRow>
       </>
       <EuiPopoverFooter>
