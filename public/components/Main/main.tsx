@@ -22,13 +22,16 @@ import { IHttpResponse } from 'angular';
 import { createBrowserHistory } from 'history';
 import _ from 'lodash';
 import React from 'react';
+import semver from "semver";
 import {
   ChromeBreadcrumb,
   CoreStart,
   MountPoint,
   NotificationsStart,
+  SavedObject,
   SavedObjectsStart,
 } from '../../../../../src/core/public';
+import { DataSourceAttributes } from "../../../../../src/plugins/data_source/common/data_sources";
 import {
   DataSourceManagementPluginSetup,
   DataSourceSelectableConfig,
@@ -38,6 +41,7 @@ import { OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
 import { fetchDataSources } from '../../../common/utils/fetch_datasources';
+import * as pluginManifest from "../../../opensearch_dashboards.json";
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -295,6 +299,15 @@ export class Main extends React.Component<MainProps, MainState> {
     this.updatePPLQueries = _.debounce(this.updatePPLQueries, 250).bind(this);
     this.setIsResultFullScreen = this.setIsResultFullScreen.bind(this);
   }
+
+  dataSourceFilterFn = (dataSource: SavedObject<DataSourceAttributes>) => {
+    const engineVersion = dataSource?.attributes?.dataSourceVersion || "";
+    const availablePlugins = dataSource?.attributes?.installedPlugins || [];
+    return (
+      semver.satisfies(engineVersion, pluginManifest.supportedOSDataSourceVersions) &&
+      pluginManifest.requiredOSDataSourcePlugins.every((plugin) => availablePlugins.includes(plugin))
+    );
+  };
 
   componentDidMount() {
     this.props.setBreadcrumbs([
@@ -1014,6 +1027,7 @@ export class Main extends React.Component<MainProps, MainState> {
               notifications: this.props.notifications,
               fullWidth: true,
               onSelectedDataSources: this.onSelectedDataSource,
+              dataSourceFilter: this.dataSourceFilterFn
             }}
           />
         )}
