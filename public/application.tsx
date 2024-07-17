@@ -29,7 +29,7 @@ export const renderApp = (
       dataSourceEnabled={!!dataSource}
       dataSourceManagement={dataSourceManagement}
       setActionMenu={setHeaderActionMenu}
-      dataSourceId={dataSourceId}
+      dataSourceMDSId={dataSourceId}
     />,
     element
   );

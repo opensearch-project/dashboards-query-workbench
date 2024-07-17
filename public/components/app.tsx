@@ -24,7 +24,7 @@ interface WorkbenchAppDeps {
   savedObjects: CoreStart['savedObjects'];
   dataSourceEnabled: boolean;
   dataSourceManagement: DataSourceManagementPluginSetup;
-  dataSourceId: string;
+  dataSourceMDSId: string;
   setActionMenu: (menuMount: MountPoint | undefined) => void;
 }
 
@@ -37,7 +37,7 @@ export const WorkbenchApp = ({
   savedObjects,
   dataSourceEnabled,
   dataSourceManagement,
-  dataSourceId,
+  dataSourceMDSId: dataSourceId,
   setActionMenu,
 }: WorkbenchAppDeps) => {
   return (
@@ -61,7 +61,7 @@ export const WorkbenchApp = ({
                       savedObjects={savedObjects}
                       dataSourceEnabled={dataSourceEnabled}
                       dataSourceManagement={dataSourceManagement}
-                      dataSourceId={dataSourceId}
+                      dataSourceMDSId={dataSourceId}
                       setActionMenu={setActionMenu}
                     />
                   )}
@@ -80,7 +80,7 @@ export const WorkbenchApp = ({
                       savedObjects={savedObjects}
                       dataSourceEnabled={dataSourceEnabled}
                       dataSourceManagement={dataSourceManagement}
-                      dataSourceId={dataSourceId}
+                      dataSourceMDSId={dataSourceId}
                       setActionMenu={setActionMenu}
                     />
                   )}
@@ -99,7 +99,7 @@ export const WorkbenchApp = ({
                       savedObjects={savedObjects}
                       dataSourceEnabled={dataSourceEnabled}
                       dataSourceManagement={dataSourceManagement}
-                      dataSourceId={dataSourceId}
+                      dataSourceMDSId={dataSourceId}
                       setActionMenu={setActionMenu}
                     />
                   )}
