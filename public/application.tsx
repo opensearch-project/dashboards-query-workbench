@@ -17,7 +17,6 @@ export const renderApp = (
   { appBasePath, element, setHeaderActionMenu, dataSourceId }: AppMountParameters,
   dataSourceManagement: DataSourceManagementPluginSetup
 ) => {
-  console.log(dataSourceId);
   ReactDOM.render(
     <WorkbenchApp
       basename={appBasePath}
