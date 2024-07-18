@@ -4,8 +4,8 @@
  */
 
 import {
-  EuiSmallButton,
-  EuiSmallButtonEmpty,
+  EuiButton,
+  EuiButtonEmpty,
   EuiCompressedComboBox,
   EuiComboBoxOptionOption,
   EuiCompressedFieldText,
@@ -96,7 +96,7 @@ export const AddColumnPopOver = ({
     <EuiPopover
       panelPaddingSize="s"
       button={
-        <EuiSmallButtonEmpty
+        <EuiButtonEmpty
           iconType="plusInCircle"
           aria-label="add column"
           onClick={() => {
@@ -106,7 +106,7 @@ export const AddColumnPopOver = ({
           size="xs"
         >
           Add Column
-        </EuiSmallButtonEmpty>
+        </EuiButtonEmpty>
       }
       isOpen={isColumnPopOverOpen}
       closePopover={() => setIsColumnPopOverOpen(false)}
