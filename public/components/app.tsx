@@ -49,7 +49,7 @@ export const WorkbenchApp = ({
               <Switch>
                 <Route
                   exact
-                  path="/"
+                  path="/opensearch-query-workbench"
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -68,7 +68,7 @@ export const WorkbenchApp = ({
                 />
                 <Route
                   exact
-                  path="/:dataSource"
+                  path="/opensearch-query-workbench/:dataSource"
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -87,7 +87,7 @@ export const WorkbenchApp = ({
                 />
                 <Route
                   exact
-                  path="/accelerate/:dataSource"
+                  path="/opensearch-query-workbench/accelerate/:dataSource"
                   render={(props) => (
                     <Main
                       httpClient={http}

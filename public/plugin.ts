@@ -11,6 +11,7 @@ import {
 import { DataSourceManagementPluginSetup } from '../../../src/plugins/data_source_management/public';
 import { DevToolsSetup } from '../../../src/plugins/dev_tools/public';
 import { PLUGIN_NAME } from '../common/constants';
+import { convertLegacyWorkbenchUrl } from '../common/utils/legacy_route_helper';
 import { registerObservabilityDependencies } from './dependencies/register_observability_dependencies';
 import { coreRefs } from './framework/core_refs';
 import { AppPluginStartDependencies, WorkbenchPluginSetup, WorkbenchPluginStart } from './types';
@@ -43,10 +44,15 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
           coreStart,
           depsStart as AppPluginStartDependencies,
           params,
-          dataSourceManagement,
+          dataSourceManagement
         );
       },
     });
+
+    // redirect legacy workbench URL to current URL under dev-tools
+    if (window.location.pathname.includes('app/opensearch-query-workbench')) {
+      window.location.assign(convertLegacyWorkbenchUrl(window.location));
+    }
 
     // Return methods that should be available to other plugins
     return {};
