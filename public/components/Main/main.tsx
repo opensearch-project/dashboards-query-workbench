@@ -22,13 +22,16 @@ import { IHttpResponse } from 'angular';
 import { createBrowserHistory } from 'history';
 import _ from 'lodash';
 import React from 'react';
+import semver from 'semver';
 import {
   ChromeBreadcrumb,
   CoreStart,
   MountPoint,
   NotificationsStart,
+  SavedObject,
   SavedObjectsStart,
 } from '../../../../../src/core/public';
+import { DataSourceAttributes } from '../../../../../src/plugins/data_source/common/data_sources';
 import {
   DataSourceManagementPluginSetup,
   DataSourceSelectableConfig,
@@ -38,6 +41,7 @@ import { OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
 import { fetchDataSources } from '../../../common/utils/fetch_datasources';
+import * as pluginManifest from '../../../opensearch_dashboards.json';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -288,7 +292,7 @@ export class Main extends React.Component<MainProps, MainState> {
       dataSourceOptions: [],
       selectedMDSDataConnectionId: '',
       mdsClusterName: '',
-      flintDataConnections: false
+      flintDataConnections: false,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -900,9 +904,20 @@ export class Main extends React.Component<MainProps, MainState> {
       mdsClusterName: clusterName,
       cluster: 'Indexes',
       selectedDatasource: [{ label: 'OpenSearch', key: '' }],
-      isAccelerationFlyoutOpened: false
+      isAccelerationFlyoutOpened: false,
     });
     this.fetchFlintDataSources();
+  };
+
+  dataSourceFilterFn = (dataSource: SavedObject<DataSourceAttributes>) => {
+    const dataSourceVersion = dataSource?.attributes?.dataSourceVersion || '';
+    const installedPlugins = dataSource?.attributes?.installedPlugins || [];
+    return (
+      semver.satisfies(dataSourceVersion, pluginManifest.supportedOSDataSourceVersions) &&
+      pluginManifest.requiredOSDataSourcePlugins.every((plugin) =>
+        installedPlugins.includes(plugin)
+      )
+    );
   };
 
   DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<
@@ -1014,11 +1029,12 @@ export class Main extends React.Component<MainProps, MainState> {
               notifications: this.props.notifications,
               fullWidth: true,
               onSelectedDataSources: this.onSelectedDataSource,
+              dataSourceFilter: this.dataSourceFilterFn,
             }}
           />
         )}
         <EuiPage paddingSize="none">
-          <EuiPanel grow={true} style={{marginRight: '10px'}}>
+          <EuiPanel grow={true} style={{ marginRight: '10px' }}>
             <EuiPageSideBar
               style={{
                 maxWidth: '400px',
@@ -1026,10 +1042,12 @@ export class Main extends React.Component<MainProps, MainState> {
                 height: 'calc(100vh - 254px)',
               }}
             >
-              <EuiTitle size='xs'>
-                  <p><b>{this.state.mdsClusterName}</b></p>
-                </EuiTitle>
-                <EuiSpacer size='s'/>
+              <EuiTitle size="xs">
+                <p>
+                  <b>{this.state.mdsClusterName}</b>
+                </p>
+              </EuiTitle>
+              <EuiSpacer size="s" />
               {this.state.flintDataConnections && (
                 <EuiFlexGroup direction="row" gutterSize="s">
                   <EuiFlexItem grow={false}>
