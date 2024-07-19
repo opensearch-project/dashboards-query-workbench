@@ -303,18 +303,7 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   componentDidMount() {
-    if (coreRefs?.chrome?.navGroup.getNavGroupEnabled()) {
-      this.props.setBreadcrumbs([
-        {
-          text: 'Dev Tools',
-          href: '#/console',
-        },
-        {
-          text: 'Query Workbench',
-          href: '#/opensearch-query-workbench',
-        },
-      ]);
-    } else {
+    if (!coreRefs?.chrome?.navGroup.getNavGroupEnabled()) {
       this.props.setBreadcrumbs([
         {
           text: 'Query Workbench',
