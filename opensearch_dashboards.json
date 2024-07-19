@@ -4,18 +4,13 @@
   "opensearchDashboardsVersion": "2.16.0",
   "server": true,
   "ui": true,
+  "supportedOSDataSourceVersions": ">=1.0.0",
+  "requiredOSDataSourcePlugins": ["opensearch-sql"],
   "requiredPlugins": [
+    "devTools",
     "navigation",
     "opensearchDashboardsReact",
     "opensearchDashboardsUtils"
   ],
-  "optionalPlugins": [
-    "observabilityDashboards",
-    "dataSource",
-    "dataSourceManagement"
-  ],
-  "supportedOSDataSourceVersions": ">=1.0.0",
-  "requiredOSDataSourcePlugins": [
-    "opensearch-sql"
-  ]
+  "optionalPlugins": ["observabilityDashboards", "dataSource", "dataSourceManagement"]
 }

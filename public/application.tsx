@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
@@ -14,7 +13,7 @@ import { AppPluginStartDependencies } from './types';
 export const renderApp = (
   { notifications, http, chrome, savedObjects }: CoreStart,
   { navigation, dataSource }: AppPluginStartDependencies,
-  { appBasePath, element, setHeaderActionMenu }: AppMountParameters,
+  { appBasePath, element, setHeaderActionMenu, dataSourceId }: AppMountParameters,
   dataSourceManagement: DataSourceManagementPluginSetup
 ) => {
   ReactDOM.render(
@@ -28,6 +27,7 @@ export const renderApp = (
       dataSourceEnabled={!!dataSource}
       dataSourceManagement={dataSourceManagement}
       setActionMenu={setHeaderActionMenu}
+      dataSourceMDSId={dataSourceId}
     />,
     element
   );
