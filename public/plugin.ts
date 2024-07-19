@@ -29,29 +29,57 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     core: CoreSetup,
     { dataSource, dataSourceManagement, devTools }: WorkbenchPluginSetupDependencies
   ): WorkbenchPluginSetup {
-    devTools.register({
-      id: 'opensearch-query-workbench',
-      title: PLUGIN_NAME,
-      enableRouting: true,
-      order: 2,
-      async mount(params: AppMountParameters) {
-        // Load application bundle
-        const { renderApp } = await import('./application');
-        // Get start services as specified in opensearch_dashboards.json
-        const [coreStart, depsStart] = await core.getStartServices();
-        // Render the application
-        return renderApp(
-          coreStart,
-          depsStart as AppPluginStartDependencies,
-          params,
-          dataSourceManagement
-        );
-      },
-    });
+    const isNavGroupEnabled = core.chrome.navGroup.getNavGroupEnabled();
 
-    // redirect legacy workbench URL to current URL under dev-tools
-    if (window.location.pathname.includes('app/opensearch-query-workbench')) {
-      window.location.assign(convertLegacyWorkbenchUrl(window.location));
+    if (isNavGroupEnabled) {
+      devTools.register({
+        id: 'opensearch-query-workbench',
+        title: PLUGIN_NAME,
+        enableRouting: true,
+        order: 2,
+        async mount(params: AppMountParameters) {
+          // Load application bundle
+          const { renderApp } = await import('./application');
+          // Get start services as specified in opensearch_dashboards.json
+          const [coreStart, depsStart] = await core.getStartServices();
+          // Render the application
+          return renderApp(
+            coreStart,
+            depsStart as AppPluginStartDependencies,
+            params,
+            dataSourceManagement
+          );
+        },
+      });
+
+      // redirect legacy workbench URL to current URL under dev-tools
+      if (window.location.pathname.includes('app/opensearch-query-workbench')) {
+        window.location.assign(convertLegacyWorkbenchUrl(window.location));
+      }
+    } else {
+      core.application.register({
+        id: 'opensearch-query-workbench',
+        title: PLUGIN_NAME,
+        category: {
+          id: 'opensearch',
+          label: 'OpenSearch Plugins',
+          order: 2000,
+        },
+        order: 1000,
+        async mount(params: AppMountParameters) {
+          // Load application bundle
+          const { renderApp } = await import('./application');
+          // Get start services as specified in opensearch_dashboards.json
+          const [coreStart, depsStart] = await core.getStartServices();
+          // Render the application
+          return renderApp(
+            coreStart,
+            depsStart as AppPluginStartDependencies,
+            params,
+            dataSourceManagement
+          );
+        },
+      });
     }
 
     // Return methods that should be available to other plugins

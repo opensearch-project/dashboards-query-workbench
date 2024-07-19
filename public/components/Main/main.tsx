@@ -42,6 +42,7 @@ import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
 import { fetchDataSources } from '../../../common/utils/fetch_datasources';
 import * as pluginManifest from '../../../opensearch_dashboards.json';
+import { coreRefs } from '../../framework/core_refs';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -302,9 +303,29 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   componentDidMount() {
+    if (coreRefs?.chrome?.navGroup.getNavGroupEnabled()) {
+      this.props.setBreadcrumbs([
+        {
+          text: 'Dev Tools',
+          href: '#/console',
+        },
+        {
+          text: 'Query Workbench',
+          href: '#/opensearch-query-workbench',
+        },
+      ]);
+    } else {
+      this.props.setBreadcrumbs([
+        {
+          text: 'Query Workbench',
+          href: '#',
+        },
+      ]);
+    }
+
     this.fetchFlintDataSources();
   }
-  
+
   fetchFlintDataSources = () => {
     fetchDataSources(
       this.httpClient,
