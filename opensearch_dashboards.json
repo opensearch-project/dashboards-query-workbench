@@ -6,6 +6,6 @@
   "ui": true,
   "supportedOSDataSourceVersions": ">=1.0.0",
   "requiredOSDataSourcePlugins": ["opensearch-sql"],
-  "requiredPlugins": ["navigation", "opensearchDashboardsReact", "opensearchDashboardsUtils"],
+  "requiredPlugins": ["devTools", "navigation", "opensearchDashboardsReact", "opensearchDashboardsUtils"],
   "optionalPlugins": ["observabilityDashboards", "dataSource", "dataSourceManagement"]
 }
