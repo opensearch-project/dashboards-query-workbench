@@ -15,5 +15,7 @@
     "dataSourceManagement"
   ],
   "supportedOSDataSourceVersions": ">=1.0.0",
-  "requiredOSDataSourcePlugins": ["opensearch-sql"]
+  "requiredOSDataSourcePlugins": [
+    "opensearch-sql"
+  ]
 }
