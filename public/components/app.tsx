@@ -13,6 +13,7 @@ import { CoreStart, MountPoint } from '../../../../src/core/public';
 import { DataSourceManagementPluginSetup } from '../../../../src/plugins/data_source_management/public';
 import { NavigationPublicPluginStart } from '../../../../src/plugins/navigation/public';
 
+import { coreRefs } from '../framework/core_refs';
 import { Main } from './Main';
 
 interface WorkbenchAppDeps {
@@ -40,6 +41,9 @@ export const WorkbenchApp = ({
   dataSourceMDSId: dataSourceId,
   setActionMenu,
 }: WorkbenchAppDeps) => {
+  const isNavGroupEnabled = coreRefs?.chrome?.navGroup.getNavGroupEnabled();
+  const basePath = isNavGroupEnabled ? 'opensearch-query-workbench' : '';
+
   return (
     <HashRouter>
       <I18nProvider>
@@ -49,7 +53,7 @@ export const WorkbenchApp = ({
               <Switch>
                 <Route
                   exact
-                  path="/opensearch-query-workbench"
+                  path={`/${basePath}`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -68,7 +72,7 @@ export const WorkbenchApp = ({
                 />
                 <Route
                   exact
-                  path="/opensearch-query-workbench/:dataSource"
+                  path={`/${basePath}/:dataSource`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -87,7 +91,7 @@ export const WorkbenchApp = ({
                 />
                 <Route
                   exact
-                  path="/opensearch-query-workbench/accelerate/:dataSource"
+                  path={`/${basePath}/accelerate/:dataSource`}
                   render={(props) => (
                     <Main
                       httpClient={http}
