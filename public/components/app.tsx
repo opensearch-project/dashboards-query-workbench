@@ -13,6 +13,7 @@ import { CoreStart, MountPoint } from '../../../../src/core/public';
 import { DataSourceManagementPluginSetup } from '../../../../src/plugins/data_source_management/public';
 import { NavigationPublicPluginStart } from '../../../../src/plugins/navigation/public';
 
+import { coreRefs } from '../framework/core_refs';
 import { Main } from './Main';
 
 interface WorkbenchAppDeps {
@@ -24,6 +25,7 @@ interface WorkbenchAppDeps {
   savedObjects: CoreStart['savedObjects'];
   dataSourceEnabled: boolean;
   dataSourceManagement: DataSourceManagementPluginSetup;
+  dataSourceMDSId: string;
   setActionMenu: (menuMount: MountPoint | undefined) => void;
 }
 
@@ -36,8 +38,12 @@ export const WorkbenchApp = ({
   savedObjects,
   dataSourceEnabled,
   dataSourceManagement,
+  dataSourceMDSId: dataSourceId,
   setActionMenu,
 }: WorkbenchAppDeps) => {
+  const isNavGroupEnabled = coreRefs?.chrome?.navGroup.getNavGroupEnabled();
+  const basePath = isNavGroupEnabled ? 'opensearch-query-workbench' : '';
+
   return (
     <HashRouter>
       <I18nProvider>
@@ -47,7 +53,7 @@ export const WorkbenchApp = ({
               <Switch>
                 <Route
                   exact
-                  path="/"
+                  path={`/${basePath}`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -59,13 +65,14 @@ export const WorkbenchApp = ({
                       savedObjects={savedObjects}
                       dataSourceEnabled={dataSourceEnabled}
                       dataSourceManagement={dataSourceManagement}
+                      dataSourceMDSId={dataSourceId}
                       setActionMenu={setActionMenu}
                     />
                   )}
                 />
                 <Route
                   exact
-                  path="/:dataSource"
+                  path={`/${basePath}/:dataSource`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -77,13 +84,14 @@ export const WorkbenchApp = ({
                       savedObjects={savedObjects}
                       dataSourceEnabled={dataSourceEnabled}
                       dataSourceManagement={dataSourceManagement}
+                      dataSourceMDSId={dataSourceId}
                       setActionMenu={setActionMenu}
                     />
                   )}
                 />
                 <Route
                   exact
-                  path="/accelerate/:dataSource"
+                  path={`/${basePath}/accelerate/:dataSource`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -95,6 +103,7 @@ export const WorkbenchApp = ({
                       savedObjects={savedObjects}
                       dataSourceEnabled={dataSourceEnabled}
                       dataSourceManagement={dataSourceManagement}
+                      dataSourceMDSId={dataSourceId}
                       setActionMenu={setActionMenu}
                     />
                   )}

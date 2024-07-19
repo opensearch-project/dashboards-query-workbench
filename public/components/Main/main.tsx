@@ -42,6 +42,7 @@ import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
 import { fetchDataSources } from '../../../common/utils/fetch_datasources';
 import * as pluginManifest from '../../../opensearch_dashboards.json';
+import { coreRefs } from '../../framework/core_refs';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
   Tree,
@@ -114,6 +115,7 @@ interface MainProps {
   notifications: NotificationsStart;
   dataSourceEnabled: boolean;
   dataSourceManagement: DataSourceManagementPluginSetup;
+  dataSourceMDSId: string;
   setActionMenu: (menuMount: MountPoint | undefined) => void;
 }
 
@@ -290,7 +292,7 @@ export class Main extends React.Component<MainProps, MainState> {
       isCallOutVisible: false,
       cluster: 'Indexes',
       dataSourceOptions: [],
-      selectedMDSDataConnectionId: '',
+      selectedMDSDataConnectionId: this.props.dataSourceMDSId,
       mdsClusterName: '',
       flintDataConnections: false,
     };
@@ -301,19 +303,22 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   componentDidMount() {
-    this.props.setBreadcrumbs([
-      {
-        text: 'Query Workbench',
-        href: '#',
-      },
-    ]);
+    if (!coreRefs?.chrome?.navGroup.getNavGroupEnabled()) {
+      this.props.setBreadcrumbs([
+        {
+          text: 'Query Workbench',
+          href: '#',
+        },
+      ]);
+    }
+
     this.fetchFlintDataSources();
   }
 
   fetchFlintDataSources = () => {
     fetchDataSources(
       this.httpClient,
-      this.state.selectedMDSDataConnectionId,
+      this.props.dataSourceMDSId,
       this.props.urlDataSource,
       (dataOptions) => {
         if (dataOptions.length > 0) {
@@ -435,7 +440,7 @@ export class Main extends React.Component<MainProps, MainState> {
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = { dataSourceMDSId: this.props.dataSourceMDSId };
       }
       const responsePromise = Promise.all(
         queries.map((eachQuery: string) =>
@@ -570,7 +575,7 @@ export class Main extends React.Component<MainProps, MainState> {
               });
             }
           },
-          this.state.selectedMDSDataConnectionId,
+          this.props.dataSourceMDSId,
           (errorDetails: string) => {
             this.setState({
               asyncLoading: false,
@@ -599,7 +604,7 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = { dataSourceMDSId: this.props.dataSourceMDSId };
       }
       const endpoint =
         '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
@@ -651,7 +656,7 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = { dataSourceMDSId: this.props.dataSourceMDSId };
       }
       Promise.all(
         queries.map((eachQuery: string) =>
@@ -688,7 +693,7 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = { dataSourceMDSId: this.props.dataSourceMDSId };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       Promise.all(
@@ -726,7 +731,7 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = { dataSourceMDSId: this.props.dataSourceMDSId };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
       Promise.all(
@@ -764,7 +769,7 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = { dataSourceMDSId: this.props.dataSourceMDSId };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
       Promise.all(
@@ -947,7 +952,7 @@ export class Main extends React.Component<MainProps, MainState> {
           openAccelerationFlyout={
             this.props.isAccelerationFlyoutOpen && !this.state.isAccelerationFlyoutOpened
           }
-          dataSourceMDSId={this.state.selectedMDSDataConnectionId}
+          dataSourceMDSId={this.props.dataSourceMDSId}
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
@@ -1086,7 +1091,7 @@ export class Main extends React.Component<MainProps, MainState> {
                         onSelect={this.handleDataSelect}
                         urlDataSource={this.props.urlDataSource}
                         asyncLoading={this.state.asyncLoading}
-                        dataSourceMDSId={this.state.selectedMDSDataConnectionId}
+                        dataSourceMDSId={this.props.dataSourceMDSId}
                       />
                     </EuiFlexItem>
                     <EuiFlexItem grow={false}>
@@ -1105,7 +1110,7 @@ export class Main extends React.Component<MainProps, MainState> {
                     updateSQLQueries={this.updateSQLQueries}
                     refreshTree={this.state.refreshTree}
                     dataSourceEnabled={this.props.dataSourceEnabled}
-                    dataSourceMDSId={this.state.selectedMDSDataConnectionId}
+                    dataSourceMDSId={this.props.dataSourceMDSId}
                     clusterTab={this.state.cluster}
                     language={this.state.language}
                     updatePPLQueries={this.updatePPLQueries}
