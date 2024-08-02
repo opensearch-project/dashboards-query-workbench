@@ -172,7 +172,7 @@ Array [
                   class="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--flushLeft"
+                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
                     type="button"
                   >
                     <span
@@ -480,7 +480,7 @@ Array [
                   className="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--flushLeft"
+                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
                     disabled={false}
                     onClick={[MockFunction]}
                     type="button"
@@ -801,7 +801,7 @@ Array [
                   class="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--flushLeft"
+                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
                     type="button"
                   >
                     <span
@@ -1105,7 +1105,7 @@ Array [
                   className="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--flushLeft"
+                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
                     disabled={false}
                     onClick={[MockFunction]}
                     type="button"
@@ -1410,7 +1410,7 @@ Array [
                   class="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--flushLeft"
+                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
                     type="button"
                   >
                     <span
@@ -1706,7 +1706,7 @@ Array [
                   className="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--flushLeft"
+                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
                     disabled={false}
                     onClick={[MockFunction]}
                     type="button"

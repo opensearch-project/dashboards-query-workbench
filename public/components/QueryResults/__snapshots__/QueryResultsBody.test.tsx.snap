@@ -438,7 +438,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -820,7 +820,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -1202,7 +1202,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -1584,7 +1584,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -1966,7 +1966,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -2348,7 +2348,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -2730,7 +2730,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -3112,7 +3112,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -3494,7 +3494,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -3876,7 +3876,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -4258,7 +4258,7 @@ exports[`<QueryResultsBody with PPL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -5441,7 +5441,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -5822,7 +5822,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -6203,7 +6203,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -6584,7 +6584,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -6965,7 +6965,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -7346,7 +7346,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -7727,7 +7727,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -8108,7 +8108,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -8489,7 +8489,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -8870,7 +8870,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -9251,7 +9251,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -10307,7 +10307,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Collapse"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -10718,7 +10718,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                                   >
                                     <button
                                       aria-label="Expand"
-                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall euiSideNavItemButton__icon"
+                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small euiSideNavItemButton__icon"
                                       type="button"
                                     >
                                       <svg
@@ -10758,7 +10758,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                                   >
                                     <button
                                       aria-label="Collapse"
-                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall euiSideNavItemButton__icon"
+                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small euiSideNavItemButton__icon"
                                       type="button"
                                     >
                                       <svg
@@ -10872,7 +10872,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                                   >
                                     <button
                                       aria-label="Expand"
-                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall euiSideNavItemButton__icon"
+                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small euiSideNavItemButton__icon"
                                       type="button"
                                     >
                                       <svg
@@ -10912,7 +10912,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                                   >
                                     <button
                                       aria-label="Expand"
-                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall euiSideNavItemButton__icon"
+                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small euiSideNavItemButton__icon"
                                       type="button"
                                     >
                                       <svg
@@ -10952,7 +10952,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                                   >
                                     <button
                                       aria-label="Expand"
-                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall euiSideNavItemButton__icon"
+                                      class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small euiSideNavItemButton__icon"
                                       type="button"
                                     >
                                       <svg
@@ -11002,7 +11002,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -11383,7 +11383,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -11764,7 +11764,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -12145,7 +12145,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -12526,7 +12526,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -12907,7 +12907,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -13288,7 +13288,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -13669,7 +13669,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -14050,7 +14050,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >
@@ -14431,7 +14431,7 @@ exports[`<QueryResultsBody with SQL language/> spec renders component with mock 
                         >
                           <button
                             aria-label="Expand"
-                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--xSmall"
+                            class="euiButtonIcon euiButtonIcon--primary euiButtonIcon--empty euiButtonIcon--small"
                             style="margin-left: -4px;"
                             type="button"
                           >

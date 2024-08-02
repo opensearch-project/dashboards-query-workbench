@@ -26,7 +26,7 @@ Array [
     className="euiSpacer euiSpacer--s"
   />,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -47,18 +47,18 @@ Array [
         aria-describedby="some_html_id-help-0"
         aria-expanded={false}
         aria-haspopup="listbox"
-        className="euiComboBox"
+        className="euiComboBox euiComboBox--compressed"
         onKeyDown={[Function]}
         role="combobox"
       >
         <div
-          className="euiFormControlLayout"
+          className="euiFormControlLayout euiFormControlLayout--compressed"
         >
           <div
             className="euiFormControlLayout__childrenWrapper"
           >
             <div
-              className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+              className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
               data-test-subj="comboBoxInput"
               onClick={[Function]}
               tabIndex={-1}
@@ -120,7 +120,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                  className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                   focusable="false"
                   height={16}
                   role="img"
@@ -147,7 +147,7 @@ Array [
     </div>
   </div>,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -168,18 +168,18 @@ Array [
         aria-describedby="some_html_id-help-0"
         aria-expanded={false}
         aria-haspopup="listbox"
-        className="euiComboBox"
+        className="euiComboBox euiComboBox--compressed"
         onKeyDown={[Function]}
         role="combobox"
       >
         <div
-          className="euiFormControlLayout"
+          className="euiFormControlLayout euiFormControlLayout--compressed"
         >
           <div
             className="euiFormControlLayout__childrenWrapper"
           >
             <div
-              className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+              className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
               data-test-subj="comboBoxInput"
               onClick={[Function]}
               tabIndex={-1}
@@ -241,7 +241,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                  className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                   focusable="false"
                   height={16}
                   role="img"
@@ -268,7 +268,7 @@ Array [
     </div>
   </div>,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -289,18 +289,18 @@ Array [
         aria-describedby="some_html_id-help-0"
         aria-expanded={false}
         aria-haspopup="listbox"
-        className="euiComboBox"
+        className="euiComboBox euiComboBox--compressed"
         onKeyDown={[Function]}
         role="combobox"
       >
         <div
-          className="euiFormControlLayout"
+          className="euiFormControlLayout euiFormControlLayout--compressed"
         >
           <div
             className="euiFormControlLayout__childrenWrapper"
           >
             <div
-              className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+              className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
               data-test-subj="comboBoxInput"
               onClick={[Function]}
               tabIndex={-1}
@@ -362,7 +362,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                  className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                   focusable="false"
                   height={16}
                   role="img"
@@ -417,7 +417,7 @@ Array [
     className="euiSpacer euiSpacer--s"
   />,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -438,18 +438,18 @@ Array [
         aria-describedby="some_html_id-help-0"
         aria-expanded={false}
         aria-haspopup="listbox"
-        className="euiComboBox"
+        className="euiComboBox euiComboBox--compressed"
         onKeyDown={[Function]}
         role="combobox"
       >
         <div
-          className="euiFormControlLayout"
+          className="euiFormControlLayout euiFormControlLayout--compressed"
         >
           <div
             className="euiFormControlLayout__childrenWrapper"
           >
             <div
-              className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+              className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
               data-test-subj="comboBoxInput"
               onClick={[Function]}
               tabIndex={-1}
@@ -511,7 +511,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="euiIcon euiIcon--medium euiFormControlLayoutCustomIcon__icon"
+                  className="euiIcon euiIcon--small euiFormControlLayoutCustomIcon__icon"
                   focusable="false"
                   height={16}
                   role="img"
@@ -539,7 +539,7 @@ Array [
     </div>
   </div>,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -560,18 +560,18 @@ Array [
         aria-describedby="some_html_id-help-0"
         aria-expanded={false}
         aria-haspopup="listbox"
-        className="euiComboBox"
+        className="euiComboBox euiComboBox--compressed"
         onKeyDown={[Function]}
         role="combobox"
       >
         <div
-          className="euiFormControlLayout"
+          className="euiFormControlLayout euiFormControlLayout--compressed"
         >
           <div
             className="euiFormControlLayout__childrenWrapper"
           >
             <div
-              className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+              className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
               data-test-subj="comboBoxInput"
               onClick={[Function]}
               tabIndex={-1}
@@ -633,7 +633,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="euiIcon euiIcon--medium euiFormControlLayoutCustomIcon__icon"
+                  className="euiIcon euiIcon--small euiFormControlLayoutCustomIcon__icon"
                   focusable="false"
                   height={16}
                   role="img"
@@ -661,7 +661,7 @@ Array [
     </div>
   </div>,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -682,18 +682,18 @@ Array [
         aria-describedby="some_html_id-help-0"
         aria-expanded={false}
         aria-haspopup="listbox"
-        className="euiComboBox"
+        className="euiComboBox euiComboBox--compressed"
         onKeyDown={[Function]}
         role="combobox"
       >
         <div
-          className="euiFormControlLayout"
+          className="euiFormControlLayout euiFormControlLayout--compressed"
         >
           <div
             className="euiFormControlLayout__childrenWrapper"
           >
             <div
-              className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap euiComboBox__inputWrap-isLoading"
+              className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap euiComboBox__inputWrap-isLoading"
               data-test-subj="comboBoxInput"
               onClick={[Function]}
               tabIndex={-1}
@@ -758,7 +758,7 @@ Array [
               >
                 <svg
                   aria-hidden={true}
-                  className="euiIcon euiIcon--medium euiFormControlLayoutCustomIcon__icon"
+                  className="euiIcon euiIcon--small euiFormControlLayoutCustomIcon__icon"
                   focusable="false"
                   height={16}
                   role="img"
