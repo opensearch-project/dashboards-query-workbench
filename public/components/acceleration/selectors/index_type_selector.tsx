@@ -4,9 +4,9 @@
  */
 
 import {
-  EuiComboBox,
+  EuiCompressedComboBox,
   EuiComboBoxOptionOption,
-  EuiFormRow,
+  EuiCompressedFormRow,
   EuiLink,
   EuiText,
   htmlIdGenerator,
@@ -90,7 +90,7 @@ export const IndexTypeSelector = ({
   };
   return (
     <>
-      <EuiFormRow
+      <EuiCompressedFormRow
         label="Index type"
         helpText="Select the type of index you want to create. Each index type has benefits and costs."
         labelAppend={
@@ -101,7 +101,7 @@ export const IndexTypeSelector = ({
           </EuiText>
         }
       >
-        <EuiComboBox
+        <EuiCompressedComboBox
           placeholder="Select an index type"
           singleSelection={{ asPlainText: true }}
           options={ACCELERATION_INDEX_TYPES}
@@ -111,7 +111,7 @@ export const IndexTypeSelector = ({
           isClearable={false}
           isLoading={loading}
         />
-      </EuiFormRow>
+      </EuiCompressedFormRow>
     </>
   );
 };

@@ -10,7 +10,7 @@ import { SortableProperties, SortableProperty } from '@elastic/eui/lib/services'
 import {
   Comparators,
   EuiButton,
-  EuiButtonIcon,
+  EuiSmallButtonIcon,
   EuiComboBoxOptionOption,
   EuiContextMenuItem,
   EuiContextMenuPanel,
@@ -317,7 +317,7 @@ export class QueryResults extends React.Component<QueryResultsProps, QueryResult
             <EuiFlexItem grow={false}>
               {this.props.queryResults.length > 0 &&
                 (this.props.isResultFullScreen ? (
-                  <EuiButtonIcon
+                  <EuiSmallButtonIcon
                     iconType="cross"
                     color="text"
                     id="exit-fullscreen-button"

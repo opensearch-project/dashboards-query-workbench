@@ -5,7 +5,7 @@
 
 import {
   EuiButton,
-  EuiButtonEmpty,
+  EuiSmallButtonEmpty,
   EuiDescriptionList,
   EuiDescriptionListDescription,
   EuiDescriptionListTitle,
@@ -139,9 +139,9 @@ export const AccelerationIndexFlyout = ({
         <EuiFlyoutFooter>
           <EuiFlexGroup justifyContent="spaceBetween">
             <EuiFlexItem grow={false}>
-              <EuiButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
+              <EuiSmallButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
                 Close
-              </EuiButtonEmpty>
+              </EuiSmallButtonEmpty>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
               <EuiFlexGroup>

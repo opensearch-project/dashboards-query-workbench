@@ -4,8 +4,8 @@
  */
 
 import {
-  EuiButton,
-  EuiButtonEmpty,
+  EuiSmallButton,
+  EuiSmallButtonEmpty,
   EuiComboBoxOptionOption,
   EuiFlexGroup,
   EuiFlexItem,
@@ -139,14 +139,14 @@ export const CreateAcceleration = ({
         <EuiFlyoutFooter>
           <EuiFlexGroup justifyContent="spaceBetween">
             <EuiFlexItem grow={false}>
-              <EuiButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
+              <EuiSmallButtonEmpty iconType="cross" onClick={resetFlyout} flush="left">
                 Close
-              </EuiButtonEmpty>
+              </EuiSmallButtonEmpty>
             </EuiFlexItem>
             <EuiFlexItem grow={false}>
-              <EuiButton onClick={copyToEditor} fill>
+              <EuiSmallButton onClick={copyToEditor} fill>
                 Copy Query to Editor
-              </EuiButton>
+              </EuiSmallButton>
             </EuiFlexItem>
           </EuiFlexGroup>
         </EuiFlyoutFooter>

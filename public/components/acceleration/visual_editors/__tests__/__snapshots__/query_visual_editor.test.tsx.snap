@@ -257,7 +257,7 @@ Array [
         className="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          className="euiButton euiButton--primary euiButton--fill"
+          className="euiButton euiButton--primary euiButton--small euiButton--fill"
           disabled={false}
           onClick={[Function]}
           style={
@@ -282,7 +282,7 @@ Array [
         className="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          className="euiButton euiButton--danger"
+          className="euiButton euiButton--danger euiButton--small"
           disabled={false}
           onClick={[Function]}
           style={
@@ -662,14 +662,14 @@ Array [
                   className="euiTableCellContent euiTableCellContent--overflowingContent"
                 >
                   <div
-                    className="euiFormControlLayout"
+                    className="euiFormControlLayout euiFormControlLayout--compressed"
                   >
                     <div
                       className="euiFormControlLayout__childrenWrapper"
                     >
                       <select
                         aria-label="Use aria labels when no actual label is in use"
-                        className="euiSelect"
+                        className="euiSelect euiSelect--compressed"
                         id="selectDocExample"
                         onChange={[Function]}
                         onMouseUp={[Function]}
@@ -702,7 +702,7 @@ Array [
                         >
                           <svg
                             aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                            className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                             focusable="false"
                             height={16}
                             role="img"
@@ -738,7 +738,7 @@ Array [
                   className="euiTableCellContent euiTableCellContent--overflowingContent"
                 >
                   <button
-                    className="euiButtonIcon euiButtonIcon--danger euiButtonIcon--empty euiButtonIcon--xSmall"
+                    className="euiButtonIcon euiButtonIcon--danger euiButtonIcon--empty euiButtonIcon--small"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
@@ -828,14 +828,14 @@ Array [
                   className="euiTableCellContent euiTableCellContent--overflowingContent"
                 >
                   <div
-                    className="euiFormControlLayout"
+                    className="euiFormControlLayout euiFormControlLayout--compressed"
                   >
                     <div
                       className="euiFormControlLayout__childrenWrapper"
                     >
                       <select
                         aria-label="Use aria labels when no actual label is in use"
-                        className="euiSelect"
+                        className="euiSelect euiSelect--compressed"
                         id="selectDocExample"
                         onChange={[Function]}
                         onMouseUp={[Function]}
@@ -868,7 +868,7 @@ Array [
                         >
                           <svg
                             aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                            className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                             focusable="false"
                             height={16}
                             role="img"
@@ -904,7 +904,7 @@ Array [
                   className="euiTableCellContent euiTableCellContent--overflowingContent"
                 >
                   <button
-                    className="euiButtonIcon euiButtonIcon--danger euiButtonIcon--empty euiButtonIcon--xSmall"
+                    className="euiButtonIcon euiButtonIcon--danger euiButtonIcon--empty euiButtonIcon--small"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
@@ -1078,7 +1078,7 @@ Array [
         className="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          className="euiButton euiButton--primary euiButton--fill"
+          className="euiButton euiButton--primary euiButton--small euiButton--fill"
           disabled={false}
           onClick={[Function]}
           style={
@@ -1103,7 +1103,7 @@ Array [
         className="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          className="euiButton euiButton--danger"
+          className="euiButton euiButton--danger euiButton--small"
           disabled={false}
           onClick={[Function]}
           style={

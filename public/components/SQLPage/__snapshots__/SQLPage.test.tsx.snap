@@ -136,7 +136,7 @@ exports[`<SQLPage /> spec renders the component 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <button
-              class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+              class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
               data-test-subj="sqlRunButton"
               type="button"
             >
@@ -155,7 +155,7 @@ exports[`<SQLPage /> spec renders the component 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <button
-              class="euiButton euiButton--primary sql-editor-button"
+              class="euiButton euiButton--primary euiButton--small sql-editor-button"
               data-test-subj="sqlClearButton"
               type="button"
             >
@@ -174,7 +174,7 @@ exports[`<SQLPage /> spec renders the component 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <button
-              class="euiButton euiButton--primary sql-editor-button"
+              class="euiButton euiButton--primary euiButton--small sql-editor-button"
               type="button"
             >
               <span
@@ -331,7 +331,7 @@ exports[`<SQLPage /> spec tests the action buttons 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <button
-              class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+              class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
               data-test-subj="sqlRunButton"
               type="button"
             >
@@ -350,7 +350,7 @@ exports[`<SQLPage /> spec tests the action buttons 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <button
-              class="euiButton euiButton--primary sql-editor-button"
+              class="euiButton euiButton--primary euiButton--small sql-editor-button"
               data-test-subj="sqlClearButton"
               type="button"
             >
@@ -369,7 +369,7 @@ exports[`<SQLPage /> spec tests the action buttons 1`] = `
             class="euiFlexItem euiFlexItem--flexGrowZero"
           >
             <button
-              class="euiButton euiButton--primary sql-editor-button"
+              class="euiButton euiButton--primary euiButton--small sql-editor-button"
               type="button"
             >
               <span

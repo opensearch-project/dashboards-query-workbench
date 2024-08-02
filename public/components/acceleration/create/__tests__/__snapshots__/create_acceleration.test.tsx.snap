@@ -147,7 +147,7 @@ Array [
                       class="euiSpacer euiSpacer--s"
                     />
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -168,17 +168,17 @@ Array [
                           aria-describedby="some_html_id-help-0"
                           aria-expanded="false"
                           aria-haspopup="listbox"
-                          class="euiComboBox"
+                          class="euiComboBox euiComboBox--compressed"
                           role="combobox"
                         >
                           <div
-                            class="euiFormControlLayout"
+                            class="euiFormControlLayout euiFormControlLayout--compressed"
                           >
                             <div
                               class="euiFormControlLayout__childrenWrapper"
                             >
                               <div
-                                class="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+                                class="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
                                 data-test-subj="comboBoxInput"
                                 tabindex="-1"
                               >
@@ -215,7 +215,7 @@ Array [
                                 >
                                   <svg
                                     aria-hidden="true"
-                                    class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                                    class="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                                     focusable="false"
                                     height="16"
                                     role="img"
@@ -241,7 +241,7 @@ Array [
                       </div>
                     </div>
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -262,17 +262,17 @@ Array [
                           aria-describedby="some_html_id-help-0"
                           aria-expanded="false"
                           aria-haspopup="listbox"
-                          class="euiComboBox"
+                          class="euiComboBox euiComboBox--compressed"
                           role="combobox"
                         >
                           <div
-                            class="euiFormControlLayout"
+                            class="euiFormControlLayout euiFormControlLayout--compressed"
                           >
                             <div
                               class="euiFormControlLayout__childrenWrapper"
                             >
                               <div
-                                class="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+                                class="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
                                 data-test-subj="comboBoxInput"
                                 tabindex="-1"
                               >
@@ -309,7 +309,7 @@ Array [
                                 >
                                   <svg
                                     aria-hidden="true"
-                                    class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                                    class="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                                     focusable="false"
                                     height="16"
                                     role="img"
@@ -335,7 +335,7 @@ Array [
                       </div>
                     </div>
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -356,17 +356,17 @@ Array [
                           aria-describedby="some_html_id-help-0"
                           aria-expanded="false"
                           aria-haspopup="listbox"
-                          class="euiComboBox"
+                          class="euiComboBox euiComboBox--compressed"
                           role="combobox"
                         >
                           <div
-                            class="euiFormControlLayout"
+                            class="euiFormControlLayout euiFormControlLayout--compressed"
                           >
                             <div
                               class="euiFormControlLayout__childrenWrapper"
                             >
                               <div
-                                class="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+                                class="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
                                 data-test-subj="comboBoxInput"
                                 tabindex="-1"
                               >
@@ -403,7 +403,7 @@ Array [
                                 >
                                   <svg
                                     aria-hidden="true"
-                                    class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                                    class="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                                     focusable="false"
                                     height="16"
                                     role="img"
@@ -443,7 +443,7 @@ Array [
                       class="euiSpacer euiSpacer--s"
                     />
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -496,17 +496,17 @@ Array [
                           aria-describedby="some_html_id-help-0"
                           aria-expanded="false"
                           aria-haspopup="listbox"
-                          class="euiComboBox"
+                          class="euiComboBox euiComboBox--compressed"
                           role="combobox"
                         >
                           <div
-                            class="euiFormControlLayout"
+                            class="euiFormControlLayout euiFormControlLayout--compressed"
                           >
                             <div
                               class="euiFormControlLayout__childrenWrapper"
                             >
                               <div
-                                class="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+                                class="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
                                 data-test-subj="comboBoxInput"
                                 tabindex="-1"
                               >
@@ -544,7 +544,7 @@ Array [
                                 >
                                   <svg
                                     aria-hidden="true"
-                                    class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                                    class="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                                     focusable="false"
                                     height="16"
                                     role="img"
@@ -570,7 +570,7 @@ Array [
                       </div>
                     </div>
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -588,7 +588,7 @@ Array [
                         class="euiFormRow__fieldWrapper"
                       >
                         <div
-                          class="euiFormControlLayout"
+                          class="euiFormControlLayout euiFormControlLayout--compressed"
                         >
                           <div
                             class="euiFormControlLayout__childrenWrapper"
@@ -596,7 +596,7 @@ Array [
                             <input
                               aria-describedby="some_html_id-help-0"
                               aria-label="Number of primary shards"
-                              class="euiFieldNumber"
+                              class="euiFieldNumber euiFieldNumber--compressed"
                               id="some_html_id"
                               max="100"
                               min="1"
@@ -615,7 +615,7 @@ Array [
                       </div>
                     </div>
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -633,7 +633,7 @@ Array [
                         class="euiFormRow__fieldWrapper"
                       >
                         <div
-                          class="euiFormControlLayout"
+                          class="euiFormControlLayout euiFormControlLayout--compressed"
                         >
                           <div
                             class="euiFormControlLayout__childrenWrapper"
@@ -641,7 +641,7 @@ Array [
                             <input
                               aria-describedby="some_html_id-help-0"
                               aria-label="Number of replicas"
-                              class="euiFieldNumber"
+                              class="euiFieldNumber euiFieldNumber--compressed"
                               id="some_html_id"
                               max="100"
                               min="0"
@@ -660,7 +660,7 @@ Array [
                       </div>
                     </div>
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -681,7 +681,7 @@ Array [
                           id="some_html_id"
                         >
                           <div
-                            class="euiRadio euiRadioGroup__item"
+                            class="euiRadio euiRadio--compressed euiRadioGroup__item"
                           >
                             <input
                               checked=""
@@ -702,7 +702,7 @@ Array [
                             </label>
                           </div>
                           <div
-                            class="euiRadio euiRadioGroup__item"
+                            class="euiRadio euiRadio--compressed euiRadioGroup__item"
                           >
                             <input
                               class="euiRadio__input"
@@ -722,7 +722,7 @@ Array [
                             </label>
                           </div>
                           <div
-                            class="euiRadio euiRadioGroup__item"
+                            class="euiRadio euiRadio--compressed euiRadioGroup__item"
                           >
                             <input
                               class="euiRadio__input"
@@ -751,7 +751,7 @@ Array [
                       </div>
                     </div>
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -769,7 +769,7 @@ Array [
                         class="euiFormRow__fieldWrapper"
                       >
                         <div
-                          class="euiFormControlLayout"
+                          class="euiFormControlLayout euiFormControlLayout--compressed"
                         >
                           <div
                             class="euiFormControlLayout__childrenWrapper"
@@ -777,7 +777,7 @@ Array [
                             <input
                               aria-describedby="some_html_id-help-0"
                               aria-label="Use aria labels when no actual label is in use"
-                              class="euiFieldText"
+                              class="euiFieldText euiFieldText--compressed"
                               id="some_html_id"
                               placeholder="s3://checkpoint/location"
                               type="text"
@@ -808,7 +808,7 @@ Array [
                       class="euiSpacer euiSpacer--s"
                     />
                     <div
-                      class="euiFormRow"
+                      class="euiFormRow euiFormRow--compressed"
                       id="some_html_id-row"
                     >
                       <div
@@ -837,7 +837,7 @@ Array [
                         class="euiFormRow__fieldWrapper"
                       >
                         <div
-                          class="euiFormControlLayout euiFormControlLayout--group"
+                          class="euiFormControlLayout euiFormControlLayout--compressed euiFormControlLayout--group"
                         >
                           <label
                             class="euiFormLabel euiFormControlLayout__prepend"
@@ -871,7 +871,7 @@ Array [
                             <input
                               aria-describedby="some_html_id-help-0"
                               aria-label="Enter Index Name"
-                              class="euiFieldText euiFieldText--inGroup"
+                              class="euiFieldText euiFieldText--compressed euiFieldText--inGroup"
                               disabled=""
                               id="some_html_id"
                               placeholder="Enter index name"
@@ -1040,7 +1040,7 @@ Array [
                         class="euiFlexItem euiFlexItem--flexGrowZero"
                       >
                         <button
-                          class="euiButton euiButton--primary euiButton--fill"
+                          class="euiButton euiButton--primary euiButton--small euiButton--fill"
                           type="button"
                         >
                           <span
@@ -1058,7 +1058,7 @@ Array [
                         class="euiFlexItem euiFlexItem--flexGrowZero"
                       >
                         <button
-                          class="euiButton euiButton--danger"
+                          class="euiButton euiButton--danger euiButton--small"
                           type="button"
                         >
                           <span
@@ -1087,7 +1087,7 @@ Array [
                   class="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--flushLeft"
+                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
                     type="button"
                   >
                     <span
@@ -1119,7 +1119,7 @@ Array [
                   class="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    class="euiButton euiButton--primary euiButton--fill"
+                    class="euiButton euiButton--primary euiButton--small euiButton--fill"
                     type="button"
                   >
                     <span
@@ -1314,7 +1314,7 @@ Array [
                         className="euiSpacer euiSpacer--s"
                       />,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -1335,18 +1335,18 @@ Array [
                             aria-describedby="some_html_id-help-0"
                             aria-expanded={false}
                             aria-haspopup="listbox"
-                            className="euiComboBox"
+                            className="euiComboBox euiComboBox--compressed"
                             onKeyDown={[Function]}
                             role="combobox"
                           >
                             <div
-                              className="euiFormControlLayout"
+                              className="euiFormControlLayout euiFormControlLayout--compressed"
                             >
                               <div
                                 className="euiFormControlLayout__childrenWrapper"
                               >
                                 <div
-                                  className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+                                  className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
                                   data-test-subj="comboBoxInput"
                                   onClick={[Function]}
                                   tabIndex={-1}
@@ -1408,7 +1408,7 @@ Array [
                                   >
                                     <svg
                                       aria-hidden={true}
-                                      className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                                      className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                                       focusable="false"
                                       height={16}
                                       role="img"
@@ -1435,7 +1435,7 @@ Array [
                         </div>
                       </div>,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -1456,18 +1456,18 @@ Array [
                             aria-describedby="some_html_id-help-0"
                             aria-expanded={false}
                             aria-haspopup="listbox"
-                            className="euiComboBox"
+                            className="euiComboBox euiComboBox--compressed"
                             onKeyDown={[Function]}
                             role="combobox"
                           >
                             <div
-                              className="euiFormControlLayout"
+                              className="euiFormControlLayout euiFormControlLayout--compressed"
                             >
                               <div
                                 className="euiFormControlLayout__childrenWrapper"
                               >
                                 <div
-                                  className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+                                  className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
                                   data-test-subj="comboBoxInput"
                                   onClick={[Function]}
                                   tabIndex={-1}
@@ -1529,7 +1529,7 @@ Array [
                                   >
                                     <svg
                                       aria-hidden={true}
-                                      className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                                      className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                                       focusable="false"
                                       height={16}
                                       role="img"
@@ -1556,7 +1556,7 @@ Array [
                         </div>
                       </div>,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -1577,18 +1577,18 @@ Array [
                             aria-describedby="some_html_id-help-0"
                             aria-expanded={false}
                             aria-haspopup="listbox"
-                            className="euiComboBox"
+                            className="euiComboBox euiComboBox--compressed"
                             onKeyDown={[Function]}
                             role="combobox"
                           >
                             <div
-                              className="euiFormControlLayout"
+                              className="euiFormControlLayout euiFormControlLayout--compressed"
                             >
                               <div
                                 className="euiFormControlLayout__childrenWrapper"
                               >
                                 <div
-                                  className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+                                  className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
                                   data-test-subj="comboBoxInput"
                                   onClick={[Function]}
                                   tabIndex={-1}
@@ -1650,7 +1650,7 @@ Array [
                                   >
                                     <svg
                                       aria-hidden={true}
-                                      className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                                      className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                                       focusable="false"
                                       height={16}
                                       role="img"
@@ -1693,7 +1693,7 @@ Array [
                         className="euiSpacer euiSpacer--s"
                       />,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -1747,18 +1747,18 @@ Array [
                             aria-describedby="some_html_id-help-0"
                             aria-expanded={false}
                             aria-haspopup="listbox"
-                            className="euiComboBox"
+                            className="euiComboBox euiComboBox--compressed"
                             onKeyDown={[Function]}
                             role="combobox"
                           >
                             <div
-                              className="euiFormControlLayout"
+                              className="euiFormControlLayout euiFormControlLayout--compressed"
                             >
                               <div
                                 className="euiFormControlLayout__childrenWrapper"
                               >
                                 <div
-                                  className="euiComboBox__inputWrap euiComboBox__inputWrap--noWrap"
+                                  className="euiComboBox__inputWrap euiComboBox__inputWrap--compressed euiComboBox__inputWrap--noWrap"
                                   data-test-subj="comboBoxInput"
                                   onClick={[Function]}
                                   tabIndex={-1}
@@ -1821,7 +1821,7 @@ Array [
                                   >
                                     <svg
                                       aria-hidden={true}
-                                      className="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                                      className="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                                       focusable="false"
                                       height={16}
                                       role="img"
@@ -1848,7 +1848,7 @@ Array [
                         </div>
                       </div>,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -1866,7 +1866,7 @@ Array [
                           className="euiFormRow__fieldWrapper"
                         >
                           <div
-                            className="euiFormControlLayout"
+                            className="euiFormControlLayout euiFormControlLayout--compressed"
                           >
                             <div
                               className="euiFormControlLayout__childrenWrapper"
@@ -1874,7 +1874,7 @@ Array [
                               <input
                                 aria-describedby="some_html_id-help-0"
                                 aria-label="Number of primary shards"
-                                className="euiFieldNumber"
+                                className="euiFieldNumber euiFieldNumber--compressed"
                                 id="some_html_id"
                                 max={100}
                                 min={1}
@@ -1896,7 +1896,7 @@ Array [
                         </div>
                       </div>,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -1914,7 +1914,7 @@ Array [
                           className="euiFormRow__fieldWrapper"
                         >
                           <div
-                            className="euiFormControlLayout"
+                            className="euiFormControlLayout euiFormControlLayout--compressed"
                           >
                             <div
                               className="euiFormControlLayout__childrenWrapper"
@@ -1922,7 +1922,7 @@ Array [
                               <input
                                 aria-describedby="some_html_id-help-0"
                                 aria-label="Number of replicas"
-                                className="euiFieldNumber"
+                                className="euiFieldNumber euiFieldNumber--compressed"
                                 id="some_html_id"
                                 max={100}
                                 min={0}
@@ -1944,7 +1944,7 @@ Array [
                         </div>
                       </div>,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -1967,7 +1967,7 @@ Array [
                             onFocus={[Function]}
                           >
                             <div
-                              className="euiRadio euiRadioGroup__item"
+                              className="euiRadio euiRadio--compressed euiRadioGroup__item"
                             >
                               <input
                                 checked={true}
@@ -1988,7 +1988,7 @@ Array [
                               </label>
                             </div>
                             <div
-                              className="euiRadio euiRadioGroup__item"
+                              className="euiRadio euiRadio--compressed euiRadioGroup__item"
                             >
                               <input
                                 checked={false}
@@ -2009,7 +2009,7 @@ Array [
                               </label>
                             </div>
                             <div
-                              className="euiRadio euiRadioGroup__item"
+                              className="euiRadio euiRadio--compressed euiRadioGroup__item"
                             >
                               <input
                                 checked={false}
@@ -2039,7 +2039,7 @@ Array [
                         </div>
                       </div>,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -2057,7 +2057,7 @@ Array [
                           className="euiFormRow__fieldWrapper"
                         >
                           <div
-                            className="euiFormControlLayout"
+                            className="euiFormControlLayout euiFormControlLayout--compressed"
                           >
                             <div
                               className="euiFormControlLayout__childrenWrapper"
@@ -2065,7 +2065,7 @@ Array [
                               <input
                                 aria-describedby="some_html_id-help-0"
                                 aria-label="Use aria labels when no actual label is in use"
-                                className="euiFieldText"
+                                className="euiFieldText euiFieldText--compressed"
                                 id="some_html_id"
                                 onBlur={[Function]}
                                 onChange={[Function]}
@@ -2101,7 +2101,7 @@ Array [
                         className="euiSpacer euiSpacer--s"
                       />,
                       <div
-                        className="euiFormRow"
+                        className="euiFormRow euiFormRow--compressed"
                         id="some_html_id-row"
                       >
                         <div
@@ -2132,7 +2132,7 @@ Array [
                           className="euiFormRow__fieldWrapper"
                         >
                           <div
-                            className="euiFormControlLayout euiFormControlLayout--group"
+                            className="euiFormControlLayout euiFormControlLayout--compressed euiFormControlLayout--group"
                           >
                             <label
                               className="euiFormLabel euiFormControlLayout__prepend"
@@ -2172,7 +2172,7 @@ Array [
                               <input
                                 aria-describedby="some_html_id-help-0"
                                 aria-label="Enter Index Name"
-                                className="euiFieldText euiFieldText--inGroup"
+                                className="euiFieldText euiFieldText--compressed euiFieldText--inGroup"
                                 disabled={true}
                                 id="some_html_id"
                                 onBlur={[Function]}
@@ -2373,7 +2373,7 @@ Array [
                             className="euiFlexItem euiFlexItem--flexGrowZero"
                           >
                             <button
-                              className="euiButton euiButton--primary euiButton--fill"
+                              className="euiButton euiButton--primary euiButton--small euiButton--fill"
                               disabled={false}
                               onClick={[Function]}
                               style={
@@ -2398,7 +2398,7 @@ Array [
                             className="euiFlexItem euiFlexItem--flexGrowZero"
                           >
                             <button
-                              className="euiButton euiButton--danger"
+                              className="euiButton euiButton--danger euiButton--small"
                               disabled={false}
                               onClick={[Function]}
                               style={
@@ -2436,7 +2436,7 @@ Array [
                   className="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--flushLeft"
+                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
                     disabled={false}
                     onClick={[MockFunction]}
                     type="button"
@@ -2471,7 +2471,7 @@ Array [
                   className="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    className="euiButton euiButton--primary euiButton--fill"
+                    className="euiButton euiButton--primary euiButton--small euiButton--fill"
                     disabled={false}
                     onClick={[Function]}
                     style={

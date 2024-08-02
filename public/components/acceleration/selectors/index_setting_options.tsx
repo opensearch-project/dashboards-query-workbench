@@ -4,11 +4,11 @@
  */
 
 import {
-  EuiFieldNumber,
-  EuiFieldText,
-  EuiFormRow,
-  EuiRadioGroup,
-  EuiSelect,
+  EuiCompressedFieldNumber,
+  EuiCompressedFieldText,
+  EuiCompressedFormRow,
+  EuiCompressedRadioGroup,
+  EuiCompressedSelect,
   EuiSpacer,
   EuiText,
 } from '@elastic/eui';
@@ -150,13 +150,13 @@ export const IndexSettingOptions = ({
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
-      <EuiFormRow
+      <EuiCompressedFormRow
         label="Number of primary shards"
         helpText="Specify the number of primary shards for the index. The number of primary shards cannot be changed after the index is created."
         isInvalid={hasError(accelerationFormData.formErrors, 'primaryShardsError')}
         error={accelerationFormData.formErrors.primaryShardsError}
       >
-        <EuiFieldNumber
+        <EuiCompressedFieldNumber
           placeholder="Number of primary shards"
           value={primaryShards}
           onChange={onChangePrimaryShards}
@@ -174,14 +174,14 @@ export const IndexSettingOptions = ({
           }}
           isInvalid={hasError(accelerationFormData.formErrors, 'primaryShardsError')}
         />
-      </EuiFormRow>
-      <EuiFormRow
+      </EuiCompressedFormRow>
+      <EuiCompressedFormRow
         label="Number of replicas"
         helpText="Specify the number of replicas each primary shard should have."
         isInvalid={hasError(accelerationFormData.formErrors, 'replicaShardsError')}
         error={accelerationFormData.formErrors.replicaShardsError}
       >
-        <EuiFieldNumber
+        <EuiCompressedFieldNumber
           placeholder="Number of replicas"
           value={replicaCount}
           onChange={onChangeReplicaCount}
@@ -199,26 +199,26 @@ export const IndexSettingOptions = ({
           }}
           isInvalid={hasError(accelerationFormData.formErrors, 'replicaShardsError')}
         />
-      </EuiFormRow>
-      <EuiFormRow
+      </EuiCompressedFormRow>
+      <EuiCompressedFormRow
         label="Refresh type"
         helpText="Specify how often the index should refresh, which publishes the most recent changes and make them available for search."
       >
-        <EuiRadioGroup
+        <EuiCompressedRadioGroup
           options={refreshOptions}
           idSelected={refreshTypeSelected}
           onChange={onChangeRefreshType}
           name="refresh type radio group"
         />
-      </EuiFormRow>
+      </EuiCompressedFormRow>
       {refreshTypeSelected === intervalRefreshId && (
-        <EuiFormRow
+        <EuiCompressedFormRow
           label="Refresh interval"
           helpText="Specify how often the index should refresh, which publishes the most recent changes and make them available for search"
           isInvalid={hasError(accelerationFormData.formErrors, 'refreshIntervalError')}
           error={accelerationFormData.formErrors.refreshIntervalError}
         >
-          <EuiFieldNumber
+          <EuiCompressedFieldNumber
             placeholder="Refresh interval"
             value={refreshWindow}
             onChange={onChangeRefreshWindow}
@@ -236,23 +236,23 @@ export const IndexSettingOptions = ({
               );
             }}
             append={
-              <EuiSelect
+              <EuiCompressedSelect
                 value={refreshInterval}
                 onChange={onChangeRefreshInterval}
                 options={ACCELERATION_TIME_INTERVAL}
               />
             }
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       )}
       {refreshTypeSelected !== manualRefreshId && (
-        <EuiFormRow
+        <EuiCompressedFormRow
           label="Checkpoint location"
           helpText="The HDFS compatible file system location path for incremental refresh job checkpoint."
           isInvalid={hasError(accelerationFormData.formErrors, 'checkpointLocationError')}
           error={accelerationFormData.formErrors.checkpointLocationError}
         >
-          <EuiFieldText
+          <EuiCompressedFieldText
             placeholder="s3://checkpoint/location"
             value={checkpoint}
             onChange={onChangeCheckpoint}
@@ -269,16 +269,16 @@ export const IndexSettingOptions = ({
               );
             }}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       )}
       {accelerationFormData.accelerationIndexType === 'materialized' && (
-        <EuiFormRow
+        <EuiCompressedFormRow
           label="Watermark Delay"
           helpText="Data arrival delay for incremental refresh on a materialized view with aggregations"
           isInvalid={hasError(accelerationFormData.formErrors, 'watermarkDelayError')}
           error={accelerationFormData.formErrors.watermarkDelayError}
         >
-          <EuiFieldNumber
+          <EuiCompressedFieldNumber
             placeholder="Watermark delay interval"
             value={delayWindow}
             onChange={onChangeDelayWindow}
@@ -296,14 +296,14 @@ export const IndexSettingOptions = ({
               );
             }}
             append={
-              <EuiSelect
+              <EuiCompressedSelect
                 value={delayInterval}
                 onChange={onChangeDelayInterval}
                 options={ACCELERATION_TIME_INTERVAL}
               />
             }
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       )}
     </>
   );

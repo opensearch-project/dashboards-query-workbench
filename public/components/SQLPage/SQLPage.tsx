@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiButton,
+  EuiSmallButton,
   EuiCodeBlock,
   EuiCodeEditor,
   EuiComboBoxOptionOption,
@@ -123,9 +123,9 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
             </EuiModalBody>
 
             <EuiModalFooter>
-              <EuiButton onClick={closeModal} fill>
+              <EuiSmallButton onClick={closeModal} fill>
                 Close
-              </EuiButton>
+              </EuiSmallButton>
             </EuiModalFooter>
           </EuiModal>
         </EuiOverlayMask>
@@ -160,7 +160,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
             <EuiFlexItem>
               <EuiFlexGroup className="action-container" gutterSize="m">
                 <EuiFlexItem grow={false}>
-                  <EuiButton
+                  <EuiSmallButton
                     data-test-subj="sqlRunButton"
                     fill={true}
                     className="sql-editor-button"
@@ -168,7 +168,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     onClick={() => this.props.onRun(this.props.sqlQuery)}
                   >
                     {this.props.asyncLoading ? 'Running' : 'Run'}
-                  </EuiButton>
+                  </EuiSmallButton>
                 </EuiFlexItem>
                 <EuiFlexItem
                   grow={false}
@@ -177,13 +177,13 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     this.props.onClear();
                   }}
                 >
-                  <EuiButton
+                  <EuiSmallButton
                     data-test-subj="sqlClearButton"
                     className="sql-editor-button"
                     isDisabled={this.props.asyncLoading}
                   >
                     Clear
-                  </EuiButton>
+                  </EuiSmallButton>
                 </EuiFlexItem>
                 {this.props.selectedDatasource &&
                 this.props.selectedDatasource[0].label === 'OpenSearch' ? (
@@ -191,22 +191,22 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     grow={false}
                     onClick={() => this.props.onTranslate(this.props.sqlQuery)}
                   >
-                    <EuiButton
+                    <EuiSmallButton
                       className="sql-editor-button"
                       onClick={showModal}
                       isDisabled={this.props.asyncLoading}
                     >
                       Explain
-                    </EuiButton>
+                    </EuiSmallButton>
                   </EuiFlexItem>
                 ) : (
                   <EuiFlexItem
                     grow={false}
                     onClick={() => this.props.updateSQLQueries(SAMPLE_SQL_QUERY)}
                   >
-                    <EuiButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                    <EuiSmallButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
                       Sample Query
-                    </EuiButton>
+                    </EuiSmallButton>
                   </EuiFlexItem>
                 )}
               </EuiFlexGroup>
@@ -214,7 +214,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
             {this.props.selectedDatasource &&
               this.props.selectedDatasource[0].label !== 'OpenSearch' && (
                 <EuiFlexItem grow={false}>
-                  <EuiButton
+                  <EuiSmallButton
                     className="sql-accelerate-button"
                     onClick={() =>
                       this.renderCreateAccelerationFlyout({
@@ -225,7 +225,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     isDisabled={this.props.asyncLoading}
                   >
                     Accelerate Table
-                  </EuiButton>
+                  </EuiSmallButton>
                 </EuiFlexItem>
               )}
           </EuiFlexGroup>
