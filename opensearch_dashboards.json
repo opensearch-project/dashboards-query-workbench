@@ -5,12 +5,18 @@
   "server": true,
   "ui": true,
   "supportedOSDataSourceVersions": ">=1.0.0",
-  "requiredOSDataSourcePlugins": ["opensearch-sql"],
+  "requiredOSDataSourcePlugins": [
+    "opensearch-sql"
+  ],
   "requiredPlugins": [
     "devTools",
     "navigation",
     "opensearchDashboardsReact",
     "opensearchDashboardsUtils"
   ],
-  "optionalPlugins": ["observabilityDashboards", "dataSource", "dataSourceManagement"]
+  "optionalPlugins": [
+    "observabilityDashboards",
+    "dataSource",
+    "dataSourceManagement"
+  ]
 }
