@@ -7,11 +7,11 @@ import { DataSourcePluginStart } from '../../../src/plugins/data_source/public/t
 import { NavigationPublicPluginStart } from '../../../src/plugins/navigation/public';
 import { ObservabilityStart } from './types';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WorkbenchPluginSetup {}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface WorkbenchPluginStart {
-}
+export interface WorkbenchPluginStart {}
 
 export interface AppPluginStartDependencies {
   navigation: NavigationPublicPluginStart;
@@ -20,3 +20,5 @@ export interface AppPluginStartDependencies {
 }
 
 export type { ObservabilityStart } from '../../dashboards-observability/public';
+
+export type { RenderAccelerationFlyoutParams } from '../../dashboards-observability/common/types/data_connections';
