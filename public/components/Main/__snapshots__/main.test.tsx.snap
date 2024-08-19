@@ -142,7 +142,7 @@ exports[`<Main /> spec click clear button 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -314,7 +314,7 @@ exports[`<Main /> spec click clear button 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -333,7 +333,7 @@ exports[`<Main /> spec click clear button 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -352,7 +352,7 @@ exports[`<Main /> spec click clear button 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span
@@ -582,7 +582,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -754,7 +754,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -773,7 +773,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -792,7 +792,7 @@ exports[`<Main /> spec click run button, and response causes an error 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span
@@ -1022,7 +1022,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -1194,7 +1194,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -1213,7 +1213,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -1232,7 +1232,7 @@ exports[`<Main /> spec click run button, and response is not ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span
@@ -1462,7 +1462,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -1634,7 +1634,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -1653,7 +1653,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -1672,7 +1672,7 @@ exports[`<Main /> spec click run button, and response is ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span
@@ -1902,7 +1902,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -2074,7 +2074,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -2093,7 +2093,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -2112,7 +2112,7 @@ exports[`<Main /> spec click run button, response fills null and missing values 
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span
@@ -2342,7 +2342,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -2514,7 +2514,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -2533,7 +2533,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -2552,7 +2552,7 @@ exports[`<Main /> spec click translation button, and response is ok 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span
@@ -2782,7 +2782,7 @@ exports[`<Main /> spec renders the component 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -2954,7 +2954,7 @@ exports[`<Main /> spec renders the component 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -2973,7 +2973,7 @@ exports[`<Main /> spec renders the component 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -2992,7 +2992,7 @@ exports[`<Main /> spec renders the component 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span
@@ -4250,7 +4250,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -4422,7 +4422,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -4441,7 +4441,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -4460,7 +4460,7 @@ exports[`<Main /> spec renders the component and checks if side tree is loaded 1
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span
@@ -4690,7 +4690,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
           class="euiFlexItem euiFlexItem--flexGrowZero"
         >
           <a
-            class="euiButton euiButton--primary"
+            class="euiButton euiButton--primary euiButton--small"
             href="https://opensearch.org/docs/latest/search-plugins/sql/sql/index/"
             rel="noopener noreferrer"
             target="_blank"
@@ -4862,7 +4862,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
                       data-test-subj="sqlRunButton"
                       type="button"
                     >
@@ -4881,7 +4881,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       data-test-subj="sqlClearButton"
                       type="button"
                     >
@@ -4900,7 +4900,7 @@ exports[`<Main /> spec renders the component and toggles ppl 1`] = `
                     class="euiFlexItem euiFlexItem--flexGrowZero"
                   >
                     <button
-                      class="euiButton euiButton--primary sql-editor-button"
+                      class="euiButton euiButton--primary euiButton--small sql-editor-button"
                       type="button"
                     >
                       <span

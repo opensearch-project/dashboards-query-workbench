@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiButton,
+  EuiSmallButton,
   EuiInMemoryTable,
   EuiModal,
   EuiModalBody,
@@ -80,8 +80,8 @@ export const DeleteFieldsModal = ({
       </EuiModalBody>
 
       <EuiModalFooter>
-        <EuiButton onClick={() => setIsDeleteModalVisible(false)}>Cancel</EuiButton>
-        <EuiButton
+        <EuiSmallButton onClick={() => setIsDeleteModalVisible(false)}>Cancel</EuiSmallButton>
+        <EuiSmallButton
           onClick={() => {
             setAccelerationFormData({
               ...accelerationFormData,
@@ -97,7 +97,7 @@ export const DeleteFieldsModal = ({
           fill
         >
           Delete
-        </EuiButton>
+        </EuiSmallButton>
       </EuiModalFooter>
     </EuiModal>
   );

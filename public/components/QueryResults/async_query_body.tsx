@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiButton,
+  EuiSmallButton,
   EuiFlexGroup,
   EuiIcon,
   EuiLoadingSpinner,
@@ -41,9 +41,9 @@ export function AsyncQueryBody(props: AsyncQueryBodyProps) {
         <EuiModalBody>{asyncQueryError}</EuiModalBody>
 
         <EuiModalFooter>
-          <EuiButton onClick={closeModal} fill>
+          <EuiSmallButton onClick={closeModal} fill>
             Close
-          </EuiButton>
+          </EuiSmallButton>
         </EuiModalFooter>
       </EuiModal>
     );
@@ -58,7 +58,7 @@ export function AsyncQueryBody(props: AsyncQueryBodyProps) {
             <h3>Query failed</h3>
           </EuiText>
           <EuiText>The query failed to execute and the operation could not be complete.</EuiText>
-          <EuiButton onClick={() => showModal()}>View error details</EuiButton>
+          <EuiSmallButton onClick={() => showModal()}>View error details</EuiSmallButton>
           {modal}
         </>
       ) : (
@@ -69,7 +69,7 @@ export function AsyncQueryBody(props: AsyncQueryBodyProps) {
           </EuiText>
           <EuiText>Status: {asyncLoadingStatus}</EuiText>
           {asyncLoadingStatus !== AsyncQueryStatus.Scheduled && (
-            <EuiButton onClick={cancelAsyncQuery}>Cancel</EuiButton>
+            <EuiSmallButton onClick={cancelAsyncQuery}>Cancel</EuiSmallButton>
           )}
         </>
       )}
