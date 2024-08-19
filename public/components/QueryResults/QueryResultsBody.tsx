@@ -9,8 +9,9 @@ import { SortableProperties } from '@elastic/eui/lib/services';
 // @ts-ignore
 import {
   Comparators,
+  EuiSmallButton,
   EuiButton,
-  EuiButtonIcon,
+  EuiSmallButtonIcon,
   EuiCodeEditor,
   EuiComboBoxOptionOption,
   EuiContextMenu,
@@ -190,9 +191,9 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
           </EuiModalBody>
 
           <EuiModalFooter>
-            <EuiButton onClick={closeModal} fill>
+            <EuiSmallButton onClick={closeModal} fill>
               Close
-            </EuiButton>
+            </EuiSmallButton>
           </EuiModalFooter>
         </EuiModal>
       </EuiOverlayMask>
@@ -404,7 +405,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
   addExpandingNodeIcon(node: Node, expandedRowMap: ItemIdToExpandedRowMap) {
     return (
-      <EuiButtonIcon
+      <EuiSmallButtonIcon
         style={{ marginLeft: -4 }}
         onClick={() => this.toggleNodeData(node, expandedRowMap)}
         aria-label={
@@ -426,7 +427,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       return;
     }
     return (
-      <EuiButtonIcon
+      <EuiSmallButtonIcon
         onClick={() => this.updateExpandedRowMap(node, expandedRowMap)}
         aria-label={
           expandedRowMap[node.parent!.nodeId] &&

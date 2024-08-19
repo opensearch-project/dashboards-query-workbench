@@ -138,7 +138,7 @@ exports[`<PPLPage /> spec renders the component 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero sql-editor-buttons"
       >
         <button
-          class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
           data-test-subj="pplRunButton"
           type="button"
         >
@@ -157,7 +157,7 @@ exports[`<PPLPage /> spec renders the component 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           data-test-subj="pplClearButton"
           type="button"
         >
@@ -176,7 +176,7 @@ exports[`<PPLPage /> spec renders the component 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           type="button"
         >
           <span
@@ -333,7 +333,7 @@ exports[`<PPLPage /> spec tests the Sample query button 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero sql-editor-buttons"
       >
         <button
-          class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
           data-test-subj="pplRunButton"
           type="button"
         >
@@ -352,7 +352,7 @@ exports[`<PPLPage /> spec tests the Sample query button 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           data-test-subj="pplClearButton"
           type="button"
         >
@@ -371,7 +371,7 @@ exports[`<PPLPage /> spec tests the Sample query button 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           type="button"
         >
           <span
@@ -528,7 +528,7 @@ exports[`<PPLPage /> spec tests the Sample query button 2`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero sql-editor-buttons"
       >
         <button
-          class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
           data-test-subj="pplRunButton"
           type="button"
         >
@@ -547,7 +547,7 @@ exports[`<PPLPage /> spec tests the Sample query button 2`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           data-test-subj="pplClearButton"
           type="button"
         >
@@ -566,7 +566,7 @@ exports[`<PPLPage /> spec tests the Sample query button 2`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           type="button"
         >
           <span
@@ -723,7 +723,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero sql-editor-buttons"
       >
         <button
-          class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
           data-test-subj="pplRunButton"
           type="button"
         >
@@ -742,7 +742,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           data-test-subj="pplClearButton"
           type="button"
         >
@@ -761,7 +761,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           type="button"
         >
           <span
@@ -921,7 +921,7 @@ exports[`<PPLPage /> spec tests the action buttons 2`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero sql-editor-buttons"
       >
         <button
-          class="euiButton euiButton--primary euiButton--fill sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small euiButton--fill sql-editor-button"
           data-test-subj="pplRunButton"
           type="button"
         >
@@ -940,7 +940,7 @@ exports[`<PPLPage /> spec tests the action buttons 2`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           data-test-subj="pplClearButton"
           type="button"
         >
@@ -959,7 +959,7 @@ exports[`<PPLPage /> spec tests the action buttons 2`] = `
         class="euiFlexItem euiFlexItem--flexGrowZero"
       >
         <button
-          class="euiButton euiButton--primary sql-editor-button"
+          class="euiButton euiButton--primary euiButton--small sql-editor-button"
           type="button"
         >
           <span

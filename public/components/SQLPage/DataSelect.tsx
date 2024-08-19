@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiComboBox, EuiComboBoxOptionOption } from '@elastic/eui';
+import { EuiCompressedComboBox, EuiComboBoxOptionOption } from '@elastic/eui';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { fetchDataSources } from '../../../common/utils/fetch_datasources';
@@ -38,10 +38,10 @@ export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading, dataSo
       onSelect(selectedItems);
     }
   };
-  
+
   return (
     options.length > 0 && (
-      <EuiComboBox
+      <EuiCompressedComboBox
         placeholder='Select data source connection'
         singleSelection={{ asPlainText: true }}
         isClearable={false}
