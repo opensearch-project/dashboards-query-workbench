@@ -4,6 +4,7 @@
  */
 
 import {
+  EuiSmallButton,
   EuiButton,
   EuiCodeBlock,
   EuiModal,
@@ -61,7 +62,7 @@ const loadErrorModal = (errorDetailsMessage: string) => {
           </EuiCodeBlock>
         </EuiModalBody>
         <EuiModalFooter>
-          <EuiButton onClick={() => modal.close()}>Close</EuiButton>
+          <EuiSmallButton onClick={() => modal.close()}>Close</EuiSmallButton>
         </EuiModalFooter>
       </EuiModal>
     )
