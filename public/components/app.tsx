@@ -109,18 +109,24 @@ export const WorkbenchApp = ({
                   )}
                 />
                 {basePath && (
-                  <Main
-                    httpClient={http}
-                    {...props}
-                    setBreadcrumbs={chrome.setBreadcrumbs}
-                    isAccelerationFlyoutOpen={false}
-                    urlDataSource=""
-                    notifications={notifications}
-                    savedObjects={savedObjects}
-                    dataSourceEnabled={dataSourceEnabled}
-                    dataSourceManagement={dataSourceManagement}
-                    dataSourceMDSId={dataSourceId}
-                    setActionMenu={setActionMenu}
+                  <Route
+                    exact
+                    path="/"
+                    render={(props) => (
+                      <Main
+                        httpClient={http}
+                        {...props}
+                        setBreadcrumbs={chrome.setBreadcrumbs}
+                        isAccelerationFlyoutOpen={false}
+                        urlDataSource=""
+                        notifications={notifications}
+                        savedObjects={savedObjects}
+                        dataSourceEnabled={dataSourceEnabled}
+                        dataSourceManagement={dataSourceManagement}
+                        dataSourceMDSId={dataSourceId}
+                        setActionMenu={setActionMenu}
+                      />
+                    )}
                   />
                 )}
               </Switch>
