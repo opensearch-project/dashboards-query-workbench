@@ -4,11 +4,11 @@
  */
 
 import {
-  EuiButton,
-  EuiFieldText,
+  EuiSmallButton,
+  EuiCompressedFieldText,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiFormRow,
+  EuiCompressedFormRow,
   EuiIconTip,
   EuiLink,
   EuiMarkdownFormat,
@@ -52,9 +52,9 @@ export const DefineIndexOptions = ({
         </EuiFlexGroup>
       </EuiModalBody>
       <EuiModalFooter>
-        <EuiButton onClick={() => setModalComponent(<></>)} fill>
+        <EuiSmallButton onClick={() => setModalComponent(<></>)} fill>
           Close
-        </EuiButton>
+        </EuiSmallButton>
       </EuiModalFooter>
     </EuiModal>
   );
@@ -94,7 +94,7 @@ export const DefineIndexOptions = ({
         <h3>Index settings</h3>
       </EuiText>
       <EuiSpacer size="s" />
-      <EuiFormRow
+      <EuiCompressedFormRow
         label="Index name"
         helpText='Must be in lowercase letters. Cannot begin with underscores. Spaces, commas, and characters -, :, ", *, +, /, \, |, ?, #, >, or < are not allowed. Prefix and suffix are added to the name of generated OpenSearch index.'
         isInvalid={hasError(accelerationFormData.formErrors, 'indexNameError')}
@@ -105,7 +105,7 @@ export const DefineIndexOptions = ({
           </EuiText>
         }
       >
-        <EuiFieldText
+        <EuiCompressedFieldText
           placeholder="Enter index name"
           value={accelerationFormData.accelerationIndexName}
           onChange={onChangeIndexName}
@@ -122,7 +122,7 @@ export const DefineIndexOptions = ({
             );
           }}
         />
-      </EuiFormRow>
+      </EuiCompressedFormRow>
       {modalComponent}
     </>
   );

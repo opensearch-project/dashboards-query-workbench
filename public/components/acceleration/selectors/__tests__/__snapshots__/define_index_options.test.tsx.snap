@@ -14,7 +14,7 @@ Array [
     className="euiSpacer euiSpacer--s"
   />,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -45,7 +45,7 @@ Array [
       className="euiFormRow__fieldWrapper"
     >
       <div
-        className="euiFormControlLayout euiFormControlLayout--group"
+        className="euiFormControlLayout euiFormControlLayout--compressed euiFormControlLayout--group"
       >
         <label
           className="euiFormLabel euiFormControlLayout__prepend"
@@ -85,7 +85,7 @@ Array [
           <input
             aria-describedby="some_html_id-help-0"
             aria-label="Enter Index Name"
-            className="euiFieldText euiFieldText--inGroup"
+            className="euiFieldText euiFieldText--compressed euiFieldText--inGroup"
             disabled={false}
             id="some_html_id"
             onBlur={[Function]}
@@ -129,7 +129,7 @@ Array [
     className="euiSpacer euiSpacer--s"
   />,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -160,7 +160,7 @@ Array [
       className="euiFormRow__fieldWrapper"
     >
       <div
-        className="euiFormControlLayout euiFormControlLayout--group"
+        className="euiFormControlLayout euiFormControlLayout--compressed euiFormControlLayout--group"
       >
         <label
           className="euiFormLabel euiFormControlLayout__prepend"
@@ -200,7 +200,7 @@ Array [
           <input
             aria-describedby="some_html_id-help-0"
             aria-label="Enter Index Name"
-            className="euiFieldText euiFieldText--inGroup"
+            className="euiFieldText euiFieldText--compressed euiFieldText--inGroup"
             disabled={true}
             id="some_html_id"
             onBlur={[Function]}
@@ -244,7 +244,7 @@ Array [
     className="euiSpacer euiSpacer--s"
   />,
   <div
-    className="euiFormRow"
+    className="euiFormRow euiFormRow--compressed"
     id="some_html_id-row"
   >
     <div
@@ -275,7 +275,7 @@ Array [
       className="euiFormRow__fieldWrapper"
     >
       <div
-        className="euiFormControlLayout euiFormControlLayout--group"
+        className="euiFormControlLayout euiFormControlLayout--compressed euiFormControlLayout--group"
       >
         <label
           className="euiFormLabel euiFormControlLayout__prepend"
@@ -315,7 +315,7 @@ Array [
           <input
             aria-describedby="some_html_id-help-0"
             aria-label="Enter Index Name"
-            className="euiFieldText euiFieldText--inGroup"
+            className="euiFieldText euiFieldText--compressed euiFieldText--inGroup"
             disabled={false}
             id="some_html_id"
             onBlur={[Function]}
