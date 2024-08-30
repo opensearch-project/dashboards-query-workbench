@@ -4,7 +4,6 @@
  */
 
 import {
-  EuiSmallButton,
   EuiButtonIcon,
   EuiCallOut,
   EuiComboBoxOptionOption,
@@ -15,6 +14,7 @@ import {
   EuiPageContentBody,
   EuiPageSideBar,
   EuiPanel,
+  EuiSmallButton,
   EuiSpacer,
   EuiTitle,
 } from '@elastic/eui';
@@ -296,7 +296,7 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedMDSDataConnectionId: this.props.dataSourceMDSId,
       mdsClusterName: '',
       flintDataConnections: false,
-      newNavEnabled: coreRefs?.chrome?.navGroup.getNavGroupEnabled()
+      newNavEnabled: coreRefs?.chrome?.navGroup.getNavGroupEnabled(),
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -320,7 +320,9 @@ export class Main extends React.Component<MainProps, MainState> {
   fetchFlintDataSources = () => {
     fetchDataSources(
       this.httpClient,
-      this.state.newNavEnabled ? this.props.dataSourceMDSId : this.state.selectedMDSDataConnectionId ,
+      this.state.newNavEnabled
+        ? this.props.dataSourceMDSId
+        : this.state.selectedMDSDataConnectionId,
       this.props.urlDataSource,
       (dataOptions) => {
         if (dataOptions.length > 0) {
@@ -442,7 +444,11 @@ export class Main extends React.Component<MainProps, MainState> {
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.newNavEnabled? this.props.dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = {
+          dataSourceMDSId: this.state.newNavEnabled
+            ? this.props.dataSourceMDSId
+            : this.state.selectedMDSDataConnectionId,
+        };
       }
       const responsePromise = Promise.all(
         queries.map((eachQuery: string) =>
@@ -577,7 +583,9 @@ export class Main extends React.Component<MainProps, MainState> {
               });
             }
           },
-          this.state.newNavEnabled? this.props.dataSourceMDSId: this.state.selectedMDSDataConnectionId,
+          this.state.newNavEnabled
+            ? this.props.dataSourceMDSId
+            : this.state.selectedMDSDataConnectionId,
           (errorDetails: string) => {
             this.setState({
               asyncLoading: false,
@@ -606,7 +614,11 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.newNavEnabled? this.props.dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = {
+          dataSourceMDSId: this.state.newNavEnabled
+            ? this.props.dataSourceMDSId
+            : this.state.selectedMDSDataConnectionId,
+        };
       }
       const endpoint =
         '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'translatesql' : 'translateppl');
@@ -658,7 +670,11 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.newNavEnabled? this.props.dataSourceMDSId: this.state.selectedMDSDataConnectionId};
+        query = {
+          dataSourceMDSId: this.state.newNavEnabled
+            ? this.props.dataSourceMDSId
+            : this.state.selectedMDSDataConnectionId,
+        };
       }
       Promise.all(
         queries.map((eachQuery: string) =>
@@ -695,7 +711,11 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.newNavEnabled? this.props.dataSourceMDSId: this.state.selectedMDSDataConnectionId};
+        query = {
+          dataSourceMDSId: this.state.newNavEnabled
+            ? this.props.dataSourceMDSId
+            : this.state.selectedMDSDataConnectionId,
+        };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlquery' : 'pplquery');
       Promise.all(
@@ -733,7 +753,11 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.newNavEnabled? this.props.dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = {
+          dataSourceMDSId: this.state.newNavEnabled
+            ? this.props.dataSourceMDSId
+            : this.state.selectedMDSDataConnectionId,
+        };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqlcsv' : 'pplcsv');
       Promise.all(
@@ -771,7 +795,11 @@ export class Main extends React.Component<MainProps, MainState> {
     if (queries.length > 0) {
       let query = {};
       if (this.props.dataSourceEnabled) {
-        query = { dataSourceMDSId: this.state.newNavEnabled? this.props.dataSourceMDSId: this.state.selectedMDSDataConnectionId };
+        query = {
+          dataSourceMDSId: this.state.newNavEnabled
+            ? this.props.dataSourceMDSId
+            : this.state.selectedMDSDataConnectionId,
+        };
       }
       const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqltext' : 'ppltext');
       Promise.all(
@@ -954,7 +982,11 @@ export class Main extends React.Component<MainProps, MainState> {
           openAccelerationFlyout={
             this.props.isAccelerationFlyoutOpen && !this.state.isAccelerationFlyoutOpened
           }
-          dataSourceMDSId={this.state.newNavEnabled? this.props.dataSourceMDSId: this.state.selectedMDSDataConnectionId}
+          dataSourceMDSId={
+            this.state.newNavEnabled
+              ? this.props.dataSourceMDSId
+              : this.state.selectedMDSDataConnectionId
+          }
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
@@ -1093,7 +1125,11 @@ export class Main extends React.Component<MainProps, MainState> {
                         onSelect={this.handleDataSelect}
                         urlDataSource={this.props.urlDataSource}
                         asyncLoading={this.state.asyncLoading}
-                        dataSourceMDSId={coreRefs?.chrome?.navGroup.getNavGroupEnabled()? this.props.dataSourceMDSId : this.state.selectedMDSDataConnectionId}
+                        dataSourceMDSId={
+                          coreRefs?.chrome?.navGroup.getNavGroupEnabled()
+                            ? this.props.dataSourceMDSId
+                            : this.state.selectedMDSDataConnectionId
+                        }
                       />
                     </EuiFlexItem>
                     <EuiFlexItem grow={false}>
@@ -1112,7 +1148,11 @@ export class Main extends React.Component<MainProps, MainState> {
                     updateSQLQueries={this.updateSQLQueries}
                     refreshTree={this.state.refreshTree}
                     dataSourceEnabled={this.props.dataSourceEnabled}
-                    dataSourceMDSId={coreRefs?.chrome?.navGroup.getNavGroupEnabled()? this.props.dataSourceMDSId : this.state.selectedMDSDataConnectionId}
+                    dataSourceMDSId={
+                      coreRefs?.chrome?.navGroup.getNavGroupEnabled()
+                        ? this.props.dataSourceMDSId
+                        : this.state.selectedMDSDataConnectionId
+                    }
                     clusterTab={this.state.cluster}
                     language={this.state.language}
                     updatePPLQueries={this.updatePPLQueries}

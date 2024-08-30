@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiCompressedComboBox, EuiComboBoxOptionOption, EuiCompressedFormRow, EuiSpacer, EuiText } from '@elastic/eui';
+import { EuiComboBoxOptionOption, EuiCompressedComboBox, EuiCompressedFormRow, EuiSpacer, EuiText } from '@elastic/eui';
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
@@ -29,7 +29,6 @@ export const AccelerationDataSourceSelector = ({
   setAccelerationFormData,
   selectedDatasource,
 }: AccelerationDataSourceSelectorProps) => {
-  console.log(selectedDatasource)
   const { setToast } = useToast();
   const [dataConnections, setDataConnections] = useState<Array<EuiComboBoxOptionOption<string>>>(
     []
