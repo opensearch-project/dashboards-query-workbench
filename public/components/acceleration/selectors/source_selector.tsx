@@ -29,6 +29,7 @@ export const AccelerationDataSourceSelector = ({
   setAccelerationFormData,
   selectedDatasource,
 }: AccelerationDataSourceSelectorProps) => {
+  console.log(selectedDatasource)
   const { setToast } = useToast();
   const [dataConnections, setDataConnections] = useState<Array<EuiComboBoxOptionOption<string>>>(
     []
