@@ -965,9 +965,7 @@ export class Main extends React.Component<MainProps, MainState> {
           openAccelerationFlyout={
             this.props.isAccelerationFlyoutOpen && !this.state.isAccelerationFlyoutOpened
           }
-          dataSourceMDSId={
-            this.state.selectedMDSDataConnectionId
-          }
+          dataSourceMDSId={this.state.selectedMDSDataConnectionId}
           setIsAccelerationFlyoutOpened={this.setIsAccelerationFlyoutOpened}
         />
       );
@@ -1106,9 +1104,7 @@ export class Main extends React.Component<MainProps, MainState> {
                         onSelect={this.handleDataSelect}
                         urlDataSource={this.props.urlDataSource}
                         asyncLoading={this.state.asyncLoading}
-                        dataSourceMDSId={
-                          this.state.selectedMDSDataConnectionId
-                        }
+                        dataSourceMDSId={this.state.selectedMDSDataConnectionId}
                       />
                     </EuiFlexItem>
                     <EuiFlexItem grow={false}>
@@ -1127,9 +1123,7 @@ export class Main extends React.Component<MainProps, MainState> {
                     updateSQLQueries={this.updateSQLQueries}
                     refreshTree={this.state.refreshTree}
                     dataSourceEnabled={this.props.dataSourceEnabled}
-                    dataSourceMDSId={
-                      this.state.selectedMDSDataConnectionId
-                    }
+                    dataSourceMDSId={this.state.selectedMDSDataConnectionId}
                     clusterTab={this.state.cluster}
                     language={this.state.language}
                     updatePPLQueries={this.updatePPLQueries}
