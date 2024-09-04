@@ -149,8 +149,9 @@ interface MainState {
   dataSourceOptions: DataSourceOption[];
   mdsClusterName: string;
   flintDataConnections: boolean;
-  newNavEnabled: boolean | undefined;
 }
+
+const newNavEnabled = coreRefs?.chrome?.navGroup.getNavGroupEnabled();
 
 const SUCCESS_MESSAGE = 'Success';
 const errorQueryResponse = (queryResultResponseDetail: any) => {
@@ -296,7 +297,6 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedMDSDataConnectionId: this.props.dataSourceMDSId,
       mdsClusterName: '',
       flintDataConnections: false,
-      newNavEnabled: coreRefs?.chrome?.navGroup.getNavGroupEnabled(),
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -305,7 +305,7 @@ export class Main extends React.Component<MainProps, MainState> {
   }
 
   componentDidMount() {
-    if (!coreRefs?.chrome?.navGroup.getNavGroupEnabled()) {
+    if (!newNavEnabled) {
       this.props.setBreadcrumbs([
         {
           text: 'Query Workbench',
@@ -320,7 +320,7 @@ export class Main extends React.Component<MainProps, MainState> {
   fetchFlintDataSources = () => {
     fetchDataSources(
       this.httpClient,
-      this.state.newNavEnabled
+      newNavEnabled
         ? this.props.dataSourceMDSId
         : this.state.selectedMDSDataConnectionId,
       this.props.urlDataSource,
@@ -445,7 +445,7 @@ export class Main extends React.Component<MainProps, MainState> {
       let query = {};
       if (this.props.dataSourceEnabled) {
         query = {
-          dataSourceMDSId: this.state.newNavEnabled
+          dataSourceMDSId: newNavEnabled
             ? this.props.dataSourceMDSId
             : this.state.selectedMDSDataConnectionId,
         };
@@ -583,7 +583,7 @@ export class Main extends React.Component<MainProps, MainState> {
               });
             }
           },
-          this.state.newNavEnabled
+          newNavEnabled
             ? this.props.dataSourceMDSId
             : this.state.selectedMDSDataConnectionId,
           (errorDetails: string) => {
@@ -615,7 +615,7 @@ export class Main extends React.Component<MainProps, MainState> {
       let query = {};
       if (this.props.dataSourceEnabled) {
         query = {
-          dataSourceMDSId: this.state.newNavEnabled
+          dataSourceMDSId: newNavEnabled
             ? this.props.dataSourceMDSId
             : this.state.selectedMDSDataConnectionId,
         };
@@ -671,7 +671,7 @@ export class Main extends React.Component<MainProps, MainState> {
       let query = {};
       if (this.props.dataSourceEnabled) {
         query = {
-          dataSourceMDSId: this.state.newNavEnabled
+          dataSourceMDSId: newNavEnabled
             ? this.props.dataSourceMDSId
             : this.state.selectedMDSDataConnectionId,
         };
@@ -712,7 +712,7 @@ export class Main extends React.Component<MainProps, MainState> {
       let query = {};
       if (this.props.dataSourceEnabled) {
         query = {
-          dataSourceMDSId: this.state.newNavEnabled
+          dataSourceMDSId: newNavEnabled
             ? this.props.dataSourceMDSId
             : this.state.selectedMDSDataConnectionId,
         };
@@ -754,7 +754,7 @@ export class Main extends React.Component<MainProps, MainState> {
       let query = {};
       if (this.props.dataSourceEnabled) {
         query = {
-          dataSourceMDSId: this.state.newNavEnabled
+          dataSourceMDSId: newNavEnabled
             ? this.props.dataSourceMDSId
             : this.state.selectedMDSDataConnectionId,
         };
@@ -796,7 +796,7 @@ export class Main extends React.Component<MainProps, MainState> {
       let query = {};
       if (this.props.dataSourceEnabled) {
         query = {
-          dataSourceMDSId: this.state.newNavEnabled
+          dataSourceMDSId: newNavEnabled
             ? this.props.dataSourceMDSId
             : this.state.selectedMDSDataConnectionId,
         };
@@ -983,7 +983,7 @@ export class Main extends React.Component<MainProps, MainState> {
             this.props.isAccelerationFlyoutOpen && !this.state.isAccelerationFlyoutOpened
           }
           dataSourceMDSId={
-            this.state.newNavEnabled
+            newNavEnabled
               ? this.props.dataSourceMDSId
               : this.state.selectedMDSDataConnectionId
           }
@@ -1126,7 +1126,7 @@ export class Main extends React.Component<MainProps, MainState> {
                         urlDataSource={this.props.urlDataSource}
                         asyncLoading={this.state.asyncLoading}
                         dataSourceMDSId={
-                          coreRefs?.chrome?.navGroup.getNavGroupEnabled()
+                          newNavEnabled
                             ? this.props.dataSourceMDSId
                             : this.state.selectedMDSDataConnectionId
                         }
@@ -1149,7 +1149,7 @@ export class Main extends React.Component<MainProps, MainState> {
                     refreshTree={this.state.refreshTree}
                     dataSourceEnabled={this.props.dataSourceEnabled}
                     dataSourceMDSId={
-                      coreRefs?.chrome?.navGroup.getNavGroupEnabled()
+                      newNavEnabled
                         ? this.props.dataSourceMDSId
                         : this.state.selectedMDSDataConnectionId
                     }
