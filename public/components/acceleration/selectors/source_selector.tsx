@@ -3,7 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EuiComboBoxOptionOption, EuiCompressedComboBox, EuiCompressedFormRow, EuiSpacer, EuiText } from '@elastic/eui';
+import {
+  EuiComboBoxOptionOption,
+  EuiCompressedComboBox,
+  EuiCompressedFormRow,
+  EuiSpacer,
+  EuiText,
+} from '@elastic/eui';
 import producer from 'immer';
 import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
