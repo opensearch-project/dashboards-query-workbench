@@ -291,7 +291,7 @@ export class Main extends React.Component<MainProps, MainState> {
       refreshTree: false,
       isAccelerationFlyoutOpened: false,
       isCallOutVisible: false,
-      cluster: props.urlDataSource?'Data source Connections':'Indexes',
+      cluster: props.urlDataSource ? 'Data source Connections' : 'Indexes',
       dataSourceOptions: [],
       selectedMDSDataConnectionId: this.props.dataSourceMDSId,
       mdsClusterName: '',
