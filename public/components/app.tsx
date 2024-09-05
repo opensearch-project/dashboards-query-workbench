@@ -108,7 +108,7 @@ export const WorkbenchApp = ({
                     />
                   )}
                 />
-                {basePath && (
+                {isNavGroupEnabled && (
                   <Route
                     exact
                     path="/"
