@@ -1,0 +1,15 @@
+## Version 2.17.0.0 Release Notes
+
+Compatible with OpenSearch and OpenSearch Dashboards 2.17.0
+
+### Enhancement
+
+- Use smaller and compressed varients of buttons and form components ([#370](https://github.com/opensearch-project/dashboards-query-workbench/pull/370))
+
+### Maintenance
+
+- Increment version to 2.17.0.0 ([#376](https://github.com/opensearch-project/dashboards-query-workbench/pull/370))
+
+### Bug Fixes
+
+- Bug fix for missing id in old nav ([#382](https://github.com/opensearch-project/dashboards-query-workbench/pull/382))
