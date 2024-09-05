@@ -8,7 +8,8 @@ Compatible with OpenSearch and OpenSearch Dashboards 2.17.0
 
 ### Maintenance
 
-- Increment version to 2.17.0.0 ([#376](https://github.com/opensearch-project/dashboards-query-workbench/pull/370))
+- Increment version to 2.17.0.0 ([#376](https://github.com/opensearch-project/dashboards-query-workbench/pull/376))
+- Add release notes for 2.17.0 ([#388](https://github.com/opensearch-project/dashboards-query-workbench/pull/388))
 
 ### Bug Fixes
 
