@@ -53,7 +53,7 @@ export const WorkbenchApp = ({
               <Switch>
                 <Route
                   exact
-                  path={isNavGroupEnabled ? basePath : `/${basePath}`}
+                  path={isNavGroupEnabled ? [`${basePath}`, `/`] : `/${basePath}`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -108,27 +108,6 @@ export const WorkbenchApp = ({
                     />
                   )}
                 />
-                {isNavGroupEnabled && (
-                  <Route
-                    exact
-                    path="/"
-                    render={(props) => (
-                      <Main
-                        httpClient={http}
-                        {...props}
-                        setBreadcrumbs={chrome.setBreadcrumbs}
-                        isAccelerationFlyoutOpen={false}
-                        urlDataSource=""
-                        notifications={notifications}
-                        savedObjects={savedObjects}
-                        dataSourceEnabled={dataSourceEnabled}
-                        dataSourceManagement={dataSourceManagement}
-                        dataSourceMDSId={dataSourceId}
-                        setActionMenu={setActionMenu}
-                      />
-                    )}
-                  />
-                )}
               </Switch>
             </EuiPageBody>
           </EuiPage>
