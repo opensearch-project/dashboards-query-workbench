@@ -42,7 +42,7 @@ export const WorkbenchApp = ({
   setActionMenu,
 }: WorkbenchAppDeps) => {
   const isNavGroupEnabled = coreRefs?.chrome?.navGroup.getNavGroupEnabled();
-  const basePath = isNavGroupEnabled ? 'opensearch-query-workbench' : '';
+  const basePath = isNavGroupEnabled ? '/opensearch-query-workbench' : '';
 
   return (
     <HashRouter>
@@ -53,7 +53,7 @@ export const WorkbenchApp = ({
               <Switch>
                 <Route
                   exact
-                  path={`/${basePath}`}
+                  path={isNavGroupEnabled ? basePath : `/${basePath}`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -72,7 +72,7 @@ export const WorkbenchApp = ({
                 />
                 <Route
                   exact
-                  path={`/${basePath}/:dataSource`}
+                  path={`${basePath}/:dataSource`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -91,7 +91,7 @@ export const WorkbenchApp = ({
                 />
                 <Route
                   exact
-                  path={`/${basePath}/accelerate/:dataSource`}
+                  path={`${basePath}/accelerate/:dataSource`}
                   render={(props) => (
                     <Main
                       httpClient={http}
@@ -108,6 +108,27 @@ export const WorkbenchApp = ({
                     />
                   )}
                 />
+                {basePath && (
+                  <Route
+                    exact
+                    path="/"
+                    render={(props) => (
+                      <Main
+                        httpClient={http}
+                        {...props}
+                        setBreadcrumbs={chrome.setBreadcrumbs}
+                        isAccelerationFlyoutOpen={false}
+                        urlDataSource=""
+                        notifications={notifications}
+                        savedObjects={savedObjects}
+                        dataSourceEnabled={dataSourceEnabled}
+                        dataSourceManagement={dataSourceManagement}
+                        dataSourceMDSId={dataSourceId}
+                        setActionMenu={setActionMenu}
+                      />
+                    )}
+                  />
+                )}
               </Switch>
             </EuiPageBody>
           </EuiPage>
