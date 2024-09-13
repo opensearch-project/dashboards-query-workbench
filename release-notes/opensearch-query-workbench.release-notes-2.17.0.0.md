@@ -14,3 +14,4 @@ Compatible with OpenSearch and OpenSearch Dashboards 2.17.0
 ### Bug Fixes
 
 - Bug fix for missing id in old nav ([#382](https://github.com/opensearch-project/dashboards-query-workbench/pull/382))
+- [CVE] Bump the lint-staged from 13.1.0 to 15.2.10 ([#394](https://github.com/opensearch-project/dashboards-query-workbench/pull/394))
