@@ -10,6 +10,7 @@ Compatible with OpenSearch and OpenSearch Dashboards 2.17.0
 
 - Increment version to 2.17.0.0 ([#376](https://github.com/opensearch-project/dashboards-query-workbench/pull/376))
 - Add release notes for 2.17.0 ([#388](https://github.com/opensearch-project/dashboards-query-workbench/pull/388))
+- [CVE] Bump the lint-staged from 13.1.0 to 15.2.10 ([#396](https://github.com/opensearch-project/dashboards-query-workbench/pull/396))
 
 ### Bug Fixes
 
