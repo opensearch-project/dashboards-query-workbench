@@ -37,7 +37,7 @@
     "husky": "^8.0.3",
     "jest-dom": "^4.0.0",
     "jest-raw-loader": "^1.0.1",
-    "lint-staged": "^13.1.0",
+    "lint-staged": "^15.2.10",
     "mutationobserver-shim": "^0.3.3",
     "ts-jest": "^29.1.0"
   },
