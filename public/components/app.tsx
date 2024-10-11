@@ -44,6 +44,24 @@ export const WorkbenchApp = ({
   const isNavGroupEnabled = coreRefs?.chrome?.navGroup.getNavGroupEnabled();
   const basePath = isNavGroupEnabled ? '/opensearch-query-workbench' : '';
 
+  const renderMain = (props: any, isAccelerationFlyoutOpen: boolean, urlDataSource: string) => {
+    return (
+      <Main
+        httpClient={http}
+        {...props}
+        setBreadcrumbs={chrome.setBreadcrumbs}
+        isAccelerationFlyoutOpen={isAccelerationFlyoutOpen}
+        urlDataSource={urlDataSource}
+        notifications={notifications}
+        savedObjects={savedObjects}
+        dataSourceEnabled={dataSourceEnabled}
+        dataSourceManagement={dataSourceManagement}
+        dataSourceMDSId={dataSourceId}
+        setActionMenu={setActionMenu}
+      />
+    );
+  };
+
   return (
     <HashRouter>
       <I18nProvider>
@@ -53,60 +71,17 @@ export const WorkbenchApp = ({
               <Switch>
                 <Route
                   exact
-                  path={isNavGroupEnabled ? [`${basePath}`, `/`] : `/${basePath}`}
-                  render={(props) => (
-                    <Main
-                      httpClient={http}
-                      {...props}
-                      setBreadcrumbs={chrome.setBreadcrumbs}
-                      isAccelerationFlyoutOpen={false}
-                      urlDataSource=""
-                      notifications={notifications}
-                      savedObjects={savedObjects}
-                      dataSourceEnabled={dataSourceEnabled}
-                      dataSourceManagement={dataSourceManagement}
-                      dataSourceMDSId={dataSourceId}
-                      setActionMenu={setActionMenu}
-                    />
-                  )}
-                />
-                <Route
-                  exact
                   path={`${basePath}/:dataSource`}
-                  render={(props) => (
-                    <Main
-                      httpClient={http}
-                      {...props}
-                      setBreadcrumbs={chrome.setBreadcrumbs}
-                      isAccelerationFlyoutOpen={false}
-                      urlDataSource={props.match.params.dataSource}
-                      notifications={notifications}
-                      savedObjects={savedObjects}
-                      dataSourceEnabled={dataSourceEnabled}
-                      dataSourceManagement={dataSourceManagement}
-                      dataSourceMDSId={dataSourceId}
-                      setActionMenu={setActionMenu}
-                    />
-                  )}
+                  render={(props) => renderMain(props, false, props.match.params.dataSource)}
                 />
                 <Route
                   exact
                   path={`${basePath}/accelerate/:dataSource`}
-                  render={(props) => (
-                    <Main
-                      httpClient={http}
-                      {...props}
-                      setBreadcrumbs={chrome.setBreadcrumbs}
-                      isAccelerationFlyoutOpen={true}
-                      urlDataSource={props.match.params.dataSource}
-                      notifications={notifications}
-                      savedObjects={savedObjects}
-                      dataSourceEnabled={dataSourceEnabled}
-                      dataSourceManagement={dataSourceManagement}
-                      dataSourceMDSId={dataSourceId}
-                      setActionMenu={setActionMenu}
-                    />
-                  )}
+                  render={(props) => renderMain(props, true, props.match.params.dataSource)}
+                />
+                <Route
+                  path={isNavGroupEnabled ? [`${basePath}`, `/`] : `/${basePath}`}
+                  render={(props) => renderMain(props, false, '')}
                 />
               </Switch>
             </EuiPageBody>
