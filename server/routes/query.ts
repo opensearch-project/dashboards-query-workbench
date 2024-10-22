@@ -37,9 +37,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLQuery(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -81,9 +88,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLCsv(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -103,9 +117,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describePPLCsv(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -125,9 +146,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLJson(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -147,9 +175,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describePPLJson(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -169,9 +204,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLText(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -191,9 +233,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describePPLText(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -213,9 +262,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSQLAsyncQuery(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -240,9 +296,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
         request.params.id,
         request.params.dataSourceMDSId
       );
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 
@@ -288,9 +351,16 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describeSyncQueryDataSources(context, request);
-      return response.ok({
-        body: retVal,
-      });
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
     }
   );
 }
