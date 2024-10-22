@@ -52,7 +52,8 @@ export default class QueryService {
         data: {
           ok: false,
           resp: err.message,
-          body: err.body
+          body: err.body,
+          statusCode: err.statusCode || 400
         },
       };
     }
@@ -88,7 +89,8 @@ export default class QueryService {
         data: {
           ok: false,
           resp: err.message,
-          body: err.body
+          body: err.body,
+          statusCode: err.statusCode || 400
         },
       };
     }
@@ -121,7 +123,8 @@ export default class QueryService {
         data: {
           ok: false,
           resp: err.message,
-          body: err.body
+          body: err.body,
+          statusCode: err.statusCode || 400
         },
       };
     }
