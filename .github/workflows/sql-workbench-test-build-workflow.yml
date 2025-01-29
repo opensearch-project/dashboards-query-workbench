@@ -58,7 +58,7 @@ jobs:
                                whoami && yarn build && mv ./build/*.zip ./build/dashboards-query-workbench.zip"
       - name: Upload Artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dashboards-query-workbench-ubuntu-latest
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench/build
@@ -113,7 +113,7 @@ jobs:
           mv ./build/*.zip ./build/dashboards-query-workbench.zip
       - name: Upload Artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dashboards-query-workbench-${{ matrix.os }}
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench/build
