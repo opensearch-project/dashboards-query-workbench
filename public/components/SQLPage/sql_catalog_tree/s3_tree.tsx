@@ -162,6 +162,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
         });
         startLoadingTables({dataSourceName: dataSource,databaseName:database.name, dataSourceMDSId: dataSourceMDSId});
         startLoadingAccelerations({dataSourceName: dataSource, dataSourceMDSId: dataSourceMDSId});
+        updateDatabaseState(database.name, true);
       }
     } else {
       setToast('Can only load one database at a time', 'warning');
@@ -173,14 +174,14 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
     tableName: string | undefined,
     accelerationName: string
   ) => {
-    const accelerationsData = getAccelerationsFromCache(dataSource);
+    const accelerationsData = getAccelerationsFromCache(dataSource, dataSourceMDSId);
     const accelerationObject = findIndexObject(
       accelerationsData,
       databaseName,
       tableName,
       accelerationName
     );
-    renderAccelerationDetailsFlyout(accelerationObject, dataSource);
+    renderAccelerationDetailsFlyout({acceleration: accelerationObject, dataSourceName: dataSource, handleRefresh: refreshDatabasesinTree, dataSourceMDSId: dataSourceMDSId});
   };
 
   const treeDataDatabases = treeData.map((database, index) => ({
@@ -243,7 +244,6 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
-      console.log(dataSourceMDSId, 'after success')
       const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceMDSId);
       if (dsCache.status === CachedDataSourceStatus.Updated) {
         const databases = dsCache.databases.map((db) => db.name);
