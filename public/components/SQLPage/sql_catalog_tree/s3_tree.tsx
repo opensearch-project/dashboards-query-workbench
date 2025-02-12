@@ -147,7 +147,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
     if (currentSelectedDatabase === '') {
       setCurrentSelectedDatabase(database.name);
       updateDatabaseState(database.name, true);
-      if (!isEitherObjectCacheEmpty(dataSource, database.name)) {
+      if (!isEitherObjectCacheEmpty(dataSource, database.name, dataSourceMDSId)) {
         const tablesData = getTablesFromCache(dataSource, database.name, dataSourceMDSId);
         const accelerationsData = getAccelerationsFromCache(dataSource, dataSourceMDSId);
 

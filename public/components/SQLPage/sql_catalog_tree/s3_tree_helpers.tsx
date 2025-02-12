@@ -130,11 +130,11 @@ export const loadTreeItem = (elements: string[], type: TreeItemType, values?: an
   });
 };
 
-export const isEitherObjectCacheEmpty = (dataSourceName: string, databaseName: string) => {
+export const isEitherObjectCacheEmpty = (dataSourceName: string, databaseName: string, dataSourceMDSId?: string) => {
   try {
-    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName);
+    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName, dataSourceMDSId);
     const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
-      dataSourceName
+      dataSourceName, dataSourceMDSId
     );
     return (
       dbCache.status === CachedDataSourceStatus.Empty ||
