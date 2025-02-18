@@ -95,7 +95,7 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     coreRefs.overlays = core.overlays;
     coreRefs.dataSource = startDeps.dataSource;
 
-    registerObservabilityDependencies(startDeps.observabilityDashboards);
+    registerObservabilityDependencies(startDeps.cacheDashboards);
     return {};
   }
 

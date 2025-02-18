@@ -6,7 +6,7 @@
 import { createGetterSetter } from '../../../../src/plugins/opensearch_dashboards_utils/public';
 import { RenderAccelerationDetailsFlyoutParams } from '../../../dashboards-observability/common/types/data_connections';
 import { catalogCacheRefs } from '../framework/catalog_cache_refs';
-import { ObservabilityStart, RenderAccelerationFlyoutParams } from '../types';
+import { CacheStart, RenderAccelerationFlyoutParams } from '../types';
 
 export const [
   getRenderAccelerationDetailsFlyout,
@@ -28,18 +28,20 @@ export const [
 export const [
   getRenderCreateAccelerationFlyout,
   setRenderCreateAccelerationFlyout,
-] = createGetterSetter<({ dataSource, dataSourceMDSId }: RenderAccelerationFlyoutParams) => void>(
+] = createGetterSetter<({ dataSourceName, dataSourceMDSId }: RenderAccelerationFlyoutParams) => void>(
   'renderCreateAccelerationFlyout'
 );
 
-export const registerObservabilityDependencies = (start?: ObservabilityStart) => {
+export const registerObservabilityDependencies = (start?: CacheStart) => {
   if (!start) {
+    console.log('here not start')
     setRenderAccelerationDetailsFlyout(() => {});
     setRenderAssociatedObjectsDetailsFlyout(() => {});
     setRenderCreateAccelerationFlyout(() => {});
     return;
   }
-
+  console.log('here')
+  console.log(catalogCacheRefs)
   setRenderAccelerationDetailsFlyout(start.renderAccelerationDetailsFlyout);
   setRenderAssociatedObjectsDetailsFlyout(start.renderAssociatedObjectsDetailsFlyout);
   setRenderCreateAccelerationFlyout(start.renderCreateAccelerationFlyout);

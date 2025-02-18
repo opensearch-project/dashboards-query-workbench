@@ -6,7 +6,7 @@
 import {
   CatalogCacheManagerType,
   LoadCachehookOutputType,
-} from '../../../dashboards-observability/public/types';
+} from '../../../../src/plugins/data_source_management/public/types';
 
 class CatalogCacheRefs {
   private static _instance: CatalogCacheRefs;
