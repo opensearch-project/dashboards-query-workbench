@@ -16,7 +16,7 @@ export interface WorkbenchPluginStart {}
 export interface AppPluginStartDependencies {
   navigation: NavigationPublicPluginStart;
   dataSource: DataSourcePluginStart;
-  observabilityDashboards?: CacheStart;
+  cacheDashboards?: CacheStart;
 }
 
 export type { CacheStart } from '../../../src/plugins/data_source_management/public/types';
