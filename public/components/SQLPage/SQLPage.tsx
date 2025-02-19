@@ -204,7 +204,10 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     grow={false}
                     onClick={() => this.props.updateSQLQueries(SAMPLE_SQL_QUERY)}
                   >
-                    <EuiSmallButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                    <EuiSmallButton
+                      className="sql-editor-button"
+                      isDisabled={this.props.asyncLoading}
+                    >
                       Sample Query
                     </EuiSmallButton>
                   </EuiFlexItem>
