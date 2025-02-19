@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { HttpStart, NotificationsStart } from '../../../../src/core/public';
 import {
   CatalogCacheManagerType,
   LoadCachehookOutputType,
@@ -12,10 +13,22 @@ class CatalogCacheRefs {
   private static _instance: CatalogCacheRefs;
 
   public CatalogCacheManager?: CatalogCacheManagerType;
-  public useLoadDatabasesToCache?: () => LoadCachehookOutputType;
-  public useLoadTablesToCache?: () => LoadCachehookOutputType;
-  public useLoadTableColumnsToCache?: () => LoadCachehookOutputType;
-  public useLoadAccelerationsToCache?: () => LoadCachehookOutputType;
+  public useLoadDatabasesToCache?: (
+    http: HttpStart,
+    notifications: NotificationsStart
+  ) => LoadCachehookOutputType;
+  public useLoadTablesToCache?: (
+    http: HttpStart,
+    notifications: NotificationsStart
+  ) => LoadCachehookOutputType;
+  public useLoadTableColumnsToCache?: (
+    http: HttpStart,
+    notifications: NotificationsStart
+  ) => LoadCachehookOutputType;
+  public useLoadAccelerationsToCache?: (
+    http: HttpStart,
+    notifications: NotificationsStart
+  ) => LoadCachehookOutputType;
 
   public static get Instance() {
     return this._instance || (this._instance = new this());

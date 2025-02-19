@@ -94,8 +94,18 @@ export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPl
     coreRefs.application = core.application;
     coreRefs.overlays = core.overlays;
     coreRefs.dataSource = startDeps.dataSource;
-
-    registerObservabilityDependencies(startDeps.cacheDashboards);
+    const dataSourceManagementStart = startDeps.dataSourceManagement;
+    const { renderAccelerationDetailsFlyout, renderAssociatedObjectsDetailsFlyout, renderCreateAccelerationFlyout, CatalogCacheManagerInstance, useLoadAccelerationsToCacheHook, useLoadDatabasesToCacheHook, useLoadTableColumnsToCacheHook, useLoadTablesToCacheHook } = dataSourceManagementStart;
+    registerObservabilityDependencies({
+      renderAccelerationDetailsFlyout,
+      renderAssociatedObjectsDetailsFlyout,
+      renderCreateAccelerationFlyout,
+      CatalogCacheManagerInstance,
+      useLoadAccelerationsToCacheHook,
+      useLoadDatabasesToCacheHook,
+      useLoadTableColumnsToCacheHook,
+      useLoadTablesToCacheHook,
+    });
     return {};
   }
 

@@ -34,14 +34,11 @@ export const [
 
 export const registerObservabilityDependencies = (start?: CacheStart) => {
   if (!start) {
-    console.log('here not start')
     setRenderAccelerationDetailsFlyout(() => {});
     setRenderAssociatedObjectsDetailsFlyout(() => {});
     setRenderCreateAccelerationFlyout(() => {});
     return;
   }
-  console.log('here')
-  console.log(catalogCacheRefs)
   setRenderAccelerationDetailsFlyout(start.renderAccelerationDetailsFlyout);
   setRenderAssociatedObjectsDetailsFlyout(start.renderAssociatedObjectsDetailsFlyout);
   setRenderCreateAccelerationFlyout(start.renderCreateAccelerationFlyout);

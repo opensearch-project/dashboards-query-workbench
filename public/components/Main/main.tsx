@@ -1127,6 +1127,8 @@ export class Main extends React.Component<MainProps, MainState> {
                     clusterTab={this.state.cluster}
                     language={this.state.language}
                     updatePPLQueries={this.updatePPLQueries}
+                    http={this.httpClient}
+                    notifications={this.props.notifications}
                   />
                   <EuiSpacer />
                 </EuiFlexItem>

@@ -38,6 +38,7 @@ import {
   loadTreeItem,
   pageLanguage,
 } from './s3_tree_helpers';
+import { CoreStart } from '../../../../../../src/core/public';
 
 interface S3TreeProps {
   dataSource: string;
@@ -47,6 +48,8 @@ interface S3TreeProps {
   dataSourceMDSId: string;
   language: string;
   updatePPLQueries: (query: string) => void;
+  notifications: CoreStart['notifications'];
+  http: CoreStart['http'];
 }
 
 export const S3Tree = ({
@@ -56,6 +59,8 @@ export const S3Tree = ({
   dataSourceMDSId,
   language,
   updatePPLQueries,
+  http,
+  notifications
 }: S3TreeProps) => {
   const { setToast } = useToast();
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -74,17 +79,17 @@ export const S3Tree = ({
     loadStatus: loadDatabasesStatus,
     startLoading: startDatabasesLoading,
     stopLoading: stopDatabasesLoading,
-  } = catalogCacheRefs.useLoadDatabasesToCache();
+  } = catalogCacheRefs.useLoadDatabasesToCache(http, notifications);
   const {
     loadStatus: loadTablesStatus,
     startLoading: startLoadingTables,
     stopLoading: stopLoadingTables,
-  } = catalogCacheRefs.useLoadTablesToCache();
+  } = catalogCacheRefs.useLoadTablesToCache(http, notifications);;
   const {
     loadStatus: loadAccelerationsStatus,
     startLoading: startLoadingAccelerations,
     stopLoading: stopLoadingAccelerations,
-  } = catalogCacheRefs.useLoadAccelerationsToCache();
+  } = catalogCacheRefs.useLoadAccelerationsToCache(http, notifications);;
 
   const refreshDatabasesinTree = () => {
     const currentTree = [...treeData];

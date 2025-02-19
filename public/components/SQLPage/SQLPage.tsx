@@ -69,7 +69,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
 
   setAccelerationFlyout = () => {
     this.renderCreateAccelerationFlyout({
-      dataSource: this.props.selectedDatasource[0].label,
+      dataSourceName: this.props.selectedDatasource[0].label,
       dataSourceMDSId: this.props.dataSourceMDSId,
     });
   };
@@ -218,7 +218,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     className="sql-accelerate-button"
                     onClick={() =>
                       this.renderCreateAccelerationFlyout({
-                        dataSource: this.props.selectedDatasource[0].label,
+                        dataSourceName: this.props.selectedDatasource[0].label,
                         dataSourceMDSId: this.props.dataSourceMDSId,
                       })
                     }
