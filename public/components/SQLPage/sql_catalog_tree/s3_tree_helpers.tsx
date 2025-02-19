@@ -37,11 +37,9 @@ export const handleQuery = (
   updateSQLQueries(`select * from \`${dataSource}\`.\`${database}\`.\`${tableName}\` limit 10`);
 };
 
-export const pageLanguage = (
-  language: string
-) => {
-  pageStateLanguage = language
-}
+export const pageLanguage = (language: string) => {
+  pageStateLanguage = language;
+};
 
 export const handlePPLQuery = (
   e: React.MouseEvent<SVGElement, MouseEvent>,
@@ -79,7 +77,7 @@ export const createLabel = (
                     } else {
                       handlePPLQuery(e, dataSource, database, node.name, updatePPLQueries);
                     }
-                  }}                
+                  }}
                 />
               )}
             </EuiText>
@@ -130,11 +128,20 @@ export const loadTreeItem = (elements: string[], type: TreeItemType, values?: an
   });
 };
 
-export const isEitherObjectCacheEmpty = (dataSourceName: string, databaseName: string, dataSourceMDSId?: string) => {
+export const isEitherObjectCacheEmpty = (
+  dataSourceName: string,
+  databaseName: string,
+  dataSourceMDSId?: string
+) => {
   try {
-    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName, dataSourceMDSId);
+    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(
+      dataSourceName,
+      databaseName,
+      dataSourceMDSId
+    );
     const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
-      dataSourceName, dataSourceMDSId
+      dataSourceName,
+      dataSourceMDSId
     );
     return (
       dbCache.status === CachedDataSourceStatus.Empty ||
@@ -148,10 +155,18 @@ export const isEitherObjectCacheEmpty = (dataSourceName: string, databaseName: s
   }
 };
 
-export const getTablesFromCache = (dataSourceName: string, databaseName: string, dataSourceMDSId?: string) => {
+export const getTablesFromCache = (
+  dataSourceName: string,
+  databaseName: string,
+  dataSourceMDSId?: string
+) => {
   const { setToast } = useToast();
   try {
-    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(dataSourceName, databaseName, dataSourceMDSId);
+    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(
+      dataSourceName,
+      databaseName,
+      dataSourceMDSId
+    );
     if (dbCache.status === CachedDataSourceStatus.Updated) {
       const tables = dbCache.tables.map((tb) => tb.name);
       return tables;
