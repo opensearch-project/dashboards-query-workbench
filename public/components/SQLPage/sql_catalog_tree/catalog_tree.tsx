@@ -7,6 +7,7 @@ import { EuiComboBoxOptionOption, EuiEmptyPrompt, EuiFlexItem, EuiIcon } from '@
 import React from 'react';
 import { OSTree } from './os_tree';
 import { S3Tree } from './s3_tree';
+import { CoreStart } from '../../../../../../src/core/public';
 
 interface CatalogTreeProps {
   selectedItems: EuiComboBoxOptionOption[];
@@ -17,12 +18,27 @@ interface CatalogTreeProps {
   clusterTab: string;
   language: string;
   updatePPLQueries: (query: string) => void;
+  notifications: CoreStart['notifications'];
+  http: CoreStart['http'];
 }
 
-export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, dataSourceMDSId, clusterTab, language, updatePPLQueries}: CatalogTreeProps) => {
+export const CatalogTree = ({
+  selectedItems,
+  updateSQLQueries,
+  refreshTree,
+  dataSourceEnabled,
+  dataSourceMDSId,
+  clusterTab,
+  language,
+  updatePPLQueries,
+  http,
+  notifications,
+}: CatalogTreeProps) => {
   return (
     <>
-      {selectedItems !== undefined && selectedItems[0].label === 'OpenSearch' && clusterTab !== 'Data source Connections'? (
+      {selectedItems !== undefined &&
+      selectedItems[0].label === 'OpenSearch' &&
+      clusterTab !== 'Data source Connections' ? (
         <OSTree
           selectedItems={selectedItems}
           updateSQLQueries={updateSQLQueries}
@@ -30,7 +46,7 @@ export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, data
           dataSourceEnabled={dataSourceEnabled}
           dataSourceMDSId={dataSourceMDSId}
         />
-      )  : (selectedItems[0].label !== 'OpenSearch' && clusterTab === 'Data source Connections')? (
+      ) : selectedItems[0].label !== 'OpenSearch' && clusterTab === 'Data source Connections' ? (
         <S3Tree
           dataSource={selectedItems[0].label}
           updateSQLQueries={updateSQLQueries}
@@ -39,8 +55,10 @@ export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, data
           dataSourceMDSId={dataSourceMDSId}
           language={language}
           updatePPLQueries={updatePPLQueries}
+          http={http}
+          notifications={notifications}
         />
-      ):(
+      ) : (
         <EuiFlexItem grow={false}>
           <EuiEmptyPrompt
             icon={<EuiIcon type="database" size="m" />}

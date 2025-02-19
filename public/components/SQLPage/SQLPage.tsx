@@ -69,7 +69,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
 
   setAccelerationFlyout = () => {
     this.renderCreateAccelerationFlyout({
-      dataSource: this.props.selectedDatasource[0].label,
+      dataSourceName: this.props.selectedDatasource[0].label,
       dataSourceMDSId: this.props.dataSourceMDSId,
     });
   };
@@ -204,7 +204,10 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     grow={false}
                     onClick={() => this.props.updateSQLQueries(SAMPLE_SQL_QUERY)}
                   >
-                    <EuiSmallButton className="sql-editor-button" isDisabled={this.props.asyncLoading}>
+                    <EuiSmallButton
+                      className="sql-editor-button"
+                      isDisabled={this.props.asyncLoading}
+                    >
                       Sample Query
                     </EuiSmallButton>
                   </EuiFlexItem>
@@ -218,7 +221,7 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
                     className="sql-accelerate-button"
                     onClick={() =>
                       this.renderCreateAccelerationFlyout({
-                        dataSource: this.props.selectedDatasource[0].label,
+                        dataSourceName: this.props.selectedDatasource[0].label,
                         dataSourceMDSId: this.props.dataSourceMDSId,
                       })
                     }
