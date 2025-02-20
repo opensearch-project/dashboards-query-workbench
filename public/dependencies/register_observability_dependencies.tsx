@@ -4,12 +4,21 @@
  */
 
 import { createGetterSetter } from '../../../../src/plugins/opensearch_dashboards_utils/public';
+import { RenderAccelerationDetailsFlyoutParams } from '../../../dashboards-observability/common/types/data_connections';
 import { catalogCacheRefs } from '../framework/catalog_cache_refs';
 import { ObservabilityStart, RenderAccelerationFlyoutParams } from '../types';
+
 export const [
   getRenderAccelerationDetailsFlyout,
   setRenderAccelerationDetailsFlyout,
-] = createGetterSetter('renderAccelerationDetailsFlyout');
+] = createGetterSetter<
+  ({
+    acceleration,
+    dataSourceName,
+    handleRefresh,
+    dataSourceMDSId,
+  }: RenderAccelerationDetailsFlyoutParams) => void
+>('renderAccelerationDetailsFlyout');
 
 export const [
   getRenderAssociatedObjectsDetailsFlyout,
