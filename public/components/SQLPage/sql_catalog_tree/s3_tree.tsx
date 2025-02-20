@@ -270,14 +270,10 @@ export const S3Tree = ({
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
-<<<<<<< HEAD
-      const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceMDSId);
-=======
       const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(
         dataSource,
         dataSourceMDSId
       );
->>>>>>> eebe626 ([Bug]Side tree flyout fix in async operations (#448))
       if (dsCache.status === CachedDataSourceStatus.Updated) {
         const databases = dsCache.databases.map((db) => db.name);
         setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
