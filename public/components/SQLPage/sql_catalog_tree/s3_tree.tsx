@@ -10,7 +10,7 @@ import {
   EuiLoadingSpinner,
   EuiSpacer,
   EuiText,
-  EuiTreeView
+  EuiTreeView,
 } from '@elastic/eui';
 import produce from 'immer';
 import React, { useEffect, useState } from 'react';
@@ -36,7 +36,7 @@ import {
   iconCreation,
   isEitherObjectCacheEmpty,
   loadTreeItem,
-  pageLanguage
+  pageLanguage,
 } from './s3_tree_helpers';
 
 interface S3TreeProps {
@@ -49,7 +49,14 @@ interface S3TreeProps {
   updatePPLQueries: (query: string) => void;
 }
 
-export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMDSId, language, updatePPLQueries}: S3TreeProps) => {
+export const S3Tree = ({
+  dataSource,
+  updateSQLQueries,
+  refreshTree,
+  dataSourceMDSId,
+  language,
+  updatePPLQueries,
+}: S3TreeProps) => {
   const { setToast } = useToast();
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [treeData, setTreeData] = useState<TreeItem[]>([]);
@@ -147,7 +154,7 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
     if (currentSelectedDatabase === '') {
       setCurrentSelectedDatabase(database.name);
       updateDatabaseState(database.name, true);
-      if (!isEitherObjectCacheEmpty(dataSource, database.name)) {
+      if (!isEitherObjectCacheEmpty(dataSource, database.name, dataSourceMDSId)) {
         const tablesData = getTablesFromCache(dataSource, database.name, dataSourceMDSId);
         const accelerationsData = getAccelerationsFromCache(dataSource, dataSourceMDSId);
 
@@ -160,8 +167,13 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
           tableStatus: true,
           accelerationsStatus: true,
         });
-        startLoadingTables({dataSourceName: dataSource,databaseName:database.name, dataSourceMDSId: dataSourceMDSId});
-        startLoadingAccelerations({dataSourceName: dataSource, dataSourceMDSId: dataSourceMDSId});
+        startLoadingTables({
+          dataSourceName: dataSource,
+          databaseName: database.name,
+          dataSourceMDSId,
+        });
+        startLoadingAccelerations({ dataSourceName: dataSource, dataSourceMDSId });
+        updateDatabaseState(database.name, true);
       }
     } else {
       setToast('Can only load one database at a time', 'warning');
@@ -173,18 +185,30 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
     tableName: string | undefined,
     accelerationName: string
   ) => {
-    const accelerationsData = getAccelerationsFromCache(dataSource);
+    const accelerationsData = getAccelerationsFromCache(dataSource, dataSourceMDSId);
     const accelerationObject = findIndexObject(
       accelerationsData,
       databaseName,
       tableName,
       accelerationName
     );
-    renderAccelerationDetailsFlyout(accelerationObject, dataSource);
+    renderAccelerationDetailsFlyout({
+      acceleration: accelerationObject,
+      dataSourceName: dataSource,
+      handleRefresh: refreshDatabasesinTree,
+      dataSourceMDSId,
+    });
   };
 
   const treeDataDatabases = treeData.map((database, index) => ({
-    label: createLabel(database, dataSource, database.name, index, updateSQLQueries, updatePPLQueries),
+    label: createLabel(
+      database,
+      dataSource,
+      database.name,
+      index,
+      updateSQLQueries,
+      updatePPLQueries
+    ),
     icon: iconCreation(database),
     id: 'element_' + index,
     callback: () => {
@@ -223,18 +247,21 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
 
   const onRefreshTree = () => {
     setIsTreeLoading({ status: true, message: '' });
-    startDatabasesLoading({dataSourceName: dataSource, dataSourceMDSId: dataSourceMDSId});
+    startDatabasesLoading({ dataSourceName: dataSource, dataSourceMDSId });
   };
 
   const onLoadS3Tree = () => {
     setIsTreeLoading({ status: true, message: '' });
-    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceMDSId);
+    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(
+      dataSource,
+      dataSourceMDSId
+    );
     if (dsCache.status === CachedDataSourceStatus.Updated) {
       const databases = dsCache.databases.map((db) => db.name);
       setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
       setIsTreeLoading({ status: false, message: '' });
     } else if (dsCache.status === CachedDataSourceStatus.Empty) {
-      startDatabasesLoading({dataSourceName: dataSource, dataSourceMDSId: dataSourceMDSId});
+      startDatabasesLoading({ dataSourceName: dataSource, dataSourceMDSId });
     }
   };
 
@@ -243,8 +270,10 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
-      console.log(dataSourceMDSId, 'after success')
-      const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(dataSource, dataSourceMDSId);
+      const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(
+        dataSource,
+        dataSourceMDSId
+      );
       if (dsCache.status === CachedDataSourceStatus.Updated) {
         const databases = dsCache.databases.map((db) => db.name);
         setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
@@ -273,9 +302,9 @@ export const S3Tree = ({ dataSource, updateSQLQueries, refreshTree, dataSourceMD
   }, [loadAccelerationsStatus]);
 
   useEffect(() => {
-    pageLanguage(language)
+    pageLanguage(language);
     onLoadS3Tree();
-  }, [dataSource,dataSourceMDSId,language]);
+  }, [dataSource, dataSourceMDSId, language]);
 
   useEffect(() => {
     setIsFirstRender(false);
