@@ -51,6 +51,11 @@ jobs:
           rm -f opensearch-*.tar.gz
         shell: bash
 
+      - name: Install job scheduler plugin
+        run: |
+          /bin/bash -c "yes | ./opensearch-${{ env.OPENSEARCH_VERSION }}-SNAPSHOT/bin/opensearch-plugin install file:$(pwd)/plugin-artifacts/opensearch-job-scheduler.zip"
+        shell: bash
+
       - name: Install SQL plugin
         run: |
           /bin/bash -c "yes | ./opensearch-${{ env.OPENSEARCH_VERSION }}-SNAPSHOT/bin/opensearch-plugin install file:$(pwd)/plugin-artifacts/sql.zip"
