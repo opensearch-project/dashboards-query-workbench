@@ -3,12 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 import 'core-js/stable';
 import _ from 'lodash';
 import 'regenerator-runtime/runtime';
 import { Logger, RequestHandlerContext } from '../../../../src/core/server';
-
 
 export default class QueryService {
   private client: any;
@@ -21,7 +19,13 @@ export default class QueryService {
     this.logger = logger;
   }
 
-  describeQueryPostInternal = async (request: any, format: string, responseFormat: string, body: any, context: RequestHandlerContext) => {
+  describeQueryPostInternal = async (
+    request: any,
+    format: string,
+    responseFormat: string,
+    body: any,
+    context: RequestHandlerContext
+  ) => {
     try {
       const params = {
         body: JSON.stringify(body),
@@ -30,7 +34,7 @@ export default class QueryService {
       let client = this.client;
       let queryResponse;
 
-      const {dataSourceMDSId} = request.query;
+      const { dataSourceMDSId } = request.query;
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format, params);
@@ -53,28 +57,34 @@ export default class QueryService {
           ok: false,
           resp: err.message,
           body: err.body,
-          statusCode: err.statusCode || 400
+          statusCode: err.statusCode || 400,
         },
       };
     }
   };
 
-  describeQueryJobIdInternal = async (request: any, format: string, jobId: string, responseFormat: string, context: any, dataSourceMDSId: string) => {
+  describeQueryJobIdInternal = async (
+    request: any,
+    format: string,
+    jobId: string,
+    responseFormat: string,
+    context: any,
+    dataSourceMDSId: string
+  ) => {
     try {
       let client = this.client;
       let queryResponse;
 
       if (this.dataSourceEnabled && dataSourceMDSId) {
-
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format, {
           jobId: jobId,
         });
       } else {
-       queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, {
-        jobId: jobId,
-      });
-    }
+        queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, {
+          jobId: jobId,
+        });
+      }
       return {
         data: {
           ok: true,
@@ -90,17 +100,22 @@ export default class QueryService {
           ok: false,
           resp: err.message,
           body: err.body,
-          statusCode: err.statusCode || 400
+          statusCode: err.statusCode || 400,
         },
       };
     }
   };
 
-  describeQueryGetInternalSync = async (request: any, format: string, responseFormat: string, context: any) => {
+  describeQueryGetInternalSync = async (
+    request: any,
+    format: string,
+    responseFormat: string,
+    context: any
+  ) => {
     try {
       let client = this.client;
       let queryResponse;
-      const dataSourceMDSId  = request.params.dataSourceMDSId;
+      const dataSourceMDSId = request.params.dataSourceMDSId;
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format);
@@ -124,12 +139,11 @@ export default class QueryService {
           ok: false,
           resp: err.message,
           body: err.body,
-          statusCode: err.statusCode || 400
+          statusCode: err.statusCode || 400,
         },
       };
     }
   };
-
 
   describeSQLQuery = async (context: any, request: any) => {
     return this.describeQueryPostInternal(request, 'sql.sqlQuery', 'json', request.body, context);
@@ -147,33 +161,55 @@ export default class QueryService {
     return this.describeQueryPostInternal(request, 'sql.pplCsv', null, request.body, context);
   };
 
-  describeSQLJson = async (context: any, request: any) => {
-    return this.describeQueryPostInternal(request, 'sql.sqlJson', 'json', request.body, context);
-  };
-
-  describePPLJson = async (context: any,request: any) => {
-    return this.describeQueryPostInternal(request, 'sql.pplJson', 'json', request.body, context);
-  };
-
-  describeSQLText = async (context: any,request: any) => {
+  describeSQLText = async (context: any, request: any) => {
     return this.describeQueryPostInternal(request, 'sql.sqlText', null, request.body, context);
   };
 
-  describePPLText = async (context: any,request: any) => {
+  describePPLText = async (context: any, request: any) => {
     return this.describeQueryPostInternal(request, 'sql.pplText', null, request.body, context);
   };
 
-  describeSQLAsyncQuery = async (context: any,request: any) => {
-    return this.describeQueryPostInternal(request, 'sql.sparkSqlQuery', null, request.body, context);
+  describeSQLAsyncQuery = async (context: any, request: any) => {
+    return this.describeQueryPostInternal(
+      request,
+      'sql.sparkSqlQuery',
+      null,
+      request.body,
+      context
+    );
   };
 
-  describeSQLAsyncGetQuery = async (context: any,request: any, jobId: string, dataSourceMDSId?: string) => {
-    return this.describeQueryJobIdInternal(request, 'sql.sparkSqlGetQuery', jobId, null, context, dataSourceMDSId);
+  describeSQLAsyncGetQuery = async (
+    context: any,
+    request: any,
+    jobId: string,
+    dataSourceMDSId?: string
+  ) => {
+    return this.describeQueryJobIdInternal(
+      request,
+      'sql.sparkSqlGetQuery',
+      jobId,
+      null,
+      context,
+      dataSourceMDSId
+    );
   };
-  describeSyncQueryDataSources = async (context: any,request: any) => {
+  describeSyncQueryDataSources = async (context: any, request: any) => {
     return this.describeQueryGetInternalSync(request, 'sql.datasourcesGetQuery', null, context);
   };
-  describeAsyncDeleteQuery = async (context: any,request: any, jobId: string, dataSourceMDSId?: string) => {
-    return this.describeQueryJobIdInternal(request, 'sql.asyncDeleteQuery', jobId, null, context, dataSourceMDSId);
+  describeAsyncDeleteQuery = async (
+    context: any,
+    request: any,
+    jobId: string,
+    dataSourceMDSId?: string
+  ) => {
+    return this.describeQueryJobIdInternal(
+      request,
+      'sql.asyncDeleteQuery',
+      jobId,
+      null,
+      context,
+      dataSourceMDSId
+    );
   };
 }

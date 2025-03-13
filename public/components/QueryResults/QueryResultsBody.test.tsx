@@ -15,7 +15,6 @@ import userEvent from '@testing-library/user-event';
 import {
   mockErrorMessage,
   mockQueryResultJDBCResponse,
-  mockQueryResultJSONResponse,
   mockQueryResults,
   mockSortableColumns,
   mockSuccessfulMessage,
@@ -31,7 +30,6 @@ function renderSQLQueryResultsBody(
   onQueryChange: (query: object) => void,
   updateExpandedMap: (map: object) => void,
   onChangeItemsPerPage: (itemsPerPage: number) => void,
-  getJson: (queries: string[]) => void,
   getJdbc: (queries: string[]) => void,
   getCsv: (queries: string[]) => void,
   getText: (queries: string[]) => void
@@ -45,7 +43,6 @@ function renderSQLQueryResultsBody(
         selectedTabName={'Messages'}
         tabNames={['Messages', 'Index_1']}
         queryResultSelected={mockQueryResultsSelected}
-        queryResultsJSON={mockQueryResultsRaw}
         queryResultsJDBC={mockQueryResultsRaw}
         queryResultsCSV={mockQueryResultsRaw}
         queryResultsTEXT={mockQueryResultsRaw}
@@ -62,7 +59,6 @@ function renderSQLQueryResultsBody(
         sortableProperties={mockSortableProperties}
         itemIdToExpandedRowMap={{}}
         updateExpandedMap={updateExpandedMap}
-        getJson={getJson}
         getJdbc={getJdbc}
         getCsv={getCsv}
         getText={getText}
@@ -77,7 +73,6 @@ describe('<QueryResultsBody with SQL language/> spec', () => {
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
   const onChangeItemsPerPage = jest.fn();
-  const getJson = jest.fn();
   const getJdbc = jest.fn();
   const getCsv = jest.fn();
   const getText = jest.fn();
@@ -103,7 +98,6 @@ describe('<QueryResultsBody with SQL language/> spec', () => {
       onQueryChange,
       updateExpandedMap,
       onChangeItemsPerPage,
-      getJson,
       getJdbc,
       getCsv,
       getText
@@ -134,13 +128,12 @@ describe('<QueryResultsBody with SQL language/> spec', () => {
     } = renderSQLQueryResultsBody(
       undefined,
       mockQueryResults[0].data,
-      mockQueryResultJSONResponse.data.resp,
+      mockQueryResultJDBCResponse.data.resp,
       mockSortableProperties,
       mockSuccessfulMessage,
       onQueryChange,
       updateExpandedMap,
       onChangeItemsPerPage,
-      getJson,
       getJdbc,
       getCsv,
       getText
@@ -173,11 +166,9 @@ describe('<QueryResultsBody with SQL language/> spec', () => {
     const downloadButton = getAllByText('Download')[0];
     expect(downloadButton).not.toBe(null);
     await fireEvent.click(downloadButton);
-    expect(getByText('Download JSON')).toBeInTheDocument();
     expect(getByText('Download JDBC')).toBeInTheDocument();
     expect(getByText('Download CSV')).toBeInTheDocument();
     expect(getByText('Download Text')).toBeInTheDocument();
-    await fireEvent.click(getByText('Download JSON'));
     await fireEvent.click(getByText('Download JDBC'));
     await fireEvent.click(getByText('Download CSV'));
     await fireEvent.click(getByText('Download Text'));
@@ -209,7 +200,6 @@ function renderPPLQueryResultsBody(
   onQueryChange: (query: object) => void,
   updateExpandedMap: (map: object) => void,
   onChangeItemsPerPage: (itemsPerPage: number) => void,
-  getJson: (queries: string[]) => void,
   getJdbc: (queries: string[]) => void,
   getCsv: (queries: string[]) => void,
   getText: (queries: string[]) => void
@@ -223,7 +213,6 @@ function renderPPLQueryResultsBody(
         selectedTabName={'Messages'}
         tabNames={['Messages', 'Index_1']}
         queryResultSelected={mockQueryResultsSelected}
-        queryResultsJSON={mockQueryResultsRaw}
         queryResultsJDBC={mockQueryResultsRaw}
         queryResultsCSV={mockQueryResultsRaw}
         queryResultsTEXT={mockQueryResultsRaw}
@@ -240,7 +229,6 @@ function renderPPLQueryResultsBody(
         sortableProperties={mockSortableProperties}
         itemIdToExpandedRowMap={{}}
         updateExpandedMap={updateExpandedMap}
-        getJson={getJson}
         getJdbc={getJdbc}
         getCsv={getCsv}
         getText={getText}
@@ -254,7 +242,6 @@ describe('<QueryResultsBody with PPL language/> spec', () => {
   const onQueryChange = jest.fn();
   const updateExpandedMap = jest.fn();
   const onChangeItemsPerPage = jest.fn();
-  const getJson = jest.fn();
   const getJdbc = jest.fn();
   const getCsv = jest.fn();
   const getText = jest.fn();
@@ -280,7 +267,6 @@ describe('<QueryResultsBody with PPL language/> spec', () => {
       onQueryChange,
       updateExpandedMap,
       onChangeItemsPerPage,
-      getJson,
       getJdbc,
       getCsv,
       getText
@@ -312,7 +298,6 @@ describe('<QueryResultsBody with PPL language/> spec', () => {
       onQueryChange,
       updateExpandedMap,
       onChangeItemsPerPage,
-      getJson,
       getJdbc,
       getCsv,
       getText

@@ -10,7 +10,6 @@ import { SortableProperties, SortableProperty } from '@elastic/eui/lib/services'
 import {
   Comparators,
   EuiButton,
-  EuiSmallButtonIcon,
   EuiComboBoxOptionOption,
   EuiContextMenuItem,
   EuiContextMenuPanel,
@@ -21,6 +20,7 @@ import {
   EuiPanel,
   EuiPopover,
   EuiSearchBar,
+  EuiSmallButtonIcon,
   EuiSpacer,
   EuiTab,
   EuiTabs,
@@ -52,7 +52,6 @@ interface QueryResultsProps {
   language: string;
   queries: string[];
   queryResults: Array<ResponseDetail<QueryResult>>;
-  queryResultsJSON: string;
   queryResultsJDBC: string;
   queryResultsCSV: string;
   queryResultsTEXT: string;
@@ -65,7 +64,6 @@ interface QueryResultsProps {
   onQueryChange: (object: any) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
-  getJson: (queries: string[]) => void;
   getJdbc: (queries: string[]) => void;
   getCsv: (queries: string[]) => void;
   getText: (queries: string[]) => void;
@@ -433,7 +431,6 @@ export class QueryResults extends React.Component<QueryResultsProps, QueryResult
                     sortableProperties={this.sortableProperties}
                     itemIdToExpandedRowMap={this.props.itemIdToExpandedRowMap}
                     updateExpandedMap={this.props.updateExpandedMap}
-                    getJson={this.props.getJson}
                     getJdbc={this.props.getJdbc}
                     getCsv={this.props.getCsv}
                     getText={this.props.getText}
