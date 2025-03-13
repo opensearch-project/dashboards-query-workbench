@@ -140,7 +140,6 @@ describe('<QueryResults with data/> spec', () => {
     );
     expect(getByText('Download')).toBeInTheDocument();
     await fireEvent.click(getByText('Download'));
-    expect(getByText('Download JSON')).toBeInTheDocument();
     expect(getByText('Download JDBC')).toBeInTheDocument();
     expect(getByText('Download CSV')).toBeInTheDocument();
     expect(getByText('Download Text')).toBeInTheDocument();

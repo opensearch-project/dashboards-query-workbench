@@ -2091,14 +2091,6 @@ mockExpandedMap[0] = {
   selectedNodes: { '0_manufacturer': ['Elitelligence', 'Oceanavigations'] },
 };
 
-export const mockQueryResultJSONResponse = {
-  data: {
-    ok: true,
-    resp:
-      '{"took":6,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":4675,"max_score":1,"hits":[{"_index":"kibana_sample_data_ecommerce","_type":"_doc","_id":"zpOZZG0BTX1z5xbJBaBA","_score":1,"_source":{"category":["Men\'s Clothing"],"currency":"EUR","customer_first_name":"Eddie","customer_full_name":"Eddie Underwood","customer_gender":"MALE","customer_id":38,"customer_last_name":"Underwood","customer_phone":"","day_of_week":"Monday","day_of_week_i":0,"email":"eddie@underwood-family.zzz","manufacturer":["Elitelligence","Oceanavigations"],"order_date":"2019-10-07T09:28:48+00:00","order_id":584677,"products":[{"base_price":11.99,"discount_percentage":0,"quantity":1,"manufacturer":"Elitelligence","tax_amount":0,"product_id":6283,"category":"Men\'s Clothing","sku":"ZO0549605496","taxless_price":11.99,"unit_discount_amount":0,"min_price":6.35,"_id":"sold_product_584677_6283","discount_amount":0,"created_on":"2016-12-26T09:28:48+00:00","product_name":"Basic T-shirt - dark blue/white","price":11.99,"taxful_price":11.99,"base_unit_price":11.99},{"base_price":24.99,"discount_percentage":0,"quantity":1,"manufacturer":"Oceanavigations","tax_amount":0,"product_id":19400,"category":"Men\'s Clothing","sku":"ZO0299602996","taxless_price":24.99,"unit_discount_amount":0,"min_price":11.75,"_id":"sold_product_584677_19400","discount_amount":0,"created_on":"2016-12-26T09:28:48+00:00","product_name":"Sweatshirt - grey multicolor","price":24.99,"taxful_price":24.99,"base_unit_price":24.99}],"sku":["ZO0549605496","ZO0299602996"],"taxful_total_price":36.98,"taxless_total_price":36.98,"total_quantity":2,"total_unique_products":2,"type":"order","user":"eddie","geoip":{"country_iso_code":"EG","location":{"lon":31.3,"lat":30.1},"region_name":"Cairo Governorate","continent_name":"Africa","city_name":"Cairo"}}}]}}',
-  },
-};
-
 export const mockQueryResultCSVResponse = {
   data: {
     ok: true,
@@ -2154,9 +2146,8 @@ export const mockDatasourcesQuery = {
 export const mockJobId = {
   data: {
     ok: true,
-    resp: 
-    {"queryId": "00fe3fjpnfnn400q","sessionId": "czVtMWZoZm9xMWdsdWVfMg=="}
-  }
+    resp: { queryId: '00fe3fjpnfnn400q', sessionId: 'czVtMWZoZm9xMWdsdWVfMg==' },
+  },
 };
 
 export const mockOpenSearchIndicies = {
@@ -2170,22 +2161,18 @@ export const mockOpenSearchIndicies = {
 export const mockDatabaseQuery = {
   data: {
     ok: true,
-    "resp": {
-      "status": "SUCCESS",
-      "schema": [
-          {
-              "name": "namespace",
-              "type": "string"
-          }
+    resp: {
+      status: 'SUCCESS',
+      schema: [
+        {
+          name: 'namespace',
+          type: 'string',
+        },
       ],
-      "datarows": [
-          [
-              "default"
-          ]
-      ],
-      "total": 1,
-      "size": 1
-  },
+      datarows: [['default']],
+      total: 1,
+      size: 1,
+    },
   },
 };
 
@@ -2198,204 +2185,181 @@ export const mockOpenSearchTreeQuery = {
 };
 
 export const mockCoveringIndexQuery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "index_name",
-                  "type": "string"
-              }
-          ],
-          "datarows": [
-              [
-                  "sample_index"
-              ],
-              [
-                  "status_clientip_and_day"
-              ]
-          ],
-          "total": 2,
-          "size": 2
-      }
-  }
-}
+  data: {
+    ok: true,
+    resp: {
+      status: 'SUCCESS',
+      schema: [
+        {
+          name: 'index_name',
+          type: 'string',
+        },
+      ],
+      datarows: [['sample_index'], ['status_clientip_and_day']],
+      total: 2,
+      size: 2,
+    },
+  },
+};
 export const mockMVEmptyQuery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "materialized_view_name",
-                  "type": "string"
-              }
-          ],
-          "datarows": [],
-          "total": 0,
-          "size": 0
-      }
-  }
-}
+  data: {
+    ok: true,
+    resp: {
+      status: 'SUCCESS',
+      schema: [
+        {
+          name: 'materialized_view_name',
+          type: 'string',
+        },
+      ],
+      datarows: [],
+      total: 0,
+      size: 0,
+    },
+  },
+};
 export const mockSkippingIndexQuery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "indexed_col_name",
-                  "type": "string"
-              },
-              {
-                  "name": "data_type",
-                  "type": "string"
-              },
-              {
-                  "name": "skip_type",
-                  "type": "string"
-              }
-          ],
-          "datarows": [
-              [
-                  "skipping_index"
-              ]
-          ],
-          "total": 1,
-          "size": 1
-      }
-  }
-}
+  data: {
+    ok: true,
+    resp: {
+      status: 'SUCCESS',
+      schema: [
+        {
+          name: 'indexed_col_name',
+          type: 'string',
+        },
+        {
+          name: 'data_type',
+          type: 'string',
+        },
+        {
+          name: 'skip_type',
+          type: 'string',
+        },
+      ],
+      datarows: [['skipping_index']],
+      total: 1,
+      size: 1,
+    },
+  },
+};
 
 export const mockEmptySkippingIndexQuery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "index_name",
-                  "type": "string"
-              }
-          ],
-          "datarows": [],
-          "total": 0,
-          "size": 0
-      }
-  }
-}
+  data: {
+    ok: true,
+    resp: {
+      status: 'SUCCESS',
+      schema: [
+        {
+          name: 'index_name',
+          type: 'string',
+        },
+      ],
+      datarows: [],
+      total: 0,
+      size: 0,
+    },
+  },
+};
 export const mockEmptyCoveringIndexQuery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "index_name",
-                  "type": "string"
-              }
-          ],
-          "datarows": [],
-          "total": 0,
-          "size": 0
-      }
-  }
-}
+  data: {
+    ok: true,
+    resp: {
+      status: 'SUCCESS',
+      schema: [
+        {
+          name: 'index_name',
+          type: 'string',
+        },
+      ],
+      datarows: [],
+      total: 0,
+      size: 0,
+    },
+  },
+};
 
 export const mockDataSelectQuery = {
-  "data": {
-      "ok": true,
-      "resp": [
-          {
-              "name": "glue_2",
-              "description": "",
-              "connector": "S3GLUE",
-              "allowedRoles": [],
-              "properties": {
-                  "glue.indexstore.opensearch.auth": "awssigv4",
-                  "glue.indexstore.opensearch.uri": "https://search-flint-test-lchvlhaowzh4vhwyeutf52fteq.us-east-1.es.amazonaws.com",
-                  "glue.auth.role_arn": "arn:aws:iam::294600734191:role/pratik-flint-role",
-                  "glue.auth.type": "iam_role",
-                  "glue.indexstore.opensearch.region": "us-east-1"
-              },
-              "resultIndex": "query_execution_result_glue_2"
-          },
-          {
-              "name": "glue_1",
-              "description": "",
-              "connector": "S3GLUE",
-              "allowedRoles": [],
-              "properties": {
-                  "glue.indexstore.opensearch.auth": "awssigv4",
-                  "glue.indexstore.opensearch.uri": "https://search-flint-test-lchvlhaowzh4vhwyeutf52fteq.us-east-1.es.amazonaws.com",
-                  "glue.auth.role_arn": "arn:aws:iam::294600734191:role/pratik-flint-role",
-                  "glue.auth.type": "iam_role",
-                  "glue.indexstore.opensearch.region": "us-east-1"
-              },
-              "resultIndex": "query_execution_result_glue_1"
-          }
-      ]
-  }
-}
-
+  data: {
+    ok: true,
+    resp: [
+      {
+        name: 'glue_2',
+        description: '',
+        connector: 'S3GLUE',
+        allowedRoles: [],
+        properties: {
+          'glue.indexstore.opensearch.auth': 'awssigv4',
+          'glue.indexstore.opensearch.uri':
+            'https://search-flint-test-lchvlhaowzh4vhwyeutf52fteq.us-east-1.es.amazonaws.com',
+          'glue.auth.role_arn': 'arn:aws:iam::294600734191:role/pratik-flint-role',
+          'glue.auth.type': 'iam_role',
+          'glue.indexstore.opensearch.region': 'us-east-1',
+        },
+        resultIndex: 'query_execution_result_glue_2',
+      },
+      {
+        name: 'glue_1',
+        description: '',
+        connector: 'S3GLUE',
+        allowedRoles: [],
+        properties: {
+          'glue.indexstore.opensearch.auth': 'awssigv4',
+          'glue.indexstore.opensearch.uri':
+            'https://search-flint-test-lchvlhaowzh4vhwyeutf52fteq.us-east-1.es.amazonaws.com',
+          'glue.auth.role_arn': 'arn:aws:iam::294600734191:role/pratik-flint-role',
+          'glue.auth.type': 'iam_role',
+          'glue.indexstore.opensearch.region': 'us-east-1',
+        },
+        resultIndex: 'query_execution_result_glue_1',
+      },
+    ],
+  },
+};
 
 export const mockMVquery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "materialized_view_name",
-                  "type": "string"
-              }
-          ],
-          "datarows": [
-              [
-                  "http_count_view"
-              ]
-          ],
-          "total": 1,
-          "size": 1
-      }
-  }
-}
-
+  data: {
+    ok: true,
+    resp: {
+      status: 'SUCCESS',
+      schema: [
+        {
+          name: 'materialized_view_name',
+          type: 'string',
+        },
+      ],
+      datarows: [['http_count_view']],
+      total: 1,
+      size: 1,
+    },
+  },
+};
 
 export const mockTableQuery = {
-  "data": {
-      "ok": true,
-      "resp": {
-          "status": "SUCCESS",
-          "schema": [
-              {
-                  "name": "namespace",
-                  "type": "string"
-              },
-              {
-                  "name": "tableName",
-                  "type": "string"
-              },
-              {
-                  "name": "isTemporary",
-                  "type": "boolean"
-              }
-          ],
-          "datarows": [
-              [
-                  "default",
-                  "http_logs",
-                  false
-              ],
-              [
-                  "default",
-                  "http_logs2",
-                  false
-              ]
-          ],
-          "total": 2,
-          "size": 2
-      }
-  }
-}
+  data: {
+    ok: true,
+    resp: {
+      status: 'SUCCESS',
+      schema: [
+        {
+          name: 'namespace',
+          type: 'string',
+        },
+        {
+          name: 'tableName',
+          type: 'string',
+        },
+        {
+          name: 'isTemporary',
+          type: 'boolean',
+        },
+      ],
+      datarows: [
+        ['default', 'http_logs', false],
+        ['default', 'http_logs2', false],
+      ],
+      total: 2,
+      size: 2,
+    },
+  },
+};

@@ -127,7 +127,6 @@ interface MainState {
   queryTranslations: Array<ResponseDetail<TranslateResult>>;
   queryResultsTable: Array<ResponseDetail<QueryResult>>;
   queryResults: Array<ResponseDetail<string>>;
-  queryResultsJSON: Array<ResponseDetail<string>>;
   queryResultsCSV: Array<ResponseDetail<string>>;
   queryResultsTEXT: Array<ResponseDetail<string>>;
   selectedTabName: string;
@@ -274,7 +273,6 @@ export class Main extends React.Component<MainProps, MainState> {
       queryTranslations: [],
       queryResultsTable: [],
       queryResults: [],
-      queryResultsJSON: [],
       queryResultsCSV: [],
       queryResultsTEXT: [],
       selectedTabName: MESSAGE_TAB_LABEL,
@@ -478,7 +476,6 @@ export class Main extends React.Component<MainProps, MainState> {
             selectedTabName: getDefaultTabLabel(results, queries[0]),
             messages: this.getMessage(resultTable),
             itemIdToExpandedRowMap: {},
-            queryResultsJSON: [],
             queryResultsCSV: [],
             queryResultsTEXT: [],
             searchQuery: '',
@@ -509,7 +506,6 @@ export class Main extends React.Component<MainProps, MainState> {
           queryResultsTable: [],
           queryResults: [],
           queryResultsCSV: [],
-          queryResultsJSON: [],
           queryResultsTEXT: [],
           messages: [],
           selectedTabId: MESSAGE_TAB_LABEL,
@@ -548,7 +544,6 @@ export class Main extends React.Component<MainProps, MainState> {
                 selectedTabName: getDefaultTabLabel([result], queries[0]),
                 messages: this.getMessage(resultTable),
                 itemIdToExpandedRowMap: {},
-                queryResultsJSON: [],
                 queryResultsCSV: [],
                 queryResultsTEXT: [],
                 searchQuery: '',
@@ -653,44 +648,6 @@ export class Main extends React.Component<MainProps, MainState> {
             () => console.log('Successfully updated the states')
           );
         }
-      });
-    }
-  };
-
-  getJson = (queries: string[]): void => {
-    if (queries.length > 0) {
-      let query = {};
-      if (this.props.dataSourceEnabled) {
-        query = {
-          dataSourceMDSId: this.state.selectedMDSDataConnectionId,
-        };
-      }
-      Promise.all(
-        queries.map((eachQuery: string) =>
-          this.httpClient
-            .post('/api/sql_console/sqljson', { body: JSON.stringify({ query: eachQuery }), query })
-            .catch((error: any) => {
-              this.setState({
-                messages: [
-                  {
-                    text: error.message,
-                    className: 'error-message',
-                  },
-                ],
-              });
-            })
-        )
-      ).then((response) => {
-        const results: Array<ResponseDetail<string>> = response.map((resp) =>
-          this.processQueryResponse(resp as IHttpResponse<ResponseData>)
-        );
-        this.setState(
-          {
-            queries,
-            queryResultsJSON: results,
-          },
-          () => console.log('Successfully updated the states')
-        );
       });
     }
   };
@@ -822,7 +779,6 @@ export class Main extends React.Component<MainProps, MainState> {
       queryResultsTable: [],
       queryResults: [],
       queryResultsCSV: [],
-      queryResultsJSON: [],
       queryResultsTEXT: [],
       messages: [],
       selectedTabId: MESSAGE_TAB_LABEL,
@@ -1000,10 +956,6 @@ export class Main extends React.Component<MainProps, MainState> {
             queries={this.state.queries}
             queryResults={this.state.queryResultsTable}
             queryResultsJDBC={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
-            queryResultsJSON={getSelectedResults(
-              this.state.queryResultsJSON,
-              this.state.selectedTabId
-            )}
             queryResultsCSV={getSelectedResults(
               this.state.queryResultsCSV,
               this.state.selectedTabId
@@ -1021,7 +973,6 @@ export class Main extends React.Component<MainProps, MainState> {
             updateExpandedMap={this.updateExpandedMap}
             searchQuery={this.state.searchQuery}
             tabsOverflow={false}
-            getJson={this.getJson}
             getJdbc={this.getJdbc}
             getCsv={this.getCsv}
             getText={this.getText}
@@ -1180,10 +1131,6 @@ export class Main extends React.Component<MainProps, MainState> {
                     this.state.queryResults,
                     this.state.selectedTabId
                   )}
-                  queryResultsJSON={getSelectedResults(
-                    this.state.queryResultsJSON,
-                    this.state.selectedTabId
-                  )}
                   queryResultsCSV={getSelectedResults(
                     this.state.queryResultsCSV,
                     this.state.selectedTabId
@@ -1201,7 +1148,6 @@ export class Main extends React.Component<MainProps, MainState> {
                   updateExpandedMap={this.updateExpandedMap}
                   searchQuery={this.state.searchQuery}
                   tabsOverflow={false}
-                  getJson={this.getJson}
                   getJdbc={this.getJdbc}
                   getCsv={this.getCsv}
                   getText={this.getText}

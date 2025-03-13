@@ -9,13 +9,11 @@ import QueryService from '../services/QueryService';
 import {
   ROUTE_PATH_GET_DATASOURCES,
   ROUTE_PATH_PPL_CSV,
-  ROUTE_PATH_PPL_JSON,
   ROUTE_PATH_PPL_QUERY,
   ROUTE_PATH_PPL_TEXT,
   ROUTE_PATH_SPARK_SQL_JOB_QUERY,
   ROUTE_PATH_SPARK_SQL_QUERY,
   ROUTE_PATH_SQL_CSV,
-  ROUTE_PATH_SQL_JSON,
   ROUTE_PATH_SQL_QUERY,
   ROUTE_PATH_SQL_TEXT,
 } from '../utils/constants';
@@ -117,64 +115,6 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.describePPLCsv(context, request);
-      if (retVal.data.ok) {
-        return response.ok({
-          body: retVal,
-        });
-      } else {
-        return response.custom({
-          body: retVal.data.body,
-          statusCode: retVal.data.statusCode,
-        });
-      }
-    }
-  );
-
-  server.post(
-    {
-      path: ROUTE_PATH_SQL_JSON,
-      validate: {
-        body: schema.any(),
-        query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
-        }),
-      },
-    },
-    async (
-      context,
-      request,
-      response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.describeSQLJson(context, request);
-      if (retVal.data.ok) {
-        return response.ok({
-          body: retVal,
-        });
-      } else {
-        return response.custom({
-          body: retVal.data.body,
-          statusCode: retVal.data.statusCode,
-        });
-      }
-    }
-  );
-
-  server.post(
-    {
-      path: ROUTE_PATH_PPL_JSON,
-      validate: {
-        body: schema.any(),
-        query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
-        }),
-      },
-    },
-    async (
-      context,
-      request,
-      response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const retVal = await service.describePPLJson(context, request);
       if (retVal.data.ok) {
         return response.ok({
           body: retVal,

@@ -3,8 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
-import { SQL_TRANSLATE_ROUTE, SQL_QUERY_ROUTE, PPL_QUERY_ROUTE, PPL_TRANSLATE_ROUTE, FORMAT_CSV, FROMAT_JDBC, FORMAT_JSON, FORMAT_TEXT, SPARK_SQL_QUERY_ROUTE, DATASOURCES_GET_QUERY } from '../../services/utils/constants';
+import {
+  SQL_TRANSLATE_ROUTE,
+  SQL_QUERY_ROUTE,
+  PPL_QUERY_ROUTE,
+  PPL_TRANSLATE_ROUTE,
+  FORMAT_CSV,
+  FORMAT_TEXT,
+  SPARK_SQL_QUERY_ROUTE,
+  DATASOURCES_GET_QUERY,
+} from '../../services/utils/constants';
 
 export default function sqlPlugin(Client, config, components) {
   const ca = components.clientAction.factory;
@@ -43,22 +51,6 @@ export default function sqlPlugin(Client, config, components) {
     needBody: true,
     method: 'POST',
   }); //default: jdbc
-
-  sql.sqlJson = ca({
-    url: {
-      fmt: `${SQL_QUERY_ROUTE}?${FORMAT_JSON}`,
-    },
-    needBody: true,
-    method: 'POST',
-  });
-
-  sql.pplJson = ca({
-    url: {
-      fmt: `${PPL_QUERY_ROUTE}?${FORMAT_JSON}`,
-    },
-    needBody: true,
-    method: 'POST',
-  });
 
   sql.sqlCsv = ca({
     url: {

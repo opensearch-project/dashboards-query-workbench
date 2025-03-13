@@ -9,9 +9,7 @@ import { SortableProperties } from '@elastic/eui/lib/services';
 // @ts-ignore
 import {
   Comparators,
-  EuiSmallButton,
   EuiButton,
-  EuiSmallButtonIcon,
   EuiCodeEditor,
   EuiComboBoxOptionOption,
   EuiContextMenu,
@@ -27,6 +25,8 @@ import {
   EuiPopover,
   EuiSearchBar,
   EuiSideNav,
+  EuiSmallButton,
+  EuiSmallButtonIcon,
   EuiTable,
   EuiTableBody,
   EuiTableHeader,
@@ -143,12 +143,6 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         id: 0,
         items: [
           {
-            name: 'Download JSON',
-            onClick: () => {
-              this.onDownloadJSON();
-            },
-          },
-          {
             name: 'Download JDBC',
             onClick: () => {
               this.onDownloadJDBC();
@@ -202,26 +196,6 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   };
 
   // Actions for Download files
-  onDownloadJSON() {
-    if (this.props.language == 'PPL') {
-      this.setState({
-        downloadErrorModal: this.getModal(
-          'PPL result in JSON format is not supported, please select JDBC format.'
-        ),
-      });
-      this.setIsModalVisible(true);
-      return;
-    }
-    if (!this.props.queryResultsJSON) {
-      this.props.getJson(this.props.queries);
-    }
-    setTimeout(() => {
-      const jsonObject = JSON.parse(this.props.queryResultsJSON);
-      const data = JSON.stringify(jsonObject, undefined, 4);
-      onDownloadFile(data, 'json', this.props.selectedTabName + '.json');
-    }, 2000);
-  }
-
   onDownloadJDBC = (): void => {
     if (!this.props.queryResultsJDBC) {
       this.props.getJdbc(this.props.queries);
