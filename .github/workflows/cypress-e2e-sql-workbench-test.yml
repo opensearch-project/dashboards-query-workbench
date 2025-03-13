@@ -6,9 +6,9 @@ env:
   CI: 1
   # avoid warnings like "tput: No value for $TERM and no -T specified"
   TERM: xterm
-  OPENSEARCH_DASHBOARDS_VERSION: "main"
-  OPENSEARCH_VERSION: "3.0.0-alpha1"
-  OPENSEARCH_PLUGIN_VERSION: "3.0.0.0-alpha1"
+  OPENSEARCH_DASHBOARDS_VERSION: 'main'
+  OPENSEARCH_VERSION: '3.0.0-alpha1'
+  OPENSEARCH_PLUGIN_VERSION: '3.0.0.0-alpha1'
 
 jobs:
   tests:
@@ -78,18 +78,15 @@ jobs:
         shell: bash
 
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: OpenSearch-Dashboards
           repository: opensearch-project/OpenSearch-Dashboards
           ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           fetch-depth: 0
-          filter: |
-            cypress
-            test
 
       - name: Checkout Query Workbench in OpenSearch Dashboards Plugins Dir
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench
 
@@ -103,7 +100,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ steps.tool-versions.outputs.node_version }}
-          registry-url: "https://registry.npmjs.org"
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Setup Opensearch Dashboards
         run: |
@@ -128,13 +125,20 @@ jobs:
       - name: Check If OpenSearch Dashboards Is Ready
         if: ${{ runner.os == 'Linux' }}
         run: |
-          if timeout 600 grep -q "bundles compiled successfully after" <(tail -n0 -f dashboard.log); then
+          if timeout 1200 grep -q "bundles compiled successfully after" <(tail -n0 -f dashboard.log); then
             echo "OpenSearch Dashboards compiled successfully."
           else
-            echo "Timeout for 600 seconds reached. OpenSearch Dashboards did not finish compiling."
+            echo "Timeout for 1200 seconds reached. OpenSearch Dashboards did not finish compiling."
             exit 1
           fi
         working-directory: OpenSearch-Dashboards
+
+      - name: Upload Dashboards logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: dashboard.logs
+          path: OpenSearch-Dashboards/dashboard.log
 
       - name: Install Cypress
         run: |
