@@ -4,3 +4,4 @@ Compatible with OpenSearch and OpenSearch Dashboards version 3.3.0
 
 ### Maintenance
 * Increment version to 3.3.0.0 ([#492](https://github.com/opensearch-project/dashboards-query-workbench/pull/492))
+* Fixing CVE-2025-7783 ([#640](https://github.com/opensearch-project/dashboards-reporting/pull/640))
