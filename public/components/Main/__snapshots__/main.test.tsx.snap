@@ -2201,7 +2201,10 @@ exports[`<Main /> spec click run button, response fills null and missing values 
 `;
 
 exports[`<Main /> spec click translation button, and response is ok 1`] = `
-<div>
+<div
+  aria-hidden="true"
+  data-aria-hidden="true"
+>
   <div
     class="euiPage euiPage--grow"
   >

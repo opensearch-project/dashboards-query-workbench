@@ -3,17 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { waitFor } from '@testing-library/dom';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import toJson from 'enzyme-to-json';
+import { render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { AccelerationIndexType } from '../../../../common/types';
 import { AccelerationIndexFlyout } from '../acceleration_index_flyout';
 
 describe('Acceleration index flyout', () => {
-  configure({ adapter: new Adapter() });
-
   it('renders acceleration flyout with skipping index', async () => {
     const accelerationIndexType: AccelerationIndexType = 'skipping';
     const dataSource = 'myds';
@@ -23,7 +18,7 @@ describe('Acceleration index flyout', () => {
     const resetFlyout = jest.fn();
     const updateSQLQueries = jest.fn();
 
-    const wrapper = mount(
+    render(
       <AccelerationIndexFlyout
         accelerationIndexType={accelerationIndexType}
         dataSource={dataSource}
@@ -34,14 +29,8 @@ describe('Acceleration index flyout', () => {
         updateSQLQueries={updateSQLQueries}
       />
     );
-    wrapper.update();
     await waitFor(() => {
-      expect(
-        toJson(wrapper, {
-          noKey: false,
-          mode: 'deep',
-        })
-      ).toMatchSnapshot();
+      expect(document.body).toMatchSnapshot();
     });
   });
 
@@ -54,7 +43,7 @@ describe('Acceleration index flyout', () => {
     const resetFlyout = jest.fn();
     const updateSQLQueries = jest.fn();
 
-    const wrapper = mount(
+    render(
       <AccelerationIndexFlyout
         accelerationIndexType={accelerationIndexType}
         dataSource={dataSource}
@@ -65,18 +54,12 @@ describe('Acceleration index flyout', () => {
         updateSQLQueries={updateSQLQueries}
       />
     );
-    wrapper.update();
     await waitFor(() => {
-      expect(
-        toJson(wrapper, {
-          noKey: false,
-          mode: 'deep',
-        })
-      ).toMatchSnapshot();
+      expect(document.body).toMatchSnapshot();
     });
   });
 
-  it('renders acceleration flyout with skipping index', async () => {
+  it('renders acceleration flyout with materialized view', async () => {
     const accelerationIndexType: AccelerationIndexType = 'materialized';
     const dataSource = 'myds';
     const database = 'mydb';
@@ -85,7 +68,7 @@ describe('Acceleration index flyout', () => {
     const resetFlyout = jest.fn();
     const updateSQLQueries = jest.fn();
 
-    const wrapper = mount(
+    render(
       <AccelerationIndexFlyout
         accelerationIndexType={accelerationIndexType}
         dataSource={dataSource}
@@ -96,14 +79,8 @@ describe('Acceleration index flyout', () => {
         updateSQLQueries={updateSQLQueries}
       />
     );
-    wrapper.update();
     await waitFor(() => {
-      expect(
-        toJson(wrapper, {
-          noKey: false,
-          mode: 'deep',
-        })
-      ).toMatchSnapshot();
+      expect(document.body).toMatchSnapshot();
     });
   });
 });

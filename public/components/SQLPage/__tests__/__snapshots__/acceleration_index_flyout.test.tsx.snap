@@ -1,182 +1,259 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Acceleration index flyout renders acceleration flyout with covering index 1`] = `
-Array [
-  "",
-  <Portal
-    containerInfo={
+<body
+  class="euiBody-hasOverlayMask euiBody--hasFlyout"
+>
+  <div
+    aria-hidden="true"
+    data-aria-hidden="true"
+  />
+  <div
+    class="euiOverlayMask euiOverlayMask--belowHeader"
+  >
+    <div
+      aria-hidden="true"
+      data-aria-hidden="true"
+      data-focus-guard="true"
+      style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+      tabindex="0"
+    />
+    <div
+      data-focus-lock-disabled="false"
+    >
       <div
-        class="euiOverlayMask euiOverlayMask--belowHeader"
+        aria-labelledby="flyoutTitle"
+        class="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
+        role="dialog"
+        tabindex="-1"
       >
+        <button
+          aria-label="Close this dialog"
+          class="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
+          data-test-subj="euiFlyoutCloseButton"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+            focusable="false"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+            />
+          </svg>
+        </button>
         <div
-          aria-hidden="true"
-          data-aria-hidden="true"
-          data-focus-guard="true"
-          style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
-          tabindex="0"
-        />
+          class="euiFlyoutHeader euiFlyoutHeader--hasBorder"
+        >
+          <div>
+            <header
+              class="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
+            >
+              <div
+                class="euiPageHeaderSection"
+              >
+                <h2
+                  class="euiTitle euiTitle--large"
+                  data-test-subj="acceleration-index-desc-header"
+                >
+                  cv_idx
+                </h2>
+              </div>
+            </header>
+          </div>
+        </div>
         <div
-          data-focus-lock-disabled="false"
+          class="euiFlyoutBody"
         >
           <div
-            aria-labelledby="flyoutTitle"
-            class="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
-            role="dialog"
-            tabindex="-1"
+            class="euiFlyoutBody__overflow"
+            tabindex="0"
           >
-            <button
-              aria-label="Close this dialog"
-              class="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
-              data-test-subj="euiFlyoutCloseButton"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
-                focusable="false"
-                height="16"
-                role="img"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
-                />
-              </svg>
-            </button>
             <div
-              class="euiFlyoutHeader euiFlyoutHeader--hasBorder"
-            >
-              <div>
-                <header
-                  class="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
-                >
-                  <div
-                    class="euiPageHeaderSection"
-                  >
-                    <h2
-                      class="euiTitle euiTitle--large"
-                      data-test-subj="acceleration-index-desc-header"
-                    >
-                      cv_idx
-                    </h2>
-                  </div>
-                </header>
-              </div>
-            </div>
-            <div
-              class="euiFlyoutBody"
+              class="euiFlyoutBody__overflowContent"
             >
               <div
-                class="euiFlyoutBody__overflow"
-                tabindex="0"
+                class="euiText euiText--medium"
               >
-                <div
-                  class="euiFlyoutBody__overflowContent"
-                >
-                  <div
-                    class="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration index source
-                    </h3>
-                  </div>
-                  <hr
-                    class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    class="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Data Source
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      myds
-                    </dd>
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Database
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      mydb
-                    </dd>
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Data Table
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      mytable
-                    </dd>
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Acceleration Type
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      covering
-                    </dd>
-                  </dl>
-                  <div
-                    class="euiSpacer euiSpacer--xl"
-                  />
-                  <div
-                    class="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration index destination
-                    </h3>
-                  </div>
-                  <hr
-                    class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    class="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      OpenSearch Index
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      flint_myds_mydb_mytable_cv_idx_index
-                    </dd>
-                  </dl>
-                  <div
-                    class="euiSpacer euiSpacer--xl"
-                  />
-                </div>
+                <h3>
+                  Acceleration index source
+                </h3>
               </div>
+              <hr
+                class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
+              />
+              <dl
+                class="euiDescriptionList euiDescriptionList--row"
+              >
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Data Source
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  myds
+                </dd>
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Database
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  mydb
+                </dd>
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Data Table
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  mytable
+                </dd>
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Acceleration Type
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  covering
+                </dd>
+              </dl>
+              <div
+                class="euiSpacer euiSpacer--xl"
+              />
+              <div
+                class="euiText euiText--medium"
+              >
+                <h3>
+                  Acceleration index destination
+                </h3>
+              </div>
+              <hr
+                class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
+              />
+              <dl
+                class="euiDescriptionList euiDescriptionList--row"
+              >
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  OpenSearch Index
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  flint_myds_mydb_mytable_cv_idx_index
+                </dd>
+              </dl>
+              <div
+                class="euiSpacer euiSpacer--xl"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="euiFlyoutFooter"
+        >
+          <div
+            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
+          >
+            <div
+              class="euiFlexItem euiFlexItem--flexGrowZero"
+            >
+              <button
+                class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
+                type="button"
+              >
+                <span
+                  class="euiButtonContent euiButtonEmpty__content"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                    />
+                  </svg>
+                  <span
+                    class="euiButtonEmpty__text"
+                  >
+                    Close
+                  </span>
+                </span>
+              </button>
             </div>
             <div
-              class="euiFlyoutFooter"
+              class="euiFlexItem euiFlexItem--flexGrowZero"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
+                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
               >
                 <div
                   class="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
+                    class="euiButton euiButton--primary euiButton--small euiButton--fill"
                     type="button"
                   >
                     <span
-                      class="euiButtonContent euiButtonEmpty__content"
+                      class="euiButtonContent euiButtonContent--iconRight euiButton__content"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                        focusable="false"
+                        height="32"
+                        role="img"
+                        viewBox="0 0 32 32"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          class="euiIcon__fillSecondary"
+                          d="m23.793 14.293 1.414 1.414-6.408 6.409-3.75-3.25-4.342 4.341-1.414-1.414 5.658-5.659 3.75 3.25 5.092-5.091ZM12 11v5l-2 2v-7h2Zm10-6v8l-2 2V5h2Zm-5 3v7l-2-2V8h2Z"
+                        />
+                        <path
+                          d="M17 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-3.782 0-7.238-1.4-9.876-3.71l-5.417 5.417-1.414-1.414 5.417-5.417A14.943 14.943 0 0 1 2 15c0-1.05.108-2.074.313-3.062l1.906.672C4.075 13.385 4 14.184 4 15c0 7.18 5.82 13 13 13s13-5.82 13-13S24.18 2 17 2c-1.002 0-1.978.113-2.915.328l-.75-1.877A15.031 15.031 0 0 1 17 0ZM9.621 1.937l.75 1.877a13.062 13.062 0 0 0-4.82 5.024l-1.907-.673a15.068 15.068 0 0 1 5.977-6.228Z"
+                        />
+                      </svg>
+                      <span
+                        class="euiButton__text"
+                      >
+                        Describe index
+                      </span>
+                    </span>
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    class="euiButton euiButton--danger euiButton--small"
+                    type="button"
+                  >
+                    <span
+                      class="euiButtonContent euiButtonContent--iconRight euiButton__content"
                     >
                       <svg
                         aria-hidden="true"
@@ -189,623 +266,534 @@ Array [
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                          d="M11 3h5v1H0V3h5V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2Zm-7.056 8H7v1H4.1l.392 2.519c.042.269.254.458.493.458h6.03c.239 0 .451-.189.493-.458l1.498-9.576H14l-1.504 9.73c-.116.747-.74 1.304-1.481 1.304h-6.03c-.741 0-1.365-.557-1.481-1.304l-1.511-9.73H9V5.95H3.157L3.476 8H8v1H3.632l.312 2ZM6 3h4V1H6v2Z"
                         />
                       </svg>
                       <span
-                        class="euiButtonEmpty__text"
+                        class="euiButton__text"
                       >
-                        Close
+                        Drop index
                       </span>
                     </span>
                   </button>
-                </div>
-                <div
-                  class="euiFlexItem euiFlexItem--flexGrowZero"
-                >
-                  <div
-                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-                  >
-                    <div
-                      class="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        class="euiButton euiButton--primary euiButton--small euiButton--fill"
-                        type="button"
-                      >
-                        <span
-                          class="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                            focusable="false"
-                            height="32"
-                            role="img"
-                            viewBox="0 0 32 32"
-                            width="32"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              class="euiIcon__fillSecondary"
-                              d="m23.793 14.293 1.414 1.414-6.408 6.409-3.75-3.25-4.342 4.341-1.414-1.414 5.658-5.659 3.75 3.25 5.092-5.091ZM12 11v5l-2 2v-7h2Zm10-6v8l-2 2V5h2Zm-5 3v7l-2-2V8h2Z"
-                            />
-                            <path
-                              d="M17 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-3.782 0-7.238-1.4-9.876-3.71l-5.417 5.417-1.414-1.414 5.417-5.417A14.943 14.943 0 0 1 2 15c0-1.05.108-2.074.313-3.062l1.906.672C4.075 13.385 4 14.184 4 15c0 7.18 5.82 13 13 13s13-5.82 13-13S24.18 2 17 2c-1.002 0-1.978.113-2.915.328l-.75-1.877A15.031 15.031 0 0 1 17 0ZM9.621 1.937l.75 1.877a13.062 13.062 0 0 0-4.82 5.024l-1.907-.673a15.068 15.068 0 0 1 5.977-6.228Z"
-                            />
-                          </svg>
-                          <span
-                            class="euiButton__text"
-                          >
-                            Describe index
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                    <div
-                      class="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        class="euiButton euiButton--danger euiButton--small"
-                        type="button"
-                      >
-                        <span
-                          class="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                            focusable="false"
-                            height="16"
-                            role="img"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11 3h5v1H0V3h5V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2Zm-7.056 8H7v1H4.1l.392 2.519c.042.269.254.458.493.458h6.03c.239 0 .451-.189.493-.458l1.498-9.576H14l-1.504 9.73c-.116.747-.74 1.304-1.481 1.304h-6.03c-.741 0-1.365-.557-1.481-1.304l-1.511-9.73H9V5.95H3.157L3.476 8H8v1H3.632l.312 2ZM6 3h4V1H6v2Z"
-                            />
-                          </svg>
-                          <span
-                            class="euiButton__text"
-                          >
-                            Drop index
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div
-          aria-hidden="true"
-          data-aria-hidden="true"
-          data-focus-guard="true"
-          style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
-          tabindex="0"
-        />
       </div>
-    }
-  >
-    Array [
-      Array [
-        <div
-          data-focus-guard={true}
-          key="guard-first"
-          style={
-            Object {
-              "height": "0px",
-              "left": "1px",
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "fixed",
-              "top": "1px",
-              "width": "1px",
-            }
-          }
-          tabIndex={0}
-        />,
-        "",
-        <div
-          data-focus-lock-disabled={false}
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseDown={[Function]}
-          onScrollCapture={[Function]}
-          onTouchMoveCapture={[Function]}
-          onTouchStart={[Function]}
-          onWheelCapture={[Function]}
-        >
-          <div
-            aria-labelledby="flyoutTitle"
-            className="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
-            onMouseDown={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchStart={[Function]}
-            role="dialog"
-            tabIndex={-1}
-          >
-            <button
-              aria-label="Close this dialog"
-              className="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
-              data-test-subj="euiFlyoutCloseButton"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              <svg
-                aria-hidden={true}
-                className="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
-                focusable="false"
-                height={16}
-                role="img"
-                style={null}
-                viewBox="0 0 16 16"
-                width={16}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
-                />
-              </svg>
-            </button>
-            <div
-              className="euiFlyoutHeader euiFlyoutHeader--hasBorder"
-            >
-              <div>
-                <header
-                  className="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
-                >
-                  <div
-                    className="euiPageHeaderSection"
-                  >
-                    <h2
-                      className="euiTitle euiTitle--large"
-                      data-test-subj="acceleration-index-desc-header"
-                    >
-                      cv_idx
-                    </h2>
-                  </div>
-                </header>
-              </div>
-            </div>
-            <div
-              className="euiFlyoutBody"
-            >
-              <div
-                className="euiFlyoutBody__overflow"
-                tabIndex={0}
-              >
-                <div
-                  className="euiFlyoutBody__overflowContent"
-                >
-                  <div
-                    className="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration index source
-                    </h3>
-                  </div>
-                  <hr
-                    className="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    className="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Data Source
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      myds
-                    </dd>
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Database
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      mydb
-                    </dd>
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Data Table
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      mytable
-                    </dd>
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Acceleration Type
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      covering
-                    </dd>
-                  </dl>
-                  <div
-                    className="euiSpacer euiSpacer--xl"
-                  />
-                  <div
-                    className="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration index destination
-                    </h3>
-                  </div>
-                  <hr
-                    className="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    className="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      OpenSearch Index
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      flint_myds_mydb_mytable_cv_idx_index
-                    </dd>
-                  </dl>
-                  <div
-                    className="euiSpacer euiSpacer--xl"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="euiFlyoutFooter"
-            >
-              <div
-                className="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
-              >
-                <div
-                  className="euiFlexItem euiFlexItem--flexGrowZero"
-                >
-                  <button
-                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
-                    disabled={false}
-                    onClick={[MockFunction]}
-                    type="button"
-                  >
-                    <span
-                      className="euiButtonContent euiButtonEmpty__content"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                        focusable="false"
-                        height={16}
-                        role="img"
-                        style={null}
-                        viewBox="0 0 16 16"
-                        width={16}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
-                        />
-                      </svg>
-                      <span
-                        className="euiButtonEmpty__text"
-                      >
-                        Close
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                <div
-                  className="euiFlexItem euiFlexItem--flexGrowZero"
-                >
-                  <div
-                    className="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-                  >
-                    <div
-                      className="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        className="euiButton euiButton--primary euiButton--small euiButton--fill"
-                        disabled={false}
-                        onClick={[Function]}
-                        style={
-                          Object {
-                            "minWidth": undefined,
-                          }
-                        }
-                        type="button"
-                      >
-                        <span
-                          className="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                            focusable="false"
-                            height={32}
-                            role="img"
-                            style={null}
-                            viewBox="0 0 32 32"
-                            width={32}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              className="euiIcon__fillSecondary"
-                              d="m23.793 14.293 1.414 1.414-6.408 6.409-3.75-3.25-4.342 4.341-1.414-1.414 5.658-5.659 3.75 3.25 5.092-5.091ZM12 11v5l-2 2v-7h2Zm10-6v8l-2 2V5h2Zm-5 3v7l-2-2V8h2Z"
-                            />
-                            <path
-                              d="M17 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-3.782 0-7.238-1.4-9.876-3.71l-5.417 5.417-1.414-1.414 5.417-5.417A14.943 14.943 0 0 1 2 15c0-1.05.108-2.074.313-3.062l1.906.672C4.075 13.385 4 14.184 4 15c0 7.18 5.82 13 13 13s13-5.82 13-13S24.18 2 17 2c-1.002 0-1.978.113-2.915.328l-.75-1.877A15.031 15.031 0 0 1 17 0ZM9.621 1.937l.75 1.877a13.062 13.062 0 0 0-4.82 5.024l-1.907-.673a15.068 15.068 0 0 1 5.977-6.228Z"
-                            />
-                          </svg>
-                          <span
-                            className="euiButton__text"
-                          >
-                            Describe index
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                    <div
-                      className="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        className="euiButton euiButton--danger euiButton--small"
-                        disabled={false}
-                        onClick={[Function]}
-                        style={
-                          Object {
-                            "minWidth": undefined,
-                          }
-                        }
-                        type="button"
-                      >
-                        <span
-                          className="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                            focusable="false"
-                            height={16}
-                            role="img"
-                            style={null}
-                            viewBox="0 0 16 16"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11 3h5v1H0V3h5V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2Zm-7.056 8H7v1H4.1l.392 2.519c.042.269.254.458.493.458h6.03c.239 0 .451-.189.493-.458l1.498-9.576H14l-1.504 9.73c-.116.747-.74 1.304-1.481 1.304h-6.03c-.741 0-1.365-.557-1.481-1.304l-1.511-9.73H9V5.95H3.157L3.476 8H8v1H3.632l.312 2ZM6 3h4V1H6v2Z"
-                            />
-                          </svg>
-                          <span
-                            className="euiButton__text"
-                          >
-                            Drop index
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>,
-        <div
-          data-focus-guard={true}
-          style={
-            Object {
-              "height": "0px",
-              "left": "1px",
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "fixed",
-              "top": "1px",
-              "width": "1px",
-            }
-          }
-          tabIndex={0}
-        />,
-      ],
-      "",
-    ]
-  </Portal>,
-]
+    </div>
+    <div
+      aria-hidden="true"
+      data-aria-hidden="true"
+      data-focus-guard="true"
+      style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+      tabindex="0"
+    />
+  </div>
+</body>
 `;
 
-exports[`Acceleration index flyout renders acceleration flyout with skipping index 1`] = `
-Array [
-  "",
-  <Portal
-    containerInfo={
+exports[`Acceleration index flyout renders acceleration flyout with materialized view 1`] = `
+<body
+  class="euiBody-hasOverlayMask euiBody--hasFlyout"
+>
+  <div
+    aria-hidden="true"
+    data-aria-hidden="true"
+  />
+  <div
+    class="euiOverlayMask euiOverlayMask--belowHeader"
+  >
+    <div
+      aria-hidden="true"
+      data-aria-hidden="true"
+      data-focus-guard="true"
+      style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+      tabindex="0"
+    />
+    <div
+      data-focus-lock-disabled="false"
+    >
       <div
-        class="euiOverlayMask euiOverlayMask--belowHeader"
+        aria-labelledby="flyoutTitle"
+        class="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
+        role="dialog"
+        tabindex="-1"
       >
+        <button
+          aria-label="Close this dialog"
+          class="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
+          data-test-subj="euiFlyoutCloseButton"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
+            focusable="false"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+            />
+          </svg>
+        </button>
         <div
-          aria-hidden="true"
-          data-aria-hidden="true"
-          data-focus-guard="true"
-          style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
-          tabindex="0"
-        />
+          class="euiFlyoutHeader euiFlyoutHeader--hasBorder"
+        >
+          <div>
+            <header
+              class="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
+            >
+              <div
+                class="euiPageHeaderSection"
+              >
+                <h2
+                  class="euiTitle euiTitle--large"
+                  data-test-subj="acceleration-index-desc-header"
+                />
+              </div>
+            </header>
+          </div>
+        </div>
         <div
-          data-focus-lock-disabled="false"
+          class="euiFlyoutBody"
         >
           <div
-            aria-labelledby="flyoutTitle"
-            class="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
-            role="dialog"
-            tabindex="-1"
+            class="euiFlyoutBody__overflow"
+            tabindex="0"
           >
-            <button
-              aria-label="Close this dialog"
-              class="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
-              data-test-subj="euiFlyoutCloseButton"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
-                focusable="false"
-                height="16"
-                role="img"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
-                />
-              </svg>
-            </button>
             <div
-              class="euiFlyoutHeader euiFlyoutHeader--hasBorder"
-            >
-              <div>
-                <header
-                  class="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
-                >
-                  <div
-                    class="euiPageHeaderSection"
-                  >
-                    <h2
-                      class="euiTitle euiTitle--large"
-                      data-test-subj="acceleration-index-desc-header"
-                    >
-                      skipping_index
-                    </h2>
-                  </div>
-                </header>
-              </div>
-            </div>
-            <div
-              class="euiFlyoutBody"
+              class="euiFlyoutBody__overflowContent"
             >
               <div
-                class="euiFlyoutBody__overflow"
-                tabindex="0"
+                class="euiText euiText--medium"
               >
-                <div
-                  class="euiFlyoutBody__overflowContent"
-                >
-                  <div
-                    class="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration index source
-                    </h3>
-                  </div>
-                  <hr
-                    class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    class="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Data Source
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      myds
-                    </dd>
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Database
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      mydb
-                    </dd>
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Data Table
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      mytable
-                    </dd>
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Acceleration Type
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      skipping
-                    </dd>
-                  </dl>
-                  <div
-                    class="euiSpacer euiSpacer--xl"
-                  />
-                  <div
-                    class="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration index destination
-                    </h3>
-                  </div>
-                  <hr
-                    class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    class="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      OpenSearch Index
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      flint_myds_mydb_mytable_skipping_index
-                    </dd>
-                  </dl>
-                  <div
-                    class="euiSpacer euiSpacer--xl"
-                  />
-                </div>
+                <h3>
+                  Acceleration view source
+                </h3>
               </div>
+              <hr
+                class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
+              />
+              <dl
+                class="euiDescriptionList euiDescriptionList--row"
+              >
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Data Source
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  myds
+                </dd>
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Database
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  mydb
+                </dd>
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Acceleration Type
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  materialized
+                </dd>
+              </dl>
+              <div
+                class="euiSpacer euiSpacer--xl"
+              />
+              <div
+                class="euiText euiText--medium"
+              >
+                <h3>
+                  Acceleration view destination
+                </h3>
+              </div>
+              <hr
+                class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
+              />
+              <dl
+                class="euiDescriptionList euiDescriptionList--row"
+              >
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  OpenSearch Index
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  flint_myds_mydb_mytable
+                </dd>
+              </dl>
+              <div
+                class="euiSpacer euiSpacer--xl"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="euiFlyoutFooter"
+        >
+          <div
+            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
+          >
+            <div
+              class="euiFlexItem euiFlexItem--flexGrowZero"
+            >
+              <button
+                class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
+                type="button"
+              >
+                <span
+                  class="euiButtonContent euiButtonEmpty__content"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                    />
+                  </svg>
+                  <span
+                    class="euiButtonEmpty__text"
+                  >
+                    Close
+                  </span>
+                </span>
+              </button>
             </div>
             <div
-              class="euiFlyoutFooter"
+              class="euiFlexItem euiFlexItem--flexGrowZero"
             >
               <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
+                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
               >
                 <div
                   class="euiFlexItem euiFlexItem--flexGrowZero"
                 >
                   <button
-                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
+                    class="euiButton euiButton--primary euiButton--small euiButton--fill"
                     type="button"
                   >
                     <span
-                      class="euiButtonContent euiButtonEmpty__content"
+                      class="euiButtonContent euiButtonContent--iconRight euiButton__content"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                        focusable="false"
+                        height="32"
+                        role="img"
+                        viewBox="0 0 32 32"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          class="euiIcon__fillSecondary"
+                          d="m23.793 14.293 1.414 1.414-6.408 6.409-3.75-3.25-4.342 4.341-1.414-1.414 5.658-5.659 3.75 3.25 5.092-5.091ZM12 11v5l-2 2v-7h2Zm10-6v8l-2 2V5h2Zm-5 3v7l-2-2V8h2Z"
+                        />
+                        <path
+                          d="M17 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-3.782 0-7.238-1.4-9.876-3.71l-5.417 5.417-1.414-1.414 5.417-5.417A14.943 14.943 0 0 1 2 15c0-1.05.108-2.074.313-3.062l1.906.672C4.075 13.385 4 14.184 4 15c0 7.18 5.82 13 13 13s13-5.82 13-13S24.18 2 17 2c-1.002 0-1.978.113-2.915.328l-.75-1.877A15.031 15.031 0 0 1 17 0ZM9.621 1.937l.75 1.877a13.062 13.062 0 0 0-4.82 5.024l-1.907-.673a15.068 15.068 0 0 1 5.977-6.228Z"
+                        />
+                      </svg>
+                      <span
+                        class="euiButton__text"
+                      >
+                        Describe view
+                      </span>
+                    </span>
+                  </button>
+                </div>
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    class="euiButton euiButton--danger euiButton--small"
+                    type="button"
+                  >
+                    <span
+                      class="euiButtonContent euiButtonContent--iconRight euiButton__content"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M11 3h5v1H0V3h5V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2Zm-7.056 8H7v1H4.1l.392 2.519c.042.269.254.458.493.458h6.03c.239 0 .451-.189.493-.458l1.498-9.576H14l-1.504 9.73c-.116.747-.74 1.304-1.481 1.304h-6.03c-.741 0-1.365-.557-1.481-1.304l-1.511-9.73H9V5.95H3.157L3.476 8H8v1H3.632l.312 2ZM6 3h4V1H6v2Z"
+                        />
+                      </svg>
+                      <span
+                        class="euiButton__text"
+                      >
+                        Drop view
+                      </span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      data-aria-hidden="true"
+      data-focus-guard="true"
+      style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+      tabindex="0"
+    />
+  </div>
+</body>
+`;
+
+exports[`Acceleration index flyout renders acceleration flyout with skipping index 1`] = `
+<body
+  class="euiBody-hasOverlayMask euiBody--hasFlyout"
+>
+  <div
+    aria-hidden="true"
+    data-aria-hidden="true"
+  />
+  <div
+    class="euiOverlayMask euiOverlayMask--belowHeader"
+  >
+    <div
+      aria-hidden="true"
+      data-aria-hidden="true"
+      data-focus-guard="true"
+      style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+      tabindex="0"
+    />
+    <div
+      data-focus-lock-disabled="false"
+    >
+      <div
+        aria-labelledby="flyoutTitle"
+        class="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
+        role="dialog"
+        tabindex="-1"
+      >
+        <button
+          aria-label="Close this dialog"
+          class="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
+          data-test-subj="euiFlyoutCloseButton"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
+            focusable="false"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
+            />
+          </svg>
+        </button>
+        <div
+          class="euiFlyoutHeader euiFlyoutHeader--hasBorder"
+        >
+          <div>
+            <header
+              class="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
+            >
+              <div
+                class="euiPageHeaderSection"
+              >
+                <h2
+                  class="euiTitle euiTitle--large"
+                  data-test-subj="acceleration-index-desc-header"
+                >
+                  skipping_index
+                </h2>
+              </div>
+            </header>
+          </div>
+        </div>
+        <div
+          class="euiFlyoutBody"
+        >
+          <div
+            class="euiFlyoutBody__overflow"
+            tabindex="0"
+          >
+            <div
+              class="euiFlyoutBody__overflowContent"
+            >
+              <div
+                class="euiText euiText--medium"
+              >
+                <h3>
+                  Acceleration index source
+                </h3>
+              </div>
+              <hr
+                class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
+              />
+              <dl
+                class="euiDescriptionList euiDescriptionList--row"
+              >
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Data Source
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  myds
+                </dd>
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Database
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  mydb
+                </dd>
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Data Table
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  mytable
+                </dd>
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  Acceleration Type
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  skipping
+                </dd>
+              </dl>
+              <div
+                class="euiSpacer euiSpacer--xl"
+              />
+              <div
+                class="euiText euiText--medium"
+              >
+                <h3>
+                  Acceleration index destination
+                </h3>
+              </div>
+              <hr
+                class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
+              />
+              <dl
+                class="euiDescriptionList euiDescriptionList--row"
+              >
+                <dt
+                  class="euiDescriptionList__title"
+                >
+                  OpenSearch Index
+                </dt>
+                <dd
+                  class="euiDescriptionList__description"
+                >
+                  flint_myds_mydb_mytable_skipping_index
+                </dd>
+              </dl>
+              <div
+                class="euiSpacer euiSpacer--xl"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="euiFlyoutFooter"
+        >
+          <div
+            class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
+          >
+            <div
+              class="euiFlexItem euiFlexItem--flexGrowZero"
+            >
+              <button
+                class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
+                type="button"
+              >
+                <span
+                  class="euiButtonContent euiButtonEmpty__content"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
+                    />
+                  </svg>
+                  <span
+                    class="euiButtonEmpty__text"
+                  >
+                    Close
+                  </span>
+                </span>
+              </button>
+            </div>
+            <div
+              class="euiFlexItem euiFlexItem--flexGrowZero"
+            >
+              <div
+                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
+              >
+                <div
+                  class="euiFlexItem euiFlexItem--flexGrowZero"
+                >
+                  <button
+                    class="euiButton euiButton--primary euiButton--small euiButton--fill"
+                    type="button"
+                  >
+                    <span
+                      class="euiButtonContent euiButtonContent--iconRight euiButton__content"
                     >
                       <svg
                         aria-hidden="true"
@@ -822,9 +810,9 @@ Array [
                         />
                       </svg>
                       <span
-                        class="euiButtonEmpty__text"
+                        class="euiButton__text"
                       >
-                        Close
+                        Describe index
                       </span>
                     </span>
                   </button>
@@ -832,593 +820,16 @@ Array [
                 <div
                   class="euiFlexItem euiFlexItem--flexGrowZero"
                 >
-                  <div
-                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-                  >
-                    <div
-                      class="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        class="euiButton euiButton--primary euiButton--small euiButton--fill"
-                        type="button"
-                      >
-                        <span
-                          class="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
-                            focusable="false"
-                            height="16"
-                            role="img"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
-                            />
-                          </svg>
-                          <span
-                            class="euiButton__text"
-                          >
-                            Describe index
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                    <div
-                      class="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        class="euiButton euiButton--danger euiButton--small"
-                        type="button"
-                      >
-                        <span
-                          class="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
-                            focusable="false"
-                            height="16"
-                            role="img"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
-                            />
-                          </svg>
-                          <span
-                            class="euiButton__text"
-                          >
-                            Drop index
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          aria-hidden="true"
-          data-aria-hidden="true"
-          data-focus-guard="true"
-          style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
-          tabindex="0"
-        />
-      </div>
-    }
-  >
-    Array [
-      Array [
-        <div
-          data-focus-guard={true}
-          key="guard-first"
-          style={
-            Object {
-              "height": "0px",
-              "left": "1px",
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "fixed",
-              "top": "1px",
-              "width": "1px",
-            }
-          }
-          tabIndex={0}
-        />,
-        "",
-        <div
-          data-focus-lock-disabled={false}
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseDown={[Function]}
-          onScrollCapture={[Function]}
-          onTouchMoveCapture={[Function]}
-          onTouchStart={[Function]}
-          onWheelCapture={[Function]}
-        >
-          <div
-            aria-labelledby="flyoutTitle"
-            className="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
-            onMouseDown={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchStart={[Function]}
-            role="dialog"
-            tabIndex={-1}
-          >
-            <button
-              aria-label="Close this dialog"
-              className="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
-              data-test-subj="euiFlyoutCloseButton"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              <svg
-                aria-hidden={true}
-                className="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonIcon__icon"
-                focusable="false"
-                height={16}
-                role="img"
-                style={null}
-                viewBox="0 0 16 16"
-                width={16}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
-                />
-              </svg>
-            </button>
-            <div
-              className="euiFlyoutHeader euiFlyoutHeader--hasBorder"
-            >
-              <div>
-                <header
-                  className="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
-                >
-                  <div
-                    className="euiPageHeaderSection"
-                  >
-                    <h2
-                      className="euiTitle euiTitle--large"
-                      data-test-subj="acceleration-index-desc-header"
-                    >
-                      skipping_index
-                    </h2>
-                  </div>
-                </header>
-              </div>
-            </div>
-            <div
-              className="euiFlyoutBody"
-            >
-              <div
-                className="euiFlyoutBody__overflow"
-                tabIndex={0}
-              >
-                <div
-                  className="euiFlyoutBody__overflowContent"
-                >
-                  <div
-                    className="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration index source
-                    </h3>
-                  </div>
-                  <hr
-                    className="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    className="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Data Source
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      myds
-                    </dd>
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Database
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      mydb
-                    </dd>
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Data Table
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      mytable
-                    </dd>
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Acceleration Type
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      skipping
-                    </dd>
-                  </dl>
-                  <div
-                    className="euiSpacer euiSpacer--xl"
-                  />
-                  <div
-                    className="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration index destination
-                    </h3>
-                  </div>
-                  <hr
-                    className="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    className="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      OpenSearch Index
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      flint_myds_mydb_mytable_skipping_index
-                    </dd>
-                  </dl>
-                  <div
-                    className="euiSpacer euiSpacer--xl"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="euiFlyoutFooter"
-            >
-              <div
-                className="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
-              >
-                <div
-                  className="euiFlexItem euiFlexItem--flexGrowZero"
-                >
                   <button
-                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
-                    disabled={false}
-                    onClick={[MockFunction]}
+                    class="euiButton euiButton--danger euiButton--small"
                     type="button"
                   >
                     <span
-                      className="euiButtonContent euiButtonEmpty__content"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
-                        focusable="false"
-                        height={16}
-                        role="img"
-                        style={null}
-                        viewBox="0 0 16 16"
-                        width={16}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
-                        />
-                      </svg>
-                      <span
-                        className="euiButtonEmpty__text"
-                      >
-                        Close
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                <div
-                  className="euiFlexItem euiFlexItem--flexGrowZero"
-                >
-                  <div
-                    className="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-                  >
-                    <div
-                      className="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        className="euiButton euiButton--primary euiButton--small euiButton--fill"
-                        disabled={false}
-                        onClick={[Function]}
-                        style={
-                          Object {
-                            "minWidth": undefined,
-                          }
-                        }
-                        type="button"
-                      >
-                        <span
-                          className="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
-                            focusable="false"
-                            height={16}
-                            role="img"
-                            style={null}
-                            viewBox="0 0 16 16"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
-                            />
-                          </svg>
-                          <span
-                            className="euiButton__text"
-                          >
-                            Describe index
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                    <div
-                      className="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        className="euiButton euiButton--danger euiButton--small"
-                        disabled={false}
-                        onClick={[Function]}
-                        style={
-                          Object {
-                            "minWidth": undefined,
-                          }
-                        }
-                        type="button"
-                      >
-                        <span
-                          className="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
-                            focusable="false"
-                            height={16}
-                            role="img"
-                            style={null}
-                            viewBox="0 0 16 16"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
-                            />
-                          </svg>
-                          <span
-                            className="euiButton__text"
-                          >
-                            Drop index
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>,
-        <div
-          data-focus-guard={true}
-          style={
-            Object {
-              "height": "0px",
-              "left": "1px",
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "fixed",
-              "top": "1px",
-              "width": "1px",
-            }
-          }
-          tabIndex={0}
-        />,
-      ],
-      "",
-    ]
-  </Portal>,
-]
-`;
-
-exports[`Acceleration index flyout renders acceleration flyout with skipping index 2`] = `
-Array [
-  "",
-  <Portal
-    containerInfo={
-      <div
-        class="euiOverlayMask euiOverlayMask--belowHeader"
-      >
-        <div
-          aria-hidden="true"
-          data-aria-hidden="true"
-          data-focus-guard="true"
-          style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
-          tabindex="0"
-        />
-        <div
-          data-focus-lock-disabled="false"
-        >
-          <div
-            aria-labelledby="flyoutTitle"
-            class="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
-            role="dialog"
-            tabindex="-1"
-          >
-            <button
-              aria-label="Close this dialog"
-              class="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
-              data-test-subj="euiFlyoutCloseButton"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
-                focusable="false"
-                height="16"
-                role="img"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
-                />
-              </svg>
-            </button>
-            <div
-              class="euiFlyoutHeader euiFlyoutHeader--hasBorder"
-            >
-              <div>
-                <header
-                  class="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
-                >
-                  <div
-                    class="euiPageHeaderSection"
-                  >
-                    <h2
-                      class="euiTitle euiTitle--large"
-                      data-test-subj="acceleration-index-desc-header"
-                    />
-                  </div>
-                </header>
-              </div>
-            </div>
-            <div
-              class="euiFlyoutBody"
-            >
-              <div
-                class="euiFlyoutBody__overflow"
-                tabindex="0"
-              >
-                <div
-                  class="euiFlyoutBody__overflowContent"
-                >
-                  <div
-                    class="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration view source
-                    </h3>
-                  </div>
-                  <hr
-                    class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    class="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Data Source
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      myds
-                    </dd>
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Database
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      mydb
-                    </dd>
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      Acceleration Type
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      materialized
-                    </dd>
-                  </dl>
-                  <div
-                    class="euiSpacer euiSpacer--xl"
-                  />
-                  <div
-                    class="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration view destination
-                    </h3>
-                  </div>
-                  <hr
-                    class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    class="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      class="euiDescriptionList__title"
-                    >
-                      OpenSearch Index
-                    </dt>
-                    <dd
-                      class="euiDescriptionList__description"
-                    >
-                      flint_myds_mydb_mytable
-                    </dd>
-                  </dl>
-                  <div
-                    class="euiSpacer euiSpacer--xl"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="euiFlyoutFooter"
-            >
-              <div
-                class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
-              >
-                <div
-                  class="euiFlexItem euiFlexItem--flexGrowZero"
-                >
-                  <button
-                    class="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
-                    type="button"
-                  >
-                    <span
-                      class="euiButtonContent euiButtonEmpty__content"
+                      class="euiButtonContent euiButtonContent--iconRight euiButton__content"
                     >
                       <svg
                         aria-hidden="true"
-                        class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
+                        class="euiIcon euiIcon--medium euiIcon--inherit euiIcon-isLoading euiButtonContent__icon"
                         focusable="false"
                         height="16"
                         role="img"
@@ -1427,430 +838,30 @@ Array [
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
+                          d="M5.277 10.088c.02.014.04.03.057.047.582.55 1.134.812 1.666.812.586 0 1.84-.293 3.713-.88L9 6.212V2H7v4.212l-1.723 3.876Zm-.438.987L3.539 14h8.922l-1.32-2.969C9.096 11.677 7.733 12 7 12c-.74 0-1.463-.315-2.161-.925ZM6 2H5V1h6v1h-1v4l3.375 7.594A1 1 0 0 1 12.461 15H3.54a1 1 0 0 1-.914-1.406L6 6V2Z"
                         />
                       </svg>
                       <span
-                        class="euiButtonEmpty__text"
+                        class="euiButton__text"
                       >
-                        Close
+                        Drop index
                       </span>
                     </span>
                   </button>
-                </div>
-                <div
-                  class="euiFlexItem euiFlexItem--flexGrowZero"
-                >
-                  <div
-                    class="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-                  >
-                    <div
-                      class="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        class="euiButton euiButton--primary euiButton--small euiButton--fill"
-                        type="button"
-                      >
-                        <span
-                          class="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                            focusable="false"
-                            height="32"
-                            role="img"
-                            viewBox="0 0 32 32"
-                            width="32"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              class="euiIcon__fillSecondary"
-                              d="m23.793 14.293 1.414 1.414-6.408 6.409-3.75-3.25-4.342 4.341-1.414-1.414 5.658-5.659 3.75 3.25 5.092-5.091ZM12 11v5l-2 2v-7h2Zm10-6v8l-2 2V5h2Zm-5 3v7l-2-2V8h2Z"
-                            />
-                            <path
-                              d="M17 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-3.782 0-7.238-1.4-9.876-3.71l-5.417 5.417-1.414-1.414 5.417-5.417A14.943 14.943 0 0 1 2 15c0-1.05.108-2.074.313-3.062l1.906.672C4.075 13.385 4 14.184 4 15c0 7.18 5.82 13 13 13s13-5.82 13-13S24.18 2 17 2c-1.002 0-1.978.113-2.915.328l-.75-1.877A15.031 15.031 0 0 1 17 0ZM9.621 1.937l.75 1.877a13.062 13.062 0 0 0-4.82 5.024l-1.907-.673a15.068 15.068 0 0 1 5.977-6.228Z"
-                            />
-                          </svg>
-                          <span
-                            class="euiButton__text"
-                          >
-                            Describe view
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                    <div
-                      class="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        class="euiButton euiButton--danger euiButton--small"
-                        type="button"
-                      >
-                        <span
-                          class="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                            focusable="false"
-                            height="16"
-                            role="img"
-                            viewBox="0 0 16 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11 3h5v1H0V3h5V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2Zm-7.056 8H7v1H4.1l.392 2.519c.042.269.254.458.493.458h6.03c.239 0 .451-.189.493-.458l1.498-9.576H14l-1.504 9.73c-.116.747-.74 1.304-1.481 1.304h-6.03c-.741 0-1.365-.557-1.481-1.304l-1.511-9.73H9V5.95H3.157L3.476 8H8v1H3.632l.312 2ZM6 3h4V1H6v2Z"
-                            />
-                          </svg>
-                          <span
-                            class="euiButton__text"
-                          >
-                            Drop view
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div
-          aria-hidden="true"
-          data-aria-hidden="true"
-          data-focus-guard="true"
-          style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
-          tabindex="0"
-        />
       </div>
-    }
-  >
-    Array [
-      Array [
-        <div
-          data-focus-guard={true}
-          key="guard-first"
-          style={
-            Object {
-              "height": "0px",
-              "left": "1px",
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "fixed",
-              "top": "1px",
-              "width": "1px",
-            }
-          }
-          tabIndex={0}
-        />,
-        "",
-        <div
-          data-focus-lock-disabled={false}
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseDown={[Function]}
-          onScrollCapture={[Function]}
-          onTouchMoveCapture={[Function]}
-          onTouchStart={[Function]}
-          onWheelCapture={[Function]}
-        >
-          <div
-            aria-labelledby="flyoutTitle"
-            className="euiFlyout euiFlyout--medium euiFlyout--paddingLarge"
-            onMouseDown={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchStart={[Function]}
-            role="dialog"
-            tabIndex={-1}
-          >
-            <button
-              aria-label="Close this dialog"
-              className="euiButtonIcon euiButtonIcon--text euiButtonIcon--empty euiButtonIcon--xSmall euiFlyout__closeButton euiFlyout__closeButton--inside"
-              data-test-subj="euiFlyoutCloseButton"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              <svg
-                aria-hidden={true}
-                className="euiIcon euiIcon--medium euiIcon--inherit euiButtonIcon__icon"
-                focusable="false"
-                height={16}
-                role="img"
-                style={null}
-                viewBox="0 0 16 16"
-                width={16}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
-                />
-              </svg>
-            </button>
-            <div
-              className="euiFlyoutHeader euiFlyoutHeader--hasBorder"
-            >
-              <div>
-                <header
-                  className="euiPageHeader euiPageHeader--responsive euiPageHeader--center"
-                >
-                  <div
-                    className="euiPageHeaderSection"
-                  >
-                    <h2
-                      className="euiTitle euiTitle--large"
-                      data-test-subj="acceleration-index-desc-header"
-                    />
-                  </div>
-                </header>
-              </div>
-            </div>
-            <div
-              className="euiFlyoutBody"
-            >
-              <div
-                className="euiFlyoutBody__overflow"
-                tabIndex={0}
-              >
-                <div
-                  className="euiFlyoutBody__overflowContent"
-                >
-                  <div
-                    className="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration view source
-                    </h3>
-                  </div>
-                  <hr
-                    className="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    className="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Data Source
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      myds
-                    </dd>
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Database
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      mydb
-                    </dd>
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      Acceleration Type
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      materialized
-                    </dd>
-                  </dl>
-                  <div
-                    className="euiSpacer euiSpacer--xl"
-                  />
-                  <div
-                    className="euiText euiText--medium"
-                  >
-                    <h3>
-                      Acceleration view destination
-                    </h3>
-                  </div>
-                  <hr
-                    className="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginSmall"
-                  />
-                  <dl
-                    className="euiDescriptionList euiDescriptionList--row"
-                  >
-                    <dt
-                      className="euiDescriptionList__title"
-                    >
-                      OpenSearch Index
-                    </dt>
-                    <dd
-                      className="euiDescriptionList__description"
-                    >
-                      flint_myds_mydb_mytable
-                    </dd>
-                  </dl>
-                  <div
-                    className="euiSpacer euiSpacer--xl"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="euiFlyoutFooter"
-            >
-              <div
-                className="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--justifyContentSpaceBetween euiFlexGroup--directionRow euiFlexGroup--responsive"
-              >
-                <div
-                  className="euiFlexItem euiFlexItem--flexGrowZero"
-                >
-                  <button
-                    className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--small euiButtonEmpty--flushLeft"
-                    disabled={false}
-                    onClick={[MockFunction]}
-                    type="button"
-                  >
-                    <span
-                      className="euiButtonContent euiButtonEmpty__content"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                        focusable="false"
-                        height={16}
-                        role="img"
-                        style={null}
-                        viewBox="0 0 16 16"
-                        width={16}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8Z"
-                        />
-                      </svg>
-                      <span
-                        className="euiButtonEmpty__text"
-                      >
-                        Close
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                <div
-                  className="euiFlexItem euiFlexItem--flexGrowZero"
-                >
-                  <div
-                    className="euiFlexGroup euiFlexGroup--gutterLarge euiFlexGroup--directionRow euiFlexGroup--responsive"
-                  >
-                    <div
-                      className="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        className="euiButton euiButton--primary euiButton--small euiButton--fill"
-                        disabled={false}
-                        onClick={[Function]}
-                        style={
-                          Object {
-                            "minWidth": undefined,
-                          }
-                        }
-                        type="button"
-                      >
-                        <span
-                          className="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                            focusable="false"
-                            height={32}
-                            role="img"
-                            style={null}
-                            viewBox="0 0 32 32"
-                            width={32}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              className="euiIcon__fillSecondary"
-                              d="m23.793 14.293 1.414 1.414-6.408 6.409-3.75-3.25-4.342 4.341-1.414-1.414 5.658-5.659 3.75 3.25 5.092-5.091ZM12 11v5l-2 2v-7h2Zm10-6v8l-2 2V5h2Zm-5 3v7l-2-2V8h2Z"
-                            />
-                            <path
-                              d="M17 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-3.782 0-7.238-1.4-9.876-3.71l-5.417 5.417-1.414-1.414 5.417-5.417A14.943 14.943 0 0 1 2 15c0-1.05.108-2.074.313-3.062l1.906.672C4.075 13.385 4 14.184 4 15c0 7.18 5.82 13 13 13s13-5.82 13-13S24.18 2 17 2c-1.002 0-1.978.113-2.915.328l-.75-1.877A15.031 15.031 0 0 1 17 0ZM9.621 1.937l.75 1.877a13.062 13.062 0 0 0-4.82 5.024l-1.907-.673a15.068 15.068 0 0 1 5.977-6.228Z"
-                            />
-                          </svg>
-                          <span
-                            className="euiButton__text"
-                          >
-                            Describe view
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                    <div
-                      className="euiFlexItem euiFlexItem--flexGrowZero"
-                    >
-                      <button
-                        className="euiButton euiButton--danger euiButton--small"
-                        disabled={false}
-                        onClick={[Function]}
-                        style={
-                          Object {
-                            "minWidth": undefined,
-                          }
-                        }
-                        type="button"
-                      >
-                        <span
-                          className="euiButtonContent euiButtonContent--iconRight euiButton__content"
-                        >
-                          <svg
-                            aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon--inherit euiButtonContent__icon"
-                            focusable="false"
-                            height={16}
-                            role="img"
-                            style={null}
-                            viewBox="0 0 16 16"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11 3h5v1H0V3h5V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2Zm-7.056 8H7v1H4.1l.392 2.519c.042.269.254.458.493.458h6.03c.239 0 .451-.189.493-.458l1.498-9.576H14l-1.504 9.73c-.116.747-.74 1.304-1.481 1.304h-6.03c-.741 0-1.365-.557-1.481-1.304l-1.511-9.73H9V5.95H3.157L3.476 8H8v1H3.632l.312 2ZM6 3h4V1H6v2Z"
-                            />
-                          </svg>
-                          <span
-                            className="euiButton__text"
-                          >
-                            Drop view
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>,
-        <div
-          data-focus-guard={true}
-          style={
-            Object {
-              "height": "0px",
-              "left": "1px",
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "fixed",
-              "top": "1px",
-              "width": "1px",
-            }
-          }
-          tabIndex={0}
-        />,
-      ],
-      "",
-    ]
-  </Portal>,
-]
+    </div>
+    <div
+      aria-hidden="true"
+      data-aria-hidden="true"
+      data-focus-guard="true"
+      style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"
+      tabindex="0"
+    />
+  </div>
+</body>
 `;

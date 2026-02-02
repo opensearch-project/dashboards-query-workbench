@@ -128,7 +128,6 @@ exports[`Render databases in tree fetches Materialized view in the Side tree 1`]
                               <div
                                 class="euiText euiText--medium"
                               >
-                                
                                  
                                 <svg
                                   aria-hidden="true"
@@ -342,7 +341,6 @@ exports[`Render databases in tree fetches No materilaized views badge in side tr
                               <div
                                 class="euiText euiText--medium"
                               >
-                                
                                  
                                 <svg
                                   aria-hidden="true"
