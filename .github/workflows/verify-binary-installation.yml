@@ -2,10 +2,10 @@ name: 'Install Dashboards with Plugin via Binary'
 
 on: [push, pull_request]
 env:
-  OPENSEARCH_VERSION: '3.0.0-beta1'
   CI: 1
   # avoid warnings like "tput: No value for $TERM and no -T specified"
   TERM: xterm
+  PLUGIN_NAME: dashboards-query-workbench
 
 jobs:
   verify-binary-installation:
@@ -18,7 +18,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set env
         run: |
@@ -29,7 +29,7 @@ jobs:
         shell: bash
 
       - name: Run Opensearch
-        uses: derek-ho/start-opensearch@v2
+        uses: derek-ho/start-opensearch@v9
         with:
           opensearch-version: ${{ env.OPENSEARCH_VERSION }}
           security-enabled: false
@@ -38,7 +38,7 @@ jobs:
         id: setup-dashboards
         uses: derek-ho/setup-opensearch-dashboards@v2
         with:
-          plugin_name: dashboards-query-workbench
+          plugin_name: ${{ env.PLUGIN_NAME }}
           built_plugin_name: queryWorkbenchDashboards
           built_plugin_suffix: ${{ env.OPENSEARCH_VERSION }}
           install_zip: true

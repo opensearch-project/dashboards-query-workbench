@@ -62,18 +62,17 @@ describe('Render databases in tree', () => {
       return (Promise.resolve(mockOpenSearchIndicies) as unknown) as HttpResponse;
     });
 
-    const asyncTest = () => {
-      render(
-        <TableView
-          http={client}
-          selectedItems={[{ label: 'OpenSearch' }]}
-          updateSQLQueries={() => {}}
-          refreshTree={false}
-        />
-      );
-    };
-    await asyncTest();
-    expect(screen.getByTestId('opensearch-tree')).toBeInTheDocument();
+    render(
+      <TableView
+        http={client}
+        selectedItems={[{ label: 'OpenSearch' }]}
+        updateSQLQueries={() => {}}
+        refreshTree={false}
+      />
+    );
+    await waitFor(() => {
+      expect(screen.getByTestId('opensearch-tree')).toBeInTheDocument();
+    });
     expect(document.body.children[0]).toMatchSnapshot();
   });
 

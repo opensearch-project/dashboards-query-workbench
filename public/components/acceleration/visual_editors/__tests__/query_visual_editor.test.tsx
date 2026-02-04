@@ -3,10 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { waitFor } from '@testing-library/dom';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import toJson from 'enzyme-to-json';
+import { render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { CreateAccelerationForm } from '../../../../../common/types';
 import {
@@ -18,25 +15,17 @@ import {
 import { QueryVisualEditor } from '../query_visual_editor';
 
 describe('Visual builder components', () => {
-  configure({ adapter: new Adapter() });
-
   it('renders visual builder with default options', async () => {
     const accelerationFormData = createAccelerationEmptyDataMock;
     const setAccelerationFormData = jest.fn();
-    const wrapper = mount(
+    render(
       <QueryVisualEditor
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
     );
-    wrapper.update();
     await waitFor(() => {
-      expect(
-        toJson(wrapper, {
-          noKey: false,
-          mode: 'deep',
-        })
-      ).toMatchSnapshot();
+      expect(document.body).toMatchSnapshot();
     });
   });
 
@@ -48,20 +37,14 @@ describe('Visual builder components', () => {
       skippingIndexQueryData: skippingIndexDataMock,
     };
     const setAccelerationFormData = jest.fn();
-    const wrapper = mount(
+    render(
       <QueryVisualEditor
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
     );
-    wrapper.update();
     await waitFor(() => {
-      expect(
-        toJson(wrapper, {
-          noKey: false,
-          mode: 'deep',
-        })
-      ).toMatchSnapshot();
+      expect(document.body).toMatchSnapshot();
     });
   });
 
@@ -73,20 +56,14 @@ describe('Visual builder components', () => {
       coveringIndexQueryData: coveringIndexDataMock,
     };
     const setAccelerationFormData = jest.fn();
-    const wrapper = mount(
+    render(
       <QueryVisualEditor
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
     );
-    wrapper.update();
     await waitFor(() => {
-      expect(
-        toJson(wrapper, {
-          noKey: false,
-          mode: 'deep',
-        })
-      ).toMatchSnapshot();
+      expect(document.body).toMatchSnapshot();
     });
   });
 
@@ -97,20 +74,14 @@ describe('Visual builder components', () => {
       materializedViewQueryData: materializedViewValidDataMock,
     };
     const setAccelerationFormData = jest.fn();
-    const wrapper = mount(
+    render(
       <QueryVisualEditor
         accelerationFormData={accelerationFormData}
         setAccelerationFormData={setAccelerationFormData}
       />
     );
-    wrapper.update();
     await waitFor(() => {
-      expect(
-        toJson(wrapper, {
-          noKey: false,
-          mode: 'deep',
-        })
-      ).toMatchSnapshot();
+      expect(document.body).toMatchSnapshot();
     });
   });
 });

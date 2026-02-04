@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
 import { DataSourceManagementPluginSetup } from '../../../src/plugins/data_source_management/public';
 import { WorkbenchApp } from './components/app';
@@ -16,7 +16,8 @@ export const renderApp = (
   { appBasePath, element, setHeaderActionMenu, dataSourceId }: AppMountParameters,
   dataSourceManagement: DataSourceManagementPluginSetup
 ) => {
-  ReactDOM.render(
+  const root = createRoot(element);
+  root.render(
     <WorkbenchApp
       basename={appBasePath}
       notifications={notifications}
@@ -28,9 +29,8 @@ export const renderApp = (
       dataSourceManagement={dataSourceManagement}
       setActionMenu={setHeaderActionMenu}
       dataSourceMDSId={dataSourceId}
-    />,
-    element
+    />
   );
 
-  return () => ReactDOM.unmountComponentAtNode(element);
+  return () => root.unmount();
 };

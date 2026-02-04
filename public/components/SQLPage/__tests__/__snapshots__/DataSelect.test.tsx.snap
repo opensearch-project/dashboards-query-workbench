@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Renders the Datasource picker component fetches the datasources and selects Opensearch as source 1`] = `""`;
+exports[`Renders the Datasource picker component fetches the datasources and selects Opensearch as source 1`] = `
+<body>
+  <div />
+</body>
+`;
 
-exports[`Renders the Datasource picker component fetches the datasources and selects S3glue as source 1`] = `""`;
+exports[`Renders the Datasource picker component fetches the datasources and selects S3glue as source 1`] = `
+<body>
+  <div />
+</body>
+`;
