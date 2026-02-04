@@ -40,7 +40,7 @@ jobs:
         with:
           plugin_name: ${{ env.PLUGIN_NAME }}
           built_plugin_name: queryWorkbenchDashboards
-          built_plugin_suffix: ${{ env.PLUGIN_VERSION }}
+          built_plugin_suffix: ${{ env.OPENSEARCH_VERSION }}
           install_zip: true
 
       - name: Start the binary

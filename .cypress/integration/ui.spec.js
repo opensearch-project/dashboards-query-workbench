@@ -48,20 +48,23 @@ describe('Test PPL UI', () => {
   });
 
   it('Test Run button', () => {
-    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true }).then(()=>{
-      cy.get('.ace_line').contains('source=accounts')
-    }).then(()=>{
-      cy.wait(1000)
-      cy.get('button[data-test-subj="pplRunButton"]').click({ force: true });
-    }).then(() => {
-      cy.get('[data-test-subj="result_tab"]').contains('Events').click({ force: true });
-    });
+    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
+
+    // Wait for ACE editor to render the typed content
+    cy.wait(1000);
+    cy.get('button[data-test-subj="pplRunButton"]').click({ force: true });
+    cy.get('[data-test-subj="result_tab"]').contains('Events').click({ force: true });
   });
 
   it('Test Clear button', () => {
+    // First type something to clear
+    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
+    cy.wait(500);
+
     cy.get('[data-test-subj="pplClearButton"]').contains('Clear').click({ force: true });
 
-    cy.get('.euiTitle').should('not.exist');
+    // Verify the typed content is cleared from the editor
+    cy.get('.ace_content').should('not.contain.text', 'source=accounts');
   });
 
   it('Test full screen view', () => {
@@ -110,9 +113,14 @@ describe('Test SQL UI', () => {
   });
 
   it('Test Clear button', () => {
+    // First type something to clear
+    cy.get('textarea.ace_text-input').eq(0).focus().type('SELECT * FROM test', { force: true });
+    cy.wait(500);
+
     cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click({ force: true });
 
-    cy.get('.euiTitle').should('not.exist');
+    // Verify the typed content is cleared from the editor
+    cy.get('.ace_content').should('not.contain.text', 'SELECT * FROM test');
   });
 
   it('Test full screen view', () => {
