@@ -48,6 +48,7 @@
     "semver": "^7.5.2",
     "@cypress/request": "^3.0.9",
     "**/eslint/cross-spawn": "^7.0.5",
-    "qs": "^6.14.1"
+    "qs": "^6.14.1",
+    "lodash": "^4.18.0"
   }
 }
