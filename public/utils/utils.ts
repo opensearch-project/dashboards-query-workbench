@@ -7,14 +7,75 @@
 import {ItemIdToExpandedRowMap, QueryMessage, ResponseDetail} from '../components/Main/main';
 import {MESSAGE_TAB_LABEL} from "./constants";
 
+enum QueryParserState {
+  NORMAL,
+  ESCAPED,
+  ESCAPED_IN_SINGLE_QUOTES,
+  IN_SINGLE_QUOTES,
+}
+
 // It returns an array of queries
 export const getQueries = (queriesString: string): string[] => {
   if (queriesString == '') {
     return [];
   }
+  const splitQueries: string[] = [];
+  let index = 0;
+  let nextString: string = "";
+  let queryParserState: QueryParserState = QueryParserState.NORMAL;
+  while (index < queriesString.length) {
+    let c = queriesString.charAt(index);
+    if (c === '\\') {
+      if (queryParserState == QueryParserState.ESCAPED) {
+        nextString += c;
+        queryParserState = QueryParserState.NORMAL;
+      } else if (queryParserState == QueryParserState.ESCAPED_IN_SINGLE_QUOTES) {
+        nextString += c;
+        queryParserState = QueryParserState.IN_SINGLE_QUOTES;
+      } else if (queryParserState == QueryParserState.IN_SINGLE_QUOTES) {
+        queryParserState = QueryParserState.ESCAPED_IN_SINGLE_QUOTES;
+      } else /* queryParserState == QueryParserState.NORMAL */ {
+        queryParserState = QueryParserState.ESCAPED;
+      }
+    } else if (c === ';') {
+      if (queryParserState == QueryParserState.ESCAPED) {
+        nextString += c;
+        queryParserState = QueryParserState.NORMAL;
+      } else if (queryParserState == QueryParserState.ESCAPED_IN_SINGLE_QUOTES) {
+        nextString += c;
+        queryParserState = QueryParserState.IN_SINGLE_QUOTES;
+      } else if (queryParserState == QueryParserState.IN_SINGLE_QUOTES) {
+        nextString += c;
+      } else /* queryParserState == QueryParserState.NORMAL */ {
+        splitQueries.push(nextString);
+        nextString = "";
+      }
+    } else if (c === "'") {
+      nextString += c;
+      if (queryParserState == QueryParserState.ESCAPED ||
+          queryParserState == QueryParserState.IN_SINGLE_QUOTES) {
+        queryParserState = QueryParserState.NORMAL;
+      } else if (queryParserState == QueryParserState.ESCAPED_IN_SINGLE_QUOTES) {
+        queryParserState = QueryParserState.IN_SINGLE_QUOTES;
+      } else /* queryParserState == QueryParserState.NORMAL */ {
+        queryParserState = QueryParserState.IN_SINGLE_QUOTES;
+      }
+    } else if (queryParserState == QueryParserState.ESCAPED) {
+      nextString += c;
+      queryParserState = QueryParserState.NORMAL;
+    } else if (queryParserState == QueryParserState.ESCAPED_IN_SINGLE_QUOTES) {
+      nextString += c;
+      queryParserState = QueryParserState.IN_SINGLE_QUOTES;
+    } else /* ((queryParserState == QueryParserState.IN_SINGLE_QUOTES
+      || queryParserState == QueryParserState.NORMAL) &&
+      (c != '\\' && c != '\'' && c != ';')) */ {
+      nextString += c;
+    }
+    index++;
+  }
+  splitQueries.push(nextString); // if it's empty, it gets filtered immediately anyway
 
-  return queriesString
-    .split(';')
+  return splitQueries
     .map((query: string) => query.trim().replace(/[\r\n]+/g, ' '))
     .filter((query: string) => query != '');
 };
