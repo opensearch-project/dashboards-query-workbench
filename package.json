@@ -30,24 +30,19 @@
   },
   "devDependencies": {
     "@testing-library/user-event": "^14.4.3",
-    "@types/react-test-renderer": "^18.0.0",
-    "eslint": "^6.8.0",
     "husky": "^8.0.3",
     "jest-dom": "^4.0.0",
     "jest-raw-loader": "^1.0.1",
     "lint-staged": "^15.2.10",
-    "mutationobserver-shim": "^0.3.3",
-    "ts-jest": "^29.1.0"
+    "mutationobserver-shim": "^0.3.3"
   },
   "resolutions": {
     "ansi-regex": "^5.0.1",
-    "eslint-utils": "^2.0.0",
     "json-schema": "^0.4.0",
     "yaml": "^2.2.2",
     "tough-cookie": "^4.1.3",
     "semver": "^7.5.2",
     "@cypress/request": "^3.0.9",
-    "**/eslint/cross-spawn": "^7.0.5",
     "qs": "^6.14.1",
     "flatted": "^3.4.2",
     "lodash": "^4.18.0"
