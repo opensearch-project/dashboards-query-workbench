@@ -3,23 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 import { schema } from '@osd/config-schema';
-import { IOpenSearchDashboardsResponse, IRouter, OpenSearchServiceSetup, ResponseError } from '../../../../src/core/server';
+import {
+  IOpenSearchDashboardsResponse,
+  IRouter,
+  OpenSearchServiceSetup,
+  ResponseError,
+} from '../../../../src/core/server';
 import TranslateService from '../services/TranslateService';
 
-export default function translate(server: IRouter, service: TranslateService, openSearchServiceSetup: OpenSearchServiceSetup) {
+export default function translate(
+  server: IRouter,
+  service: TranslateService,
+  openSearchServiceSetup: OpenSearchServiceSetup
+) {
   server.post(
     {
       path: '/api/sql_console/translatesql',
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.translateSQL(context, request);
       return response.ok({
         body: retVal,
@@ -33,11 +45,15 @@ export default function translate(server: IRouter, service: TranslateService, op
       validate: {
         body: schema.any(),
         query: schema.object({
-          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' }))
-        })
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
       },
     },
-    async (context, request, response): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
       const retVal = await service.translatePPL(context, request);
       return response.ok({
         body: retVal,

@@ -26,15 +26,13 @@ describe('CreateButton', () => {
 
     expect(screen.getByText('Spark SQL')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Spark SQL'));
-    
+
     expect(document.body.children[0]).toMatchSnapshot();
 
-   
     await waitFor(() => {
       expect(screen.queryByText('Create Database')).toBeInTheDocument();
     });
     expect(document.body.children[0]).toMatchSnapshot();
-
   });
 
   it('selects an option in the Spark SQL submenu', async () => {
@@ -57,5 +55,4 @@ describe('CreateButton', () => {
 
     expect(mockUpdateSQLQueries).toHaveBeenCalledWith(`CREATE DATABASE datasource.database`);
   });
-
 });

@@ -19,10 +19,21 @@ interface CatalogTreeProps {
   updatePPLQueries: (query: string) => void;
 }
 
-export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, dataSourceMDSId, clusterTab, language, updatePPLQueries}: CatalogTreeProps) => {
+export const CatalogTree = ({
+  selectedItems,
+  updateSQLQueries,
+  refreshTree,
+  dataSourceEnabled,
+  dataSourceMDSId,
+  clusterTab,
+  language,
+  updatePPLQueries,
+}: CatalogTreeProps) => {
   return (
     <>
-      {selectedItems !== undefined && selectedItems[0].label === 'OpenSearch' && clusterTab !== 'Data source Connections'? (
+      {selectedItems !== undefined &&
+      selectedItems[0].label === 'OpenSearch' &&
+      clusterTab !== 'Data source Connections' ? (
         <OSTree
           selectedItems={selectedItems}
           updateSQLQueries={updateSQLQueries}
@@ -30,7 +41,7 @@ export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, data
           dataSourceEnabled={dataSourceEnabled}
           dataSourceMDSId={dataSourceMDSId}
         />
-      )  : (selectedItems[0].label !== 'OpenSearch' && clusterTab === 'Data source Connections')? (
+      ) : selectedItems[0].label !== 'OpenSearch' && clusterTab === 'Data source Connections' ? (
         <S3Tree
           dataSource={selectedItems[0].label}
           updateSQLQueries={updateSQLQueries}
@@ -40,7 +51,7 @@ export const CatalogTree = ({ selectedItems, updateSQLQueries, refreshTree, data
           language={language}
           updatePPLQueries={updatePPLQueries}
         />
-      ):(
+      ) : (
         <EuiFlexItem grow={false}>
           <EuiEmptyPrompt
             icon={<EuiIcon type="database" size="m" />}

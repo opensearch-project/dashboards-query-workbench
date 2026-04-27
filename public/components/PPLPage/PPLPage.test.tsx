@@ -3,22 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import '@testing-library/jest-dom/extend-expect';
+import { fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import { PPLPage } from './PPLPage';
 
-import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render } from "@testing-library/react";
-import React from "react";
-import { PPLPage } from "./PPLPage";
-
-
-describe("<PPLPage /> spec", () => {
-
-  it("renders the component", () => {
+describe('<PPLPage /> spec', () => {
+  it('renders the component', () => {
     render(
       <PPLPage
-        onRun={() => { }}
-        onTranslate={() => { }}
-        onClear={() => { }}
-        updatePPLQueries={() => { }}
+        onRun={() => {}}
+        onTranslate={() => {}}
+        onClear={() => {}}
+        updatePPLQueries={() => {}}
         pplTranslations={[]}
         pplQuery={''}
       />
@@ -31,7 +28,7 @@ describe("<PPLPage /> spec", () => {
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
-    const onExplain = jest.fn()
+    const onExplain = jest.fn();
 
     const { getByText } = render(
       <PPLPage
@@ -51,7 +48,6 @@ describe("<PPLPage /> spec", () => {
 
     fireEvent.click(getByText('Clear'));
     expect(onClean).toHaveBeenCalledTimes(1);
-
   });
 
   it('tests the action buttons', async () => {
@@ -59,7 +55,7 @@ describe("<PPLPage /> spec", () => {
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
-    const onExplain = jest.fn()
+    const onExplain = jest.fn();
 
     const { getByText } = render(
       <PPLPage
@@ -74,7 +70,6 @@ describe("<PPLPage /> spec", () => {
     expect(getByText('Explain')).toBeInTheDocument();
     fireEvent.click(getByText('Explain'));
     expect(document.body.children[0]).toMatchSnapshot();
-
   });
 
   it('tests the Sample query button', async () => {
@@ -82,7 +77,7 @@ describe("<PPLPage /> spec", () => {
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
-    const onExplain = jest.fn()
+    const onExplain = jest.fn();
 
     const { getByText } = render(
       <PPLPage
@@ -99,17 +94,16 @@ describe("<PPLPage /> spec", () => {
     const asyncTest = () => {
       fireEvent.click(sampleQueryButton);
     };
-    
+
     await asyncTest();
     expect(document.body.children[0]).toMatchSnapshot();
-
   });
   it('tests the Sample query button', async () => {
     const onRun = jest.fn();
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
-    const onExplain = jest.fn()
+    const onExplain = jest.fn();
 
     const { getByText } = render(
       <PPLPage

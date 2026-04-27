@@ -10,7 +10,7 @@ import {
   CREATE_DATABASE_QUERY,
   CREATE_MATERIALIZED_VIEW,
   CREATE_TABLE_QUERY,
-  SKIPPING_INDEX_QUERY
+  SKIPPING_INDEX_QUERY,
 } from '../../../common/constants';
 
 interface CreateButtonProps {
@@ -99,7 +99,7 @@ export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateBut
                   {
                     name: 'Materialized View',
                     panel: 3,
-                  }
+                  },
                 ],
               },
               {

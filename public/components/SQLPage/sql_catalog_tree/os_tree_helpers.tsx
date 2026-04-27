@@ -29,7 +29,10 @@ export const generateOpenSearchTree = (indices: string[]) => {
   return openSearchIndicesTree;
 };
 
-export const loadOpenSearchTree = async (dataSourceEnabled: boolean, dataSourceMDSId: string): Promise<{
+export const loadOpenSearchTree = async (
+  dataSourceEnabled: boolean,
+  dataSourceMDSId: string
+): Promise<{
   treeContent: Node[];
   loadingStatus: { status: boolean; message: string };
 }> => {
@@ -40,11 +43,14 @@ export const loadOpenSearchTree = async (dataSourceEnabled: boolean, dataSourceM
     loadingStatus: {} as { status: boolean; message: string },
   };
   try {
-    let query = {}
-    if(dataSourceEnabled && dataSourceMDSId){
-      query = {dataSourceMDSId: dataSourceMDSId};
+    let query = {};
+    if (dataSourceEnabled && dataSourceMDSId) {
+      query = { dataSourceMDSId };
     }
-    const res = await http!.post(FETCH_OPENSEARCH_INDICES_PATH, {body: JSON.stringify({query: LOAD_OPENSEARCH_INDICES_QUERY}), query});
+    const res = await http!.post(FETCH_OPENSEARCH_INDICES_PATH, {
+      body: JSON.stringify({ query: LOAD_OPENSEARCH_INDICES_QUERY }),
+      query,
+    });
     const responseObj = JSON.parse(res.data.resp);
     const dataRows: any[][] = _.get(responseObj, 'datarows');
     if (dataRows.length > 0) {
@@ -75,9 +81,16 @@ export const loadOpenSearchTree = async (dataSourceEnabled: boolean, dataSourceM
   }
   return loadedTree;
 };
-export const getTreeContent = async (selectedItems: EuiComboBoxOptionOption[] , dataSourceEnabled: boolean, dataSourceMDSId: string) => {
+export const getTreeContent = async (
+  selectedItems: EuiComboBoxOptionOption[],
+  dataSourceEnabled: boolean,
+  dataSourceMDSId: string
+) => {
   if (selectedItems[0].label === 'OpenSearch') {
-    const { treeContent, loadingStatus } = await loadOpenSearchTree(dataSourceEnabled, dataSourceMDSId);
+    const { treeContent, loadingStatus } = await loadOpenSearchTree(
+      dataSourceEnabled,
+      dataSourceMDSId
+    );
     return { treeContent, loadingStatus, s3TreeItems: [] };
   }
 };

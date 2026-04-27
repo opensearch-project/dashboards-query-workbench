@@ -78,11 +78,11 @@ export default class QueryService {
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format, {
-          jobId: jobId,
+          jobId,
         });
       } else {
         queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, {
-          jobId: jobId,
+          jobId,
         });
       }
       return {

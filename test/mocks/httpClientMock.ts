@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 const httpClientMock = jest.fn() as any;
 
 httpClientMock.delete = jest.fn();

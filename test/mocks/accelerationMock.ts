@@ -4,13 +4,13 @@
  */
 
 import {
-    ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
-    ACCELERATION_TIME_INTERVAL,
+  ACCELERATION_DEFUALT_SKIPPING_INDEX_NAME,
+  ACCELERATION_TIME_INTERVAL,
 } from '../../common/constants';
 import {
-    CreateAccelerationForm,
-    MaterializedViewQueryType,
-    SkippingIndexRowType,
+  CreateAccelerationForm,
+  MaterializedViewQueryType,
+  SkippingIndexRowType,
 } from '../../common/types';
 
 export const skippingIndexDataMock: SkippingIndexRowType[] = [

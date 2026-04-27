@@ -16,20 +16,32 @@ interface CustomView {
   dataSourceMDSId: string;
 }
 
-export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading, dataSourceMDSId }: CustomView) => {
+export const DataSelect = ({
+  http,
+  onSelect,
+  urlDataSource,
+  asyncLoading,
+  dataSourceMDSId,
+}: CustomView) => {
   const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([]);
   const [options, setOptions] = useState<any[]>([]);
 
   useEffect(() => {
-    fetchDataSources(http, dataSourceMDSId, urlDataSource, (dataOptions, urlSourceFound) => {
-      setOptions(dataOptions);
-      if (urlSourceFound) {
-        setSelectedOptions([{ label: urlDataSource }]);
-        onSelect([{ label: urlDataSource }]);
+    fetchDataSources(
+      http,
+      dataSourceMDSId,
+      urlDataSource,
+      (dataOptions, urlSourceFound) => {
+        setOptions(dataOptions);
+        if (urlSourceFound) {
+          setSelectedOptions([{ label: urlDataSource }]);
+          onSelect([{ label: urlDataSource }]);
+        }
+      },
+      (error) => {
+        console.error('Error fetching data sources:', error);
       }
-    }, (error) => {
-      console.error('Error fetching data sources:', error);
-    });
+    );
   }, [http, dataSourceMDSId, urlDataSource, onSelect]);
 
   const handleSelectionChange = (selectedItems: any[]) => {
@@ -42,7 +54,7 @@ export const DataSelect = ({ http, onSelect, urlDataSource, asyncLoading, dataSo
   return (
     options.length > 0 && (
       <EuiCompressedComboBox
-        placeholder='Select data source connection'
+        placeholder="Select data source connection"
         singleSelection={{ asPlainText: true }}
         isClearable={false}
         options={options}
