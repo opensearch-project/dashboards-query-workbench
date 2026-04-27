@@ -13,6 +13,9 @@ module.exports = {
     '\\.(css|less|scss)$': '<rootDir>/test/mocks/styleMock.ts',
     '^ui/(.*)': '<rootDir>/../../src/ui/public/$1/',
   },
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/test/babelTransform.js',
+  },
   coverageReporters: ['lcov', 'text', 'cobertura'],
   testMatch: ['**/*.test.ts', '**/*.test.tsx'],
   collectCoverageFrom: [
