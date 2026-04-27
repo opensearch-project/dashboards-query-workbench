@@ -21,12 +21,12 @@ const toggleButtons = [
   {
     id: 'SQL',
     label: 'SQL',
-    "data-test-subj":'switch-button-sql'
+    'data-test-subj': 'switch-button-sql',
   },
   {
     id: 'PPL',
     label: 'PPL',
-    "data-test-subj":'switch-button-ppl'
+    'data-test-subj': 'switch-button-ppl',
   },
 ];
 
@@ -41,7 +41,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
   render() {
     return (
       <EuiButtonGroup
-        data-test-subj='switch-button'
+        data-test-subj="switch-button"
         className="query-language-switch"
         legend="query-language-swtich"
         options={toggleButtons}

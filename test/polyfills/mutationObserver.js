@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 /* eslint-disable */
 // transpiled typescript->javascript from
 // https://github.com/aurelia/pal-nodejs/blob/master/src/polyfills/mutation-observer.ts

@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
-import {ItemIdToExpandedRowMap, QueryMessage, ResponseDetail} from '../components/Main/main';
-import {MESSAGE_TAB_LABEL} from "./constants";
+import { ItemIdToExpandedRowMap, QueryMessage, ResponseDetail } from '../components/Main/main';
+import { MESSAGE_TAB_LABEL } from './constants';
 
 // It returns an array of queries
 export const getQueries = (queriesString: string): string[] => {
@@ -22,27 +21,36 @@ export const getQueries = (queriesString: string): string[] => {
 // It retrieves the index from the query. The index is used to label the query results tab
 export function getQueryIndex(query: string): string {
   if (query) {
-    const queryFrom : string []= query.toLowerCase().split("from");
+    const queryFrom: string[] = query.toLowerCase().split('from');
 
-    if (queryFrom.length > 1){
-      return queryFrom[1].split(" ")[1];
+    if (queryFrom.length > 1) {
+      return queryFrom[1].split(' ')[1];
     }
   }
- return query;
+  return query;
 }
 
 // Tabs utils
-export function getDefaultTabId ( queryResults: ResponseDetail<string>[]) : string {
-  return queryResults && queryResults.length > 0 && queryResults[0].fulfilled ? "0" : MESSAGE_TAB_LABEL
+export function getDefaultTabId(queryResults: Array<ResponseDetail<string>>): string {
+  return queryResults && queryResults.length > 0 && queryResults[0].fulfilled
+    ? '0'
+    : MESSAGE_TAB_LABEL;
 }
 
-export function getDefaultTabLabel ( queryResults: ResponseDetail<string>[], queryString: string  ) : string {
-
-  return queryResults && queryResults.length > 0 && queryResults[0].fulfilled ? getQueryIndex(queryString) : MESSAGE_TAB_LABEL
+export function getDefaultTabLabel(
+  queryResults: Array<ResponseDetail<string>>,
+  queryString: string
+): string {
+  return queryResults && queryResults.length > 0 && queryResults[0].fulfilled
+    ? getQueryIndex(queryString)
+    : MESSAGE_TAB_LABEL;
 }
 
 // It returns the results for the selected tab
-export function getSelectedResults (results: ResponseDetail<any>[], selectedTabId: string ): any {
+export function getSelectedResults(
+  results: Array<ResponseDetail<any>>,
+  selectedTabId: string
+): any {
   const selectedIndex: number = parseInt(selectedTabId);
   if (!Number.isNaN(selectedIndex) && results) {
     const selectedResult: ResponseDetail<any> = results[selectedIndex];
@@ -51,9 +59,11 @@ export function getSelectedResults (results: ResponseDetail<any>[], selectedTabI
   return undefined;
 }
 
-export function isEmpty (obj: object) : boolean {
+export function isEmpty(obj: object): boolean {
   for (const key in obj) {
-    if(obj.hasOwnProperty(key)) { return false; }
+    if (obj.hasOwnProperty(key)) {
+      return false;
+    }
   }
   return true;
 }
@@ -63,7 +73,18 @@ export function capitalizeFirstLetter(name: string): string {
 }
 
 export function getMessageString(messages: QueryMessage[], tabNames: string[]): string {
-  return messages && messages.length > 0 && tabNames && tabNames.length > 0 ? messages.reduce( (finalMessage, message, currentIndex) => finalMessage.concat(capitalizeFirstLetter(tabNames[currentIndex]), ': ', messages[currentIndex].text, '\n\n'), '' ) : '';
+  return messages && messages.length > 0 && tabNames && tabNames.length > 0
+    ? messages.reduce(
+        (finalMessage, message, currentIndex) =>
+          finalMessage.concat(
+            capitalizeFirstLetter(tabNames[currentIndex]),
+            ': ',
+            messages[currentIndex].text,
+            '\n\n'
+          ),
+        ''
+      )
+    : '';
 }
 
 export function scrollToNode(nodeId: string): void {
@@ -76,8 +97,8 @@ export function scrollToNode(nodeId: string): void {
 // Download functions
 export function onDownloadFile(data: any, fileFormat: string, fileName: string) {
   const encodedUri = encodeURIComponent(data);
-  const content = 'data:text/'+fileFormat+';charset=utf-8,' + encodedUri;
-  const link = document.createElement("a");
+  const content = 'data:text/' + fileFormat + ';charset=utf-8,' + encodedUri;
+  const link = document.createElement('a');
   link.setAttribute('href', content);
   link.setAttribute('download', fileName);
   document.body.appendChild(link);
@@ -99,7 +120,7 @@ export class Node {
   parent: Node;
   nodeId: string;
 
-  constructor(data: any, parentId: string, name = '', parent: Node ) {
+  constructor(data: any, parentId: string, name = '', parent: Node) {
     this.data = data;
     this.name = name;
     this.children = [];
@@ -116,7 +137,7 @@ export function createRowTree(item: any, rootId: string) {
   if (typeof item === 'object') {
     for (let j = 0; j < Object.keys(item).length; j++) {
       const itemKey: string = Object.keys(item)[j];
-      let data = item[itemKey];
+      const data = item[itemKey];
       // If value of field is an array or an object it gets added to the tree
       if (data !== null && (Array.isArray(data) || typeof data === 'object')) {
         const firstNode = new Node(data, rootId, itemKey, root);
@@ -134,14 +155,14 @@ export function getRowTree(nodeId: string, item: any, expandedRowMap: ItemIdToEx
     : createRowTree(item, nodeId);
 }
 
-export function findRootNode(node: Node, expandedRowMap: ItemIdToExpandedRowMap){
+export function findRootNode(node: Node, expandedRowMap: ItemIdToExpandedRowMap) {
   const rootNodeId = node.nodeId.split('_')[0];
   return expandedRowMap[rootNodeId].nodes._root;
 }
 
-/********* TABS Functions *********/
-//It checks if an element needs a scrolling
-export function needsScrolling(elementId: string){
+/** ******* TABS Functions *********/
+// It checks if an element needs a scrolling
+export function needsScrolling(elementId: string) {
   const element = document.getElementById(elementId);
   if (element === null) {
     return false;
