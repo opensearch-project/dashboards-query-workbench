@@ -196,7 +196,9 @@ describe('Test table display', () => {
       cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click({ force: true });
       // eslint-disable-next-line cypress/no-force
       cy.get('div[data-test-subj="sqlCodeEditor"]')
-        .click({ force: true })
+        .click({ force: true });
+      // eslint-disable-next-line cypress/no-force
+      cy.get('div[data-test-subj="sqlCodeEditor"] textarea.ace_text-input')
         .type(`${query}`, { force: true });
       cy.get('div[data-test-subj="sqlCodeEditor"]').contains(`${query}`).should('exist');
       cy.get('[data-test-subj="sqlRunButton"]').contains('Run').should('exist');
@@ -216,7 +218,9 @@ describe('Test table display', () => {
     cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click({ force: true });
     // eslint-disable-next-line cypress/no-force
     cy.get('div[data-test-subj="sqlCodeEditor"]')
-      .click({ force: true })
+      .click({ force: true });
+    // eslint-disable-next-line cypress/no-force
+    cy.get('div[data-test-subj="sqlCodeEditor"] textarea.ace_text-input')
       .type(`select * from employee_nested;`, { force: true });
     cy.get('[data-test-subj="sqlRunButton"]').contains('Run').should('exist');
     cy.wait(1000)
