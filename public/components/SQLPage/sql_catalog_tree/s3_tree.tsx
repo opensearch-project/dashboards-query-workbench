@@ -88,20 +88,17 @@ export const S3Tree = ({
   } = catalogCacheRefs.useLoadAccelerationsToCache();
 
   const refreshDatabasesinTree = useCallback(() => {
-    const currentTree = [...treeData];
-    currentTree.map((db) => {
-      setTreeData(
-        produce((draft) => {
-          const databaseToUpdate = draft.find((database) => database.name === db.name);
-          if (databaseToUpdate) {
-            databaseToUpdate.isExpanded = false;
-            databaseToUpdate.isLoading = false;
-            databaseToUpdate.values = [];
-          }
-        })
-      );
+    setTreeData((prev) => {
+      const currentTree = [...prev];
+      return produce(currentTree, (draft) => {
+        draft.forEach((db) => {
+          db.isExpanded = false;
+          db.isLoading = false;
+          db.values = [];
+        });
+      });
     });
-  }, [treeData]);
+  }, []);
 
   const updateDatabaseState = useCallback(
     (databaseName: string, isLoading: boolean, values?: TreeItem[]) => {
@@ -284,7 +281,8 @@ export const S3Tree = ({
     } else if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
       setIsTreeLoading({ status: false, message: 'Failed to load databases' });
     }
-  }, [loadDatabasesStatus, refreshDatabasesinTree, dataSource, dataSourceMDSId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-run when loadDatabasesStatus changes; other deps are unstable and cause infinite loops
+  }, [loadDatabasesStatus]);
 
   useEffect(() => {
     const status = loadTablesStatus.toLowerCase();
@@ -307,7 +305,8 @@ export const S3Tree = ({
   useEffect(() => {
     pageLanguage(language);
     onLoadS3Tree();
-  }, [dataSource, dataSourceMDSId, language, onLoadS3Tree]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- onLoadS3Tree is intentionally excluded; including it causes infinite loops
+  }, [dataSource, dataSourceMDSId, language]);
 
   useEffect(() => {
     setIsFirstRender(false);
@@ -319,7 +318,8 @@ export const S3Tree = ({
     }
     // This will only execute on changes to refreshTree after the initial render
     onRefreshTree();
-  }, [refreshTree, isFirstRender, onRefreshTree]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-run when refreshTree changes; isFirstRender and onRefreshTree are unstable
+  }, [refreshTree]);
 
   useEffect(() => {
     if (
@@ -338,15 +338,8 @@ export const S3Tree = ({
       updateDatabaseState(currentSelectedDatabase, false);
       setCurrentSelectedDatabase('');
     }
-  }, [
-    isObjectLoading,
-    currentSelectedDatabase,
-    dataSource,
-    dataSourceMDSId,
-    setToast,
-    constructObjectTree,
-    updateDatabaseState,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-run when isObjectLoading changes; other deps (setToast, constructObjectTree, etc.) are unstable
+  }, [isObjectLoading]);
 
   useEffect(() => {
     return () => {
@@ -354,7 +347,8 @@ export const S3Tree = ({
       stopLoadingTables();
       stopLoadingAccelerations();
     };
-  }, [stopDatabasesLoading, stopLoadingTables, stopLoadingAccelerations]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- cleanup should only run on unmount
+  }, []);
 
   const treeLoadingStateRenderer = (
     <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">

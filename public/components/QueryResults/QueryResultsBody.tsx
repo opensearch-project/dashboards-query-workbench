@@ -881,7 +881,8 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         this.expandedRowColSpan = this.columns.length;
       }
 
-      this.componentDidUpdate();
+      // Removed: `this.componentDidUpdate()` was a lint autofix of a no-op expression (`this.componentDidUpdate;`)
+      // that caused an infinite render loop (render → componentDidUpdate → setState → re-render).
 
       return (
         <div>

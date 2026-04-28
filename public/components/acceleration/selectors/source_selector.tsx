@@ -55,7 +55,7 @@ export const AccelerationDataSourceSelector = ({
   });
 
   const loadDataSource = useCallback(() => {
-    setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: true });
+    setLoadingComboBoxes((prev) => ({ ...prev, dataSource: true }));
     http
       .get(`/api/get_datasources`)
       .then((res) => {
@@ -73,11 +73,12 @@ export const AccelerationDataSourceSelector = ({
         console.error(err);
         setToast(`ERROR: failed to load datasources`, 'danger');
       });
-    setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: false });
-  }, [http, loadingComboBoxes, setToast]);
+    setLoadingComboBoxes((prev) => ({ ...prev, dataSource: false }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- setToast is unstable (new ref every render) and would cause infinite loops
+  }, [http]);
 
   const loadDatabases = useCallback(() => {
-    setLoadingComboBoxes({ ...loadingComboBoxes, database: true });
+    setLoadingComboBoxes((prev) => ({ ...prev, database: true }));
     const query = {
       lang: 'sql',
       query: `SHOW SCHEMAS IN \`${accelerationFormData.dataSource}\``,
@@ -96,18 +97,18 @@ export const AccelerationDataSourceSelector = ({
               label: subArray[0],
             }));
           setDatabases(databaseOptions);
-          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+          setLoadingComboBoxes((prev) => ({ ...prev, database: false }));
         }
         if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
-          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+          setLoadingComboBoxes((prev) => ({ ...prev, database: false }));
         }
       },
-      () => setLoadingComboBoxes({ ...loadingComboBoxes, database: false })
+      () => setLoadingComboBoxes((prev) => ({ ...prev, database: false }))
     );
-  }, [accelerationFormData.dataSource, loadingComboBoxes]);
+  }, [accelerationFormData.dataSource]);
 
   const loadTables = useCallback(() => {
-    setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: true });
+    setLoadingComboBoxes((prev) => ({ ...prev, dataTable: true }));
     const query = {
       lang: 'sql',
       query: `SHOW TABLES IN \`${accelerationFormData.dataSource}\`.\`${accelerationFormData.database}\``,
@@ -126,31 +127,34 @@ export const AccelerationDataSourceSelector = ({
               label: subArray[1],
             }));
           setTables(dataTableOptions);
-          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+          setLoadingComboBoxes((prev) => ({ ...prev, dataTable: false }));
         }
         if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
-          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+          setLoadingComboBoxes((prev) => ({ ...prev, dataTable: false }));
         }
       },
-      () => setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false })
+      () => setLoadingComboBoxes((prev) => ({ ...prev, dataTable: false }))
     );
-  }, [accelerationFormData.dataSource, accelerationFormData.database, loadingComboBoxes]);
+  }, [accelerationFormData.dataSource, accelerationFormData.database]);
 
   useEffect(() => {
     loadDataSource();
-  }, [loadDataSource]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadDataSource is unstable; should only run on mount
+  }, []);
 
   useEffect(() => {
     if (accelerationFormData.dataSource !== '') {
       loadDatabases();
     }
-  }, [accelerationFormData.dataSource, loadDatabases]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadDatabases is unstable; only re-run when dataSource changes
+  }, [accelerationFormData.dataSource]);
 
   useEffect(() => {
     if (accelerationFormData.database !== '') {
       loadTables();
     }
-  }, [accelerationFormData.database, loadTables]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadTables is unstable; only re-run when database changes
+  }, [accelerationFormData.database]);
 
   return (
     <>

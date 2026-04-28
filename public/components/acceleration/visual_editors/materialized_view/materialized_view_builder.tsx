@@ -57,7 +57,8 @@ export const MaterializedViewBuilder = ({
       );
       setColumnExpressionValues(newColumnExpresionValue);
     }
-  }, [accelerationFormData.dataTableFields, setAccelerationFormData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- setAccelerationFormData excluded to prevent re-render loop when form data reference changes
+  }, [accelerationFormData.dataTableFields]);
 
   return (
     <>

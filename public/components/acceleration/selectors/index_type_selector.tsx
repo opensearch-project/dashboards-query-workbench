@@ -76,7 +76,10 @@ export const IndexTypeSelector = ({
         () => setLoading(false)
       );
     }
-  }, [accelerationFormData.dataTable, accelerationFormData, setAccelerationFormData]);
+    // Only depend on dataTable (not the whole accelerationFormData object) to avoid
+    // infinite re-renders, since setAccelerationFormData updates the object reference each cycle.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accelerationFormData.dataTable]);
 
   const onChangeIndexType = (indexTypeOption: Array<EuiComboBoxOptionOption<string>>) => {
     const indexType = indexTypeOption[0].value as AccelerationIndexType;

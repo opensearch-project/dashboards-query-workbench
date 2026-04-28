@@ -109,7 +109,9 @@ export const OSTree = ({
 
   useEffect(() => {
     loadtree();
-  }, [selectedItems, refreshTree, dataSourceMDSId, loadtree]);
+    // loadtree excluded: it depends on selectedItems (unstable array prop), causing infinite re-renders.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedItems, refreshTree, dataSourceMDSId]);
 
   return <div>{treeRenderer}</div>;
 };

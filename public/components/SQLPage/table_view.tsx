@@ -183,7 +183,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         )
       );
     }
-  }, [currentQueryHandler, selectedItems, http, setToast]);
+    // Deps intentionally exclude currentQueryHandler (updated inside this callback) and setToast (unstable ref)
+    // to prevent infinite re-render loops.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedItems, http]);
 
   useEffect(() => {
     setTreeData([]);
@@ -192,7 +195,9 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       status: 'Fetching associated objects ...',
     });
     getSidebarContent();
-  }, [selectedItems, refreshTree, getSidebarContent]);
+    // getSidebarContent excluded: it changes when its deps change, which already includes selectedItems.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedItems, refreshTree]);
 
   const setTreeDataDatabaseError = (databaseName: string) => {
     setTreeData((prevTreeData) => {
