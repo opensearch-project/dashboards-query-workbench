@@ -12,8 +12,8 @@ The OpenSearch Dashboards Query Workbench enables you to query your OpenSearch d
 | Distribution build tests | [![cypress tests][cypress-test-badge]][cypress-test-link] [![cypress code][cypress-code-badge]][cypress-code-link] |
 
 
-[workbench-build-badge]: https://github.com/opensearch-project/sql/actions/workflows/sql-workbench-test-and-build-workflow.yml/badge.svg
-[workbench-build-link]: https://github.com/opensearch-project/sql/actions/workflows/sql-workbench-test-and-build-workflow.yml
+[workbench-build-badge]: https://github.com/opensearch-project/dashboards-query-workbench/actions/workflows/sql-workbench-test-build-workflow.yml/badge.svg
+[workbench-build-link]: https://github.com/opensearch-project/dashboards-query-workbench/actions/workflows/sql-workbench-test-build-workflow.yml
 [workbench-codecov-badge]: https://codecov.io/gh/opensearch-project/sql/branch/main/graphs/badge.svg?flag=query-workbench
 [cypress-test-badge]: https://img.shields.io/badge/Cypress%20tests-in%20progress-yellow
 [cypress-test-link]: https://github.com/opensearch-project/opensearch-build/issues/1124
@@ -50,4 +50,3 @@ This project is licensed under the [Apache v2.0 License](LICENSE.TXT).
 ## Copyright
 
 Copyright OpenSearch Contributors. See [NOTICE](NOTICE) for details.
-
