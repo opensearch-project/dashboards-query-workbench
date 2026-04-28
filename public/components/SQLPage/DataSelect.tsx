@@ -24,7 +24,9 @@ export const DataSelect = ({
   dataSourceMDSId,
 }: CustomView) => {
   const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([]);
-  const [options, setOptions] = useState<any[]>([]);
+  const [options, setOptions] = useState<
+    Array<{ label: string; options?: Array<{ label: string }> }>
+  >([]);
 
   useEffect(() => {
     fetchDataSources(
@@ -44,7 +46,7 @@ export const DataSelect = ({
     );
   }, [http, dataSourceMDSId, urlDataSource, onSelect]);
 
-  const handleSelectionChange = (selectedItems: any[]) => {
+  const handleSelectionChange = (selectedItems: EuiComboBoxOptionOption[]) => {
     if (selectedItems.length > 0) {
       setSelectedOptions(selectedItems);
       onSelect(selectedItems);

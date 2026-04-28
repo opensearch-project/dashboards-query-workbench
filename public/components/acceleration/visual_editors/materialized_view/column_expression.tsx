@@ -43,9 +43,9 @@ export const ColumnExpression = ({
   const [isFunctionPopOverOpen, setIsFunctionPopOverOpen] = useState(false);
   const [isAliasPopOverOpen, setIsAliasPopOverOpen] = useState(false);
 
-  const updateColumnExpressionValue = (newValue: MaterializedViewColumn, index: number) => {
+  const updateColumnExpressionValue = (newValue: MaterializedViewColumn, columnIndex: number) => {
     const updatedArray = [...columnExpressionValues];
-    updatedArray[index] = newValue;
+    updatedArray[columnIndex] = newValue;
     setColumnExpressionValues(updatedArray);
   };
 

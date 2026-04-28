@@ -19,7 +19,7 @@ import {
   htmlIdGenerator,
 } from '@elastic/eui';
 import producer from 'immer';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { ACCELERATION_AGGREGRATION_FUNCTIONS } from '../../../../../common/constants';
 import {
   AggregationFunctionType,
@@ -50,12 +50,12 @@ export const AddColumnPopOver = ({
   const [selectedField, setSelectedField] = useState<EuiComboBoxOptionOption[]>([]);
   const [selectedAlias, setSeletedAlias] = useState('');
 
-  const resetSelectedField = () => {
+  const resetSelectedField = useCallback(() => {
     if (accelerationFormData.dataTableFields.length > 0) {
       const defaultFieldName = accelerationFormData.dataTableFields[0].fieldName;
       setSelectedField([{ label: defaultFieldName }]);
     }
-  };
+  }, [accelerationFormData.dataTableFields]);
 
   const resetValues = () => {
     setSelectedFunction([ACCELERATION_AGGREGRATION_FUNCTIONS[0]]);
@@ -90,7 +90,7 @@ export const AddColumnPopOver = ({
 
   useEffect(() => {
     resetSelectedField();
-  }, []);
+  }, [resetSelectedField]);
 
   return (
     <EuiPopover

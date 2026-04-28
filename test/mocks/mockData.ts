@@ -2062,7 +2062,7 @@ function getSortableColumns() {
   mockQueryResults[0].data.fields.map((field: string) => {
     sortableColumns.push({
       name: field,
-      getValue: (item: any) => item[field],
+      getValue: (item: Record<string, unknown>) => item[field],
       isAscending: true,
     });
   });

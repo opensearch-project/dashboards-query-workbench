@@ -9,10 +9,10 @@ import {
   Logger,
   OpenSearchServiceSetup,
 } from '../../../../src/core/server';
-import QueryService from '../services/QueryService';
-import TranslateService from '../services/TranslateService';
+import { QueryService } from '../services/QueryService';
+import { TranslateService } from '../services/TranslateService';
 import { registerQueryRoute } from './query';
-import registerTranslateRoute from './translate';
+import { translate as registerTranslateRoute } from './translate';
 
 export function defineRoutes(
   router: IRouter,

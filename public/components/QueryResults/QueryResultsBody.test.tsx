@@ -6,7 +6,7 @@
 import '@testing-library/jest-dom/extend-expect';
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
-import QueryResultsBody from './QueryResultsBody';
+import { QueryResultsBody } from './QueryResultsBody';
 // @ts-ignore
 import { Pager } from '@elastic/eui/lib';
 // @ts-ignore
@@ -118,7 +118,10 @@ describe('<QueryResultsBody with SQL language/> spec', () => {
       mockSortableColumns[0].name
     );
 
-    (window as any).HTMLElement.prototype.scrollIntoView = function () {};
+    ((window as unknown) as Record<
+      string,
+      unknown
+    >).HTMLElement.prototype.scrollIntoView = function () {};
 
     const {
       getAllByText,
@@ -287,7 +290,10 @@ describe('<QueryResultsBody with PPL language/> spec', () => {
       mockSortableColumns[0].name
     );
 
-    (window as any).HTMLElement.prototype.scrollIntoView = function () {};
+    ((window as unknown) as Record<
+      string,
+      unknown
+    >).HTMLElement.prototype.scrollIntoView = function () {};
 
     const { getAllByText, getAllByLabelText, getByText } = renderPPLQueryResultsBody(
       undefined,

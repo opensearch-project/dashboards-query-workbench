@@ -27,7 +27,7 @@ export interface WorkbenchPluginStartDependencies {
 export class WorkbenchPlugin implements Plugin<WorkbenchPluginSetup, WorkbenchPluginStart> {
   public setup(
     core: CoreSetup,
-    { dataSource, dataSourceManagement, devTools }: WorkbenchPluginSetupDependencies
+    { dataSource: _dataSource, dataSourceManagement, devTools }: WorkbenchPluginSetupDependencies
   ): WorkbenchPluginSetup {
     const isNavGroupEnabled = core.chrome.navGroup.getNavGroupEnabled();
 

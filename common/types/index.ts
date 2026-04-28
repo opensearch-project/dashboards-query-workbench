@@ -127,7 +127,7 @@ export interface DatasourceTreeLoading {
 interface AsyncApiDataResponse {
   status: string;
   schema?: Array<{ name: string; type: string }>;
-  datarows?: any;
+  datarows?: unknown;
   total?: number;
   size?: number;
   error?: string;

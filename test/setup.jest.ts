@@ -34,10 +34,10 @@ window.URL = {
 jest.mock('@elastic/eui/lib/components/icon', () => ({
   EuiIcon: () => 'EuiIconMock',
   __esModule: true,
-  IconPropType: require('@elastic/eui/lib/components/icon/icon').IconPropType,
-  ICON_TYPES: require('@elastic/eui/lib/components/icon/icon').TYPES,
-  ICON_SIZES: require('@elastic/eui/lib/components/icon/icon').SIZES,
-  ICON_COLORS: require('@elastic/eui/lib/components/icon/icon').COLORS,
+  IconPropType: jest.requireActual('@elastic/eui/lib/components/icon/icon').IconPropType,
+  ICON_TYPES: jest.requireActual('@elastic/eui/lib/components/icon/icon').TYPES,
+  ICON_SIZES: jest.requireActual('@elastic/eui/lib/components/icon/icon').SIZES,
+  ICON_COLORS: jest.requireActual('@elastic/eui/lib/components/icon/icon').COLORS,
 }));
 
 coreRefs.http = coreStartMock.http;

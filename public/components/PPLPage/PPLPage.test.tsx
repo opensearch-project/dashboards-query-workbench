@@ -28,7 +28,7 @@ describe('<PPLPage /> spec', () => {
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
-    const onExplain = jest.fn();
+    const _onExplain = jest.fn();
 
     const { getByText } = render(
       <PPLPage
@@ -50,12 +50,12 @@ describe('<PPLPage /> spec', () => {
     expect(onClean).toHaveBeenCalledTimes(1);
   });
 
-  it('tests the action buttons', async () => {
+  it('tests the action buttons with OpenSearch datasource', async () => {
     const onRun = jest.fn();
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
-    const onExplain = jest.fn();
+    const _onExplain = jest.fn();
 
     const { getByText } = render(
       <PPLPage
@@ -77,7 +77,7 @@ describe('<PPLPage /> spec', () => {
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
-    const onExplain = jest.fn();
+    const _onExplain = jest.fn();
 
     const { getByText } = render(
       <PPLPage
@@ -98,14 +98,14 @@ describe('<PPLPage /> spec', () => {
     await asyncTest();
     expect(document.body.children[0]).toMatchSnapshot();
   });
-  it('tests the Sample query button', async () => {
+  it('tests the Sample query button renders snapshot', async () => {
     const onRun = jest.fn();
     const onTranslate = jest.fn();
     const onClean = jest.fn();
     const updateSQLQueries = jest.fn();
-    const onExplain = jest.fn();
+    const _onExplain = jest.fn();
 
-    const { getByText } = render(
+    const { getByText: _getByText } = render(
       <PPLPage
         onRun={onRun}
         onTranslate={onTranslate}

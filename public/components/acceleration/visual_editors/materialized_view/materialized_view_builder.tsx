@@ -57,7 +57,7 @@ export const MaterializedViewBuilder = ({
       );
       setColumnExpressionValues(newColumnExpresionValue);
     }
-  }, [accelerationFormData.dataTableFields]);
+  }, [accelerationFormData.dataTableFields, setAccelerationFormData]);
 
   return (
     <>
@@ -94,7 +94,7 @@ export const MaterializedViewBuilder = ({
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiFlexGroup direction="column" gutterSize="s">
-        {_.map(columnExpressionValues, (_, i) => {
+        {_.map(columnExpressionValues, (__, i) => {
           return (
             <ColumnExpression
               index={i}

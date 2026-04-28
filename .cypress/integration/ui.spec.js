@@ -37,7 +37,7 @@ describe('Test PPL UI', () => {
   beforeEach(() => {
     cy.visit('app/opensearch-query-workbench');
     cy.wait(delay);
-    cy.get('[data-test-subj="PPL"]').click({ force: true });
+    cy.get('[data-test-subj="PPL"]').click();
     cy.wait(delay);
   });
 
@@ -48,33 +48,33 @@ describe('Test PPL UI', () => {
   });
 
   it('Test Run button', () => {
-    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
+    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts');
 
     // Wait for ACE editor to render the typed content
     cy.wait(1000);
-    cy.get('button[data-test-subj="pplRunButton"]').click({ force: true });
-    cy.get('[data-test-subj="result_tab"]').contains('Events').click({ force: true });
+    cy.get('button[data-test-subj="pplRunButton"]').click();
+    cy.get('[data-test-subj="result_tab"]').contains('Events').click();
   });
 
   it('Test Clear button', () => {
     // First type something to clear
-    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
+    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts');
     cy.wait(500);
 
-    cy.get('[data-test-subj="pplClearButton"]').contains('Clear').click({ force: true });
+    cy.get('[data-test-subj="pplClearButton"]').contains('Clear').click();
 
     // Verify the typed content is cleared from the editor
     cy.get('.ace_content').should('not.contain.text', 'source=accounts');
   });
 
   it('Test full screen view', () => {
-    cy.get('[data-test-subj="pplClearButton"]').contains('Clear').click({ force: true });
+    cy.get('[data-test-subj="pplClearButton"]').contains('Clear').click();
     cy.get('.euiButton__text').contains('Full screen view').should('not.exist');
 
-    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts', { force: true });
+    cy.get('textarea.ace_text-input').eq(0).focus().type('source=accounts');
     cy.get('[data-test-subj="pplRunButton"]').contains('Run').should('exist');
     cy.wait(1000)
-    cy.get('[data-test-subj="pplRunButton"]').contains('Run').click({ force: true });
+    cy.get('[data-test-subj="pplRunButton"]').contains('Run').click();
 
     cy.get('[data-test-subj="fullScreenView"]').contains('Full screen view').click();
 
@@ -86,7 +86,7 @@ describe('Test SQL UI', () => {
   beforeEach(() => {
     cy.visit('app/opensearch-query-workbench');
     cy.wait(delay);
-    cy.get('[data-test-subj="SQL"]').click({ force: true });
+    cy.get('[data-test-subj="SQL"]').click();
     cy.wait(delay);
   });
 
@@ -97,16 +97,14 @@ describe('Test SQL UI', () => {
   });
 
   it('Test Run button', () => {
-    cy.get('textarea.ace_text-input').eq(0).focus().type('{enter}', { force: true });
+    cy.get('textarea.ace_text-input').eq(0).focus().type('{enter}');
     cy.get('[data-test-subj="sqlRunButton"]').contains('Run').click();
-    cy.get('[data-test-subj="result_tab"]').contains("SHOW tables LIKE '%'").click({ force: true });
+    cy.get('[data-test-subj="result_tab"]').contains("SHOW tables LIKE '%'").click();
   });
 
   it('Test Translate button', () => {
-    cy.get('textarea.ace_text-input').eq(0).focus().type('{enter}', {
-      force: true,
-    });
-    cy.get('.euiButton__text').contains('Explain').click({ force: true });
+    cy.get('textarea.ace_text-input').eq(0).focus().type('{enter}');
+    cy.get('.euiButton__text').contains('Explain').click();
 
     // hard to get euiCodeBlock content, check length instead
     cy.get('.euiCodeBlock__code').children().should('have.length', 25);
@@ -114,10 +112,10 @@ describe('Test SQL UI', () => {
 
   it('Test Clear button', () => {
     // First type something to clear
-    cy.get('textarea.ace_text-input').eq(0).focus().type('SELECT * FROM test', { force: true });
+    cy.get('textarea.ace_text-input').eq(0).focus().type('SELECT * FROM test');
     cy.wait(500);
 
-    cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click({ force: true });
+    cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click();
 
     // Verify the typed content is cleared from the editor
     cy.get('.ace_content').should('not.contain.text', 'SELECT * FROM test');
@@ -129,7 +127,7 @@ describe('Test SQL UI', () => {
     cy.get('textarea.ace_text-input')
       .eq(0)
       .focus()
-      .type("{enter}", { force: true });
+      .type("{enter}");
     cy.get('[data-test-subj="sqlRunButton"]').contains('Run').click();
     cy.get('[data-test-subj="fullScreenView"]').contains('Full screen view').click();
 
@@ -163,7 +161,7 @@ describe('Test table display', () => {
   beforeEach(() => {
     cy.visit('app/opensearch-query-workbench');
     cy.wait(delay);
-    cy.get('[data-test-subj="SQL"]').click({ force: true });
+    cy.get('[data-test-subj="SQL"]').click();
     cy.wait(delay);
     cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click();
     cy.wait(delay);
@@ -173,7 +171,7 @@ describe('Test table display', () => {
     it(title, () => {
       cy.get('[data-test-subj="sqlClearButton"]').contains('Clear').click();
       cy.get('div[data-test-subj="sqlCodeEditor"]')
-        .click({ force: true })
+        .click()
         .type(`${query}`);
       cy.get('div[data-test-subj="sqlCodeEditor"]').contains(`${query}`).should('exist');
       cy.get('[data-test-subj="sqlRunButton"]').contains('Run').should('exist');

@@ -11,7 +11,7 @@ import {
   EuiText,
 } from '@elastic/eui';
 import producer from 'immer';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
 import {
   AsyncApiResponse,
@@ -54,7 +54,7 @@ export const AccelerationDataSourceSelector = ({
     dataTable: false,
   });
 
-  const loadDataSource = () => {
+  const loadDataSource = useCallback(() => {
     setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: true });
     http
       .get(`/api/get_datasources`)
@@ -62,8 +62,11 @@ export const AccelerationDataSourceSelector = ({
         const data = res.data.resp;
         setDataConnections(
           data
-            .filter((connection: any) => connection.connector.toUpperCase() === 'S3GLUE')
-            .map((connection: any) => ({ label: connection.name }))
+            .filter(
+              (connection: { connector: string; name: string }) =>
+                connection.connector.toUpperCase() === 'S3GLUE'
+            )
+            .map((connection: { connector: string; name: string }) => ({ label: connection.name }))
         );
       })
       .catch((err) => {
@@ -71,9 +74,9 @@ export const AccelerationDataSourceSelector = ({
         setToast(`ERROR: failed to load datasources`, 'danger');
       });
     setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: false });
-  };
+  }, [http, loadingComboBoxes, setToast]);
 
-  const loadDatabases = () => {
+  const loadDatabases = useCallback(() => {
     setLoadingComboBoxes({ ...loadingComboBoxes, database: true });
     const query = {
       lang: 'sql',
@@ -89,7 +92,7 @@ export const AccelerationDataSourceSelector = ({
         if (status === AsyncQueryStatus.Success) {
           let databaseOptions: Array<EuiComboBoxOptionOption<string>> = [];
           if (response.data.resp.datarows.length > 0)
-            databaseOptions = response.data.resp.datarows.map((subArray: any[]) => ({
+            databaseOptions = response.data.resp.datarows.map((subArray: string[]) => ({
               label: subArray[0],
             }));
           setDatabases(databaseOptions);
@@ -101,9 +104,9 @@ export const AccelerationDataSourceSelector = ({
       },
       () => setLoadingComboBoxes({ ...loadingComboBoxes, database: false })
     );
-  };
+  }, [accelerationFormData.dataSource, loadingComboBoxes]);
 
-  const loadTables = () => {
+  const loadTables = useCallback(() => {
     setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: true });
     const query = {
       lang: 'sql',
@@ -131,23 +134,23 @@ export const AccelerationDataSourceSelector = ({
       },
       () => setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false })
     );
-  };
+  }, [accelerationFormData.dataSource, accelerationFormData.database, loadingComboBoxes]);
 
   useEffect(() => {
     loadDataSource();
-  }, []);
+  }, [loadDataSource]);
 
   useEffect(() => {
     if (accelerationFormData.dataSource !== '') {
       loadDatabases();
     }
-  }, [accelerationFormData.dataSource]);
+  }, [accelerationFormData.dataSource, loadDatabases]);
 
   useEffect(() => {
     if (accelerationFormData.database !== '') {
       loadTables();
     }
-  }, [accelerationFormData.database]);
+  }, [accelerationFormData.database, loadTables]);
 
   return (
     <>

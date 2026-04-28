@@ -76,7 +76,7 @@ export const IndexTypeSelector = ({
         () => setLoading(false)
       );
     }
-  }, [accelerationFormData.dataTable]);
+  }, [accelerationFormData.dataTable, accelerationFormData, setAccelerationFormData]);
 
   const onChangeIndexType = (indexTypeOption: Array<EuiComboBoxOptionOption<string>>) => {
     const indexType = indexTypeOption[0].value as AccelerationIndexType;

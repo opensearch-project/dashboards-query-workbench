@@ -18,7 +18,7 @@ import {
   EuiTreeView,
 } from '@elastic/eui';
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import {
   FETCH_OPENSEARCH_INDICES_PATH,
@@ -107,7 +107,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     });
   }
 
-  const getSidebarContent = () => {
+  const getSidebarContent = useCallback(() => {
     // Cancel any async running queries
     currentQueryHandler();
 
@@ -124,10 +124,10 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         })
         .then((res) => {
           const responseObj = JSON.parse(res.data.resp);
-          const dataRows: any[][] = _.get(responseObj, 'datarows');
+          const dataRows: unknown[][] = _.get(responseObj, 'datarows');
           if (dataRows.length > 0) {
             const fields = dataRows.map((data) => {
-              return data[2];
+              return data[2] as string;
             });
             setTableNames(fields);
           } else {
@@ -183,7 +183,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         )
       );
     }
-  };
+  }, [currentQueryHandler, selectedItems, http, setToast]);
 
   useEffect(() => {
     setTreeData([]);
@@ -192,7 +192,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
       status: 'Fetching associated objects ...',
     });
     getSidebarContent();
-  }, [selectedItems, refreshTree]);
+  }, [selectedItems, refreshTree, getSidebarContent]);
 
   const setTreeDataDatabaseError = (databaseName: string) => {
     setTreeData((prevTreeData) => {

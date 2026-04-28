@@ -153,7 +153,7 @@ export const SkippingIndexBuilder = ({
     } else {
       setAccelerationFormData({ ...accelerationFormData, skippingIndexQueryData: [] });
     }
-  }, [accelerationFormData.dataTableFields]);
+  }, [accelerationFormData.dataTableFields, accelerationFormData, setAccelerationFormData]);
 
   useEffect(() => {
     setTotalItemCount(accelerationFormData.skippingIndexQueryData.length);

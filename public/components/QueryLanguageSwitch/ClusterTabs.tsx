@@ -7,7 +7,7 @@ import { EuiButtonGroup } from '@elastic/eui';
 import React from 'react';
 
 interface SwitchProps {
-  onChange: (id: string, value?: any) => void;
+  onChange: (id: string, value?: unknown) => void;
   cluster: string;
   asyncLoading: boolean;
 }
@@ -45,4 +45,4 @@ class ClusterTabs extends React.Component<SwitchProps> {
   }
 }
 
-export default ClusterTabs;
+export { ClusterTabs };

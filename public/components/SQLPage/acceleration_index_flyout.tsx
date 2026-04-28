@@ -22,7 +22,7 @@ import {
   EuiText,
   EuiTitle,
 } from '@elastic/eui';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AccelerationIndexType } from '../../../common/types';
 
 interface AccelerationIndexFlyoutProps {
@@ -51,7 +51,7 @@ export const AccelerationIndexFlyout = ({
     contextType: '',
   });
 
-  const generateQueryAndIndexName = () => {
+  const generateQueryAndIndexName = useCallback(() => {
     let accelerationQuery = '';
     let generatedIndexName = '';
 
@@ -76,7 +76,7 @@ export const AccelerationIndexFlyout = ({
       indexName: generatedIndexName,
       contextType: accelerationIndexType === 'materialized' ? 'view' : 'index',
     };
-  };
+  }, [accelerationIndexType, dataSource, database, dataTable, indexName]);
 
   const updateDescribeQuery = () => {
     updateSQLQueries(indexMetaData.describeQuery);
@@ -90,7 +90,7 @@ export const AccelerationIndexFlyout = ({
 
   useEffect(() => {
     setindexMetaData(generateQueryAndIndexName());
-  }, []);
+  }, [generateQueryAndIndexName]);
 
   return (
     <>

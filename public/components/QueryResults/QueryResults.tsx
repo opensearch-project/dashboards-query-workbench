@@ -45,7 +45,7 @@ import {
   ResponseDetail,
   Tab,
 } from '../Main/main';
-import QueryResultsBody from './QueryResultsBody';
+import { QueryResultsBody } from './QueryResultsBody';
 import { AsyncQueryBody } from './async_query_body';
 
 interface QueryResultsProps {
@@ -61,7 +61,7 @@ interface QueryResultsProps {
   searchQuery: string;
   tabsOverflow: boolean;
   onSelectedTabIdChange: (tab: Tab) => void;
-  onQueryChange: (object: any) => void;
+  onQueryChange: (object: { query: string }) => void;
   updateExpandedMap: (map: ItemIdToExpandedRowMap) => void;
   itemIdToExpandedRowMap: ItemIdToExpandedRowMap;
   getJdbc: (queries: string[]) => void;
@@ -103,7 +103,7 @@ export class QueryResults extends React.Component<QueryResultsProps, QueryResult
       [
         {
           name: '',
-          getValue: (_item: any) => '',
+          getValue: (_item: unknown) => '',
           isAscending: true,
         },
       ],
@@ -178,7 +178,7 @@ export class QueryResults extends React.Component<QueryResultsProps, QueryResult
   };
 
   searchItems(dataRows: DataRow[], searchQuery: string): DataRow[] {
-    const rows: Array<{ [key: string]: any }> = [];
+    const rows: Array<{ [key: string]: unknown }> = [];
     for (const row of dataRows) {
       rows.push(row.data);
     }

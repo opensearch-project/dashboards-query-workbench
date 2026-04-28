@@ -5,7 +5,7 @@
 
 import { I18nProvider } from '@osd/i18n/react';
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch, RouteComponentProps } from 'react-router-dom';
 
 import { EuiPage, EuiPageBody } from '@elastic/eui';
 
@@ -30,10 +30,10 @@ interface WorkbenchAppDeps {
 }
 
 export const WorkbenchApp = ({
-  basename,
+  basename: _basename,
   notifications,
   http,
-  navigation,
+  navigation: _navigation,
   chrome,
   savedObjects,
   dataSourceEnabled,
@@ -44,7 +44,11 @@ export const WorkbenchApp = ({
   const isNavGroupEnabled = coreRefs?.chrome?.navGroup.getNavGroupEnabled();
   const basePath = isNavGroupEnabled ? '/opensearch-query-workbench' : '';
 
-  const renderMain = (props: any, isAccelerationFlyoutOpen: boolean, urlDataSource: string) => {
+  const renderMain = (
+    props: RouteComponentProps,
+    isAccelerationFlyoutOpen: boolean,
+    urlDataSource: string
+  ) => {
     return (
       <Main
         httpClient={http}

@@ -8,22 +8,22 @@ import _ from 'lodash';
 import 'regenerator-runtime/runtime';
 import { Logger, RequestHandlerContext } from '../../../../src/core/server';
 
-export default class QueryService {
-  private client: any;
+export class QueryService {
+  private client: unknown;
   private dataSourceEnabled: boolean;
   private logger: Logger;
 
-  constructor(client: any, dataSourceEnabled: boolean, logger: Logger) {
+  constructor(client: unknown, dataSourceEnabled: boolean, logger: Logger) {
     this.client = client;
     this.dataSourceEnabled = dataSourceEnabled;
     this.logger = logger;
   }
 
   describeQueryPostInternal = async (
-    request: any,
+    request: Record<string, unknown>,
     format: string,
     responseFormat: string,
-    body: any,
+    body: Record<string, unknown>,
     context: RequestHandlerContext
   ) => {
     try {
@@ -64,11 +64,11 @@ export default class QueryService {
   };
 
   describeQueryJobIdInternal = async (
-    request: any,
+    request: Record<string, unknown>,
     format: string,
     jobId: string,
     responseFormat: string,
-    context: any,
+    context: Record<string, unknown>,
     dataSourceMDSId: string
   ) => {
     try {
@@ -107,10 +107,10 @@ export default class QueryService {
   };
 
   describeQueryGetInternalSync = async (
-    request: any,
+    request: Record<string, unknown>,
     format: string,
     responseFormat: string,
-    context: any
+    context: Record<string, unknown>
   ) => {
     try {
       let client = this.client;
@@ -145,31 +145,34 @@ export default class QueryService {
     }
   };
 
-  describeSQLQuery = async (context: any, request: any) => {
+  describeSQLQuery = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
     return this.describeQueryPostInternal(request, 'sql.sqlQuery', 'json', request.body, context);
   };
 
-  describePPLQuery = async (context: any, request: any) => {
+  describePPLQuery = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
     return this.describeQueryPostInternal(request, 'sql.pplQuery', 'json', request.body, context);
   };
 
-  describeSQLCsv = async (context: any, request: any) => {
+  describeSQLCsv = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
     return this.describeQueryPostInternal(request, 'sql.sqlCsv', null, request.body, context);
   };
 
-  describePPLCsv = async (context: any, request: any) => {
+  describePPLCsv = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
     return this.describeQueryPostInternal(request, 'sql.pplCsv', null, request.body, context);
   };
 
-  describeSQLText = async (context: any, request: any) => {
+  describeSQLText = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
     return this.describeQueryPostInternal(request, 'sql.sqlText', null, request.body, context);
   };
 
-  describePPLText = async (context: any, request: any) => {
+  describePPLText = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
     return this.describeQueryPostInternal(request, 'sql.pplText', null, request.body, context);
   };
 
-  describeSQLAsyncQuery = async (context: any, request: any) => {
+  describeSQLAsyncQuery = async (
+    context: Record<string, unknown>,
+    request: Record<string, unknown>
+  ) => {
     return this.describeQueryPostInternal(
       request,
       'sql.sparkSqlQuery',
@@ -180,8 +183,8 @@ export default class QueryService {
   };
 
   describeSQLAsyncGetQuery = async (
-    context: any,
-    request: any,
+    context: Record<string, unknown>,
+    request: Record<string, unknown>,
     jobId: string,
     dataSourceMDSId?: string
   ) => {
@@ -194,12 +197,15 @@ export default class QueryService {
       dataSourceMDSId
     );
   };
-  describeSyncQueryDataSources = async (context: any, request: any) => {
+  describeSyncQueryDataSources = async (
+    context: Record<string, unknown>,
+    request: Record<string, unknown>
+  ) => {
     return this.describeQueryGetInternalSync(request, 'sql.datasourcesGetQuery', null, context);
   };
   describeAsyncDeleteQuery = async (
-    context: any,
-    request: any,
+    context: Record<string, unknown>,
+    request: Record<string, unknown>,
     jobId: string,
     dataSourceMDSId?: string
   ) => {
