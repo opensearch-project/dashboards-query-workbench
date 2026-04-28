@@ -8,9 +8,9 @@ import { EuiHorizontalRule } from '@elastic/eui';
 
 const Header = () => {
   return (
-      <div>
-        <EuiHorizontalRule margin="none" />
-      </div>
+    <div>
+      <EuiHorizontalRule margin="none" />
+    </div>
   );
 };
 

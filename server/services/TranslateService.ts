@@ -2,7 +2,7 @@
  * Copyright OpenSearch Contributors
  * SPDX-License-Identifier: Apache-2.0
  */
-import { Logger } from "../../../../src/core/server";
+import { Logger } from '../../../../src/core/server';
 
 export default class TranslateService {
   private client: any;
@@ -24,7 +24,7 @@ export default class TranslateService {
       };
       let client = this.client;
       let queryResponse;
-      const {dataSourceMDSId} = request.query;
+      const { dataSourceMDSId } = request.query;
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI('sql.translateSQL', params);
@@ -64,11 +64,10 @@ export default class TranslateService {
 
       let queryResponse;
       let client = this.client;
-      const {dataSourceMDSId} = request.query;
+      const { dataSourceMDSId } = request.query;
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
-        queryResponse = await client
-        .callAPI('sql.translatePPL', params);
+        queryResponse = await client.callAPI('sql.translatePPL', params);
       } else {
         queryResponse = await client
           .asScoped(request)

@@ -22,7 +22,13 @@ interface OSTreeProps {
   dataSourceEnabled: boolean;
   dataSourceMDSId: string;
 }
-export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourceEnabled, dataSourceMDSId }: OSTreeProps) => {
+export const OSTree = ({
+  selectedItems,
+  updateSQLQueries,
+  refreshTree,
+  dataSourceEnabled,
+  dataSourceMDSId,
+}: OSTreeProps) => {
   const [treeData, setTreeData] = useState<Node[]>([]);
   const [isTreeLoading, setIsTreeLoading] = useState({
     status: false,
@@ -35,7 +41,11 @@ export const OSTree = ({ selectedItems, updateSQLQueries, refreshTree, dataSourc
       status: true,
       message: '',
     });
-    const { treeContent, loadingStatus } = await getTreeContent(selectedItems, dataSourceEnabled, dataSourceMDSId);
+    const { treeContent, loadingStatus } = await getTreeContent(
+      selectedItems,
+      dataSourceEnabled,
+      dataSourceMDSId
+    );
     setTreeData(treeContent);
     setIsTreeLoading({ ...loadingStatus });
   };

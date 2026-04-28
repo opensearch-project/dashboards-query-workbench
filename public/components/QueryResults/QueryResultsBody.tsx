@@ -173,7 +173,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
   getModal = (errorMessage: string): any => {
     const closeModal = () => this.setIsModalVisible(false);
-    let modal = (
+    const modal = (
       <EuiOverlayMask onClick={closeModal}>
         <EuiModal onClose={closeModal}>
           <EuiModalHeader>
@@ -271,14 +271,14 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   }
 
   searchItems(dataRows: DataRow[], searchQuery: string): DataRow[] {
-    let rows: { [key: string]: any }[] = [];
+    const rows: Array<{ [key: string]: any }> = [];
     for (const row of dataRows) {
       rows.push(row.data);
     }
     const searchResult = EuiSearchBar.Query.execute(searchQuery, rows);
-    let result: DataRow[] = [];
+    const result: DataRow[] = [];
     for (const row of searchResult) {
-      let dataRow: DataRow = {
+      const dataRow: DataRow = {
         // rowId does not matter here since the data rows would be sorted later
         rowId: 0,
         data: row,
@@ -296,12 +296,12 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   sortDataRows(dataRows: DataRow[], field: string): DataRow[] {
     const property = this.props.sortableProperties.getSortablePropertyByName(field);
     const copy = [...dataRows];
-    let comparator = (a: DataRow, b: DataRow) => {
+    const comparator = (a: DataRow, b: DataRow) => {
       if (typeof property === 'undefined') {
         return 0;
       }
-      let dataA = a.data;
-      let dataB = b.data;
+      const dataA = a.data;
+      const dataB = b.data;
       if (dataA[field] && dataB[field]) {
         if (dataA[field] > dataB[field]) {
           return 1;
@@ -322,12 +322,12 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   getFieldValue(fieldValue: any, field: string): FieldValue {
     let hasExpandingRow: boolean = false;
     let hasExpandingArray: boolean = false;
-    let value: string = '';
+    const value: string = '';
     let link: string = '';
 
     if (fieldValue === null) {
       return {
-        hasExpandingRow: hasExpandingRow,
+        hasExpandingRow,
         value: '',
         hasExpandingArray,
         link,
@@ -336,7 +336,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
 
     if (typeof fieldValue === 'boolean') {
       return {
-        hasExpandingRow: hasExpandingRow,
+        hasExpandingRow,
         value: String(fieldValue),
         hasExpandingArray,
         link,
@@ -346,7 +346,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     // Not an object or array
     if (typeof fieldValue !== 'object') {
       return {
-        hasExpandingRow: hasExpandingRow,
+        hasExpandingRow,
         value: fieldValue,
         hasExpandingArray,
         link,
@@ -370,10 +370,10 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     }
 
     return {
-      hasExpandingRow: hasExpandingRow,
-      hasExpandingArray: hasExpandingArray,
-      value: value,
-      link: link,
+      hasExpandingRow,
+      hasExpandingArray,
+      value,
+      link,
     };
   }
 
@@ -463,7 +463,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   }
 
   updateExpandedRow(node: Node, expandedRowMap: ItemIdToExpandedRowMap) {
-    let newItemIdToExpandedRowMap = expandedRowMap;
+    const newItemIdToExpandedRowMap = expandedRowMap;
 
     if (expandedRowMap[node.nodeId]) {
       newItemIdToExpandedRowMap[node.nodeId].expandedRow = (
@@ -552,12 +552,12 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       ...items,
       id: nodeId,
       name,
-      isSelected: isSelected,
+      isSelected,
       onClick: () => console.log('open side nav'),
     };
   };
 
-  /************* Render Functions *************/
+  /** *********** Render Functions *************/
 
   renderMessagesTab(): JSX.Element {
     return (
@@ -622,7 +622,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     rowId: string,
     expandedRowMap: ItemIdToExpandedRowMap
   ) {
-    let rows: any[] = [];
+    const rows: any[] = [];
     const data = item.data;
     // If the data is an array or an object we add it to the expandedRowMap
     if (
@@ -638,8 +638,8 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       }
 
       for (let i = 0; i < rowItems.length; i++) {
-        let rowItem = rowItems[i];
-        let tableCells: Array<any> = [];
+        const rowItem = rowItems[i];
+        const tableCells: any[] = [];
         const tree = getRowTree(rowId, rowItem, expandedRowMap);
 
         // Add nodes to expandedRowMap
@@ -740,7 +740,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   }
 
   renderRows(items: DataRow[], columns: string[], expandedRowMap: ItemIdToExpandedRowMap) {
-    let rows: any[] = [];
+    const rows: any[] = [];
     if (items) {
       for (
         let itemIndex = this.props.firstItemIndex;
@@ -780,7 +780,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
   renderNodeData = (node: Node, expandedRowMap: ItemIdToExpandedRowMap) => {
     let items: any[] = [];
     let columns: string[] = [];
-    let records: any[] = [];
+    const records: any[] = [];
     const data = node.data;
 
     if (Array.isArray(data)) {
@@ -791,7 +791,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
       items = records;
       columns = this.addExpandingIconColumn(Object.keys(data));
     }
-    let dataRow: DataRow = {
+    const dataRow: DataRow = {
       rowId: 0,
       data: items,
     };
@@ -859,7 +859,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
     } else {
       if (this.props.queryResultSelected) {
         this.items = this.getItems(this.props.queryResultSelected.records);
-        //Adding an extra empty column for the expanding icon
+        // Adding an extra empty column for the expanding icon
         this.columns = this.addExpandingIconColumn(this.props.queryResultSelected.fields);
         this.expandedRowColSpan = this.columns.length;
       }
@@ -870,7 +870,7 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
         <div>
           <>
             <EuiFlexGroup alignItems="flexStart" style={{ padding: 20, paddingBottom: 0 }}>
-              {/*Table name*/}
+              {/* Table name*/}
               {this.props.language === 'SQL' && (
                 <EuiFlexItem>
                   <EuiText className="table-name">
@@ -880,12 +880,12 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
                     </h4>
                   </EuiText>
                   <div className="search-panel">
-                    {/*Search Bar*/}
+                    {/* Search Bar*/}
                     {this.renderSearchBar()}
                   </div>
                 </EuiFlexItem>
               )}
-              {/*Download button*/}
+              {/* Download button*/}
               {this.props.language === 'SQL' &&
                 this.props.selectedDatasource &&
                 this.props.selectedDatasource[0].label === 'OpenSearch' && (
@@ -909,9 +909,9 @@ class QueryResultsBody extends React.Component<QueryResultsBodyProps, QueryResul
             {modal}
           </>
 
-          {/*Table*/}
+          {/* Table*/}
           <div className="sql-console-results-container">
-            {/*Add a scrollbar on top of the table*/}
+            {/* Add a scrollbar on top of the table*/}
             <DoubleScrollbar>
               <EuiFlexGroup gutterSize="none">
                 <EuiFlexItem>

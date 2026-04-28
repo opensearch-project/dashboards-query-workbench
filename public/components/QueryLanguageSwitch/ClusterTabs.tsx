@@ -8,7 +8,7 @@ import React from 'react';
 
 interface SwitchProps {
   onChange: (id: string, value?: any) => void;
-  cluster: string
+  cluster: string;
   asyncLoading: boolean;
 }
 
@@ -34,7 +34,7 @@ class ClusterTabs extends React.Component<SwitchProps> {
   render() {
     return (
       <EuiButtonGroup
-        legend='cluster-selector'
+        legend="cluster-selector"
         options={toggleButtons}
         onChange={(id) => this.props.onChange(id)}
         idSelected={this.props.cluster}
