@@ -76,7 +76,7 @@ export const executeAsyncQuery = (
   };
 
   const pollQueryStatus = (id: string, callback: PollingCallback) => {
-    !isQueryCancelled &&
+    if (!isQueryCancelled) {
       http
         .get(ASYNC_QUERY_JOB_ENDPOINT + id + `/` + dataSourceMDSId)
         .then((res: AsyncApiResponse) => {
@@ -134,6 +134,7 @@ export const executeAsyncQuery = (
             },
           });
         });
+    }
   };
 
   const cancelQuery = () => {

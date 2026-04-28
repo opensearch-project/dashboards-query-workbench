@@ -5,7 +5,7 @@
 
 import { schema } from '@osd/config-schema';
 import { IOpenSearchDashboardsResponse, IRouter, ResponseError } from '../../../../src/core/server';
-import QueryService from '../services/QueryService';
+import { QueryService } from '../services/QueryService';
 import {
   ROUTE_PATH_GET_DATASOURCES,
   ROUTE_PATH_PPL_CSV,
@@ -33,7 +33,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describeSQLQuery(context, request);
       if (retVal.data.ok) {
         return response.ok({
@@ -62,7 +62,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describePPLQuery(context, request);
       return response.ok({
         body: retVal,
@@ -84,7 +84,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describeSQLCsv(context, request);
       if (retVal.data.ok) {
         return response.ok({
@@ -113,7 +113,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describePPLCsv(context, request);
       if (retVal.data.ok) {
         return response.ok({
@@ -142,7 +142,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describeSQLText(context, request);
       if (retVal.data.ok) {
         return response.ok({
@@ -171,7 +171,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describePPLText(context, request);
       if (retVal.data.ok) {
         return response.ok({
@@ -200,7 +200,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describeSQLAsyncQuery(context, request);
       if (retVal.data.ok) {
         return response.ok({
@@ -229,7 +229,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describeSQLAsyncGetQuery(
         context,
         request,
@@ -263,7 +263,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describeAsyncDeleteQuery(
         context,
         request,
@@ -289,7 +289,7 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describeSyncQueryDataSources(context, request);
       if (retVal.data.ok) {
         return response.ok({

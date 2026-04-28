@@ -8,14 +8,12 @@ import React from 'react';
 // @ts-ignore
 
 interface SwitchProps {
-  onChange: (id: string, value?: any) => void;
+  onChange: (id: string, value?: unknown) => void;
   language: string;
   asyncLoading: boolean;
 }
 
-interface SwitchState {
-  // language: string
-}
+type SwitchState = Record<string, never>;
 
 const toggleButtons = [
   {
@@ -54,4 +52,4 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
   }
 }
 
-export default Switch;
+export { Switch };

@@ -390,7 +390,7 @@ exports[`<PPLPage /> spec tests the Sample query button 1`] = `
 </div>
 `;
 
-exports[`<PPLPage /> spec tests the Sample query button 2`] = `
+exports[`<PPLPage /> spec tests the Sample query button renders snapshot 1`] = `
 <div>
   <div
     class="euiPanel euiPanel--paddingLarge euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow sql-console-query-editor container-panel coreSystemRootDomElement"
@@ -780,7 +780,7 @@ exports[`<PPLPage /> spec tests the action buttons 1`] = `
 </div>
 `;
 
-exports[`<PPLPage /> spec tests the action buttons 2`] = `
+exports[`<PPLPage /> spec tests the action buttons with OpenSearch datasource 1`] = `
 <div
   aria-hidden="true"
   data-aria-hidden="true"

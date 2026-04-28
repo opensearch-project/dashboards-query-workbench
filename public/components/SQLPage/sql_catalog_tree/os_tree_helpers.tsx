@@ -36,7 +36,7 @@ export const loadOpenSearchTree = async (
   treeContent: Node[];
   loadingStatus: { status: boolean; message: string };
 }> => {
-  const loadQuery = { query: LOAD_OPENSEARCH_INDICES_QUERY };
+  const _loadQuery = { query: LOAD_OPENSEARCH_INDICES_QUERY };
   const http = coreRefs!.http;
   let loadedTree = {
     treeContent: [] as Node[],
@@ -52,10 +52,10 @@ export const loadOpenSearchTree = async (
       query,
     });
     const responseObj = JSON.parse(res.data.resp);
-    const dataRows: any[][] = _.get(responseObj, 'datarows');
+    const dataRows: unknown[][] = _.get(responseObj, 'datarows');
     if (dataRows.length > 0) {
       const fields = dataRows.map((data) => {
-        return data[2];
+        return data[2] as string;
       });
 
       loadedTree = {

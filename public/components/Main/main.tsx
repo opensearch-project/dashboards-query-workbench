@@ -52,8 +52,8 @@ import {
   getSelectedResults,
 } from '../../utils/utils';
 import { PPLPage } from '../PPLPage/PPLPage';
-import ClusterTabs from '../QueryLanguageSwitch/ClusterTabs';
-import Switch from '../QueryLanguageSwitch/Switch';
+import { ClusterTabs } from '../QueryLanguageSwitch/ClusterTabs';
+import { Switch } from '../QueryLanguageSwitch/Switch';
 import { QueryResults } from '../QueryResults/QueryResults';
 import { CreateButton } from '../SQLPage/CreateButton';
 import { DataSelect } from '../SQLPage/DataSelect';
@@ -62,8 +62,8 @@ import { CatalogTree } from '../SQLPage/sql_catalog_tree/catalog_tree';
 
 interface ResponseData {
   ok: boolean;
-  resp: any;
-  body: any;
+  resp: string;
+  body: string;
 }
 
 export interface ResponseDetail<T> {
@@ -73,11 +73,11 @@ export interface ResponseDetail<T> {
 }
 
 export interface TranslateResult {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface QueryMessage {
-  text: any;
+  text: string;
   className: string;
 }
 
@@ -97,13 +97,13 @@ export interface ItemIdToExpandedRowMap {
   [key: string]: {
     nodes: Tree;
     expandedRow?: {};
-    selectedNodes?: { [key: string]: any };
+    selectedNodes?: { [key: string]: unknown };
   };
 }
 
 export interface DataRow {
   rowId: number;
-  data: { [key: string]: any };
+  data: { [key: string]: unknown };
 }
 
 interface MainProps {
@@ -152,7 +152,7 @@ interface MainState {
 }
 
 const SUCCESS_MESSAGE = 'Success';
-const errorQueryResponse = (queryResultResponseDetail: any) => {
+const errorQueryResponse = (queryResultResponseDetail: ResponseDetail<string>) => {
   const errorMessage =
     queryResultResponseDetail.errorMessage +
     ', this query is not runnable. \n \n' +
@@ -180,7 +180,7 @@ export function getQueryResultsForTable(
         const dataRows: DataRow[] = [];
 
         const schema: object[] = _.get(responseObj, 'schema');
-        const datarows: any[][] = _.get(responseObj, 'datarows');
+        const datarows: unknown[][] = _.get(responseObj, 'datarows');
         let queryType = 'default';
 
         for (const column of schema.values()) {
@@ -205,7 +205,7 @@ export function getQueryResultsForTable(
             }
 
             for (const [id, field] of datarows.entries()) {
-              const row: { [key: string]: any } = {};
+              const row: { [key: string]: unknown } = {};
               row.TABLE_NAME = field[index];
               const dataRow: DataRow = {
                 rowId: id,
@@ -218,10 +218,10 @@ export function getQueryResultsForTable(
           case 'describe':
           case 'default':
             for (const [id, field] of schema.entries()) {
-              let alias: any = null;
+              let alias: string | null = null;
               try {
                 alias = _.get(field, 'alias');
-              } catch (e) {
+              } catch (_e) {
                 console.log('No alias for field ' + field);
               } finally {
                 fields[id] = !alias ? _.get(field, 'name') : alias;
@@ -229,7 +229,7 @@ export function getQueryResultsForTable(
             }
 
             for (const [id, data] of datarows.entries()) {
-              const row: { [key: string]: any } = {};
+              const row: { [key: string]: unknown } = {};
               for (const idx of schema.keys()) {
                 const fieldname = fields[idx];
                 row[fieldname] = _.isNull(data[idx]) ? '-' : data[idx];
@@ -326,7 +326,7 @@ export class Main extends React.Component<MainProps, MainState> {
           this.setState({ flintDataConnections: false });
         }
       },
-      (error: any) => {
+      (error: Error) => {
         console.error('Error fetching data sources:', error);
       }
     );
@@ -398,7 +398,7 @@ export class Main extends React.Component<MainProps, MainState> {
     });
   };
 
-  onQueryChange = ({ query }: { query: any }) => {
+  onQueryChange = ({ query }: { query: string }) => {
     // Reset pagination state.
     this.setState({
       searchQuery: query,
@@ -447,7 +447,7 @@ export class Main extends React.Component<MainProps, MainState> {
         queries.map((eachQuery: string) =>
           this.httpClient
             .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
-            .catch((error: any) => {
+            .catch((error: Error) => {
               this.setState({
                 messages: [
                   {
@@ -612,7 +612,7 @@ export class Main extends React.Component<MainProps, MainState> {
         queries.map((eachQuery: string) =>
           this.httpClient
             .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
-            .catch((error: any) => {
+            .catch((error: Error) => {
               this.setState({
                 messages: [
                   {
@@ -666,7 +666,7 @@ export class Main extends React.Component<MainProps, MainState> {
         queries.map((eachQuery: string) =>
           this.httpClient
             .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
-            .catch((error: any) => {
+            .catch((error: Error) => {
               this.setState({
                 messages: [
                   {
@@ -706,7 +706,7 @@ export class Main extends React.Component<MainProps, MainState> {
         queries.map((eachQuery: string) =>
           this.httpClient
             .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
-            .catch((error: any) => {
+            .catch((error: Error) => {
               this.setState({
                 messages: [
                   {
@@ -746,7 +746,7 @@ export class Main extends React.Component<MainProps, MainState> {
         queries.map((eachQuery: string) =>
           this.httpClient
             .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
-            .catch((error: any) => {
+            .catch((error: Error) => {
               this.setState({
                 messages: [
                   {
@@ -821,7 +821,10 @@ export class Main extends React.Component<MainProps, MainState> {
   checkHistoryState = () => {
     if (!this.historyFromRedirection.location.state) return;
 
-    const { language, queryToRun }: any = this.historyFromRedirection.location.state;
+    const {
+      language,
+      queryToRun,
+    }: { language: string; queryToRun: string } = this.historyFromRedirection.location.state;
     if (language === 'sql') {
       this.updateSQLQueries(queryToRun);
 
@@ -870,7 +873,7 @@ export class Main extends React.Component<MainProps, MainState> {
     }
   };
 
-  onSelectedDataSource = async (e) => {
+  onSelectedDataSource = async (e: DataSourceOption[]) => {
     const dataConnectionId = e[0] ? e[0].id : undefined;
     const clusterName = e[0] ? e[0].label : '';
     await this.setState({

@@ -22,8 +22,14 @@ import {
   TREE_ITEM_TABLE_NAME_DEFAULT_NAME,
 } from '../../../../common/constants';
 import { CachedDataSourceStatus, TreeItem, TreeItemType } from '../../../../common/types';
-import { useToast } from '../../../../common/utils/toast_helper';
 import { catalogCacheRefs } from '../../../framework/catalog_cache_refs';
+
+export interface AccelerationCacheItem {
+  database: string;
+  table: string;
+  type: string;
+  indexName: string | null;
+}
 
 let pageStateLanguage: string;
 export const handleQuery = (
@@ -108,7 +114,11 @@ export const iconCreation = (node: TreeItem) => {
   }
 };
 
-export const loadTreeItem = (elements: string[], type: TreeItemType, values?: any): TreeItem[] => {
+export const loadTreeItem = (
+  elements: string[],
+  type: TreeItemType,
+  values?: TreeItem[]
+): TreeItem[] => {
   return elements.map((element) => {
     const treeItem: TreeItem = {
       name: element,
@@ -158,9 +168,9 @@ export const isEitherObjectCacheEmpty = (
 export const getTablesFromCache = (
   dataSourceName: string,
   databaseName: string,
-  dataSourceMDSId?: string
+  dataSourceMDSId?: string,
+  setToast?: (message: string, type?: string) => void
 ) => {
-  const { setToast } = useToast();
   try {
     const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(
       dataSourceName,
@@ -175,7 +185,7 @@ export const getTablesFromCache = (
     }
   } catch (error) {
     console.error(error);
-    setToast('Your cache is outdated, refresh databases and tables', 'warning');
+    setToast?.('Your cache is outdated, refresh databases and tables', 'warning');
     return [];
   }
 };
@@ -193,7 +203,11 @@ export const getAccelerationsFromCache = (dataSourceName: string, dataSourceMDSI
   }
 };
 
-export const findSkippingAndCoveringIndexNames = (data: any[], database: string, table: string) => {
+export const findSkippingAndCoveringIndexNames = (
+  data: AccelerationCacheItem[],
+  database: string,
+  table: string
+) => {
   const filteredIndexes = _.filter(data, (obj) => {
     return (
       obj.database === database &&
@@ -209,7 +223,10 @@ export const findSkippingAndCoveringIndexNames = (data: any[], database: string,
   });
 };
 
-export const findMaterializedViewsForDatabase = (data: any[], database: string) => {
+export const findMaterializedViewsForDatabase = (
+  data: AccelerationCacheItem[],
+  database: string
+) => {
   const materializedViews = _.filter(data, (obj) => {
     return obj.database === database && obj.type === 'materialized';
   });
@@ -218,7 +235,7 @@ export const findMaterializedViewsForDatabase = (data: any[], database: string) 
 };
 
 export const findIndexObject = (
-  data: any[],
+  data: AccelerationCacheItem[],
   database: string,
   table: string | undefined,
   indexName: string

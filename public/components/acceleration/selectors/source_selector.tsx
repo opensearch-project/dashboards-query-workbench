@@ -11,7 +11,7 @@ import {
   EuiText,
 } from '@elastic/eui';
 import producer from 'immer';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../../src/core/public';
 import {
   AsyncApiResponse,
@@ -54,27 +54,31 @@ export const AccelerationDataSourceSelector = ({
     dataTable: false,
   });
 
-  const loadDataSource = () => {
-    setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: true });
+  const loadDataSource = useCallback(() => {
+    setLoadingComboBoxes((prev) => ({ ...prev, dataSource: true }));
     http
       .get(`/api/get_datasources`)
       .then((res) => {
         const data = res.data.resp;
         setDataConnections(
           data
-            .filter((connection: any) => connection.connector.toUpperCase() === 'S3GLUE')
-            .map((connection: any) => ({ label: connection.name }))
+            .filter(
+              (connection: { connector: string; name: string }) =>
+                connection.connector.toUpperCase() === 'S3GLUE'
+            )
+            .map((connection: { connector: string; name: string }) => ({ label: connection.name }))
         );
       })
       .catch((err) => {
         console.error(err);
         setToast(`ERROR: failed to load datasources`, 'danger');
       });
-    setLoadingComboBoxes({ ...loadingComboBoxes, dataSource: false });
-  };
+    setLoadingComboBoxes((prev) => ({ ...prev, dataSource: false }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- setToast is unstable (new ref every render) and would cause infinite loops
+  }, [http]);
 
-  const loadDatabases = () => {
-    setLoadingComboBoxes({ ...loadingComboBoxes, database: true });
+  const loadDatabases = useCallback(() => {
+    setLoadingComboBoxes((prev) => ({ ...prev, database: true }));
     const query = {
       lang: 'sql',
       query: `SHOW SCHEMAS IN \`${accelerationFormData.dataSource}\``,
@@ -89,22 +93,22 @@ export const AccelerationDataSourceSelector = ({
         if (status === AsyncQueryStatus.Success) {
           let databaseOptions: Array<EuiComboBoxOptionOption<string>> = [];
           if (response.data.resp.datarows.length > 0)
-            databaseOptions = response.data.resp.datarows.map((subArray: any[]) => ({
+            databaseOptions = response.data.resp.datarows.map((subArray: string[]) => ({
               label: subArray[0],
             }));
           setDatabases(databaseOptions);
-          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+          setLoadingComboBoxes((prev) => ({ ...prev, database: false }));
         }
         if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
-          setLoadingComboBoxes({ ...loadingComboBoxes, database: false });
+          setLoadingComboBoxes((prev) => ({ ...prev, database: false }));
         }
       },
-      () => setLoadingComboBoxes({ ...loadingComboBoxes, database: false })
+      () => setLoadingComboBoxes((prev) => ({ ...prev, database: false }))
     );
-  };
+  }, [accelerationFormData.dataSource]);
 
-  const loadTables = () => {
-    setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: true });
+  const loadTables = useCallback(() => {
+    setLoadingComboBoxes((prev) => ({ ...prev, dataTable: true }));
     const query = {
       lang: 'sql',
       query: `SHOW TABLES IN \`${accelerationFormData.dataSource}\`.\`${accelerationFormData.database}\``,
@@ -123,30 +127,33 @@ export const AccelerationDataSourceSelector = ({
               label: subArray[1],
             }));
           setTables(dataTableOptions);
-          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+          setLoadingComboBoxes((prev) => ({ ...prev, dataTable: false }));
         }
         if (status === AsyncQueryStatus.Failed || status === AsyncQueryStatus.Cancelled) {
-          setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false });
+          setLoadingComboBoxes((prev) => ({ ...prev, dataTable: false }));
         }
       },
-      () => setLoadingComboBoxes({ ...loadingComboBoxes, dataTable: false })
+      () => setLoadingComboBoxes((prev) => ({ ...prev, dataTable: false }))
     );
-  };
+  }, [accelerationFormData.dataSource, accelerationFormData.database]);
 
   useEffect(() => {
     loadDataSource();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadDataSource is unstable; should only run on mount
   }, []);
 
   useEffect(() => {
     if (accelerationFormData.dataSource !== '') {
       loadDatabases();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadDatabases is unstable; only re-run when dataSource changes
   }, [accelerationFormData.dataSource]);
 
   useEffect(() => {
     if (accelerationFormData.database !== '') {
       loadTables();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- loadTables is unstable; only re-run when database changes
   }, [accelerationFormData.database]);
 
   return (

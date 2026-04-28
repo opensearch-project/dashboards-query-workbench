@@ -160,7 +160,7 @@ describe('validateCheckpointLocation', () => {
     expect(materializedError).toEqual(['Checkpoint location is mandatory for auto refresh']);
   });
 
-  it('should return an array with an error message when using auto refresh without a checkpoint location', () => {
+  it('should return an array with an error message when using auto refresh with an empty checkpoint location', () => {
     const materializedError = validateCheckpointLocation('auto', '');
     expect(materializedError).toEqual(['Checkpoint location is mandatory for auto refresh']);
   });

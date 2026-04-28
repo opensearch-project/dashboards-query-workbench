@@ -10,12 +10,12 @@ import {
   OpenSearchServiceSetup,
   ResponseError,
 } from '../../../../src/core/server';
-import TranslateService from '../services/TranslateService';
+import { TranslateService } from '../services/TranslateService';
 
-export default function translate(
+export function translate(
   server: IRouter,
   service: TranslateService,
-  openSearchServiceSetup: OpenSearchServiceSetup
+  _openSearchServiceSetup: OpenSearchServiceSetup
 ) {
   server.post(
     {
@@ -31,7 +31,7 @@ export default function translate(
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.translateSQL(context, request);
       return response.ok({
         body: retVal,
@@ -53,7 +53,7 @@ export default function translate(
       context,
       request,
       response
-    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+    ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.translatePPL(context, request);
       return response.ok({
         body: retVal,

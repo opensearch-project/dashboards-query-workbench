@@ -3,19 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* eslint-disable max-classes-per-file */
 import { ItemIdToExpandedRowMap, QueryMessage, ResponseDetail } from '../components/Main/main';
 import { MESSAGE_TAB_LABEL } from './constants';
 
 // It returns an array of queries
 export const getQueries = (queriesString: string): string[] => {
-  if (queriesString == '') {
+  if (queriesString === '') {
     return [];
   }
 
   return queriesString
     .split(';')
     .map((query: string) => query.trim().replace(/[\r\n]+/g, ' '))
-    .filter((query: string) => query != '');
+    .filter((query: string) => query !== '');
 };
 
 // It retrieves the index from the query. The index is used to label the query results tab
@@ -47,13 +48,13 @@ export function getDefaultTabLabel(
 }
 
 // It returns the results for the selected tab
-export function getSelectedResults(
-  results: Array<ResponseDetail<any>>,
+export function getSelectedResults<T>(
+  results: Array<ResponseDetail<T>>,
   selectedTabId: string
-): any {
-  const selectedIndex: number = parseInt(selectedTabId);
+): T | undefined {
+  const selectedIndex: number = parseInt(selectedTabId, 10);
   if (!Number.isNaN(selectedIndex) && results) {
-    const selectedResult: ResponseDetail<any> = results[selectedIndex];
+    const selectedResult: ResponseDetail<T> = results[selectedIndex];
     return selectedResult && selectedResult.fulfilled ? selectedResult.data : undefined;
   }
   return undefined;
@@ -95,7 +96,7 @@ export function scrollToNode(nodeId: string): void {
 }
 
 // Download functions
-export function onDownloadFile(data: any, fileFormat: string, fileName: string) {
+export function onDownloadFile(data: string, fileFormat: string, fileName: string) {
   const encodedUri = encodeURIComponent(data);
   const content = 'data:text/' + fileFormat + ';charset=utf-8,' + encodedUri;
   const link = document.createElement('a');
@@ -108,19 +109,19 @@ export function onDownloadFile(data: any, fileFormat: string, fileName: string) 
 
 export class Tree {
   _root: Node;
-  constructor(data: any, rootId: string) {
+  constructor(data: unknown, rootId: string) {
     this._root = new Node(data, rootId, '', this._root);
   }
 }
 
 export class Node {
-  data: any;
+  data: unknown;
   name: string;
   children: Node[];
   parent: Node;
   nodeId: string;
 
-  constructor(data: any, parentId: string, name = '', parent: Node) {
+  constructor(data: unknown, parentId: string, name = '', parent: Node) {
     this.data = data;
     this.name = name;
     this.children = [];
@@ -130,7 +131,7 @@ export class Node {
 }
 
 // It creates a tree of nested objects or arrays for the row, where rootId is the rowId and item is the field value
-export function createRowTree(item: any, rootId: string) {
+export function createRowTree(item: unknown, rootId: string) {
   const tree = new Tree(item, rootId);
   const root = tree._root;
 
@@ -149,7 +150,7 @@ export function createRowTree(item: any, rootId: string) {
 }
 
 // It returns the tree for the given nodeId if it exists or create a new one otherwise
-export function getRowTree(nodeId: string, item: any, expandedRowMap: ItemIdToExpandedRowMap) {
+export function getRowTree(nodeId: string, item: unknown, expandedRowMap: ItemIdToExpandedRowMap) {
   return expandedRowMap[nodeId] && expandedRowMap[nodeId].nodes
     ? expandedRowMap[nodeId].nodes
     : createRowTree(item, nodeId);

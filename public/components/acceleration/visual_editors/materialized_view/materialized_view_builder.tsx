@@ -57,6 +57,7 @@ export const MaterializedViewBuilder = ({
       );
       setColumnExpressionValues(newColumnExpresionValue);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- setAccelerationFormData excluded to prevent re-render loop when form data reference changes
   }, [accelerationFormData.dataTableFields]);
 
   return (
@@ -94,7 +95,7 @@ export const MaterializedViewBuilder = ({
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiFlexGroup direction="column" gutterSize="s">
-        {_.map(columnExpressionValues, (_, i) => {
+        {_.map(columnExpressionValues, (__, i) => {
           return (
             <ColumnExpression
               index={i}

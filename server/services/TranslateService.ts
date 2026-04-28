@@ -4,16 +4,16 @@
  */
 import { Logger } from '../../../../src/core/server';
 
-export default class TranslateService {
-  private client: any;
+export class TranslateService {
+  private client: unknown;
   private dataSourceEnabled: boolean;
 
-  constructor(client: any, dataSourceEnabled: boolean, logger: Logger) {
+  constructor(client: unknown, dataSourceEnabled: boolean, _logger: Logger) {
     this.client = client;
     this.dataSourceEnabled = dataSourceEnabled;
   }
 
-  translateSQL = async (context: any, request: any) => {
+  translateSQL = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
     try {
       const queryRequest = {
         query: request.body.query,
@@ -52,7 +52,7 @@ export default class TranslateService {
     }
   };
 
-  translatePPL = async (context: any, request: any) => {
+  translatePPL = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
     try {
       const queryRequest = {
         query: request.body.query,

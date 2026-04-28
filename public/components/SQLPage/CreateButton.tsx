@@ -20,7 +20,7 @@ interface CreateButtonProps {
 
 export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateButtonProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [_selectedOption, setSelectedOption] = useState(null);
 
   const closePopover = () => {
     setIsPopoverOpen(false);

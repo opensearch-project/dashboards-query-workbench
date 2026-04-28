@@ -12,7 +12,7 @@ import {
   EuiText,
   EuiTreeView,
 } from '@elastic/eui';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getTreeContent } from './os_tree_helpers';
 
 interface OSTreeProps {
@@ -24,7 +24,7 @@ interface OSTreeProps {
 }
 export const OSTree = ({
   selectedItems,
-  updateSQLQueries,
+  updateSQLQueries: _updateSQLQueries,
   refreshTree,
   dataSourceEnabled,
   dataSourceMDSId,
@@ -35,7 +35,7 @@ export const OSTree = ({
     message: '',
   });
 
-  const loadtree = async () => {
+  const loadtree = useCallback(async () => {
     setTreeData([]);
     setIsTreeLoading({
       status: true,
@@ -48,7 +48,7 @@ export const OSTree = ({
     );
     setTreeData(treeContent);
     setIsTreeLoading({ ...loadingStatus });
-  };
+  }, [selectedItems, dataSourceEnabled, dataSourceMDSId]);
 
   const treeLoadingStateRenderer = (
     <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
@@ -109,6 +109,8 @@ export const OSTree = ({
 
   useEffect(() => {
     loadtree();
+    // loadtree excluded: it depends on selectedItems (unstable array prop), causing infinite re-renders.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItems, refreshTree, dataSourceMDSId]);
 
   return <div>{treeRenderer}</div>;

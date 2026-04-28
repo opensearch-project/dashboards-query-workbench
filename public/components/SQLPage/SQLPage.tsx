@@ -102,7 +102,9 @@ export class SQLPage extends React.Component<SQLPageProps, SQLPageState> {
 
     const explainContent = sqlTranslationsNotEmpty()
       ? this.props.sqlTranslations
-          .map((queryTranslation: any) => JSON.stringify(queryTranslation.data, null, 2))
+          .map((queryTranslation: ResponseDetail<TranslateResult>) =>
+            JSON.stringify(queryTranslation.data, null, 2)
+          )
           .join('\n')
       : 'This query is not explainable.';
 

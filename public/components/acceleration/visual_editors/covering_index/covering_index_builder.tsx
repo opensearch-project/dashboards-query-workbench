@@ -32,17 +32,17 @@ export const CoveringIndexBuilder = ({
   const [columnsValue, setColumnsValue] = useState(ACCELERATION_ADD_FIELDS_TEXT);
   const [selectedOptions, setSelectedOptions] = useState<EuiComboBoxOptionOption[]>([]);
 
-  const onChange = (selectedOptions: EuiComboBoxOptionOption[]) => {
+  const onChange = (currentSelectedOptions: EuiComboBoxOptionOption[]) => {
     let expressionValue = ACCELERATION_ADD_FIELDS_TEXT;
-    if (selectedOptions.length > 0) {
-      expressionValue = `(${selectedOptions.map((option) => option.label).join(', ')})`;
+    if (currentSelectedOptions.length > 0) {
+      expressionValue = `(${currentSelectedOptions.map((option) => option.label).join(', ')})`;
     }
     setAccelerationFormData({
       ...accelerationFormData,
-      coveringIndexQueryData: selectedOptions.map((option) => option.label),
+      coveringIndexQueryData: currentSelectedOptions.map((option) => option.label),
     });
     setColumnsValue(expressionValue);
-    setSelectedOptions(selectedOptions);
+    setSelectedOptions(currentSelectedOptions);
   };
 
   return (

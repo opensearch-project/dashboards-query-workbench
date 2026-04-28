@@ -153,6 +153,9 @@ export const SkippingIndexBuilder = ({
     } else {
       setAccelerationFormData({ ...accelerationFormData, skippingIndexQueryData: [] });
     }
+    // Only depend on dataTableFields (not the whole accelerationFormData object) to avoid
+    // infinite re-renders, since setAccelerationFormData updates the object reference each cycle.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accelerationFormData.dataTableFields]);
 
   useEffect(() => {
