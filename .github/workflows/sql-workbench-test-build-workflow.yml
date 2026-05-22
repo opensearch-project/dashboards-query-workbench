@@ -8,7 +8,7 @@ on:
 
 jobs:
   Get-CI-Image-Tag:
-    uses: opensearch-project/opensearch-build/.github/workflows/get-ci-image-tag.yml@main
+    uses: opensearch-project/opensearch-build/.github/workflows/get-ci-image-tag.yml@c2498b758c08fb7bc48476509a5fc1b8dd5f7493 # main
     with:
       product: opensearch-dashboards
 
@@ -25,12 +25,12 @@ jobs:
 
     steps:
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           repository: opensearch-project/OpenSearch-Dashboards
           path: OpenSearch-Dashboards
       - name: Checkout workbench OpenSearch Dashboards plugin
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench
       - name: Bootstrap plugin/opensearch-dashboards and run tests
@@ -43,7 +43,7 @@ jobs:
 
       - name: Upload coverage
         if: always()
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@ab904c41d6ece82784817410c45d8b8c02684457 # v3
         with:
           flags: dashboards-query-workbench
           directory: OpenSearch-Dashboards/plugins/dashboards-query-workbench
@@ -58,7 +58,7 @@ jobs:
                                whoami && yarn build && mv ./build/*.zip ./build/dashboards-query-workbench.zip"
       - name: Upload Artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: dashboards-query-workbench-ubuntu-latest
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench/build
@@ -75,12 +75,12 @@ jobs:
         if: ${{ matrix.os == 'windows-latest' }}
         run: git config --system core.longpaths true
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           repository: opensearch-project/OpenSearch-Dashboards
           path: OpenSearch-Dashboards
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           node-version-file: './OpenSearch-Dashboards/.nvmrc'
           registry-url: 'https://registry.npmjs.org'
@@ -94,7 +94,7 @@ jobs:
       - run: node -v
       - run: yarn -v
       - name: Checkout workbench OpenSearch Dashboards plugin
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench
       - name: Bootstrap plugin/opensearch-dashboards
@@ -113,7 +113,7 @@ jobs:
           mv ./build/*.zip ./build/dashboards-query-workbench.zip
       - name: Upload Artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: dashboards-query-workbench-${{ matrix.os }}
           path: OpenSearch-Dashboards/plugins/dashboards-query-workbench/build
