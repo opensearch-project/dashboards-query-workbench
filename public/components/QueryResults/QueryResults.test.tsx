@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { configure, fireEvent, render } from '@testing-library/react';
 import { AsyncQueryStatus } from '../../../common/types/index';
 
