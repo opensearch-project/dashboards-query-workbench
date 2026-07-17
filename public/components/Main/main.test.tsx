@@ -96,7 +96,7 @@ describe('<Main /> spec', () => {
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockOpenSearchIndicies) as unknown) as HttpResponse;
+      return Promise.resolve(mockOpenSearchIndicies) as unknown as HttpResponse;
     });
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
@@ -172,10 +172,10 @@ describe('<Main /> spec', () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
       if (postRequestFlag > 0)
-        return Promise.resolve((mockNotOkQueryResultResponse as unknown) as HttpResponse);
+        return Promise.resolve(mockNotOkQueryResultResponse as unknown as HttpResponse);
       else {
         postRequestFlag = 1;
-        return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
+        return Promise.resolve(mockOpenSearchTreeQuery as unknown as HttpResponse);
       }
     });
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
@@ -201,10 +201,10 @@ describe('<Main /> spec', () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
       if (postRequestFlag > 0)
-        return Promise.resolve((mockQueryTranslationResponse as unknown) as HttpResponse);
+        return Promise.resolve(mockQueryTranslationResponse as unknown as HttpResponse);
       else {
         postRequestFlag = 1;
-        return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
+        return Promise.resolve(mockOpenSearchTreeQuery as unknown as HttpResponse);
       }
     });
 
@@ -228,7 +228,7 @@ describe('<Main /> spec', () => {
     const client = httpClientMock;
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     client.post = jest.fn(() => {
-      return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
+      return Promise.resolve(mockOpenSearchTreeQuery as unknown as HttpResponse);
     });
 
     const { getByText } = await render(
