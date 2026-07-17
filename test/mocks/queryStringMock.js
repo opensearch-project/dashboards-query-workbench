@@ -14,10 +14,9 @@
  */
 
 // eslint-disable-next-line import/no-dynamic-require
-const mod = require(require('path').resolve(
-  __dirname,
-  '../../../../node_modules/query-string/index.js'
-));
+const mod = require(
+  require('path').resolve(__dirname, '../../../../node_modules/query-string/index.js')
+);
 
 const api = mod && mod.__esModule && typeof mod.stringify !== 'function' ? mod.default : mod;
 

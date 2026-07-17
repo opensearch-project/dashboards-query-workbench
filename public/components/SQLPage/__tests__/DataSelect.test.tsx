@@ -16,7 +16,7 @@ describe('Renders the Datasource picker component', () => {
   it('fetches the datasources and selects S3glue as source', async () => {
     const client = httpClientMock;
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDataSelectQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDataSelectQuery) as unknown as HttpResponse;
     });
 
     const mockOnSelect = jest.fn();
@@ -36,7 +36,7 @@ describe('Renders the Datasource picker component', () => {
   it('fetches the datasources and selects Opensearch as source', async () => {
     const client = httpClientMock;
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDataSelectQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDataSelectQuery) as unknown as HttpResponse;
     });
 
     const mockOnSelect = jest.fn();
