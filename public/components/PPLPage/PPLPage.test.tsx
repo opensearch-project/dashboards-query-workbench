@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { PPLPage } from './PPLPage';

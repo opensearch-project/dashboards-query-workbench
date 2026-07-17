@@ -4,7 +4,7 @@
  */
 
 import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import {
   act,
   fireEvent,
@@ -34,10 +34,10 @@ describe('Render databases in tree', () => {
   it('fetches the tree when datasource is S3', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+      return Promise.resolve(mockJobId) as unknown as HttpResponse;
     });
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDatabaseQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDatabaseQuery) as unknown as HttpResponse;
     });
     const asyncTest = () => {
       render(
@@ -59,7 +59,7 @@ describe('Render databases in tree', () => {
   it('fetches and displays indicies when datasource is OpenSearch', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockOpenSearchIndicies) as unknown) as HttpResponse;
+      return Promise.resolve(mockOpenSearchIndicies) as unknown as HttpResponse;
     });
 
     render(
@@ -79,10 +79,10 @@ describe('Render databases in tree', () => {
   it('fetches default database in the side tree', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+      return Promise.resolve(mockJobId) as unknown as HttpResponse;
     });
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDatabaseQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDatabaseQuery) as unknown as HttpResponse;
     });
 
     const { getByText } = render(
@@ -103,10 +103,10 @@ describe('Render databases in tree', () => {
   it('fetches Materialized view in the Side tree', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+      return Promise.resolve(mockJobId) as unknown as HttpResponse;
     });
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDatabaseQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDatabaseQuery) as unknown as HttpResponse;
     });
 
     const { getByText } = render(
@@ -127,10 +127,10 @@ describe('Render databases in tree', () => {
 
     await waitFor(() => {
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockMVquery) as unknown) as HttpResponse;
+        return Promise.resolve(mockMVquery) as unknown as HttpResponse;
       });
 
       expect(getByText('http_count_view')).toBeInTheDocument();
@@ -141,10 +141,10 @@ describe('Render databases in tree', () => {
   it('fetches No materilaized views badge in side tree', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+      return Promise.resolve(mockJobId) as unknown as HttpResponse;
     });
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDatabaseQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDatabaseQuery) as unknown as HttpResponse;
     });
 
     const { getByText } = render(
@@ -165,10 +165,10 @@ describe('Render databases in tree', () => {
 
     await waitFor(() => {
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockMVEmptyQuery) as unknown) as HttpResponse;
+        return Promise.resolve(mockMVEmptyQuery) as unknown as HttpResponse;
       });
 
       expect(getByText('No Materialized View')).toBeInTheDocument();
@@ -179,10 +179,10 @@ describe('Render databases in tree', () => {
   it('fetches and displays tables in the side tree', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+      return Promise.resolve(mockJobId) as unknown as HttpResponse;
     });
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDatabaseQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDatabaseQuery) as unknown as HttpResponse;
     });
     const { getByText } = render(
       <TableView
@@ -197,10 +197,10 @@ describe('Render databases in tree', () => {
 
     await act(() => {
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockTableQuery) as unknown) as HttpResponse;
+        return Promise.resolve(mockTableQuery) as unknown as HttpResponse;
       });
     });
     await waitFor(() => {
@@ -212,10 +212,10 @@ describe('Render databases in tree', () => {
   it('fetches and displays skipping index in the side tree', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+      return Promise.resolve(mockJobId) as unknown as HttpResponse;
     });
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDatabaseQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDatabaseQuery) as unknown as HttpResponse;
     });
     const { getByText } = render(
       <TableView
@@ -230,10 +230,10 @@ describe('Render databases in tree', () => {
 
     await act(() => {
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockTableQuery) as unknown) as HttpResponse;
+        return Promise.resolve(mockTableQuery) as unknown as HttpResponse;
       });
     });
     await waitFor(() => {
@@ -242,16 +242,16 @@ describe('Render databases in tree', () => {
     fireEvent.click(getByText('http_logs2'));
     act(() => {
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockSkippingIndexQuery) as unknown) as HttpResponse;
+        return Promise.resolve(mockSkippingIndexQuery) as unknown as HttpResponse;
       });
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockCoveringIndexQuery) as unknown) as HttpResponse;
+        return Promise.resolve(mockCoveringIndexQuery) as unknown as HttpResponse;
       });
     });
     await waitFor(() => {
@@ -264,10 +264,10 @@ describe('Render databases in tree', () => {
   it('fetches and displays No indicies in the side tree', async () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+      return Promise.resolve(mockJobId) as unknown as HttpResponse;
     });
     client.get = jest.fn(() => {
-      return (Promise.resolve(mockDatabaseQuery) as unknown) as HttpResponse;
+      return Promise.resolve(mockDatabaseQuery) as unknown as HttpResponse;
     });
     const { getByText } = render(
       <TableView
@@ -282,10 +282,10 @@ describe('Render databases in tree', () => {
 
     await act(() => {
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockTableQuery) as unknown) as HttpResponse;
+        return Promise.resolve(mockTableQuery) as unknown as HttpResponse;
       });
     });
     await waitFor(() => {
@@ -294,16 +294,16 @@ describe('Render databases in tree', () => {
     fireEvent.click(getByText('http_logs2'));
     act(() => {
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockEmptySkippingIndexQuery) as unknown) as HttpResponse;
+        return Promise.resolve(mockEmptySkippingIndexQuery) as unknown as HttpResponse;
       });
       client.post = jest.fn(() => {
-        return (Promise.resolve(mockJobId) as unknown) as HttpResponse;
+        return Promise.resolve(mockJobId) as unknown as HttpResponse;
       });
       client.get = jest.fn(() => {
-        return (Promise.resolve(mockEmptyCoveringIndexQuery) as unknown) as HttpResponse;
+        return Promise.resolve(mockEmptyCoveringIndexQuery) as unknown as HttpResponse;
       });
     });
     await waitFor(() => {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { QueryResultsBody } from './QueryResultsBody';
@@ -118,29 +118,23 @@ describe('<QueryResultsBody with SQL language/> spec', () => {
       mockSortableColumns[0].name
     );
 
-    ((window as unknown) as Record<
-      string,
-      unknown
-    >).HTMLElement.prototype.scrollIntoView = function () {};
+    (window as unknown as Record<string, unknown>).HTMLElement.prototype.scrollIntoView =
+      function () {};
 
-    const {
-      getAllByText,
-      getAllByLabelText,
-      getByText,
-      getByPlaceholderText,
-    } = renderSQLQueryResultsBody(
-      undefined,
-      mockQueryResults[0].data,
-      mockQueryResultJDBCResponse.data.resp,
-      mockSortableProperties,
-      mockSuccessfulMessage,
-      onQueryChange,
-      updateExpandedMap,
-      onChangeItemsPerPage,
-      getJdbc,
-      getCsv,
-      getText
-    );
+    const { getAllByText, getAllByLabelText, getByText, getByPlaceholderText } =
+      renderSQLQueryResultsBody(
+        undefined,
+        mockQueryResults[0].data,
+        mockQueryResultJDBCResponse.data.resp,
+        mockSortableProperties,
+        mockSuccessfulMessage,
+        onQueryChange,
+        updateExpandedMap,
+        onChangeItemsPerPage,
+        getJdbc,
+        getCsv,
+        getText
+      );
     expect(document.body.children[0]).toMatchSnapshot();
 
     // Test sorting
@@ -290,10 +284,8 @@ describe('<QueryResultsBody with PPL language/> spec', () => {
       mockSortableColumns[0].name
     );
 
-    ((window as unknown) as Record<
-      string,
-      unknown
-    >).HTMLElement.prototype.scrollIntoView = function () {};
+    (window as unknown as Record<string, unknown>).HTMLElement.prototype.scrollIntoView =
+      function () {};
 
     const { getAllByText, getAllByLabelText, getByText } = renderPPLQueryResultsBody(
       undefined,

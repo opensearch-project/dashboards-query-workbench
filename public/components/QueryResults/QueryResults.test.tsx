@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { configure, fireEvent, render } from '@testing-library/react';
 import { AsyncQueryStatus } from '../../../common/types/index';
 
@@ -66,10 +66,7 @@ function renderSQLQueryResults(
 
 describe('<QueryResults /> spec', () => {
   it('renders the component with no data', async () => {
-    ((window as unknown) as Record<
-      string,
-      unknown
-    >).HTMLElement.prototype.scrollBy = function () {};
+    (window as unknown as Record<string, unknown>).HTMLElement.prototype.scrollBy = function () {};
     expect(document.body.children[0]).toMatchSnapshot();
   });
 });
@@ -84,7 +81,7 @@ describe('<QueryResults with data/> spec', () => {
   const getCsv = jest.fn();
   const getText = jest.fn();
   const setIsResultFullScreen = jest.fn();
-  ((window as unknown) as Record<string, unknown>).HTMLElement.prototype.scrollBy = jest.fn();
+  (window as unknown as Record<string, unknown>).HTMLElement.prototype.scrollBy = jest.fn();
 
   it('renders the component with mock query results', async () => {
     const { getAllByRole, getByText, getAllByText, getAllByLabelText } = renderSQLQueryResults(
@@ -200,10 +197,7 @@ function renderPPLQueryResults(
 
 describe('<QueryResults /> empty spec', () => {
   it('renders the component with no data', async () => {
-    ((window as unknown) as Record<
-      string,
-      unknown
-    >).HTMLElement.prototype.scrollBy = function () {};
+    (window as unknown as Record<string, unknown>).HTMLElement.prototype.scrollBy = function () {};
 
     expect(document.body.children[0]).toMatchSnapshot();
   });
@@ -219,7 +213,7 @@ describe('<QueryResults with PPL data/> spec', () => {
   const getCsv = jest.fn();
   const getText = jest.fn();
   const setIsResultFullScreen = jest.fn();
-  ((window as unknown) as Record<string, unknown>).HTMLElement.prototype.scrollBy = jest.fn();
+  (window as unknown as Record<string, unknown>).HTMLElement.prototype.scrollBy = jest.fn();
 
   it('renders the component with mock query results', async () => {
     const { getAllByRole, getByText, getAllByText, getAllByLabelText } = renderPPLQueryResults(
