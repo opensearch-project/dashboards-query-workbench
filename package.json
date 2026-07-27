@@ -37,16 +37,8 @@
     "mutationobserver-shim": "^0.3.3"
   },
   "resolutions": {
-    "ansi-regex": "^5.0.1",
-    "json-schema": "^0.4.0",
-    "yaml": "^2.2.2",
-    "tough-cookie": "^4.1.3",
-    "semver": "^7.5.2",
-    "@cypress/request": "^3.0.9",
-    "qs": "^6.15.2",
-    "form-data": "^4.0.6",
-    "flatted": "^3.4.2",
-    "lodash": "^4.18.0",
-    "uuid": "^14.0.0"
+    "**/ansi-regex": "^5.0.1",
+    "**/qs": "^6.15.2",
+    "**/uuid": "^11.1.1"
   }
 }
