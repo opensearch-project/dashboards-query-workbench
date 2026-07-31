@@ -11,3 +11,4 @@ Compatible with OpenSearch and OpenSearch Dashboards version 3.8.0
 
 * Migrate ESLint configuration to ESLint 10 flat config format ([#574](https://github.com/opensearch-project/dashboards-query-workbench/pull/574))
 * Migrate Jest test suite to Jest 30 and jsdom 26 ([#577](https://github.com/opensearch-project/dashboards-query-workbench/pull/577))
+* Fix TS5011 in Cypress E2E by setting rootDir explicitly ([#579](https://github.com/opensearch-project/dashboards-query-workbench/pull/579))
