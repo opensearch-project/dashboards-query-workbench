@@ -36,11 +36,18 @@ jobs:
         shell: bash
 
       - name: Download SQL artifact
-        uses: suisei-cn/actions-download-file@15306412d2c75df56b46844362b86b65235b7db1 # v1.4.0
-        with:
-          url: https://aws.oss.sonatype.org/service/local/artifact/maven/redirect?r=snapshots&g=org.opensearch.plugin&a=opensearch-sql-plugin&v=${{ env.OPENSEARCH_PLUGIN_VERSION }}-SNAPSHOT&p=zip
-          target: plugin-artifacts/
-          filename: sql.zip
+        shell: bash
+        run: |
+          BASE="https://ci.opensearch.org/ci/dbc/snapshots/maven"
+          GROUP_PATH="org/opensearch/plugin"
+          ARTIFACT="opensearch-sql-plugin"
+          VERSION="${{ env.OPENSEARCH_PLUGIN_VERSION }}-SNAPSHOT"
+
+          METADATA_URL="$BASE/$GROUP_PATH/$ARTIFACT/$VERSION/maven-metadata.xml"
+          SNAPSHOT_VALUE=$(curl -fsSL "$METADATA_URL" | grep -A1 '<extension>zip</extension>' | grep '<value>' | sed 's/.*<value>\(.*\)<\/value>.*/\1/')
+
+          mkdir -p plugin-artifacts
+          curl -fL --retry 5 -o plugin-artifacts/sql.zip "$BASE/$GROUP_PATH/$ARTIFACT/$VERSION/$ARTIFACT-$SNAPSHOT_VALUE.zip"
 
       - name: Download OpenSearch
         uses: peternied/download-file@6a5025a112bb8811a2eb5ee6dd3417acf6d928e4 # v2
