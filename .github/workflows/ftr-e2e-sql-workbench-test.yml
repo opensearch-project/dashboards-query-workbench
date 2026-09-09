@@ -7,6 +7,10 @@ env:
   # avoid warnings like "tput: No value for $TERM and no -T specified"
   TERM: xterm
   OPENSEARCH_DASHBOARDS_VERSION: '2.19'
+  # OSD 2.19 pins node 18 but its lockfile resolves serialize-javascript@7.0.6,
+  # which declares node >=20. Yarn's engine gate would otherwise fail the
+  # `yarn install` inside `osd bootstrap`.
+  YARN_IGNORE_ENGINES: true
 
 jobs:
   tests:
@@ -131,7 +135,6 @@ jobs:
           echo "Installing yarn ${{ steps.tool-versions.outputs.yarn_version }}"
           npm i -g yarn@${{ steps.tool-versions.outputs.yarn_version }}
           yarn cache clean
-          yarn add sha.js
         working-directory: OpenSearch-Dashboards
         shell: bash
 
