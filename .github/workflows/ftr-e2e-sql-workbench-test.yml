@@ -20,12 +20,12 @@ jobs:
 
     steps:
       - name: Set up JDK
-        uses: actions/setup-java@b6e674f4b717d7b0ae3baee0fbe79f498905dfde # v1
+        uses: actions/setup-java@b6e674f4b717d7b0ae3baee0fbe79f498905dfde # v1.4.4
         with:
           java-version: ${{ matrix.jdk }}
 
       - name: Checkout Branch
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Set env
         run: |
@@ -34,6 +34,20 @@ jobs:
           echo "OPENSEARCH_VERSION=$opensearch_version" >> $GITHUB_ENV
           echo "OPENSEARCH_PLUGIN_VERSION=$plugin_version" >> $GITHUB_ENV
         shell: bash
+
+      - name: Download Job Scheduler artifact
+        shell: bash
+        run: |
+          BASE="https://ci.opensearch.org/ci/dbc/snapshots/maven"
+          GROUP_PATH="org/opensearch/plugin"
+          ARTIFACT="opensearch-job-scheduler"
+          VERSION="${{ env.OPENSEARCH_PLUGIN_VERSION }}-SNAPSHOT"
+
+          METADATA_URL="$BASE/$GROUP_PATH/$ARTIFACT/$VERSION/maven-metadata.xml"
+          SNAPSHOT_VALUE=$(curl -fsSL "$METADATA_URL" | grep -A1 '<extension>zip</extension>' | grep '<value>' | sed 's/.*<value>\(.*\)<\/value>.*/\1/')
+
+          mkdir -p plugin-artifacts
+          curl -fL --retry 5 -o plugin-artifacts/job-scheduler.zip "$BASE/$GROUP_PATH/$ARTIFACT/$VERSION/$ARTIFACT-$SNAPSHOT_VALUE.zip"
 
       - name: Download SQL artifact
         shell: bash
@@ -60,6 +74,11 @@ jobs:
           rm -f opensearch-*.tar.gz
         shell: bash
       
+      - name: Install Job Scheduler plugin
+        run: |
+          /bin/bash -c "yes | ./opensearch-${{ env.OPENSEARCH_VERSION }}-SNAPSHOT/bin/opensearch-plugin install file:$(pwd)/plugin-artifacts/job-scheduler.zip"
+        shell: bash
+
       - name: Install SQL plugin
         run: |
           /bin/bash -c "yes | ./opensearch-${{ env.OPENSEARCH_VERSION }}-SNAPSHOT/bin/opensearch-plugin install file:$(pwd)/plugin-artifacts/sql.zip"
@@ -82,7 +101,7 @@ jobs:
         shell: bash
       
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           path: OpenSearch-Dashboards
           repository: opensearch-project/OpenSearch-Dashboards
@@ -90,7 +109,7 @@ jobs:
           fetch-depth: 0
 
       - name: Checkout Query Workbench in OpenSearch Dashboards Plugins Dir
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
             path: OpenSearch-Dashboards/plugins/dashboards-query-workbench
 
@@ -101,7 +120,7 @@ jobs:
         working-directory: OpenSearch-Dashboards
         shell: bash
 
-      - uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e # v1
+      - uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e # v1.4.6
         with:
           node-version: ${{ steps.tool-versions.outputs.node_version }}
           registry-url: 'https://registry.npmjs.org'
@@ -138,7 +157,7 @@ jobs:
         working-directory: OpenSearch-Dashboards
 
       - name: Checkout Dashboards Functioanl Test Repo
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           path: opensearch-dashboards-functional-test
           repository: opensearch-project/opensearch-dashboards-functional-test
@@ -163,14 +182,14 @@ jobs:
         working-directory: opensearch-dashboards-functional-test
 
       - name: Capture failure screenshots
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.4.0
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: failure()
         with:
           name: cypress-screenshots-${{ matrix.os }}
           path: opensearch-dashboards-functional-test/cypress/screenshots
 
       - name: Capture failure test video
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.4.0
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: failure()
         with:
           name: cypress-videos-${{ matrix.os }}
