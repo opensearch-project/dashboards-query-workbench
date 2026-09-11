@@ -113,8 +113,11 @@ export const OSTree = ({
   useEffect(() => {
     loadtree();
     // loadtree excluded: it depends on selectedItems (unstable array prop), causing infinite re-renders.
+    // caps.usesLegacyOpenDistroSql IS included: capabilities resolve asynchronously after a
+    // data-source switch, and the tree must reload once the engine is known — otherwise it
+    // keeps the stale first load (quoted `SHOW tables LIKE '%'` → 0 rows on Elasticsearch).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedItems, refreshTree, dataSourceMDSId]);
+  }, [selectedItems, refreshTree, dataSourceMDSId, caps.usesLegacyOpenDistroSql]);
 
   return <div>{treeRenderer}</div>;
 };
