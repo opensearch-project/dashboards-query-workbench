@@ -64,17 +64,21 @@ export function getDeploymentCapabilities(version: string | undefined): Deployme
   }
 
   const v = coerced.version;
-  const hasAsyncQuery = semver.gte(v, '2.11.0');
-  const hasSessionId = semver.gte(v, '2.12.0');
-  const hasFlintDDL = semver.gte(v, '2.13.0');
+  // ES/OpenDistro report major 6/7, which numerically EXCEED the OpenSearch feature
+  // thresholds below (2.11+) — so a bare `semver.gte(v, '2.x')` wrongly enables the
+  // async/Flint/data-source features on Elasticsearch (e.g. 7.9.1 >= 2.11.0 is true).
+  // Detect real OpenSearch first and gate every modern-OpenSearch feature on it, so
+  // ES 6/7 collapse to S-min (plain OpenSearch index SQL/PPL only).
+  const usesLegacyOpenDistroSql = coerced.major === 6 || coerced.major === 7;
+  const isOpenSearch = !usesLegacyOpenDistroSql;
+  const hasAsyncQuery = isOpenSearch && semver.gte(v, '2.11.0');
+  const hasSessionId = isOpenSearch && semver.gte(v, '2.12.0');
+  const hasFlintDDL = isOpenSearch && semver.gte(v, '2.13.0');
   const hasDataSources = hasAsyncQuery;
-  const hasCatalogCache = semver.gte(v, '2.13.0');
-  const hasAccelerationFlyout = semver.gte(v, '2.13.0');
+  const hasCatalogCache = isOpenSearch && semver.gte(v, '2.13.0');
+  const hasAccelerationFlyout = isOpenSearch && semver.gte(v, '2.13.0');
   // Legacy DSL JSON format: works on 1.3.2 and all 2.x; removed on 3.0+.
   const hasDslJsonFormat = semver.lt(v, '3.0.0');
-  // Legacy OpenDistro SQL stack (`_opendistro/_sql` + unquoted SHOW TABLES):
-  // only ES/OpenDistro, which reports major 6 or 7.
-  const usesLegacyOpenDistroSql = coerced.major === 6 || coerced.major === 7;
   // PPL exists on OpenSearch (all majors) and ES >= 7.9 (OpenDistro 1.11+); it is
   // absent on ES 6.x and 7.0-7.8. OpenSearch never reports major 6/7, so it stays true.
   const hasPpl = !(coerced.major === 6 || (coerced.major === 7 && coerced.minor < 9));

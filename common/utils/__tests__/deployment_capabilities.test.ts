@@ -53,3 +53,29 @@ describe('getDeploymentCapabilities - hasPpl', () => {
     expect(DEFAULT_CAPABILITIES.hasPpl).toBe(true);
   });
 });
+
+describe('getDeploymentCapabilities - Elasticsearch collapses to S-min', () => {
+  // ES major 6/7 numerically exceed the OpenSearch feature thresholds (2.11+), so
+  // guard against `semver.gte` wrongly enabling async/Flint/data-source features.
+  it.each(['6.8.0', '7.1.1', '7.7.0', '7.9.1', '7.10.2'])(
+    'disables modern OpenSearch features on Elasticsearch %s',
+    (version) => {
+      const caps = getDeploymentCapabilities(version);
+      expect(caps.state).toBe('S-min');
+      expect(caps.hasAsyncQuery).toBe(false);
+      expect(caps.hasDataSources).toBe(false);
+      expect(caps.hasFlintDDL).toBe(false);
+      expect(caps.hasAccelerationFlyout).toBe(false);
+    }
+  );
+
+  // No regression: OpenSearch 2.13+ keeps the full modern feature set.
+  it('keeps modern features enabled on OpenSearch 2.13.0 (S-full)', () => {
+    const caps = getDeploymentCapabilities('2.13.0');
+    expect(caps.state).toBe('S-full');
+    expect(caps.hasAsyncQuery).toBe(true);
+    expect(caps.hasDataSources).toBe(true);
+    expect(caps.hasFlintDDL).toBe(true);
+    expect(caps.hasAccelerationFlyout).toBe(true);
+  });
+});
