@@ -178,6 +178,21 @@ export class QueryService {
       let client = this.client;
       let queryResponse;
       const dataSourceMDSId = request.params.dataSourceMDSId;
+      // Flint direct-query datasources (`_plugins/_query/_datasources`) require
+      // OpenSearch 2.11+; the endpoint does not exist on Elasticsearch or older
+      // OpenSearch. Some frontend callers (e.g. DataSelect) fetch this ungated by
+      // capabilities, so short-circuit to an empty list here rather than letting the
+      // request hit a nonexistent endpoint and surface a fatal error.
+      const version =
+        this.dataSourceEnabled && dataSourceMDSId
+          ? await this.clusterInfoService.getDataSourceVersion(
+              dataSourceMDSId as string,
+              (context as unknown) as RequestHandlerContext
+            )
+          : await this.clusterInfoService.getVersion();
+      if (!getDeploymentCapabilities(version).hasDataSources) {
+        return { data: { ok: true, resp: [] } };
+      }
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format);
