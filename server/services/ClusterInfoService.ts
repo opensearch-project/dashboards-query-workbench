@@ -72,23 +72,33 @@ export class ClusterInfoService {
     dataSourceMDSId: string,
     context: RequestHandlerContext
   ): Promise<string> {
-    // Read the recorded version from the data-source saved object. This is the same
-    // source the frontend (resolve_capabilities) and the version filter use, and it
-    // is reliable server-side. A direct `info` call is NOT dependable here: the MDS
-    // client is built from `registerCustomApiSchema(sqlPlugin)` and exposes only this
-    // plugin's `sql.*` actions, not the base `info` API.
-    let version = '';
+    // 1. Recorded saved-object version (no cluster round-trip), when present.
     try {
       const ds = await context.core.savedObjects.client.get('data-source', dataSourceMDSId);
-      version = (ds?.attributes as { dataSourceVersion?: string })?.dataSourceVersion ?? '';
+      const savedVersion = (ds?.attributes as { dataSourceVersion?: string })?.dataSourceVersion;
+      if (savedVersion) {
+        this.logger.info(
+          `ClusterInfoService: data source ${dataSourceMDSId} saved version "${savedVersion}"`
+        );
+        return savedVersion;
+      }
     } catch (err) {
       this.logger.warn(
         `ClusterInfoService: data source ${dataSourceMDSId} saved-object read failed: ${err}`
       );
     }
+    // 2. Probe the cluster via the MODERN (non-legacy) data-source client, which
+    //    exposes the base `info` API. The legacy client here only carries this
+    //    plugin's custom `sql.*` actions (registerCustomApiSchema), so it cannot.
+    const client = context.dataSource.opensearch.getClient(dataSourceMDSId);
+    const resp = await client.info();
+    const version = resp?.body?.version?.number ?? '';
     this.logger.info(
-      `ClusterInfoService: resolved data source ${dataSourceMDSId} version "${version}"`
+      `ClusterInfoService: probed data source ${dataSourceMDSId} version "${version}"`
     );
+    if (!version) {
+      throw new Error('empty version from data source info probe');
+    }
     return version;
   }
 }
