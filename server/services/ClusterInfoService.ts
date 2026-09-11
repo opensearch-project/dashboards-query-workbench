@@ -90,7 +90,9 @@ export class ClusterInfoService {
     // 2. Probe the cluster via the MODERN (non-legacy) data-source client, which
     //    exposes the base `info` API. The legacy client here only carries this
     //    plugin's custom `sql.*` actions (registerCustomApiSchema), so it cannot.
-    const client = context.dataSource.opensearch.getClient(dataSourceMDSId);
+    // NB: opensearch.getClient (modern) is async and returns Promise<OpenSearchClient>,
+    // unlike opensearch.legacy.getClient which is synchronous.
+    const client = await context.dataSource.opensearch.getClient(dataSourceMDSId);
     const resp = await client.info();
     const version = resp?.body?.version?.number ?? '';
     this.logger.info(
