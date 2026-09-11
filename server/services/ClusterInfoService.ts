@@ -31,7 +31,10 @@ export class ClusterInfoService {
   // so the next caller retries.
   private dataSourceInfoCache = new Map<string, Promise<ClusterEngineInfo>>();
 
-  constructor(private readonly client: ILegacyClusterClient, private readonly logger: Logger) {}
+  constructor(
+    private readonly client: ILegacyClusterClient,
+    private readonly logger: Logger
+  ) {}
 
   /**
    * Returns the cached local cluster info. First call triggers the probe; subsequent

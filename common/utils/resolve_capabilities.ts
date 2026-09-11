@@ -39,7 +39,7 @@ export async function resolveDeploymentCapabilities(
     try {
       const ds = await savedObjects.client.get<DataSourceAttributes>('data-source', mdsId);
       const savedVersion = ds.attributes?.dataSourceVersion;
-      const engineType = (ds.attributes?.dataSourceEngineType as unknown) as string | undefined;
+      const engineType = ds.attributes?.dataSourceEngineType as unknown as string | undefined;
       if (savedVersion) {
         const isOpenSearch = engineType ? engineType !== 'Elasticsearch' : undefined;
         return getDeploymentCapabilities(savedVersion, isOpenSearch);
@@ -60,9 +60,8 @@ export async function resolveDeploymentCapabilities(
   }
 
   try {
-    const res: { data?: { ok?: boolean; version?: string; isOpenSearch?: boolean } } = await http.get(
-      '/api/sql_console/cluster_info'
-    );
+    const res: { data?: { ok?: boolean; version?: string; isOpenSearch?: boolean } } =
+      await http.get('/api/sql_console/cluster_info');
     if (res?.data?.ok) {
       return getDeploymentCapabilities(res.data.version, res.data.isOpenSearch);
     }

@@ -189,7 +189,9 @@ async function main() {
   );
 
   if (!failures.length) {
-    console.log('[check-server-imports] OK -- the whole server boot path is present in the artifact');
+    console.log(
+      '[check-server-imports] OK -- the whole server boot path is present in the artifact'
+    );
     return;
   }
 

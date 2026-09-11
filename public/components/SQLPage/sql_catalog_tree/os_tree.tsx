@@ -68,7 +68,7 @@ export const OSTree = ({
       <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
         <EuiSpacer />
         <EuiFlexItem>
-          <EuiIcon type="database" />
+          <EuiIcon type="database" aria-hidden={true} />
         </EuiFlexItem>
         <EuiFlexItem grow={false}>No indices found</EuiFlexItem>
       </EuiFlexGroup>
@@ -87,7 +87,7 @@ export const OSTree = ({
       <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
         <EuiSpacer />
         <EuiFlexItem>
-          <EuiIcon type="alert" />
+          <EuiIcon type="alert" aria-hidden={true} />
         </EuiFlexItem>
         <EuiFlexItem grow={false}>Failed to load indices</EuiFlexItem>
         <EuiFlexItem grow={false}>

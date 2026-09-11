@@ -146,11 +146,11 @@ export class QueryService {
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format, {
-          jobId: jobId,
+          jobId,
         });
       } else {
         queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, {
-          jobId: jobId,
+          jobId,
         });
       }
       return {
@@ -193,7 +193,7 @@ export class QueryService {
         this.dataSourceEnabled && dataSourceMDSId
           ? await this.clusterInfoService.getDataSourceInfo(
               dataSourceMDSId as string,
-              (context as unknown) as RequestHandlerContext
+              context as unknown as RequestHandlerContext
             )
           : await this.clusterInfoService.getVersion();
       if (!getDeploymentCapabilities(version, isOpenSearch).hasDataSources) {

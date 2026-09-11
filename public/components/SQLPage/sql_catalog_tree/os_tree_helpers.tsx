@@ -23,7 +23,7 @@ export const generateOpenSearchTree = (indices: string[]) => {
         </EuiToolTip>{' '}
       </div>
     ),
-    icon: <EuiIcon type="database" size="m" />,
+    icon: <EuiIcon type="database" size="m" aria-hidden={true} />,
     id: 'element_' + idx,
     isSelectable: false,
   }));

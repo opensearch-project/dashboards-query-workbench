@@ -63,7 +63,7 @@ export class TranslateService {
         const dsAction = await this.resolveDataSourceAction(
           'sql.translateSQL',
           dataSourceMDSId as string,
-          (context as unknown) as RequestHandlerContext
+          context as unknown as RequestHandlerContext
         );
         queryResponse = await client.callAPI(dsAction, params);
       } else {
@@ -107,7 +107,7 @@ export class TranslateService {
         const dsAction = await this.resolveDataSourceAction(
           'sql.translatePPL',
           dataSourceMDSId as string,
-          (context as unknown) as RequestHandlerContext
+          context as unknown as RequestHandlerContext
         );
         queryResponse = await client.callAPI(dsAction, params);
       } else {

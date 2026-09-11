@@ -505,14 +505,14 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     ) {
       return null;
     } else if (node.type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME) {
-      return <EuiIcon type="tableDensityCompact" size="s" />;
+      return <EuiIcon type="tableDensityCompact" size="s" aria-hidden={true} />;
     } else if (node.type === TREE_ITEM_DATABASE_NAME_DEFAULT_NAME) {
-      return <EuiIcon type="database" size="m" />;
+      return <EuiIcon type="database" size="m" aria-hidden={true} />;
     } else if (
       node.type === TREE_ITEM_COVERING_INDEX_DEFAULT_NAME ||
       TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
     ) {
-      return <EuiIcon type="bolt" size="m" />;
+      return <EuiIcon type="bolt" size="m" aria-hidden={true} />;
     }
   };
 
@@ -554,6 +554,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                       <EuiIcon
                         type="editorCodeBlock"
                         onClick={(e) => handleQuery(e, parentName, node.name)}
+                        aria-hidden={true}
                       />
                     )}
                   </EuiText>
@@ -573,7 +574,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         </EuiToolTip>{' '}
       </div>
     ),
-    icon: <EuiIcon type="database" size="m" />,
+    icon: <EuiIcon type="database" size="m" aria-hidden={true} />,
     id: 'element_' + index,
     isSelectable: false,
   }));
@@ -678,7 +679,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         <EuiFlexGroup alignItems="center" direction="column">
           <EuiFlexItem grow={false}>
             <EuiEmptyPrompt
-              icon={<EuiIcon type="database" size="m" />}
+              icon={<EuiIcon type="database" size="m" aria-hidden={true} />}
               iconColor="subdued"
               titleSize="xs"
               title={<p>No Data available</p>}

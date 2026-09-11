@@ -664,10 +664,9 @@ export class Main extends React.Component<MainProps, MainState> {
       );
 
       Promise.all([translationPromise]).then(([translationResponse]) => {
-        const translationResult: Array<ResponseDetail<
-          TranslateResult
-        >> = translationResponse.map((translationResp) =>
-          this.processTranslateResponse(translationResp as IHttpResponse<ResponseData>)
+        const translationResult: Array<ResponseDetail<TranslateResult>> = translationResponse.map(
+          (translationResp) =>
+            this.processTranslateResponse(translationResp as IHttpResponse<ResponseData>)
         );
         const shouldCleanResults = queries === this.state.queries;
         if (shouldCleanResults) {
@@ -900,10 +899,8 @@ export class Main extends React.Component<MainProps, MainState> {
   checkHistoryState = () => {
     if (!this.historyFromRedirection.location.state) return;
 
-    const {
-      language,
-      queryToRun,
-    }: { language: string; queryToRun: string } = this.historyFromRedirection.location.state;
+    const { language, queryToRun }: { language: string; queryToRun: string } =
+      this.historyFromRedirection.location.state;
     if (language === 'sql') {
       this.updateSQLQueries(queryToRun);
 
@@ -977,9 +974,8 @@ export class Main extends React.Component<MainProps, MainState> {
     );
   };
 
-  DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<
-    DataSourceSelectableConfig
-  >();
+  DataSourceMenu =
+    this.props.dataSourceManagement?.ui?.getDataSourceMenu<DataSourceSelectableConfig>();
 
   render() {
     let page;
@@ -1202,6 +1198,7 @@ export class Main extends React.Component<MainProps, MainState> {
               {this.state.isCallOutVisible && (
                 <>
                   <EuiCallOut
+                    announceOnMount
                     size="s"
                     title="Query Submitted Successfully"
                     color="success"

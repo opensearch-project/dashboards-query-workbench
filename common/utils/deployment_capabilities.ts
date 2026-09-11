@@ -72,8 +72,7 @@ export function getDeploymentCapabilities(
   // data source's `dataSourceEngineType` — which stays correct even when OpenSearch
   // itself reaches major 6/7. Fall back to the version-major heuristic (ES/OpenDistro
   // report major 6/7; OpenSearch is 1/2/3) only when no explicit signal is available.
-  const isOpenSearch =
-    isOpenSearchDistribution ?? (coerced.major !== 6 && coerced.major !== 7);
+  const isOpenSearch = isOpenSearchDistribution ?? (coerced.major !== 6 && coerced.major !== 7);
   const usesLegacyOpenDistroSql = !isOpenSearch;
   // Modern OpenSearch features: gated on engine AND their OpenSearch version thresholds.
   const hasAsyncQuery = isOpenSearch && semver.gte(v, '2.11.0');
@@ -90,10 +89,10 @@ export function getDeploymentCapabilities(
   const state: GateState = !hasAsyncQuery
     ? 'S-min'
     : !hasSessionId
-    ? 'S-async'
-    : !hasFlintDDL
-    ? 'S-flint-none'
-    : 'S-full';
+      ? 'S-async'
+      : !hasFlintDDL
+        ? 'S-flint-none'
+        : 'S-full';
 
   return {
     version: v,
