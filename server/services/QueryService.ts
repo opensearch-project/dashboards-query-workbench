@@ -44,23 +44,26 @@ export class QueryService {
   }
 
   // Map a `_plugins/*` client action to its `_opendistro/*` legacy variant when the
-  // target cluster is legacy OpenDistro (Elasticsearch 6.x/7.x). Non-eligible actions
-  // and unknown/OpenSearch versions are returned unchanged.
-  private legacyActionFor(action: string, version: string): string {
+  // target cluster is legacy OpenDistro (Elasticsearch). Non-eligible actions and
+  // OpenSearch clusters are returned unchanged. `isOpenSearch` is the authoritative
+  // engine signal (distribution / data-source engine type).
+  private legacyActionFor(action: string, version: string, isOpenSearch?: boolean): string {
     if (!LEGACY_ELIGIBLE_ACTIONS.has(action)) {
       return action;
     }
-    return getDeploymentCapabilities(version).usesLegacyOpenDistroSql ? `${action}Legacy` : action;
+    return getDeploymentCapabilities(version, isOpenSearch).usesLegacyOpenDistroSql
+      ? `${action}Legacy`
+      : action;
   }
 
-  // Local (co-located) cluster: version from the primed ClusterInfoService.
+  // Local (co-located) cluster: version + engine from the primed ClusterInfoService.
   private resolveLocalClusterAction = async (action: string): Promise<string> => {
-    const version = await this.clusterInfoService.getVersion();
-    return this.legacyActionFor(action, version);
+    const { version, isOpenSearch } = await this.clusterInfoService.getVersion();
+    return this.legacyActionFor(action, version, isOpenSearch);
   };
 
-  // Data-source (MDS) cluster: probe that data source's version (its saved-object
-  // `dataSourceVersion` is often empty), then pick the legacy action if it is ES 6/7.
+  // Data-source (MDS) cluster: resolve that data source's version + engine, then pick
+  // the legacy action for Elasticsearch data sources.
   private resolveDataSourceAction = async (
     action: string,
     dataSourceMDSId: string,
@@ -69,8 +72,11 @@ export class QueryService {
     if (!LEGACY_ELIGIBLE_ACTIONS.has(action)) {
       return action;
     }
-    const version = await this.clusterInfoService.getDataSourceVersion(dataSourceMDSId, context);
-    return this.legacyActionFor(action, version);
+    const { version, isOpenSearch } = await this.clusterInfoService.getDataSourceInfo(
+      dataSourceMDSId,
+      context
+    );
+    return this.legacyActionFor(action, version, isOpenSearch);
   };
 
   describeQueryPostInternal = async (
@@ -183,14 +189,14 @@ export class QueryService {
       // OpenSearch. Some frontend callers (e.g. DataSelect) fetch this ungated by
       // capabilities, so short-circuit to an empty list here rather than letting the
       // request hit a nonexistent endpoint and surface a fatal error.
-      const version =
+      const { version, isOpenSearch } =
         this.dataSourceEnabled && dataSourceMDSId
-          ? await this.clusterInfoService.getDataSourceVersion(
+          ? await this.clusterInfoService.getDataSourceInfo(
               dataSourceMDSId as string,
               (context as unknown) as RequestHandlerContext
             )
           : await this.clusterInfoService.getVersion();
-      if (!getDeploymentCapabilities(version).hasDataSources) {
+      if (!getDeploymentCapabilities(version, isOpenSearch).hasDataSources) {
         return { data: { ok: true, resp: [] } };
       }
       if (this.dataSourceEnabled && dataSourceMDSId) {

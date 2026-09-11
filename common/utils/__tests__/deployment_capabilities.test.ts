@@ -79,3 +79,30 @@ describe('getDeploymentCapabilities - Elasticsearch collapses to S-min', () => {
     expect(caps.hasAccelerationFlyout).toBe(true);
   });
 });
+
+describe('getDeploymentCapabilities - explicit engine signal overrides version heuristic', () => {
+  // Future-proofing: when OpenSearch itself reaches major 6/7, the authoritative
+  // distribution/engineType signal (isOpenSearch=true) must keep it on the modern
+  // path — NOT be misread as legacy Elasticsearch by the version-major fallback.
+  it.each(['6.0.0', '7.10.2'])(
+    'treats %s as modern OpenSearch when isOpenSearch=true',
+    (version) => {
+      const caps = getDeploymentCapabilities(version, true);
+      expect(caps.usesLegacyOpenDistroSql).toBe(false);
+      expect(caps.state).toBe('S-full');
+      expect(caps.hasDataSources).toBe(true);
+      expect(caps.hasPpl).toBe(true);
+    }
+  );
+
+  // And an explicit Elasticsearch signal forces the legacy path + S-min regardless.
+  it.each(['6.8.0', '7.9.1', '7.10.2'])(
+    'treats %s as legacy Elasticsearch when isOpenSearch=false',
+    (version) => {
+      const caps = getDeploymentCapabilities(version, false);
+      expect(caps.usesLegacyOpenDistroSql).toBe(true);
+      expect(caps.state).toBe('S-min');
+      expect(caps.hasDataSources).toBe(false);
+    }
+  );
+});

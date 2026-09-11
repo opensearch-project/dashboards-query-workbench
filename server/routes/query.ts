@@ -384,13 +384,15 @@ export function registerQueryRoute(
       request,
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      // With a data-source id, probe that remote (MDS) cluster's version; otherwise
-      // report the local co-located cluster's version.
+      // With a data-source id, resolve that remote (MDS) cluster's version+engine;
+      // otherwise report the local co-located cluster's.
       const { dataSourceMDSId } = request.query;
-      const version = dataSourceMDSId
-        ? await clusterInfoService.getDataSourceVersion(dataSourceMDSId, context)
+      const info = dataSourceMDSId
+        ? await clusterInfoService.getDataSourceInfo(dataSourceMDSId, context)
         : await clusterInfoService.getVersion();
-      return response.ok({ body: { data: { ok: true, version } } });
+      return response.ok({
+        body: { data: { ok: true, version: info.version, isOpenSearch: info.isOpenSearch } },
+      });
     }
   );
 }

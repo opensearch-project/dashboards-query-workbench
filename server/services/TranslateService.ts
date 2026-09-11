@@ -22,20 +22,28 @@ export class TranslateService {
     this.clusterInfoService = clusterInfoService;
   }
 
-  // Local cluster: swap `sql.translateX` -> `sql.translateXLegacy` on ES 6.x/7.x.
+  // Local cluster: swap `sql.translateX` -> `sql.translateXLegacy` on Elasticsearch.
   private resolveLocalClusterAction = async (action: string): Promise<string> => {
-    const version = await this.clusterInfoService.getVersion();
-    return getDeploymentCapabilities(version).usesLegacyOpenDistroSql ? `${action}Legacy` : action;
+    const { version, isOpenSearch } = await this.clusterInfoService.getVersion();
+    return getDeploymentCapabilities(version, isOpenSearch).usesLegacyOpenDistroSql
+      ? `${action}Legacy`
+      : action;
   };
 
-  // Data-source (MDS) cluster: probe that data source's version, then swap on ES 6.x/7.x.
+  // Data-source (MDS) cluster: resolve that data source's version + engine, then swap
+  // for Elasticsearch data sources.
   private resolveDataSourceAction = async (
     action: string,
     dataSourceMDSId: string,
     context: RequestHandlerContext
   ): Promise<string> => {
-    const version = await this.clusterInfoService.getDataSourceVersion(dataSourceMDSId, context);
-    return getDeploymentCapabilities(version).usesLegacyOpenDistroSql ? `${action}Legacy` : action;
+    const { version, isOpenSearch } = await this.clusterInfoService.getDataSourceInfo(
+      dataSourceMDSId,
+      context
+    );
+    return getDeploymentCapabilities(version, isOpenSearch).usesLegacyOpenDistroSql
+      ? `${action}Legacy`
+      : action;
   };
 
   translateSQL = async (context: Record<string, unknown>, request: Record<string, unknown>) => {
