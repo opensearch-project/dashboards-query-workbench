@@ -18,7 +18,7 @@ import {
   mockQueryTranslationResponse,
   mockResultWithNull,
 } from '../../../test/mocks/mockData';
-import { Main } from './main';
+import { Main, getQueryResultsForTable } from './main';
 
 const setBreadcrumbsMock = jest.fn();
 
@@ -240,5 +240,29 @@ describe('<Main /> spec', () => {
     };
     await asyncTest();
     expect(document.body.children[0]).toMatchSnapshot();
+  });
+});
+
+describe('getQueryResultsForTable error handling (#584)', () => {
+  it('surfaces the server error message and data without the misleading "not runnable" suffix', () => {
+    const [result] = getQueryResultsForTable(
+      [{ fulfilled: false, errorMessage: 'Server error: index not found', data: 'trace details' }],
+      false
+    );
+    expect(result.fulfilled).toBe(false);
+    expect(result.errorMessage).toContain('Server error: index not found');
+    expect(result.errorMessage).toContain('trace details');
+    expect(result.errorMessage).not.toContain('this query is not runnable');
+  });
+
+  it('falls back to "Unknown error" when no errorMessage is present', () => {
+    const [result] = getQueryResultsForTable([{ fulfilled: false, data: 'details' }], false);
+    expect(result.errorMessage).toContain('Unknown error');
+    expect(result.errorMessage).toContain('details');
+  });
+
+  it('omits the data section when there is no data', () => {
+    const [result] = getQueryResultsForTable([{ fulfilled: false, errorMessage: 'boom' }], false);
+    expect(result.errorMessage).toBe('boom');
   });
 });
