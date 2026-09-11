@@ -46,9 +46,9 @@ export class ClusterInfoService {
 
   /**
    * Returns the version of a remote cluster reached via a data-source connection
-   * (MDS). The data-source saved object's `dataSourceVersion` is frequently empty,
-   * so we probe the cluster directly (GET / on that data source). Cached per
-   * data-source id; a failed probe returns '' and is evicted for retry.
+   * (MDS). Resolved from the data-source saved object's `dataSourceVersion` — the
+   * field OSD populates on connect and that the version filter already relies on.
+   * Cached per data-source id; a failed lookup returns '' and is evicted for retry.
    */
   getDataSourceVersion(
     dataSourceMDSId: string,
@@ -58,7 +58,7 @@ export class ClusterInfoService {
     if (!cached) {
       cached = this.probeDataSource(dataSourceMDSId, context).catch((err) => {
         this.logger.warn(
-          `ClusterInfoService: data source ${dataSourceMDSId} probe failed, will retry: ${err}`
+          `ClusterInfoService: data source ${dataSourceMDSId} version lookup failed, will retry: ${err}`
         );
         this.dataSourceVersionCache.delete(dataSourceMDSId);
         return '';
@@ -72,10 +72,21 @@ export class ClusterInfoService {
     dataSourceMDSId: string,
     context: RequestHandlerContext
   ): Promise<string> {
-    const client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
-    const info = await client.callAPI('info');
-    const version = info?.version?.number ?? '';
-    this.logger.debug(
+    // Read the recorded version from the data-source saved object. This is the same
+    // source the frontend (resolve_capabilities) and the version filter use, and it
+    // is reliable server-side. A direct `info` call is NOT dependable here: the MDS
+    // client is built from `registerCustomApiSchema(sqlPlugin)` and exposes only this
+    // plugin's `sql.*` actions, not the base `info` API.
+    let version = '';
+    try {
+      const ds = await context.core.savedObjects.client.get('data-source', dataSourceMDSId);
+      version = (ds?.attributes as { dataSourceVersion?: string })?.dataSourceVersion ?? '';
+    } catch (err) {
+      this.logger.warn(
+        `ClusterInfoService: data source ${dataSourceMDSId} saved-object read failed: ${err}`
+      );
+    }
+    this.logger.info(
       `ClusterInfoService: resolved data source ${dataSourceMDSId} version "${version}"`
     );
     return version;
