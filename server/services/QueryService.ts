@@ -7,17 +7,71 @@ import 'core-js/stable';
 import _ from 'lodash';
 import 'regenerator-runtime/runtime';
 import { Logger, RequestHandlerContext } from '../../../../src/core/server';
+import { getDeploymentCapabilities } from '../../common/utils/deployment_capabilities';
+import { ClusterInfoService } from './ClusterInfoService';
+
+// SQL/PPL query + translate actions that have `_opendistro/*` legacy variants in
+// sqlPlugin.js. Async/datasource actions are OpenSearch-only and intentionally omitted.
+const LEGACY_ELIGIBLE_ACTIONS = new Set([
+  'sql.sqlQuery',
+  'sql.sqlJson',
+  'sql.sqlCsv',
+  'sql.sqlText',
+  'sql.translateSQL',
+  'sql.pplQuery',
+  'sql.pplJson',
+  'sql.pplCsv',
+  'sql.pplText',
+  'sql.translatePPL',
+]);
 
 export class QueryService {
   private client: unknown;
   private dataSourceEnabled: boolean;
   private logger: Logger;
+  private clusterInfoService: ClusterInfoService;
 
-  constructor(client: unknown, dataSourceEnabled: boolean, logger: Logger) {
+  constructor(
+    client: unknown,
+    dataSourceEnabled: boolean,
+    logger: Logger,
+    clusterInfoService: ClusterInfoService
+  ) {
     this.client = client;
     this.dataSourceEnabled = dataSourceEnabled;
     this.logger = logger;
+    this.clusterInfoService = clusterInfoService;
   }
+
+  // Map a `_plugins/*` client action to its `_opendistro/*` legacy variant when the
+  // target cluster is legacy OpenDistro (Elasticsearch 6.x/7.x). Non-eligible actions
+  // and unknown/OpenSearch versions are returned unchanged.
+  private legacyActionFor(action: string, version: string): string {
+    if (!LEGACY_ELIGIBLE_ACTIONS.has(action)) {
+      return action;
+    }
+    return getDeploymentCapabilities(version).usesLegacyOpenDistroSql ? `${action}Legacy` : action;
+  }
+
+  // Local (co-located) cluster: version from the primed ClusterInfoService.
+  private resolveLocalClusterAction = async (action: string): Promise<string> => {
+    const version = await this.clusterInfoService.getVersion();
+    return this.legacyActionFor(action, version);
+  };
+
+  // Data-source (MDS) cluster: probe that data source's version (its saved-object
+  // `dataSourceVersion` is often empty), then pick the legacy action if it is ES 6/7.
+  private resolveDataSourceAction = async (
+    action: string,
+    dataSourceMDSId: string,
+    context: RequestHandlerContext
+  ): Promise<string> => {
+    if (!LEGACY_ELIGIBLE_ACTIONS.has(action)) {
+      return action;
+    }
+    const version = await this.clusterInfoService.getDataSourceVersion(dataSourceMDSId, context);
+    return this.legacyActionFor(action, version);
+  };
 
   describeQueryPostInternal = async (
     request: Record<string, unknown>,
@@ -37,9 +91,17 @@ export class QueryService {
       const { dataSourceMDSId } = request.query;
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
-        queryResponse = await client.callAPI(format, params);
+        // Data-source cluster: route ES 6.x/7.x data sources to `_opendistro/*`.
+        const dsAction = await this.resolveDataSourceAction(
+          format,
+          dataSourceMDSId as string,
+          context
+        );
+        queryResponse = await client.callAPI(dsAction, params);
       } else {
-        queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, params);
+        // Local cluster: route Elasticsearch 6.x/7.x to the `_opendistro/*` endpoint.
+        const localAction = await this.resolveLocalClusterAction(format);
+        queryResponse = await this.client.asScoped(request).callAsCurrentUser(localAction, params);
       }
 
       return {

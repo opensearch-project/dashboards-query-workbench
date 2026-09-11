@@ -22,7 +22,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import {
   FETCH_OPENSEARCH_INDICES_PATH,
-  LOAD_OPENSEARCH_INDICES_QUERY,
+  getLoadOpenSearchIndicesQuery,
   TREE_ITEM_BADGE_NAME,
   TREE_ITEM_COVERING_INDEX_DEFAULT_NAME,
   TREE_ITEM_DATABASE_NAME_DEFAULT_NAME,
@@ -119,7 +119,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         flag: false,
         status: 'Fetching OpenSearch indices ...',
       });
-      const query = { query: LOAD_OPENSEARCH_INDICES_QUERY };
+      const query = { query: getLoadOpenSearchIndicesQuery(caps.usesLegacyOpenDistroSql) };
       http
         .post(FETCH_OPENSEARCH_INDICES_PATH, {
           body: JSON.stringify(query),

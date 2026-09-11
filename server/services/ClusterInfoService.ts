@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ILegacyClusterClient, Logger } from '../../../../src/core/server';
+import { ILegacyClusterClient, Logger, RequestHandlerContext } from '../../../../src/core/server';
 
 /**
  * Resolves and caches the local OpenSearch cluster's version at plugin start time.
@@ -15,6 +15,9 @@ import { ILegacyClusterClient, Logger } from '../../../../src/core/server';
  */
 export class ClusterInfoService {
   private versionPromise: Promise<string> | null = null;
+  // Version cache for clusters reached via a data-source connection (MDS), keyed
+  // by data-source id. A failed probe is evicted so the next caller retries.
+  private dataSourceVersionCache = new Map<string, Promise<string>>();
 
   constructor(private readonly client: ILegacyClusterClient, private readonly logger: Logger) {}
 
@@ -38,6 +41,43 @@ export class ClusterInfoService {
     const info = await this.client.callAsInternalUser('info');
     const version = info?.version?.number ?? '';
     this.logger.debug(`ClusterInfoService: resolved cluster version "${version}"`);
+    return version;
+  }
+
+  /**
+   * Returns the version of a remote cluster reached via a data-source connection
+   * (MDS). The data-source saved object's `dataSourceVersion` is frequently empty,
+   * so we probe the cluster directly (GET / on that data source). Cached per
+   * data-source id; a failed probe returns '' and is evicted for retry.
+   */
+  getDataSourceVersion(
+    dataSourceMDSId: string,
+    context: RequestHandlerContext
+  ): Promise<string> {
+    let cached = this.dataSourceVersionCache.get(dataSourceMDSId);
+    if (!cached) {
+      cached = this.probeDataSource(dataSourceMDSId, context).catch((err) => {
+        this.logger.warn(
+          `ClusterInfoService: data source ${dataSourceMDSId} probe failed, will retry: ${err}`
+        );
+        this.dataSourceVersionCache.delete(dataSourceMDSId);
+        return '';
+      });
+      this.dataSourceVersionCache.set(dataSourceMDSId, cached);
+    }
+    return cached;
+  }
+
+  private async probeDataSource(
+    dataSourceMDSId: string,
+    context: RequestHandlerContext
+  ): Promise<string> {
+    const client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
+    const info = await client.callAPI('info');
+    const version = info?.version?.number ?? '';
+    this.logger.debug(
+      `ClusterInfoService: resolved data source ${dataSourceMDSId} version "${version}"`
+    );
     return version;
   }
 }

@@ -37,7 +37,7 @@ import {
   DataSourceSelectableConfig,
 } from '../../../../../src/plugins/data_source_management/public';
 import { DataSourceOption } from '../../../../../src/plugins/data_source_management/public/components/data_source_selector/data_source_selector';
-import { OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
+import { getOpenSearchSqlInitQuery, OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
 import {
@@ -920,7 +920,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.updatePPLQueries('');
     this.onClear();
     if (selectedItems[0].label === 'OpenSearch' && this.state.language === 'SQL') {
-      this.updateSQLQueries(OPENSEARCH_SQL_INIT_QUERY);
+      this.updateSQLQueries(getOpenSearchSqlInitQuery(this.state.caps.usesLegacyOpenDistroSql));
     }
     this.setState({
       selectedDatasource: selectedItems,
@@ -1185,6 +1185,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   onChange={this.onChange}
                   language={this.state.language}
                   asyncLoading={this.state.asyncLoading}
+                  hasPpl={this.state.caps.hasPpl}
                 />
                 <EuiSpacer />
               </EuiFlexItem>

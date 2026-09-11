@@ -13,6 +13,7 @@ import {
   EuiTreeView,
 } from '@elastic/eui';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useCapabilities } from '../../../framework/capabilities_context';
 import { getTreeContent } from './os_tree_helpers';
 
 interface OSTreeProps {
@@ -34,6 +35,7 @@ export const OSTree = ({
     status: false,
     message: '',
   });
+  const caps = useCapabilities();
 
   const loadtree = useCallback(async () => {
     setTreeData([]);
@@ -44,11 +46,12 @@ export const OSTree = ({
     const { treeContent, loadingStatus } = await getTreeContent(
       selectedItems,
       dataSourceEnabled,
-      dataSourceMDSId
+      dataSourceMDSId,
+      caps
     );
     setTreeData(treeContent);
     setIsTreeLoading({ ...loadingStatus });
-  }, [selectedItems, dataSourceEnabled, dataSourceMDSId]);
+  }, [selectedItems, dataSourceEnabled, dataSourceMDSId, caps]);
 
   const treeLoadingStateRenderer = (
     <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">

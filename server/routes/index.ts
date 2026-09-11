@@ -23,9 +23,14 @@ export function defineRoutes(
   logger: Logger,
   clusterInfoService: ClusterInfoService
 ) {
-  const translateService = new TranslateService(client, dataSourceEnabled, logger);
+  const translateService = new TranslateService(
+    client,
+    dataSourceEnabled,
+    logger,
+    clusterInfoService
+  );
   registerTranslateRoute(router, translateService, openSearchServiceSetup);
 
-  const queryService = new QueryService(client, dataSourceEnabled, logger);
+  const queryService = new QueryService(client, dataSourceEnabled, logger, clusterInfoService);
   registerQueryRoute(router, queryService, clusterInfoService);
 }

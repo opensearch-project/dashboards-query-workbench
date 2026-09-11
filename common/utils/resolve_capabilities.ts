@@ -30,13 +30,31 @@ export async function resolveDeploymentCapabilities(
   const { http, savedObjects, dataSourceEnabled, mdsId } = args;
 
   if (dataSourceEnabled && mdsId) {
+    // Prefer the version recorded on the data-source saved object. It is frequently
+    // empty (nothing populates it in many setups), so fall back to probing the data
+    // source cluster directly via cluster_info — otherwise an Elasticsearch data
+    // source is misdetected as modern OpenSearch and the ES gates never fire.
     try {
       const ds = await savedObjects.client.get<DataSourceAttributes>('data-source', mdsId);
-      return getDeploymentCapabilities(ds.attributes?.dataSourceVersion);
+      const savedVersion = ds.attributes?.dataSourceVersion;
+      if (savedVersion) {
+        return getDeploymentCapabilities(savedVersion);
+      }
     } catch (err) {
       console.error('Error fetching data source version from saved object:', err);
-      return getDeploymentCapabilities(undefined);
     }
+    try {
+      const res: { data?: { ok?: boolean; version?: string } } = await http.get(
+        '/api/sql_console/cluster_info',
+        { query: { dataSourceMDSId: mdsId } }
+      );
+      if (res?.data?.ok && res.data.version) {
+        return getDeploymentCapabilities(res.data.version);
+      }
+    } catch (err) {
+      console.error('Error probing data source cluster version:', err);
+    }
+    return getDeploymentCapabilities(undefined);
   }
 
   try {

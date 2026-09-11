@@ -373,14 +373,23 @@ export function registerQueryRoute(
   server.get(
     {
       path: ROUTE_PATH_CLUSTER_INFO,
-      validate: false,
+      validate: {
+        query: schema.object({
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
+      },
     },
     async (
-      _context,
-      _request,
+      context,
+      request,
       response
     ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
-      const version = await clusterInfoService.getVersion();
+      // With a data-source id, probe that remote (MDS) cluster's version; otherwise
+      // report the local co-located cluster's version.
+      const { dataSourceMDSId } = request.query;
+      const version = dataSourceMDSId
+        ? await clusterInfoService.getDataSourceVersion(dataSourceMDSId, context)
+        : await clusterInfoService.getVersion();
       return response.ok({ body: { data: { ok: true, version } } });
     }
   );
