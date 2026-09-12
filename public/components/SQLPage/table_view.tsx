@@ -189,8 +189,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     }
     // Deps intentionally exclude currentQueryHandler (updated inside this callback) and setToast (unstable ref)
     // to prevent infinite re-render loops.
+    // caps.usesLegacyOpenDistroSql IS required: it selects the `SHOW tables` form, and
+    // capabilities resolve after the first render. Without it this callback keeps the
+    // DEFAULT_CAPABILITIES it closed over and asks Elasticsearch the quoted `'%'` forever,
+    // which matches no index there.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedItems, http]);
+  }, [selectedItems, http, caps.usesLegacyOpenDistroSql]);
 
   useEffect(() => {
     setTreeData([]);
@@ -201,7 +205,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     getSidebarContent();
     // getSidebarContent excluded: it changes when its deps change, which already includes selectedItems.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedItems, refreshTree]);
+  }, [selectedItems, refreshTree, caps.usesLegacyOpenDistroSql]);
 
   const setTreeDataDatabaseError = (databaseName: string) => {
     setTreeData((prevTreeData) => {

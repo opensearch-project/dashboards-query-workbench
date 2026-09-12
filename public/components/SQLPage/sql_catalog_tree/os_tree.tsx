@@ -37,21 +37,34 @@ export const OSTree = ({
   });
   const caps = useCapabilities();
 
-  const loadtree = useCallback(async () => {
-    setTreeData([]);
-    setIsTreeLoading({
-      status: true,
-      message: '',
-    });
-    const { treeContent, loadingStatus } = await getTreeContent(
-      selectedItems,
-      dataSourceEnabled,
-      dataSourceMDSId,
-      caps
-    );
-    setTreeData(treeContent);
-    setIsTreeLoading({ ...loadingStatus });
-  }, [selectedItems, dataSourceEnabled, dataSourceMDSId, caps]);
+  // `isStale` lets a superseded load drop its result instead of writing it. Capabilities
+  // resolve asynchronously, so the first load runs against DEFAULT_CAPABILITIES and asks
+  // Elasticsearch the quoted `SHOW tables LIKE '%'`, which matches nothing there (verified:
+  // 0 rows on 7.4-7.9, where the unquoted form returns the indices). The reload that fires
+  // once the engine is known asks the correct form, but both requests are in flight at once
+  // and without this guard whichever *returns* last wins -- so the stale one can overwrite a
+  // correctly loaded tree with "Failed to load indices".
+  const loadtree = useCallback(
+    async (isStale: () => boolean) => {
+      setTreeData([]);
+      setIsTreeLoading({
+        status: true,
+        message: '',
+      });
+      const { treeContent, loadingStatus } = await getTreeContent(
+        selectedItems,
+        dataSourceEnabled,
+        dataSourceMDSId,
+        caps
+      );
+      if (isStale()) {
+        return;
+      }
+      setTreeData(treeContent);
+      setIsTreeLoading({ ...loadingStatus });
+    },
+    [selectedItems, dataSourceEnabled, dataSourceMDSId, caps]
+  );
 
   const treeLoadingStateRenderer = (
     <EuiFlexGroup alignItems="center" gutterSize="s" direction="column">
@@ -111,7 +124,11 @@ export const OSTree = ({
   );
 
   useEffect(() => {
-    loadtree();
+    let superseded = false;
+    loadtree(() => superseded);
+    return () => {
+      superseded = true;
+    };
     // loadtree excluded: it depends on selectedItems (unstable array prop), causing infinite re-renders.
     // caps.usesLegacyOpenDistroSql IS included: capabilities resolve asynchronously after a
     // data-source switch, and the tree must reload once the engine is known — otherwise it
