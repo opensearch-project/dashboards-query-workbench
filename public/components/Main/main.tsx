@@ -975,7 +975,9 @@ export class Main extends React.Component<MainProps, MainState> {
       pluginManifest.requiredOSDataSourcePlugins.every(
         (plugin) =>
           installedPlugins.includes(plugin) ||
-          installedPlugins.includes(LEGACY_OPEN_DISTRO_PLUGIN_NAMES[plugin])
+          (LEGACY_OPEN_DISTRO_PLUGIN_NAMES[plugin] ?? []).some((legacy) =>
+            installedPlugins.includes(legacy)
+          )
       )
     );
   };

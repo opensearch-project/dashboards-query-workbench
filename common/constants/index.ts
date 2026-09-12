@@ -132,6 +132,8 @@ export const SAMPLE_SQL_QUERY = 'select * from <datasource>.<database>.<table> l
 // source picker checks the manifest's `requiredOSDataSourcePlugins` against that list, so
 // without this mapping every OpenDistro data source is filtered out and can never be selected —
 // which is the one thing this plugin needs in order to talk to those clusters at all.
-export const LEGACY_OPEN_DISTRO_PLUGIN_NAMES: Readonly<Record<string, string>> = {
-  'opensearch-sql': 'opendistro_sql',
+// Both spellings are real: verified against staging domains, `_cat/plugins` reports
+// `opendistro-sql` on 6.8 and 7.10 but `opendistro_sql` on 7.1 through 7.9.
+export const LEGACY_OPEN_DISTRO_PLUGIN_NAMES: Readonly<Record<string, readonly string[]>> = {
+  'opensearch-sql': ['opendistro_sql', 'opendistro-sql'],
 };
