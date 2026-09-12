@@ -41,6 +41,7 @@ import {
   getOpenSearchSqlInitQuery,
   LEGACY_OPEN_DISTRO_PLUGIN_NAMES,
   OPENSEARCH_SQL_INIT_QUERY,
+  OPENSEARCH_SQL_INIT_QUERY_LEGACY,
 } from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
@@ -343,9 +344,27 @@ export class Main extends React.Component<MainProps, MainState> {
       mdsId,
     });
     if (token === this.capsRequestToken) {
-      this.setState({ caps });
+      this.setState({ caps }, () => this.syncSeededSqlQuery(caps));
     }
     return caps;
+  };
+
+  // The constructor seeds the editor with the OpenSearch form of the starter query,
+  // because capabilities are not known yet. On Elasticsearch that seeded query keeps the
+  // quoted `'%'`, which the legacy OpenDistro engine matches against nothing -- so the
+  // box a user lands on returns zero rows until they retype it. Re-seed once the engine
+  // is known.
+  //
+  // Only rewrite while the box still holds one of the seeded queries verbatim; anything
+  // else means the user has edited it, and their text must not be clobbered.
+  private syncSeededSqlQuery = (caps: DeploymentCapabilities) => {
+    const current = this.state.sqlQueriesString;
+    const isUntouched =
+      current === OPENSEARCH_SQL_INIT_QUERY || current === OPENSEARCH_SQL_INIT_QUERY_LEGACY;
+    const seeded = getOpenSearchSqlInitQuery(caps.usesLegacyOpenDistroSql);
+    if (isUntouched && current !== seeded) {
+      this.updateSQLQueries(seeded);
+    }
   };
 
   fetchFlintDataSources = (caps: DeploymentCapabilities) => {
