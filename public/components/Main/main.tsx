@@ -37,7 +37,11 @@ import {
   DataSourceSelectableConfig,
 } from '../../../../../src/plugins/data_source_management/public';
 import { DataSourceOption } from '../../../../../src/plugins/data_source_management/public/components/data_source_selector/data_source_selector';
-import { getOpenSearchSqlInitQuery, OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
+import {
+  getOpenSearchSqlInitQuery,
+  LEGACY_OPEN_DISTRO_PLUGIN_NAMES,
+  OPENSEARCH_SQL_INIT_QUERY,
+} from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
 import {
@@ -968,8 +972,10 @@ export class Main extends React.Component<MainProps, MainState> {
     const installedPlugins = dataSource?.attributes?.installedPlugins || [];
     return (
       semver.satisfies(dataSourceVersion, pluginManifest.supportedOSDataSourceVersions) &&
-      pluginManifest.requiredOSDataSourcePlugins.every((plugin) =>
-        installedPlugins.includes(plugin)
+      pluginManifest.requiredOSDataSourcePlugins.every(
+        (plugin) =>
+          installedPlugins.includes(plugin) ||
+          installedPlugins.includes(LEGACY_OPEN_DISTRO_PLUGIN_NAMES[plugin])
       )
     );
   };

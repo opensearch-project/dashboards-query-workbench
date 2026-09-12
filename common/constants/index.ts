@@ -126,3 +126,12 @@ export const ASYNC_QUERY_SESSION_ID = 'async-query-session-id';
 
 export const SAMPLE_PPL_QUERY = 'source = <datasource>.<database>.<table> | head 10';
 export const SAMPLE_SQL_QUERY = 'select * from <datasource>.<database>.<table> limit 10';
+
+// `_cat/plugins` reports the legacy OpenDistro component names on Elasticsearch 6.x/7.x, so a
+// cluster that does serve SQL advertises `opendistro_sql`, never `opensearch-sql`. The data
+// source picker checks the manifest's `requiredOSDataSourcePlugins` against that list, so
+// without this mapping every OpenDistro data source is filtered out and can never be selected —
+// which is the one thing this plugin needs in order to talk to those clusters at all.
+export const LEGACY_OPEN_DISTRO_PLUGIN_NAMES: Readonly<Record<string, string>> = {
+  'opensearch-sql': 'opendistro_sql',
+};
