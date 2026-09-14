@@ -17,11 +17,21 @@ export const TREE_ITEM_DATABASE_NAME_DEFAULT_NAME = `database`;
 export const TREE_ITEM_TABLE_NAME_DEFAULT_NAME = `table`;
 export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
 export const TREE_ITEM_BADGE_NAME = `badge`;
+// Sent verbatim by the index panel, so neither of these carries a trailing `;`.
+//
+// The editor is not a precedent here: queries typed there go through `getQueries`, which
+// splits on `;` and strips it before the request is built. The panel has no such step, so a
+// terminator it carries reaches the engine -- and the legacy OpenDistro engine answers
+// `SHOW tables LIKE %;` with HTTP 200 and zero rows. Verified against staging domains: with
+// the `;` it returns 0 rows on 7.4 and 7.8 (3/3 runs) while the same query without it
+// returns the indices; 7.7, 7.9, 7.10 and OpenSearch tolerate either form, which is why this
+// only ever showed up on some clusters.
+//
 // OpenSearch V2 SQL engine (OpenSearch 2.x/3.x): the LIKE pattern is a quoted string.
-export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
+export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%'`;
 // Legacy OpenDistro SQL engine (Elasticsearch 6.x/7.x): the LIKE pattern is an unquoted
 // index-name pattern; the quoted `'%'` matches no index and returns zero rows.
-export const LOAD_OPENSEARCH_INDICES_QUERY_LEGACY = `SHOW tables LIKE %;`;
+export const LOAD_OPENSEARCH_INDICES_QUERY_LEGACY = `SHOW tables LIKE %`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON \`datasource\`.\`database\`.\`table\` 
 (status VALUE_SET) 
 WITH (
