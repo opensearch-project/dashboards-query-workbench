@@ -17,7 +17,21 @@ export const TREE_ITEM_DATABASE_NAME_DEFAULT_NAME = `database`;
 export const TREE_ITEM_TABLE_NAME_DEFAULT_NAME = `table`;
 export const TREE_ITEM_LOAD_MATERIALIZED_BADGE_NAME = `Load Materialized View`;
 export const TREE_ITEM_BADGE_NAME = `badge`;
-export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%';`;
+// Sent verbatim by the index panel, so neither of these carries a trailing `;`.
+//
+// The editor is not a precedent here: queries typed there go through `getQueries`, which
+// splits on `;` and strips it before the request is built. The panel has no such step, so a
+// terminator it carries reaches the engine -- and the legacy OpenDistro engine answers
+// `SHOW tables LIKE %;` with HTTP 200 and zero rows. Verified against staging domains: with
+// the `;` it returns 0 rows on 7.4 and 7.8 (3/3 runs) while the same query without it
+// returns the indices; 7.7, 7.9, 7.10 and OpenSearch tolerate either form, which is why this
+// only ever showed up on some clusters.
+//
+// OpenSearch V2 SQL engine (OpenSearch 2.x/3.x): the LIKE pattern is a quoted string.
+export const LOAD_OPENSEARCH_INDICES_QUERY = `SHOW tables LIKE '%'`;
+// Legacy OpenDistro SQL engine (Elasticsearch 6.x/7.x): the LIKE pattern is an unquoted
+// index-name pattern; the quoted `'%'` matches no index and returns zero rows.
+export const LOAD_OPENSEARCH_INDICES_QUERY_LEGACY = `SHOW tables LIKE %`;
 export const SKIPPING_INDEX_QUERY = `CREATE SKIPPING INDEX ON \`datasource\`.\`database\`.\`table\` 
 (status VALUE_SET) 
 WITH (
@@ -104,6 +118,15 @@ export const ACCELERATION_INDEX_NAME_INFO = `All OpenSearch acceleration indices
   `;
 
 export const OPENSEARCH_SQL_INIT_QUERY = `SHOW tables LIKE '%';`;
+// Legacy OpenDistro SQL engine (Elasticsearch 6.x/7.x) equivalent — see LOAD_OPENSEARCH_INDICES_QUERY_LEGACY.
+export const OPENSEARCH_SQL_INIT_QUERY_LEGACY = `SHOW tables LIKE %;`;
+
+// Selectors that pick the query form matching the connected cluster's SQL engine.
+// Pass `caps.usesLegacyOpenDistroSql` from DeploymentCapabilities.
+export const getLoadOpenSearchIndicesQuery = (usesLegacyOpenDistroSql: boolean): string =>
+  usesLegacyOpenDistroSql ? LOAD_OPENSEARCH_INDICES_QUERY_LEGACY : LOAD_OPENSEARCH_INDICES_QUERY;
+export const getOpenSearchSqlInitQuery = (usesLegacyOpenDistroSql: boolean): string =>
+  usesLegacyOpenDistroSql ? OPENSEARCH_SQL_INIT_QUERY_LEGACY : OPENSEARCH_SQL_INIT_QUERY;
 export const TIMESTAMP_DATATYPE = 'timestamp';
 export const FETCH_OPENSEARCH_INDICES_PATH = '/api/sql_console/sqlquery';
 export const POLL_INTERVAL_MS = 2000;
@@ -113,3 +136,14 @@ export const ASYNC_QUERY_SESSION_ID = 'async-query-session-id';
 
 export const SAMPLE_PPL_QUERY = 'source = <datasource>.<database>.<table> | head 10';
 export const SAMPLE_SQL_QUERY = 'select * from <datasource>.<database>.<table> limit 10';
+
+// `_cat/plugins` reports the legacy OpenDistro component names on Elasticsearch 6.x/7.x, so a
+// cluster that does serve SQL advertises `opendistro_sql`, never `opensearch-sql`. The data
+// source picker checks the manifest's `requiredOSDataSourcePlugins` against that list, so
+// without this mapping every OpenDistro data source is filtered out and can never be selected —
+// which is the one thing this plugin needs in order to talk to those clusters at all.
+// Both spellings are real: verified against staging domains, `_cat/plugins` reports
+// `opendistro-sql` on 6.8 and 7.10 but `opendistro_sql` on 7.1 through 7.9.
+export const LEGACY_OPEN_DISTRO_PLUGIN_NAMES: Readonly<Record<string, readonly string[]>> = {
+  'opensearch-sql': ['opendistro_sql', 'opendistro-sql'],
+};

@@ -7,17 +7,77 @@ import 'core-js/stable';
 import _ from 'lodash';
 import 'regenerator-runtime/runtime';
 import { Logger, RequestHandlerContext } from '../../../../src/core/server';
+import { getDeploymentCapabilities } from '../../common/utils/deployment_capabilities';
+import { ClusterInfoService } from './ClusterInfoService';
+
+// SQL/PPL query + translate actions that have `_opendistro/*` legacy variants in
+// sqlPlugin.js. Async/datasource actions are OpenSearch-only and intentionally omitted.
+const LEGACY_ELIGIBLE_ACTIONS = new Set([
+  'sql.sqlQuery',
+  'sql.sqlJson',
+  'sql.sqlCsv',
+  'sql.sqlText',
+  'sql.translateSQL',
+  'sql.pplQuery',
+  'sql.pplJson',
+  'sql.pplCsv',
+  'sql.pplText',
+  'sql.translatePPL',
+]);
 
 export class QueryService {
   private client: unknown;
   private dataSourceEnabled: boolean;
   private logger: Logger;
+  private clusterInfoService: ClusterInfoService;
 
-  constructor(client: unknown, dataSourceEnabled: boolean, logger: Logger) {
+  constructor(
+    client: unknown,
+    dataSourceEnabled: boolean,
+    logger: Logger,
+    clusterInfoService: ClusterInfoService
+  ) {
     this.client = client;
     this.dataSourceEnabled = dataSourceEnabled;
     this.logger = logger;
+    this.clusterInfoService = clusterInfoService;
   }
+
+  // Map a `_plugins/*` client action to its `_opendistro/*` legacy variant when the
+  // target cluster is legacy OpenDistro (Elasticsearch). Non-eligible actions and
+  // OpenSearch clusters are returned unchanged. `isOpenSearch` is the authoritative
+  // engine signal (distribution / data-source engine type).
+  private legacyActionFor(action: string, version: string, isOpenSearch?: boolean): string {
+    if (!LEGACY_ELIGIBLE_ACTIONS.has(action)) {
+      return action;
+    }
+    return getDeploymentCapabilities(version, isOpenSearch).usesLegacyOpenDistroSql
+      ? `${action}Legacy`
+      : action;
+  }
+
+  // Local (co-located) cluster: version + engine from the primed ClusterInfoService.
+  private resolveLocalClusterAction = async (action: string): Promise<string> => {
+    const { version, isOpenSearch } = await this.clusterInfoService.getVersion();
+    return this.legacyActionFor(action, version, isOpenSearch);
+  };
+
+  // Data-source (MDS) cluster: resolve that data source's version + engine, then pick
+  // the legacy action for Elasticsearch data sources.
+  private resolveDataSourceAction = async (
+    action: string,
+    dataSourceMDSId: string,
+    context: RequestHandlerContext
+  ): Promise<string> => {
+    if (!LEGACY_ELIGIBLE_ACTIONS.has(action)) {
+      return action;
+    }
+    const { version, isOpenSearch } = await this.clusterInfoService.getDataSourceInfo(
+      dataSourceMDSId,
+      context
+    );
+    return this.legacyActionFor(action, version, isOpenSearch);
+  };
 
   describeQueryPostInternal = async (
     request: Record<string, unknown>,
@@ -37,9 +97,17 @@ export class QueryService {
       const { dataSourceMDSId } = request.query;
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
-        queryResponse = await client.callAPI(format, params);
+        // Data-source cluster: route ES 6.x/7.x data sources to `_opendistro/*`.
+        const dsAction = await this.resolveDataSourceAction(
+          format,
+          dataSourceMDSId as string,
+          context
+        );
+        queryResponse = await client.callAPI(dsAction, params);
       } else {
-        queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, params);
+        // Local cluster: route Elasticsearch 6.x/7.x to the `_opendistro/*` endpoint.
+        const localAction = await this.resolveLocalClusterAction(format);
+        queryResponse = await this.client.asScoped(request).callAsCurrentUser(localAction, params);
       }
 
       return {
@@ -78,11 +146,11 @@ export class QueryService {
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format, {
-          jobId: jobId,
+          jobId,
         });
       } else {
         queryResponse = await this.client.asScoped(request).callAsCurrentUser(format, {
-          jobId: jobId,
+          jobId,
         });
       }
       return {
@@ -116,6 +184,21 @@ export class QueryService {
       let client = this.client;
       let queryResponse;
       const dataSourceMDSId = request.params.dataSourceMDSId;
+      // Flint direct-query datasources (`_plugins/_query/_datasources`) require
+      // OpenSearch 2.11+; the endpoint does not exist on Elasticsearch or older
+      // OpenSearch. Some frontend callers (e.g. DataSelect) fetch this ungated by
+      // capabilities, so short-circuit to an empty list here rather than letting the
+      // request hit a nonexistent endpoint and surface a fatal error.
+      const { version, isOpenSearch } =
+        this.dataSourceEnabled && dataSourceMDSId
+          ? await this.clusterInfoService.getDataSourceInfo(
+              dataSourceMDSId as string,
+              context as unknown as RequestHandlerContext
+            )
+          : await this.clusterInfoService.getVersion();
+      if (!getDeploymentCapabilities(version, isOpenSearch).hasDataSources) {
+        return { data: { ok: true, resp: [] } };
+      }
       if (this.dataSourceEnabled && dataSourceMDSId) {
         client = context.dataSource.opensearch.legacy.getClient(dataSourceMDSId);
         queryResponse = await client.callAPI(format);
