@@ -37,7 +37,12 @@ import {
   DataSourceSelectableConfig,
 } from '../../../../../src/plugins/data_source_management/public';
 import { DataSourceOption } from '../../../../../src/plugins/data_source_management/public/components/data_source_selector/data_source_selector';
-import { OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
+import {
+  getOpenSearchSqlInitQuery,
+  LEGACY_OPEN_DISTRO_PLUGIN_NAMES,
+  OPENSEARCH_SQL_INIT_QUERY,
+  OPENSEARCH_SQL_INIT_QUERY_LEGACY,
+} from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
 import {
@@ -339,9 +344,27 @@ export class Main extends React.Component<MainProps, MainState> {
       mdsId,
     });
     if (token === this.capsRequestToken) {
-      this.setState({ caps });
+      this.setState({ caps }, () => this.syncSeededSqlQuery(caps));
     }
     return caps;
+  };
+
+  // The constructor seeds the editor with the OpenSearch form of the starter query,
+  // because capabilities are not known yet. On Elasticsearch that seeded query keeps the
+  // quoted `'%'`, which the legacy OpenDistro engine matches against nothing -- so the
+  // box a user lands on returns zero rows until they retype it. Re-seed once the engine
+  // is known.
+  //
+  // Only rewrite while the box still holds one of the seeded queries verbatim; anything
+  // else means the user has edited it, and their text must not be clobbered.
+  private syncSeededSqlQuery = (caps: DeploymentCapabilities) => {
+    const current = this.state.sqlQueriesString;
+    const isUntouched =
+      current === OPENSEARCH_SQL_INIT_QUERY || current === OPENSEARCH_SQL_INIT_QUERY_LEGACY;
+    const seeded = getOpenSearchSqlInitQuery(caps.usesLegacyOpenDistroSql);
+    if (isUntouched && current !== seeded) {
+      this.updateSQLQueries(seeded);
+    }
   };
 
   fetchFlintDataSources = (caps: DeploymentCapabilities) => {
@@ -664,10 +687,9 @@ export class Main extends React.Component<MainProps, MainState> {
       );
 
       Promise.all([translationPromise]).then(([translationResponse]) => {
-        const translationResult: Array<ResponseDetail<
-          TranslateResult
-        >> = translationResponse.map((translationResp) =>
-          this.processTranslateResponse(translationResp as IHttpResponse<ResponseData>)
+        const translationResult: Array<ResponseDetail<TranslateResult>> = translationResponse.map(
+          (translationResp) =>
+            this.processTranslateResponse(translationResp as IHttpResponse<ResponseData>)
         );
         const shouldCleanResults = queries === this.state.queries;
         if (shouldCleanResults) {
@@ -900,10 +922,8 @@ export class Main extends React.Component<MainProps, MainState> {
   checkHistoryState = () => {
     if (!this.historyFromRedirection.location.state) return;
 
-    const {
-      language,
-      queryToRun,
-    }: { language: string; queryToRun: string } = this.historyFromRedirection.location.state;
+    const { language, queryToRun }: { language: string; queryToRun: string } =
+      this.historyFromRedirection.location.state;
     if (language === 'sql') {
       this.updateSQLQueries(queryToRun);
 
@@ -920,7 +940,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.updatePPLQueries('');
     this.onClear();
     if (selectedItems[0].label === 'OpenSearch' && this.state.language === 'SQL') {
-      this.updateSQLQueries(OPENSEARCH_SQL_INIT_QUERY);
+      this.updateSQLQueries(getOpenSearchSqlInitQuery(this.state.caps.usesLegacyOpenDistroSql));
     }
     this.setState({
       selectedDatasource: selectedItems,
@@ -971,15 +991,18 @@ export class Main extends React.Component<MainProps, MainState> {
     const installedPlugins = dataSource?.attributes?.installedPlugins || [];
     return (
       semver.satisfies(dataSourceVersion, pluginManifest.supportedOSDataSourceVersions) &&
-      pluginManifest.requiredOSDataSourcePlugins.every((plugin) =>
-        installedPlugins.includes(plugin)
+      pluginManifest.requiredOSDataSourcePlugins.every(
+        (plugin) =>
+          installedPlugins.includes(plugin) ||
+          (LEGACY_OPEN_DISTRO_PLUGIN_NAMES[plugin] ?? []).some((legacy) =>
+            installedPlugins.includes(legacy)
+          )
       )
     );
   };
 
-  DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<
-    DataSourceSelectableConfig
-  >();
+  DataSourceMenu =
+    this.props.dataSourceManagement?.ui?.getDataSourceMenu<DataSourceSelectableConfig>();
 
   render() {
     let page;
@@ -1185,6 +1208,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   onChange={this.onChange}
                   language={this.state.language}
                   asyncLoading={this.state.asyncLoading}
+                  hasPpl={this.state.caps.hasPpl}
                 />
                 <EuiSpacer />
               </EuiFlexItem>
@@ -1201,6 +1225,7 @@ export class Main extends React.Component<MainProps, MainState> {
               {this.state.isCallOutVisible && (
                 <>
                   <EuiCallOut
+                    announceOnMount
                     size="s"
                     title="Query Submitted Successfully"
                     color="success"

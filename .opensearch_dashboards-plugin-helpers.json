@@ -5,7 +5,7 @@
     "yarn.lock",
     ".yarnrc",
     "index.js",
-    "{lib,public,server,test}/**/*",
+    "{lib,public,server,test,common}/**/*",
     "!__tests__"
   ]
 }

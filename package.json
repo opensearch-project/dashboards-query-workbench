@@ -19,7 +19,8 @@
     "test:browser": "plugin-helpers test:browser",
     "test:jest": "../../node_modules/.bin/jest --config test/jest.config.js",
     "test": "yarn test:jest",
-    "build": "yarn plugin-helpers build",
+    "build": "yarn check:server-imports && yarn plugin-helpers build",
+    "check:server-imports": "node scripts/check_server_imports.js",
     "plugin-helpers": "node ../../scripts/plugin_helpers",
     "cypress:run": "TZ=America/Los_Angeles ../../node_modules/cypress/bin/cypress run",
     "cypress:open": "TZ=America/Los_Angeles ../../node_modules/cypress/bin/cypress open"
@@ -38,7 +39,7 @@
   },
   "resolutions": {
     "**/ansi-regex": "^5.0.1",
-    "**/qs": "^6.15.2",
+    "**/qs": "^6.16.0",
     "**/uuid": "^11.1.1"
   }
 }

@@ -8,13 +8,14 @@ The OpenSearch Dashboards Query Workbench enables you to query your OpenSearch d
 |                          |                                                                                                                    |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------ |
 | Test and build           | [![Observability Dashboards CI][workbench-build-badge]][workbench-build-link]                                      |
-| Code coverage            | [![codecov][workbench-codecov-badge]]                                                     |
+| Code coverage            | [![codecov][workbench-codecov-badge]][workbench-codecov-link]                                                      |
 | Distribution build tests | [![cypress tests][cypress-test-badge]][cypress-test-link] [![cypress code][cypress-code-badge]][cypress-code-link] |
 
 
 [workbench-build-badge]: https://github.com/opensearch-project/dashboards-query-workbench/actions/workflows/sql-workbench-test-build-workflow.yml/badge.svg
 [workbench-build-link]: https://github.com/opensearch-project/dashboards-query-workbench/actions/workflows/sql-workbench-test-build-workflow.yml
-[workbench-codecov-badge]: https://codecov.io/gh/opensearch-project/sql/branch/main/graphs/badge.svg?flag=query-workbench
+[workbench-codecov-badge]: https://codecov.io/gh/opensearch-project/dashboards-query-workbench/branch/main/graphs/badge.svg?flag=dashboards-query-workbench
+[workbench-codecov-link]: https://codecov.io/gh/opensearch-project/dashboards-query-workbench
 [cypress-test-badge]: https://img.shields.io/badge/Cypress%20tests-in%20progress-yellow
 [cypress-test-link]: https://github.com/opensearch-project/opensearch-build/issues/1124
 [cypress-code-badge]: https://img.shields.io/badge/Cypress%20code-blue

@@ -9,8 +9,9 @@ import _ from 'lodash';
 import React from 'react';
 import {
   FETCH_OPENSEARCH_INDICES_PATH,
-  LOAD_OPENSEARCH_INDICES_QUERY,
+  getLoadOpenSearchIndicesQuery,
 } from '../../../../common/constants';
+import { DeploymentCapabilities } from '../../../../common/utils/deployment_capabilities';
 import { coreRefs } from '../../../framework/core_refs';
 
 export const generateOpenSearchTree = (indices: string[]) => {
@@ -22,7 +23,7 @@ export const generateOpenSearchTree = (indices: string[]) => {
         </EuiToolTip>{' '}
       </div>
     ),
-    icon: <EuiIcon type="database" size="m" />,
+    icon: <EuiIcon type="database" size="m" aria-hidden={true} />,
     id: 'element_' + idx,
     isSelectable: false,
   }));
@@ -31,12 +32,13 @@ export const generateOpenSearchTree = (indices: string[]) => {
 
 export const loadOpenSearchTree = async (
   dataSourceEnabled: boolean,
-  dataSourceMDSId: string
+  dataSourceMDSId: string,
+  caps: DeploymentCapabilities
 ): Promise<{
   treeContent: Node[];
   loadingStatus: { status: boolean; message: string };
 }> => {
-  const _loadQuery = { query: LOAD_OPENSEARCH_INDICES_QUERY };
+  const loadIndicesQuery = getLoadOpenSearchIndicesQuery(caps.usesLegacyOpenDistroSql);
   const http = coreRefs!.http;
   let loadedTree = {
     treeContent: [] as Node[],
@@ -48,7 +50,7 @@ export const loadOpenSearchTree = async (
       query = { dataSourceMDSId };
     }
     const res = await http!.post(FETCH_OPENSEARCH_INDICES_PATH, {
-      body: JSON.stringify({ query: LOAD_OPENSEARCH_INDICES_QUERY }),
+      body: JSON.stringify({ query: loadIndicesQuery }),
       query,
     });
     const responseObj = JSON.parse(res.data.resp);
@@ -84,12 +86,14 @@ export const loadOpenSearchTree = async (
 export const getTreeContent = async (
   selectedItems: EuiComboBoxOptionOption[],
   dataSourceEnabled: boolean,
-  dataSourceMDSId: string
+  dataSourceMDSId: string,
+  caps: DeploymentCapabilities
 ) => {
   if (selectedItems[0].label === 'OpenSearch') {
     const { treeContent, loadingStatus } = await loadOpenSearchTree(
       dataSourceEnabled,
-      dataSourceMDSId
+      dataSourceMDSId,
+      caps
     );
     return { treeContent, loadingStatus, s3TreeItems: [] };
   }

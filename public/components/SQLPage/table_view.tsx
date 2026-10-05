@@ -22,7 +22,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import {
   FETCH_OPENSEARCH_INDICES_PATH,
-  LOAD_OPENSEARCH_INDICES_QUERY,
+  getLoadOpenSearchIndicesQuery,
   TREE_ITEM_BADGE_NAME,
   TREE_ITEM_COVERING_INDEX_DEFAULT_NAME,
   TREE_ITEM_DATABASE_NAME_DEFAULT_NAME,
@@ -119,7 +119,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         flag: false,
         status: 'Fetching OpenSearch indices ...',
       });
-      const query = { query: LOAD_OPENSEARCH_INDICES_QUERY };
+      const query = { query: getLoadOpenSearchIndicesQuery(caps.usesLegacyOpenDistroSql) };
       http
         .post(FETCH_OPENSEARCH_INDICES_PATH, {
           body: JSON.stringify(query),
@@ -189,8 +189,12 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     }
     // Deps intentionally exclude currentQueryHandler (updated inside this callback) and setToast (unstable ref)
     // to prevent infinite re-render loops.
+    // caps.usesLegacyOpenDistroSql IS required: it selects the `SHOW tables` form, and
+    // capabilities resolve after the first render. Without it this callback keeps the
+    // DEFAULT_CAPABILITIES it closed over and asks Elasticsearch the quoted `'%'` forever,
+    // which matches no index there.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedItems, http]);
+  }, [selectedItems, http, caps.usesLegacyOpenDistroSql]);
 
   useEffect(() => {
     setTreeData([]);
@@ -201,7 +205,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     getSidebarContent();
     // getSidebarContent excluded: it changes when its deps change, which already includes selectedItems.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedItems, refreshTree]);
+  }, [selectedItems, refreshTree, caps.usesLegacyOpenDistroSql]);
 
   const setTreeDataDatabaseError = (databaseName: string) => {
     setTreeData((prevTreeData) => {
@@ -505,14 +509,14 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
     ) {
       return null;
     } else if (node.type === TREE_ITEM_TABLE_NAME_DEFAULT_NAME) {
-      return <EuiIcon type="tableDensityCompact" size="s" />;
+      return <EuiIcon type="tableDensityCompact" size="s" aria-hidden={true} />;
     } else if (node.type === TREE_ITEM_DATABASE_NAME_DEFAULT_NAME) {
-      return <EuiIcon type="database" size="m" />;
+      return <EuiIcon type="database" size="m" aria-hidden={true} />;
     } else if (
       node.type === TREE_ITEM_COVERING_INDEX_DEFAULT_NAME ||
       TREE_ITEM_SKIPPING_INDEX_DEFAULT_NAME
     ) {
-      return <EuiIcon type="bolt" size="m" />;
+      return <EuiIcon type="bolt" size="m" aria-hidden={true} />;
     }
   };
 
@@ -554,6 +558,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
                       <EuiIcon
                         type="editorCodeBlock"
                         onClick={(e) => handleQuery(e, parentName, node.name)}
+                        aria-hidden={true}
                       />
                     )}
                   </EuiText>
@@ -573,7 +578,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         </EuiToolTip>{' '}
       </div>
     ),
-    icon: <EuiIcon type="database" size="m" />,
+    icon: <EuiIcon type="database" size="m" aria-hidden={true} />,
     id: 'element_' + index,
     isSelectable: false,
   }));
@@ -678,7 +683,7 @@ export const TableView = ({ http, selectedItems, updateSQLQueries, refreshTree }
         <EuiFlexGroup alignItems="center" direction="column">
           <EuiFlexItem grow={false}>
             <EuiEmptyPrompt
-              icon={<EuiIcon type="database" size="m" />}
+              icon={<EuiIcon type="database" size="m" aria-hidden={true} />}
               iconColor="subdued"
               titleSize="xs"
               title={<p>No Data available</p>}
