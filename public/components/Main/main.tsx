@@ -166,10 +166,10 @@ interface MainState {
 
 const SUCCESS_MESSAGE = 'Success';
 const errorQueryResponse = (queryResultResponseDetail: ResponseDetail<string>) => {
-  const errorMessage =
-    queryResultResponseDetail.errorMessage +
-    ', this query is not runnable. \n \n' +
-    queryResultResponseDetail.data;
+  let errorMessage = queryResultResponseDetail.errorMessage || 'Unknown error';
+  if (queryResultResponseDetail.data) {
+    errorMessage += '\n\n' + queryResultResponseDetail.data;
+  }
   return errorMessage;
 };
 
