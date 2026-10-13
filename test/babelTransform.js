@@ -9,7 +9,7 @@ module.exports = babelJest.createTransformer({
   presets: [
     ['@babel/preset-env', { targets: { node: 'current' } }],
     '@babel/preset-react',
-    '@babel/preset-typescript',
+    ['@babel/preset-typescript', { allowDeclareFields: true }],
   ],
   plugins: ['@babel/plugin-transform-logical-assignment-operators', '@babel/transform-runtime'],
 });

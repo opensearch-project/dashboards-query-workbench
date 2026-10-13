@@ -10,17 +10,30 @@ import {
   CREATE_DATABASE_QUERY,
   CREATE_MATERIALIZED_VIEW,
   CREATE_TABLE_QUERY,
-  SKIPPING_INDEX_QUERY,
+  SKIPPING_INDEX_QUERY
 } from '../../../common/constants';
+import { useCapabilities } from '../../framework/capabilities_context';
 
 interface CreateButtonProps {
   updateSQLQueries: (query: string) => void;
   selectedDatasource: EuiComboBoxOptionOption[];
 }
 
-export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateButtonProps) => {
+// Outer gate — a single cheap hook + early return, so the inner component's
+// stateful hooks don't run when the feature is unavailable for the current
+// backend. Keeps the Rules-of-Hooks story trivial to read.
+export const CreateButton = (props: CreateButtonProps) => {
+  const caps = useCapabilities();
+
+  if (!caps.hasAccelerationFlyout) {
+    return null;
+  }
+  return <CreateButtonContent {...props} />;
+};
+
+const CreateButtonContent = ({ updateSQLQueries, selectedDatasource }: CreateButtonProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const [_selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const closePopover = () => {
     setIsPopoverOpen(false);
@@ -99,7 +112,7 @@ export const CreateButton = ({ updateSQLQueries, selectedDatasource }: CreateBut
                   {
                     name: 'Materialized View',
                     panel: 3,
-                  },
+                  }
                 ],
               },
               {

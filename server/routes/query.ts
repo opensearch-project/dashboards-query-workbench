@@ -5,20 +5,28 @@
 
 import { schema } from '@osd/config-schema';
 import { IOpenSearchDashboardsResponse, IRouter, ResponseError } from '../../../../src/core/server';
+import { ClusterInfoService } from '../services/ClusterInfoService';
 import { QueryService } from '../services/QueryService';
 import {
+  ROUTE_PATH_CLUSTER_INFO,
   ROUTE_PATH_GET_DATASOURCES,
   ROUTE_PATH_PPL_CSV,
+  ROUTE_PATH_PPL_JSON,
   ROUTE_PATH_PPL_QUERY,
   ROUTE_PATH_PPL_TEXT,
   ROUTE_PATH_SPARK_SQL_JOB_QUERY,
   ROUTE_PATH_SPARK_SQL_QUERY,
   ROUTE_PATH_SQL_CSV,
+  ROUTE_PATH_SQL_JSON,
   ROUTE_PATH_SQL_QUERY,
   ROUTE_PATH_SQL_TEXT,
 } from '../utils/constants';
 
-export function registerQueryRoute(server: IRouter, service: QueryService) {
+export function registerQueryRoute(
+  server: IRouter,
+  service: QueryService,
+  clusterInfoService: ClusterInfoService
+) {
   server.post(
     {
       path: ROUTE_PATH_SQL_QUERY,
@@ -115,6 +123,64 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
       response
     ): Promise<IOpenSearchDashboardsResponse<Record<string, unknown> | ResponseError>> => {
       const retVal = await service.describePPLCsv(context, request);
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
+    }
+  );
+
+  server.post(
+    {
+      path: ROUTE_PATH_SQL_JSON,
+      validate: {
+        body: schema.any(),
+        query: schema.object({
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
+      },
+    },
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      const retVal = await service.describeSQLJson(context, request);
+      if (retVal.data.ok) {
+        return response.ok({
+          body: retVal,
+        });
+      } else {
+        return response.custom({
+          body: retVal.data.body,
+          statusCode: retVal.data.statusCode,
+        });
+      }
+    }
+  );
+
+  server.post(
+    {
+      path: ROUTE_PATH_PPL_JSON,
+      validate: {
+        body: schema.any(),
+        query: schema.object({
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
+      },
+    },
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      const retVal = await service.describePPLJson(context, request);
       if (retVal.data.ok) {
         return response.ok({
           body: retVal,
@@ -301,6 +367,32 @@ export function registerQueryRoute(server: IRouter, service: QueryService) {
           statusCode: retVal.data.statusCode,
         });
       }
+    }
+  );
+
+  server.get(
+    {
+      path: ROUTE_PATH_CLUSTER_INFO,
+      validate: {
+        query: schema.object({
+          dataSourceMDSId: schema.maybe(schema.string({ defaultValue: '' })),
+        }),
+      },
+    },
+    async (
+      context,
+      request,
+      response
+    ): Promise<IOpenSearchDashboardsResponse<any | ResponseError>> => {
+      // With a data-source id, resolve that remote (MDS) cluster's version+engine;
+      // otherwise report the local co-located cluster's.
+      const { dataSourceMDSId } = request.query;
+      const info = dataSourceMDSId
+        ? await clusterInfoService.getDataSourceInfo(dataSourceMDSId, context)
+        : await clusterInfoService.getVersion();
+      return response.ok({
+        body: { data: { ok: true, version: info.version, isOpenSearch: info.isOpenSearch } },
+      });
     }
   );
 }

@@ -37,11 +37,22 @@ import {
   DataSourceSelectableConfig,
 } from '../../../../../src/plugins/data_source_management/public';
 import { DataSourceOption } from '../../../../../src/plugins/data_source_management/public/components/data_source_selector/data_source_selector';
-import { OPENSEARCH_SQL_INIT_QUERY } from '../../../common/constants';
+import {
+  getOpenSearchSqlInitQuery,
+  LEGACY_OPEN_DISTRO_PLUGIN_NAMES,
+  OPENSEARCH_SQL_INIT_QUERY,
+  OPENSEARCH_SQL_INIT_QUERY_LEGACY,
+} from '../../../common/constants';
 import { AsyncApiResponse, AsyncQueryStatus } from '../../../common/types';
 import { executeAsyncQuery } from '../../../common/utils/async_query_helpers';
+import {
+  DEFAULT_CAPABILITIES,
+  DeploymentCapabilities,
+} from '../../../common/utils/deployment_capabilities';
 import { fetchDataSources } from '../../../common/utils/fetch_datasources';
+import { resolveDeploymentCapabilities } from '../../../common/utils/resolve_capabilities';
 import * as pluginManifest from '../../../opensearch_dashboards.json';
+import { CapabilitiesProvider } from '../../framework/capabilities_context';
 import { coreRefs } from '../../framework/core_refs';
 import { MESSAGE_TAB_LABEL } from '../../utils/constants';
 import {
@@ -127,6 +138,7 @@ interface MainState {
   queryTranslations: Array<ResponseDetail<TranslateResult>>;
   queryResultsTable: Array<ResponseDetail<QueryResult>>;
   queryResults: Array<ResponseDetail<string>>;
+  queryResultsJSON: Array<ResponseDetail<string>>;
   queryResultsCSV: Array<ResponseDetail<string>>;
   queryResultsTEXT: Array<ResponseDetail<string>>;
   selectedTabName: string;
@@ -149,14 +161,15 @@ interface MainState {
   mdsClusterName: string;
   flintDataConnections: boolean;
   newNavEnabled: boolean | undefined;
+  caps: DeploymentCapabilities;
 }
 
 const SUCCESS_MESSAGE = 'Success';
 const errorQueryResponse = (queryResultResponseDetail: ResponseDetail<string>) => {
-  const errorMessage =
-    queryResultResponseDetail.errorMessage +
-    ', this query is not runnable. \n \n' +
-    queryResultResponseDetail.data;
+  let errorMessage = queryResultResponseDetail.errorMessage || 'Unknown error';
+  if (queryResultResponseDetail.data) {
+    errorMessage += '\n\n' + queryResultResponseDetail.data;
+  }
   return errorMessage;
 };
 
@@ -273,6 +286,7 @@ export class Main extends React.Component<MainProps, MainState> {
       queryTranslations: [],
       queryResultsTable: [],
       queryResults: [],
+      queryResultsJSON: [],
       queryResultsCSV: [],
       queryResultsTEXT: [],
       selectedTabName: MESSAGE_TAB_LABEL,
@@ -295,6 +309,7 @@ export class Main extends React.Component<MainProps, MainState> {
       mdsClusterName: '',
       flintDataConnections: false,
       newNavEnabled: coreRefs?.chrome?.navGroup.getNavGroupEnabled(),
+      caps: DEFAULT_CAPABILITIES,
     };
     this.httpClient = this.props.httpClient;
     this.updateSQLQueries = _.debounce(this.updateSQLQueries, 250).bind(this);
@@ -311,10 +326,52 @@ export class Main extends React.Component<MainProps, MainState> {
         },
       ]);
     }
-    this.fetchFlintDataSources();
+    this.fetchAndSetCaps(this.state.selectedMDSDataConnectionId).then((caps) =>
+      this.fetchFlintDataSources(caps)
+    );
   }
 
-  fetchFlintDataSources = () => {
+  // Monotonic counter so that if the user quickly switches between data sources
+  // and the earlier resolution resolves later, we discard its state update.
+  private capsRequestToken = 0;
+
+  fetchAndSetCaps = async (mdsId: string | undefined): Promise<DeploymentCapabilities> => {
+    const token = ++this.capsRequestToken;
+    const caps = await resolveDeploymentCapabilities({
+      http: this.httpClient,
+      savedObjects: this.props.savedObjects,
+      dataSourceEnabled: this.props.dataSourceEnabled,
+      mdsId,
+    });
+    if (token === this.capsRequestToken) {
+      this.setState({ caps }, () => this.syncSeededSqlQuery(caps));
+    }
+    return caps;
+  };
+
+  // The constructor seeds the editor with the OpenSearch form of the starter query,
+  // because capabilities are not known yet. On Elasticsearch that seeded query keeps the
+  // quoted `'%'`, which the legacy OpenDistro engine matches against nothing -- so the
+  // box a user lands on returns zero rows until they retype it. Re-seed once the engine
+  // is known.
+  //
+  // Only rewrite while the box still holds one of the seeded queries verbatim; anything
+  // else means the user has edited it, and their text must not be clobbered.
+  private syncSeededSqlQuery = (caps: DeploymentCapabilities) => {
+    const current = this.state.sqlQueriesString;
+    const isUntouched =
+      current === OPENSEARCH_SQL_INIT_QUERY || current === OPENSEARCH_SQL_INIT_QUERY_LEGACY;
+    const seeded = getOpenSearchSqlInitQuery(caps.usesLegacyOpenDistroSql);
+    if (isUntouched && current !== seeded) {
+      this.updateSQLQueries(seeded);
+    }
+  };
+
+  fetchFlintDataSources = (caps: DeploymentCapabilities) => {
+    if (!caps.hasDataSources) {
+      this.setState({ flintDataConnections: false });
+      return;
+    }
     fetchDataSources(
       this.httpClient,
       this.state.selectedMDSDataConnectionId,
@@ -476,6 +533,7 @@ export class Main extends React.Component<MainProps, MainState> {
             selectedTabName: getDefaultTabLabel(results, queries[0]),
             messages: this.getMessage(resultTable),
             itemIdToExpandedRowMap: {},
+            queryResultsJSON: [],
             queryResultsCSV: [],
             queryResultsTEXT: [],
             searchQuery: '',
@@ -505,6 +563,7 @@ export class Main extends React.Component<MainProps, MainState> {
           queryTranslations: [],
           queryResultsTable: [],
           queryResults: [],
+          queryResultsJSON: [],
           queryResultsCSV: [],
           queryResultsTEXT: [],
           messages: [],
@@ -544,6 +603,7 @@ export class Main extends React.Component<MainProps, MainState> {
                 selectedTabName: getDefaultTabLabel([result], queries[0]),
                 messages: this.getMessage(resultTable),
                 itemIdToExpandedRowMap: {},
+                queryResultsJSON: [],
                 queryResultsCSV: [],
                 queryResultsTEXT: [],
                 searchQuery: '',
@@ -573,6 +633,7 @@ export class Main extends React.Component<MainProps, MainState> {
               });
             }
           },
+          this.state.caps,
           this.state.selectedMDSDataConnectionId,
           (errorDetails: string) => {
             this.setState({
@@ -626,10 +687,9 @@ export class Main extends React.Component<MainProps, MainState> {
       );
 
       Promise.all([translationPromise]).then(([translationResponse]) => {
-        const translationResult: Array<ResponseDetail<
-          TranslateResult
-        >> = translationResponse.map((translationResp) =>
-          this.processTranslateResponse(translationResp as IHttpResponse<ResponseData>)
+        const translationResult: Array<ResponseDetail<TranslateResult>> = translationResponse.map(
+          (translationResp) =>
+            this.processTranslateResponse(translationResp as IHttpResponse<ResponseData>)
         );
         const shouldCleanResults = queries === this.state.queries;
         if (shouldCleanResults) {
@@ -685,6 +745,46 @@ export class Main extends React.Component<MainProps, MainState> {
           {
             queries,
             queryResults: jdbcResult,
+          },
+          () => console.log('Successfully updated the states')
+        );
+      });
+    }
+  };
+
+  getJson = (queries: string[]): void => {
+    if (queries.length > 0) {
+      let query = {};
+      if (this.props.dataSourceEnabled) {
+        query = {
+          dataSourceMDSId: this.state.selectedMDSDataConnectionId,
+        };
+      }
+      const language = this.state.language;
+      const endpoint = '/api/sql_console/' + (_.isEqual(language, 'SQL') ? 'sqljson' : 'ppljson');
+      Promise.all(
+        queries.map((eachQuery: string) =>
+          this.httpClient
+            .post(endpoint, { body: JSON.stringify({ query: eachQuery }), query })
+            .catch((error: any) => {
+              this.setState({
+                messages: [
+                  {
+                    text: error.message,
+                    className: 'error-message',
+                  },
+                ],
+              });
+            })
+        )
+      ).then((response) => {
+        const results: Array<ResponseDetail<string>> = response.map((resp) =>
+          this.processQueryResponse(resp as IHttpResponse<ResponseData>)
+        );
+        this.setState(
+          {
+            queries,
+            queryResultsJSON: results,
           },
           () => console.log('Successfully updated the states')
         );
@@ -778,6 +878,7 @@ export class Main extends React.Component<MainProps, MainState> {
       queryTranslations: [],
       queryResultsTable: [],
       queryResults: [],
+      queryResultsJSON: [],
       queryResultsCSV: [],
       queryResultsTEXT: [],
       messages: [],
@@ -821,10 +922,8 @@ export class Main extends React.Component<MainProps, MainState> {
   checkHistoryState = () => {
     if (!this.historyFromRedirection.location.state) return;
 
-    const {
-      language,
-      queryToRun,
-    }: { language: string; queryToRun: string } = this.historyFromRedirection.location.state;
+    const { language, queryToRun }: { language: string; queryToRun: string } =
+      this.historyFromRedirection.location.state;
     if (language === 'sql') {
       this.updateSQLQueries(queryToRun);
 
@@ -841,7 +940,7 @@ export class Main extends React.Component<MainProps, MainState> {
     this.updatePPLQueries('');
     this.onClear();
     if (selectedItems[0].label === 'OpenSearch' && this.state.language === 'SQL') {
-      this.updateSQLQueries(OPENSEARCH_SQL_INIT_QUERY);
+      this.updateSQLQueries(getOpenSearchSqlInitQuery(this.state.caps.usesLegacyOpenDistroSql));
     }
     this.setState({
       selectedDatasource: selectedItems,
@@ -883,7 +982,8 @@ export class Main extends React.Component<MainProps, MainState> {
       selectedDatasource: [{ label: 'OpenSearch', key: '' }],
       isAccelerationFlyoutOpened: false,
     });
-    this.fetchFlintDataSources();
+    const caps = await this.fetchAndSetCaps(dataConnectionId);
+    this.fetchFlintDataSources(caps);
   };
 
   dataSourceFilterFn = (dataSource: SavedObject<DataSourceAttributes>) => {
@@ -891,15 +991,18 @@ export class Main extends React.Component<MainProps, MainState> {
     const installedPlugins = dataSource?.attributes?.installedPlugins || [];
     return (
       semver.satisfies(dataSourceVersion, pluginManifest.supportedOSDataSourceVersions) &&
-      pluginManifest.requiredOSDataSourcePlugins.every((plugin) =>
-        installedPlugins.includes(plugin)
+      pluginManifest.requiredOSDataSourcePlugins.every(
+        (plugin) =>
+          installedPlugins.includes(plugin) ||
+          (LEGACY_OPEN_DISTRO_PLUGIN_NAMES[plugin] ?? []).some((legacy) =>
+            installedPlugins.includes(legacy)
+          )
       )
     );
   };
 
-  DataSourceMenu = this.props.dataSourceManagement?.ui?.getDataSourceMenu<
-    DataSourceSelectableConfig
-  >();
+  DataSourceMenu =
+    this.props.dataSourceManagement?.ui?.getDataSourceMenu<DataSourceSelectableConfig>();
 
   render() {
     let page;
@@ -953,45 +1056,55 @@ export class Main extends React.Component<MainProps, MainState> {
 
     if (this.state.isResultFullScreen) {
       return (
-        <div className="sql-console-query-result">
-          <QueryResults
-            language={this.state.language}
-            queries={this.state.queries}
-            queryResults={this.state.queryResultsTable}
-            queryResultsJDBC={getSelectedResults(this.state.queryResults, this.state.selectedTabId)}
-            queryResultsCSV={getSelectedResults(
-              this.state.queryResultsCSV,
-              this.state.selectedTabId
-            )}
-            queryResultsTEXT={getSelectedResults(
-              this.state.queryResultsTEXT,
-              this.state.selectedTabId
-            )}
-            messages={this.state.messages}
-            selectedTabId={this.state.selectedTabId}
-            selectedTabName={this.state.selectedTabName}
-            onSelectedTabIdChange={this.onSelectedTabIdChange}
-            itemIdToExpandedRowMap={this.state.itemIdToExpandedRowMap}
-            onQueryChange={this.onQueryChange}
-            updateExpandedMap={this.updateExpandedMap}
-            searchQuery={this.state.searchQuery}
-            tabsOverflow={false}
-            getJdbc={this.getJdbc}
-            getCsv={this.getCsv}
-            getText={this.getText}
-            isResultFullScreen={this.state.isResultFullScreen}
-            setIsResultFullScreen={this.setIsResultFullScreen}
-            asyncLoadingStatus={this.state.asyncLoadingStatus}
-            asyncQueryError={this.state.asyncQueryError}
-            cancelAsyncQuery={this.state.cancelQueryHandler}
-            selectedDatasource={this.state.selectedDatasource}
-          />
-        </div>
+        <CapabilitiesProvider value={this.state.caps}>
+          <div className="sql-console-query-result">
+            <QueryResults
+              language={this.state.language}
+              queries={this.state.queries}
+              queryResults={this.state.queryResultsTable}
+              queryResultsJDBC={getSelectedResults(
+                this.state.queryResults,
+                this.state.selectedTabId
+              )}
+              queryResultsJSON={getSelectedResults(
+                this.state.queryResultsJSON,
+                this.state.selectedTabId
+              )}
+              queryResultsCSV={getSelectedResults(
+                this.state.queryResultsCSV,
+                this.state.selectedTabId
+              )}
+              queryResultsTEXT={getSelectedResults(
+                this.state.queryResultsTEXT,
+                this.state.selectedTabId
+              )}
+              messages={this.state.messages}
+              selectedTabId={this.state.selectedTabId}
+              selectedTabName={this.state.selectedTabName}
+              onSelectedTabIdChange={this.onSelectedTabIdChange}
+              itemIdToExpandedRowMap={this.state.itemIdToExpandedRowMap}
+              onQueryChange={this.onQueryChange}
+              updateExpandedMap={this.updateExpandedMap}
+              searchQuery={this.state.searchQuery}
+              tabsOverflow={false}
+              getJson={this.getJson}
+              getJdbc={this.getJdbc}
+              getCsv={this.getCsv}
+              getText={this.getText}
+              isResultFullScreen={this.state.isResultFullScreen}
+              setIsResultFullScreen={this.setIsResultFullScreen}
+              asyncLoadingStatus={this.state.asyncLoadingStatus}
+              asyncQueryError={this.state.asyncQueryError}
+              cancelAsyncQuery={this.state.cancelQueryHandler}
+              selectedDatasource={this.state.selectedDatasource}
+            />
+          </div>
+        </CapabilitiesProvider>
       );
     }
 
     return (
-      <>
+      <CapabilitiesProvider value={this.state.caps}>
         {this.props.dataSourceEnabled && (
           <this.DataSourceMenu
             setMenuMountPoint={this.props.setActionMenu}
@@ -1095,6 +1208,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   onChange={this.onChange}
                   language={this.state.language}
                   asyncLoading={this.state.asyncLoading}
+                  hasPpl={this.state.caps.hasPpl}
                 />
                 <EuiSpacer />
               </EuiFlexItem>
@@ -1111,6 +1225,7 @@ export class Main extends React.Component<MainProps, MainState> {
               {this.state.isCallOutVisible && (
                 <>
                   <EuiCallOut
+                    announceOnMount
                     size="s"
                     title="Query Submitted Successfully"
                     color="success"
@@ -1134,6 +1249,10 @@ export class Main extends React.Component<MainProps, MainState> {
                     this.state.queryResults,
                     this.state.selectedTabId
                   )}
+                  queryResultsJSON={getSelectedResults(
+                    this.state.queryResultsJSON,
+                    this.state.selectedTabId
+                  )}
                   queryResultsCSV={getSelectedResults(
                     this.state.queryResultsCSV,
                     this.state.selectedTabId
@@ -1151,6 +1270,7 @@ export class Main extends React.Component<MainProps, MainState> {
                   updateExpandedMap={this.updateExpandedMap}
                   searchQuery={this.state.searchQuery}
                   tabsOverflow={false}
+                  getJson={this.getJson}
                   getJdbc={this.getJdbc}
                   getCsv={this.getCsv}
                   getText={this.getText}
@@ -1165,7 +1285,7 @@ export class Main extends React.Component<MainProps, MainState> {
             </EuiPageContentBody>
           </EuiPageContent>
         </EuiPage>
-      </>
+      </CapabilitiesProvider>
     );
   }
 }

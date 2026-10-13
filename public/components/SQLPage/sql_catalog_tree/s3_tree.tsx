@@ -252,10 +252,12 @@ export const S3Tree = ({
 
   const onLoadS3Tree = useCallback(() => {
     setIsTreeLoading({ status: true, message: '' });
-    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(
-      dataSource,
-      dataSourceMDSId
-    );
+    const manager = catalogCacheRefs.CatalogCacheManager;
+    if (manager == null) {
+      setIsTreeLoading({ status: false, message: '' });
+      return;
+    }
+    const dsCache = manager.getOrCreateDataSource(dataSource, dataSourceMDSId);
     if (dsCache.status === CachedDataSourceStatus.Updated) {
       const databases = dsCache.databases.map((db) => db.name);
       setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));
@@ -270,10 +272,9 @@ export const S3Tree = ({
     if (status === AsyncQueryStatus.Success) {
       refreshDatabasesinTree();
       setIsTreeLoading({ status: false, message: '' });
-      const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateDataSource(
-        dataSource,
-        dataSourceMDSId
-      );
+      const manager = catalogCacheRefs.CatalogCacheManager;
+      if (manager == null) return;
+      const dsCache = manager.getOrCreateDataSource(dataSource, dataSourceMDSId);
       if (dsCache.status === CachedDataSourceStatus.Updated) {
         const databases = dsCache.databases.map((db) => db.name);
         setTreeData(loadTreeItem(databases, TREE_ITEM_DATABASE_NAME_DEFAULT_NAME));

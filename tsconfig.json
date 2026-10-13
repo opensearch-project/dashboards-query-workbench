@@ -19,6 +19,7 @@
     "baseUrl": ".",
     "target": "esnext",
     "module": "commonjs",
+    "rootDir": ".",
     "outDir": "./target",
     "noEmit": true,
     "esModuleInterop": true,

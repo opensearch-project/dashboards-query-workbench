@@ -143,16 +143,11 @@ export const isEitherObjectCacheEmpty = (
   databaseName: string,
   dataSourceMDSId?: string
 ) => {
+  const manager = catalogCacheRefs.CatalogCacheManager;
+  if (manager == null) return false;
   try {
-    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(
-      dataSourceName,
-      databaseName,
-      dataSourceMDSId
-    );
-    const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
-      dataSourceName,
-      dataSourceMDSId
-    );
+    const dbCache = manager.getDatabase(dataSourceName, databaseName, dataSourceMDSId);
+    const dsCache = manager.getOrCreateAccelerationsByDataSource(dataSourceName, dataSourceMDSId);
     return (
       dbCache.status === CachedDataSourceStatus.Empty ||
       dsCache.status === CachedDataSourceStatus.Empty ||
@@ -171,12 +166,10 @@ export const getTablesFromCache = (
   dataSourceMDSId?: string,
   setToast?: (message: string, type?: string) => void
 ) => {
+  const manager = catalogCacheRefs.CatalogCacheManager;
+  if (manager == null) return [];
   try {
-    const dbCache = catalogCacheRefs.CatalogCacheManager!.getDatabase(
-      dataSourceName,
-      databaseName,
-      dataSourceMDSId
-    );
+    const dbCache = manager.getDatabase(dataSourceName, databaseName, dataSourceMDSId);
     if (dbCache.status === CachedDataSourceStatus.Updated) {
       const tables = dbCache.tables.map((tb) => tb.name);
       return tables;
@@ -191,10 +184,9 @@ export const getTablesFromCache = (
 };
 
 export const getAccelerationsFromCache = (dataSourceName: string, dataSourceMDSId?: string) => {
-  const dsCache = catalogCacheRefs.CatalogCacheManager!.getOrCreateAccelerationsByDataSource(
-    dataSourceName,
-    dataSourceMDSId
-  );
+  const manager = catalogCacheRefs.CatalogCacheManager;
+  if (manager == null) return [];
+  const dsCache = manager.getOrCreateAccelerationsByDataSource(dataSourceName, dataSourceMDSId);
 
   if (dsCache.status === CachedDataSourceStatus.Updated && dsCache.accelerations.length > 0) {
     return dsCache.accelerations;

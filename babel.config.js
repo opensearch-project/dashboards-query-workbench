@@ -9,7 +9,7 @@ module.exports = {
   presets: [
     [require('@babel/preset-env'), { targets: { node: 'current' } }],
     require('@babel/preset-react'),
-    require('@babel/preset-typescript'),
+    [require('@babel/preset-typescript'), { allowDeclareFields: true }],
   ],
   plugins: [
     require('@babel/plugin-transform-logical-assignment-operators'),

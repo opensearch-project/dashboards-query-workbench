@@ -8,7 +8,12 @@ import {
   SQL_QUERY_ROUTE,
   PPL_QUERY_ROUTE,
   PPL_TRANSLATE_ROUTE,
+  SQL_TRANSLATE_ROUTE_LEGACY,
+  SQL_QUERY_ROUTE_LEGACY,
+  PPL_QUERY_ROUTE_LEGACY,
+  PPL_TRANSLATE_ROUTE_LEGACY,
   FORMAT_CSV,
+  FORMAT_JSON,
   FORMAT_TEXT,
   SPARK_SQL_QUERY_ROUTE,
   DATASOURCES_GET_QUERY,
@@ -51,6 +56,22 @@ export default function sqlPlugin(Client, config, components) {
     needBody: true,
     method: 'POST',
   }); //default: jdbc
+
+  sql.sqlJson = ca({
+    url: {
+      fmt: `${SQL_QUERY_ROUTE}?${FORMAT_JSON}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.pplJson = ca({
+    url: {
+      fmt: `${PPL_QUERY_ROUTE}?${FORMAT_JSON}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
 
   sql.sqlCsv = ca({
     url: {
@@ -126,5 +147,88 @@ export default function sqlPlugin(Client, config, components) {
     },
     needBody: true,
     method: 'DELETE',
+  });
+
+  // Legacy OpenDistro (`_opendistro/*`) variants for Elasticsearch 6.x/7.x, which
+  // do not serve the `_plugins/*` namespace. QueryService/TranslateService select
+  // these when the target cluster is legacy OpenDistro (usesLegacyOpenDistroSql).
+  sql.translateSQLLegacy = ca({
+    url: {
+      fmt: `${SQL_TRANSLATE_ROUTE_LEGACY}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.translatePPLLegacy = ca({
+    url: {
+      fmt: `${PPL_TRANSLATE_ROUTE_LEGACY}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.sqlQueryLegacy = ca({
+    url: {
+      fmt: `${SQL_QUERY_ROUTE_LEGACY}`,
+    },
+    needBody: true,
+    method: 'POST',
+  }); //default: jdbc
+
+  sql.pplQueryLegacy = ca({
+    url: {
+      fmt: `${PPL_QUERY_ROUTE_LEGACY}`,
+    },
+    needBody: true,
+    method: 'POST',
+  }); //default: jdbc
+
+  sql.sqlJsonLegacy = ca({
+    url: {
+      fmt: `${SQL_QUERY_ROUTE_LEGACY}?${FORMAT_JSON}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.pplJsonLegacy = ca({
+    url: {
+      fmt: `${PPL_QUERY_ROUTE_LEGACY}?${FORMAT_JSON}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.sqlCsvLegacy = ca({
+    url: {
+      fmt: `${SQL_QUERY_ROUTE_LEGACY}?${FORMAT_CSV}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.pplCsvLegacy = ca({
+    url: {
+      fmt: `${PPL_QUERY_ROUTE_LEGACY}?${FORMAT_CSV}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.sqlTextLegacy = ca({
+    url: {
+      fmt: `${SQL_QUERY_ROUTE_LEGACY}?${FORMAT_TEXT}`,
+    },
+    needBody: true,
+    method: 'POST',
+  });
+
+  sql.pplTextLegacy = ca({
+    url: {
+      fmt: `${PPL_QUERY_ROUTE_LEGACY}?${FORMAT_TEXT}`,
+    },
+    needBody: true,
+    method: 'POST',
   });
 }

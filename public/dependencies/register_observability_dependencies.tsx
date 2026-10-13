@@ -32,20 +32,45 @@ export const [
   'renderCreateAccelerationFlyout'
 );
 
+const noop = () => {};
+
+// Fields we expect the observability plugin to provide. Missing ones are
+// legitimate on AOS < 2.13 (obs 2.13 is where these APIs landed), but we log
+// once so operators can tell "feature disabled because obs is old" apart from
+// "feature broken for another reason."
+const REQUIRED_OBS_FIELDS: Array<keyof ObservabilityStart> = [
+  'renderAccelerationDetailsFlyout',
+  'renderAssociatedObjectsDetailsFlyout',
+  'renderCreateAccelerationFlyout',
+  'CatalogCacheManagerInstance',
+  'useLoadDatabasesToCacheHook',
+  'useLoadTablesToCacheHook',
+  'useLoadTableColumnsToCacheHook',
+  'useLoadAccelerationsToCacheHook',
+];
+
 export const registerObservabilityDependencies = (start?: ObservabilityStart) => {
   if (!start) {
-    setRenderAccelerationDetailsFlyout(() => {});
-    setRenderAssociatedObjectsDetailsFlyout(() => {});
-    setRenderCreateAccelerationFlyout(() => {});
-    return;
+    console.warn(
+      'queryWorkbench: dashboards-observability plugin is not available; catalog tree and acceleration flyouts will be disabled.'
+    );
+  } else {
+    const missing = REQUIRED_OBS_FIELDS.filter((k) => start[k] === undefined);
+    if (missing.length > 0) {
+      console.warn(
+        `queryWorkbench: dashboards-observability plugin is present but missing fields [${missing.join(
+          ', '
+        )}]. Expected on AOS < 2.13; catalog tree and/or acceleration flyouts will be hidden.`
+      );
+    }
   }
 
-  setRenderAccelerationDetailsFlyout(start.renderAccelerationDetailsFlyout);
-  setRenderAssociatedObjectsDetailsFlyout(start.renderAssociatedObjectsDetailsFlyout);
-  setRenderCreateAccelerationFlyout(start.renderCreateAccelerationFlyout);
-  catalogCacheRefs.CatalogCacheManager = start.CatalogCacheManagerInstance;
-  catalogCacheRefs.useLoadDatabasesToCache = start.useLoadDatabasesToCacheHook;
-  catalogCacheRefs.useLoadTablesToCache = start.useLoadTablesToCacheHook;
-  catalogCacheRefs.useLoadTableColumnsToCache = start.useLoadTableColumnsToCacheHook;
-  catalogCacheRefs.useLoadAccelerationsToCache = start.useLoadAccelerationsToCacheHook;
+  setRenderAccelerationDetailsFlyout(start?.renderAccelerationDetailsFlyout ?? noop);
+  setRenderAssociatedObjectsDetailsFlyout(start?.renderAssociatedObjectsDetailsFlyout ?? noop);
+  setRenderCreateAccelerationFlyout(start?.renderCreateAccelerationFlyout ?? noop);
+  catalogCacheRefs.CatalogCacheManager = start?.CatalogCacheManagerInstance;
+  catalogCacheRefs.useLoadDatabasesToCache = start?.useLoadDatabasesToCacheHook;
+  catalogCacheRefs.useLoadTablesToCache = start?.useLoadTablesToCacheHook;
+  catalogCacheRefs.useLoadTableColumnsToCache = start?.useLoadTableColumnsToCacheHook;
+  catalogCacheRefs.useLoadAccelerationsToCache = start?.useLoadAccelerationsToCacheHook;
 };

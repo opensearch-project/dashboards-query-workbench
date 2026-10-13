@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { HttpResponse } from '../../../../../src/core/public';
@@ -18,7 +18,7 @@ import {
   mockQueryTranslationResponse,
   mockResultWithNull,
 } from '../../../test/mocks/mockData';
-import { Main } from './main';
+import { Main, getQueryResultsForTable } from './main';
 
 const setBreadcrumbsMock = jest.fn();
 
@@ -96,7 +96,7 @@ describe('<Main /> spec', () => {
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
 
     client.post = jest.fn(() => {
-      return (Promise.resolve(mockOpenSearchIndicies) as unknown) as HttpResponse;
+      return Promise.resolve(mockOpenSearchIndicies) as unknown as HttpResponse;
     });
     const { getByText } = await render(
       <Main httpClient={client} setBreadcrumbs={setBreadcrumbsMock} />
@@ -172,10 +172,10 @@ describe('<Main /> spec', () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
       if (postRequestFlag > 0)
-        return Promise.resolve((mockNotOkQueryResultResponse as unknown) as HttpResponse);
+        return Promise.resolve(mockNotOkQueryResultResponse as unknown as HttpResponse);
       else {
         postRequestFlag = 1;
-        return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
+        return Promise.resolve(mockOpenSearchTreeQuery as unknown as HttpResponse);
       }
     });
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
@@ -201,10 +201,10 @@ describe('<Main /> spec', () => {
     const client = httpClientMock;
     client.post = jest.fn(() => {
       if (postRequestFlag > 0)
-        return Promise.resolve((mockQueryTranslationResponse as unknown) as HttpResponse);
+        return Promise.resolve(mockQueryTranslationResponse as unknown as HttpResponse);
       else {
         postRequestFlag = 1;
-        return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
+        return Promise.resolve(mockOpenSearchTreeQuery as unknown as HttpResponse);
       }
     });
 
@@ -228,7 +228,7 @@ describe('<Main /> spec', () => {
     const client = httpClientMock;
     client.get = jest.fn().mockResolvedValue(mockDatasourcesQuery);
     client.post = jest.fn(() => {
-      return Promise.resolve((mockOpenSearchTreeQuery as unknown) as HttpResponse);
+      return Promise.resolve(mockOpenSearchTreeQuery as unknown as HttpResponse);
     });
 
     const { getByText } = await render(
@@ -240,5 +240,29 @@ describe('<Main /> spec', () => {
     };
     await asyncTest();
     expect(document.body.children[0]).toMatchSnapshot();
+  });
+});
+
+describe('getQueryResultsForTable error handling (#584)', () => {
+  it('surfaces the server error message and data without the misleading "not runnable" suffix', () => {
+    const [result] = getQueryResultsForTable(
+      [{ fulfilled: false, errorMessage: 'Server error: index not found', data: 'trace details' }],
+      false
+    );
+    expect(result.fulfilled).toBe(false);
+    expect(result.errorMessage).toContain('Server error: index not found');
+    expect(result.errorMessage).toContain('trace details');
+    expect(result.errorMessage).not.toContain('this query is not runnable');
+  });
+
+  it('falls back to "Unknown error" when no errorMessage is present', () => {
+    const [result] = getQueryResultsForTable([{ fulfilled: false, data: 'details' }], false);
+    expect(result.errorMessage).toContain('Unknown error');
+    expect(result.errorMessage).toContain('details');
+  });
+
+  it('omits the data section when there is no data', () => {
+    const [result] = getQueryResultsForTable([{ fulfilled: false, errorMessage: 'boom' }], false);
+    expect(result.errorMessage).toBe('boom');
   });
 });

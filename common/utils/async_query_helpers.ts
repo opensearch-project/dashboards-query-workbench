@@ -11,6 +11,7 @@ import {
   POLL_INTERVAL_MS,
 } from '../constants';
 import { AsyncApiResponse, AsyncQueryStatus, PollingCallback } from '../types';
+import { DeploymentCapabilities } from './deployment_capabilities';
 import { RaiseErrorToast } from './toast_helper';
 
 export const setAsyncSessionId = (dataSource: string, value: string | null) => {
@@ -27,6 +28,7 @@ export const executeAsyncQuery = (
   currentDataSource: string,
   query: {},
   pollingCallback: PollingCallback,
+  caps: DeploymentCapabilities,
   dataSourceMDSId?: string,
   onErrorCallback?: (errorMessage: string) => void
 ) => {
@@ -36,12 +38,14 @@ export const executeAsyncQuery = (
   const http = coreRefs.http!;
 
   const getJobId = () => {
+    const body: Record<string, unknown> = { ...query };
+    if (caps.hasSessionId) {
+      const existing = getAsyncSessionId(currentDataSource);
+      if (existing) body.sessionId = existing;
+    }
     http
       .post(ASYNC_QUERY_ENDPOINT, {
-        body: JSON.stringify({
-          ...query,
-          sessionId: getAsyncSessionId(currentDataSource) ?? undefined,
-        }),
+        body: JSON.stringify(body),
         query: { dataSourceMDSId },
       })
       .then((res) => {
