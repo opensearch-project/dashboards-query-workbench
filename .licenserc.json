@@ -26,6 +26,7 @@
     "**/__snapshots__/",
     "*.d.ts",
     "LICENSE",
-    "NOTICE"
+    "NOTICE",
+    ".cypress"
   ]
 }
