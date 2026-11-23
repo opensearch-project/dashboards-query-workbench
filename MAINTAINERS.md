@@ -11,7 +11,6 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 | Shenoy Pratik           | [ps48](https://github.com/ps48)                 | Amazon      |
 | Simeon Widdis           | [swiddis](https://github.com/swiddis)           | Amazon      |
 | Chen Dai                | [dai-chen](https://github.com/dai-chen)         | Amazon      |
-| Vamsi Manohar           | [vamsimanohar](https://github.com/vamsimanohar) | Amazon      |
 | Peng Huo                | [penghuo](https://github.com/penghuo)           | Amazon      |
 | Sumukh Hanumantha Swamy | [sumukhswamy](https://github.com/sumukhswamy)   | Amazon      |
 | Jialiang Liang          | [RyanL1997](https://github.com/RyanL1997)       | Amazon      |
@@ -36,3 +35,4 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 | Max Ksyunz        | [MaxKsyunz](https://github.com/MaxKsyunz)           | BitQuill    |
 | Sean Kao          | [seankao-az](https://github.com/seankao-az)         | Amazon      |
 | Anirudha Jadhav         | [anirudha](https://github.com/anirudha)         | Amazon      |
+| Vamsi Manohar     | [vamsimanohar](https://github.com/vamsimanohar)     | Amazon      |
